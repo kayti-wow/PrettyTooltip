@@ -30,6 +30,10 @@ extras:
       2: 0.6
       3: 0.63
   3:
+    blank: true
+    left: ""
+    right: ""
+  4:
     color:
       1: 0.85
       2: 0.7
@@ -62,7 +66,7 @@ reaction: 5
 tapped: false
 unit: "mouseover"
 == tooltip render
-panel 286 x 171
+panel 286 x 186
 texture at -16,-16 0x0 rgb=0.3,0.85,0.35,0.385 glow
 texture at 0,0 0x0 rgb=0.7795,0.9527,0.7953,0.9 TooltipBackground-Temp.png
 texture at 0,0 0x0 rgb=0.3,0.85,0.35,0.2205 TooltipBackground-Temp.png
@@ -77,5 +81,5 @@ text at 67,43 w=200 size=12 rgb=0.82,0.78,0.71 "Гуманоид"
 text at 67,62 w=20 size=12 rgb=0.82,0.78,0.71 "|cffFF9D8BPvP|r"
 text at 19,94 w=248 size=11 rgb=0.6,0.6,0.63 "Кузнец-искусник"
 text at 19,109 w=248 size=11 rgb=0.6,0.6,0.63 "Стальгорн"
-text at 19,124 w=248 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Creature"
-text at 19,139 w=248 size=11 rgb=0.6,0.6,0.63 "ID НИП: 4258"
+text at 19,139 w=248 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Creature"
+text at 19,154 w=248 size=11 rgb=0.6,0.6,0.63 "ID НИП: 4258"
