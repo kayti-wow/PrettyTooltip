@@ -1,6 +1,6 @@
 -- The harness's two entry points. fixture() runs one captured tooltip through
--- the addon as the game would: loads its files in the .toc's order, lets the
--- item rewrite change the data, reads it with its tooltip type's reader, and renders
+-- the addon as the game would: loads its files in the .toc's order, runs the
+-- tooltip callbacks, reads it with its tooltip type's reader, and renders
 -- the model, returning the output text and the harness's notes. unit() runs
 -- a file of checks against parts of the addon loaded on their own.
 local main = {}

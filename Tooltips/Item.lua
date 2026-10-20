@@ -378,6 +378,9 @@ local function readModel(tooltip, data, game)
         if line.lineIndex then
         local left, right = safeText(line.leftText), safeText(line.rightText)
         if not left or not right then return end
+        -- The game's tooltip shows the rewritten wording; read the same.
+        local rewritten = ns.ItemLite and ns.ItemLite.wording(line)
+        if rewritten then left = rewritten.display end
         local lineType = line.type
         if line.lineIndex then model.lineIndices[line.lineIndex] = true end
         local trimmed = left:match("^%s*(.-)%s*$")
@@ -385,8 +388,7 @@ local function readModel(tooltip, data, game)
         if startsQuest or unformat(trimmed, ITEM_BIND_QUEST) then
             m.quest = true
         end
-        if isSecret(line.prettyTooltipDisplay) or isSecret(line.prettyTooltipOriginal) then return end
-        local displayed = line.prettyTooltipDisplay or left
+        local displayed = left
 
         if isStockChange(left) then
             addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
@@ -477,10 +479,10 @@ local function readModel(tooltip, data, game)
             elseif ((LINE.ItemSpellTriggerOnProc and lineType == LINE.ItemSpellTriggerOnProc)
                 or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONPROC)) and right == "" then
                 -- Rewritten proc text stays an effect, rather than a stat.
-                local text = line.prettyTooltipOriginal or trimmed
+                local text = rewritten and rewritten.original or trimmed
                 add(m.equipEffects, withoutLabel(text, ITEM_SPELL_TRIGGER_ONPROC), "")
                 m.equipEffects[#m.equipEffects].onHit = true
-            elseif line.prettyTooltipOriginal or lineParts(trimmed) == "+" then
+            elseif rewritten or lineParts(trimmed) == "+" then
                 -- Combined bonuses arrive as one line; each stat needs its own row.
                 for piece in (displayed .. "|n"):gmatch("(.-)|n") do
                     local stat = ns.Stats.read(plainText(piece))

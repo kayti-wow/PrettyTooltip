@@ -71,14 +71,11 @@ return function(test)
     test.check("secret appended text rejects the custom model", ns.TooltipData.appendedRows(tooltip, {}), nil)
     left:SetText(originalText)
 
-    local pre, post = world.preCalls[0][1], world.postCalls[0][1]
-    pre(tooltip, locked)
+    local post = world.postCalls[0][1]
     post(tooltip, locked)
-    pre(tooltip, 3)
     post(tooltip, 3)
-    pre(tooltip, { lines = 3 })
     post(tooltip, { lines = 3 })
-    post(tooltip, { lines = { { lineIndex = 1, prettyTooltipOriginal = {} } } })
+    post(tooltip, { lines = { { lineIndex = 1, leftText = secret } } })
     post(tooltip, { lines = { { lineIndex = secret } } })
     test.check("item callbacks tolerate inaccessible data and secret indices", true, true)
     local processing = tooltip.GetProcessingTooltipInfo

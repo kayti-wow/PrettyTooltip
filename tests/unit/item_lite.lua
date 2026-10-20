@@ -36,8 +36,6 @@ return function(test)
         ns.setOption("statMarkers", enabled)
         ns.ItemLite.register()
         local data = capture.data
-        world.preCalls[0][1](world.main, data)
-        for index, line in ipairs(data.lines) do line.lineIndex = index end
         world.postCalls[0][1](world.main, data)
         for index, text in ipairs(expected) do
             test.check("lite wording " .. index .. " with colors " .. tostring(enabled), world.main:GetLeftLine(index):GetText(), text)
@@ -46,7 +44,9 @@ return function(test)
             test.check("native data color " .. index, data.lines[index].leftColor,
                 { r = colors[index][1], g = colors[index][2], b = colors[index][3] })
         end
-        test.check("split bonus wraps", data.lines[3].wrapText, true)
+        -- The game's data is left alone, so its tooltip code is not tainted.
+        test.check("game data keeps its wording", data.lines[3].leftText, combined)
+        test.check("game data gains no fields", data.lines[3].wrapText, nil)
         test.check("native row count", #data.lines, #original)
         test.check("right-hand text", world.main:GetRightLine(7):GetText(), "Other detail")
         test.check("right-hand color", { world.main:GetRightLine(7):GetTextColor() }, { .8, .6, .2, 1 })
