@@ -1,0 +1,56 @@
+## Interface: 120105
+## Title: PrettyTooltip
+## Notes: A full reskin of tooltips.
+## Author: FallenShard
+## X-License: MIT
+## X-Curse-Project-ID: 1720719
+## Version: 1.3.0
+## IconTexture: Interface\AddOns\PrettyTooltip\art\logo
+## SavedVariables: PrettyTooltipDB, PrettyTooltipCaptures
+## OptionalDeps: Auctionator, DialogueUI, EllesmereUI, LibSharedMedia-3.0
+
+Core\Retail.lua
+Core\Util.lua
+Core\Palette.lua
+Core\Settings.lua
+Locale\Locale.lua
+Locale\English.lua
+Locale\deDE.lua [AllowLoadTextLocale deDE]
+Locale\esES.lua [AllowLoadTextLocale esES]
+Locale\esMX.lua [AllowLoadTextLocale esMX]
+Locale\frFR.lua [AllowLoadTextLocale frFR]
+Locale\koKR.lua [AllowLoadTextLocale koKR]
+Locale\Portuguese.lua [AllowLoadTextLocale ptBR, ptPT]
+Locale\ruRU.lua [AllowLoadTextLocale ruRU]
+Locale\zhCN.lua [AllowLoadTextLocale zhCN]
+Locale\zhTW.lua [AllowLoadTextLocale zhTW]
+Game\Game.lua
+Game\TooltipData.lua
+Data\Stats.lua
+Panel\Layout.lua
+Panel\Render.lua
+Tooltips\Item.lua
+Tooltips\Spell.lua
+Tooltips\Object.lua
+Tooltips\Unit.lua
+Tooltips\Aura.lua
+Tooltips\Quest.lua
+Tooltips\Macro.lua
+Tooltips\PetAction.lua
+Tooltips\Minimap.lua
+Tooltips\FlightPath.lua
+UI\Options.lua
+UI\Samples.lua
+UI\EditorSkin.lua
+UI\Editor.lua
+Integration\Native.lua
+Integration\Hooks.lua
+Integration\ItemLite.lua
+Integration\Cursor.lua
+#@debug@
+UI\Capture.lua
+#@end-debug@
+UI\Report.lua
+UI\Debug.lua
+UI\Commands.lua
+PrettyTooltip.lua

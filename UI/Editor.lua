@@ -940,7 +940,7 @@ local partPicker = dropdown(CONTROLS_WIDTH, function()
     local items = {}
     for _, element in ipairs(ns.ELEMENTS) do
         local tooltipType = element.tooltipType or "item"
-        if tooltipType == state.tooltipType or tooltipType == "shared" then
+        if (tooltipType == state.tooltipType or tooltipType == "shared") and not (element.classic and ns.retail) then
             items[#items + 1] = { value = element.key, text = element.label }
         end
     end
@@ -1185,6 +1185,10 @@ section(function() return DETAILS[state.tooltipType] end, function() return DETA
 local items, spells, units = forTypes("item"), forTypes("spell"), forTypes("unit")
 -- The spell power rows read spell descriptions, which not every language's reading covers yet.
 local function coefficients() return ns.Locale.features.coefficients == true end
+-- Settings drawn from Classic-only data, which retail does not load.
+local function classicOnly(shown)
+    return function() return not ns.retail and shown() end
+end
 toggles({
     { "Quest parchment", "questParchment", "DialogueUI's brown parchment for quest tooltips, Quest Items, "
         .. "and items that begin a quest, with darker ink for readability. Requires DialogueUI to be installed.",
@@ -1200,23 +1204,24 @@ toggles({
         .. "effects in their stat colors. Hold the modifier for the full wording. The panel's item settings, "
         .. "such as disenchant results, do not apply.", items },
     { "Disenchant", "disenchant", "Green, blue, and purple armor and weapons list what they disenchant into, "
-        .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.", items },
+        .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.",
+        classicOnly(items) },
     { "Sell price", "sellPrice", "The vendor price in the footer; for a stack, the price of one and of the "
         .. "whole stack.", items },
     { "Spell power", "spellPower", "Under the description, each amount's spell power coefficient and its "
         .. "split into base and spell power. No game API has coefficients: they come from Forever's client "
-        .. "data, and ones marked ~ are estimates.", spells, coefficients },
+        .. "data, and ones marked ~ are estimates.", classicOnly(spells), coefficients },
     { "Rates", "spellRates", "Under the spell power breakdown, the average a cast deals or heals per second "
         .. "and per mana. Per second, what lands at once counts over the cast time (instants as the 1.5 sec "
-        .. "global cooldown) and what comes over time over its duration. Crits and talents do not count.", spells,
-        coefficients },
+        .. "global cooldown) and what comes over time over its duration. Crits and talents do not count.",
+        classicOnly(spells), coefficients },
     { "Health bar", "unitHealthBar", "The game's own health bar at the bottom of player and NPC panels. The "
         .. "game fills it, so it stays live without the addon reading health, which WoW Forever keeps from "
         .. "addons.", units },
     { "Gathering", "gatheringLoot", "What a herb or ore node holds: its yield over all the times it can be "
         .. "gathered, then the stone, gems, and other herbs it may give and the chance each time. On a dead "
         .. "creature that can be skinned, the Skinning it needs and the leather, hides, and scales it may give. "
-        .. "From Classic's loot tables.", forTypes("object", "unit") },
+        .. "From Classic's loot tables.", classicOnly(forTypes("object", "unit")) },
     { "IDs", "showIDs", "The item's, spell's, or NPC's ID at the bottom of its panel, under other addons' rows.",
         forTypes("item", "spell", "unit") },
 })

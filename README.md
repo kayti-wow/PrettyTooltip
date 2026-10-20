@@ -1,6 +1,10 @@
 # PrettyTooltip
 
-A full reskin of tooltips for WoW Forever. PrettyTooltip replaces the game's tooltip with a compact, ornamented panel: the icon and name up front, the details in short colored rows grouped by kind, and the fine print gathered in a footer. Hold **ALT** (or the key you choose) at any time to see the game's own tooltip.
+A full reskin of tooltips for WoW Forever and retail World of Warcraft. PrettyTooltip replaces the game's tooltip with a compact, ornamented panel: the icon and name up front, the details in short colored rows grouped by kind, and the fine print gathered in a footer. Hold **ALT** (or the key you choose) at any time to see the game's own tooltip.
+
+## Forever and retail
+
+One download serves both games: retail loads `PrettyTooltip_Mainline.toc`, every other client `PrettyTooltip.toc`. Retail leaves out what comes from Classic's data, as no retail source exists for it: disenchant results, spell power coefficients and rates, spell schools by name, and herb, ore, and skinning loot. Their settings are hidden there.
 
 ## Item tooltips
 

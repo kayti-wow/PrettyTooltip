@@ -17,14 +17,16 @@ class PackageChecks(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         root = check_package.ROOT
-        toc = (root / check_package.TOC).read_text(encoding="utf-8")
-        toc = re.sub(r"#@debug@.*?#@end-debug@", "", toc, flags=re.DOTALL)
-        cls.files = {check_package.TOC: toc.encode("utf-8"), "LICENSE": (root / "LICENSE").read_bytes()}
-        for line in toc.splitlines():
-            line = line.strip()
-            if line and not line.startswith("#"):
-                name = line.split(" [", 1)[0].replace("\\", "/")
-                cls.files[name] = (root / name).read_bytes()
+        cls.files = {"LICENSE": (root / "LICENSE").read_bytes()}
+        for toc_name in check_package.TOCS:
+            toc = (root / toc_name).read_text(encoding="utf-8")
+            toc = re.sub(r"#@debug@.*?#@end-debug@", "", toc, flags=re.DOTALL)
+            cls.files[toc_name] = toc.encode("utf-8")
+            for line in toc.splitlines():
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    name = line.split(" [", 1)[0].replace("\\", "/")
+                    cls.files[name] = (root / name).read_bytes()
         for path in (root / "art").glob("*.tga"):
             cls.files[path.relative_to(root).as_posix()] = path.read_bytes()
 
@@ -64,6 +66,19 @@ class PackageChecks(unittest.TestCase):
         files[check_package.TOC] = files[check_package.TOC].replace(b"AllowLoadTextLocale koKR", b"AllowLoadTextLocale enUS")
         with self.assertRaisesRegex(ValueError, "locale conditions differ"):
             self.check_archive(files)
+
+    def test_missing_retail_toc(self):
+        files = dict(self.files)
+        del files[check_package.RETAIL_TOC]
+        with self.assertRaisesRegex(ValueError, "missing PrettyTooltip_Mainline.toc"):
+            self.check_archive(files)
+
+    def test_retail_toc_loading_classic_data(self):
+        entries, sources = self.check_archive(self.files)
+        entries[check_package.RETAIL_TOC] = ["Core/Util.lua"] + entries[check_package.TOC]
+        with contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(ValueError, "retail flag does not match"):
+                check_package.check_startup(entries, sources)
 
     def test_debug_capture_leak(self):
         files = dict(self.files)

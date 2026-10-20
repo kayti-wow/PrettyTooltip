@@ -51,8 +51,9 @@ COVERAGE: dict[str, set[int]] | None = None
 STRICT = False
 
 
-# The .toc the game loads.
+# The .toc each game loads: Forever's, and retail's, which the game picks by its suffix.
 FOREVER_TOC = "PrettyTooltip.toc"
+RETAIL_TOC = "PrettyTooltip_Mainline.toc"
 
 
 def addon_files(locale: str = "enUS", toc: str = FOREVER_TOC) -> list[str]:
@@ -83,8 +84,9 @@ def addon_files(locale: str = "enUS", toc: str = FOREVER_TOC) -> list[str]:
 
 
 def every_source() -> list[str]:
-    """Every Lua file a test may load: the .toc's, and each language's own file."""
+    """Every Lua file a test may load: each .toc's, and each language's own file."""
     files = addon_files()
+    files += [name for name in addon_files(toc=RETAIL_TOC) if name not in files]
     files += [path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "Locale").glob("*.lua"))
               if path.relative_to(ROOT).as_posix() not in files]
     return files
@@ -171,22 +173,28 @@ def variant_names(load) -> dict[str, list[str]]:
     return {tooltip_type: sorted(byName.keys()) for tooltip_type, byName in variants.items()}
 
 
-def run_fixture(path: Path, files, args) -> list[bool]:
+def run_fixture(path: Path, files, args, retail=False) -> list[bool]:
     """The fixture with the default settings, then with each variant its type
-    of tooltip has. Each run gets a fresh runtime, as a run changes the fixture's data."""
+    of tooltip has. Each run gets a fresh runtime, as a run changes the fixture's data.
+    retail: read and drawn with the retail .toc's files, which must not fail;
+    the fixtures are Forever's tooltips, so there is no expected output."""
     results = []
     _, load, _ = new_runtime()
     fixture = load(path.read_text(encoding="utf-8"), f"fixtures/{path.name}")
     # Fixtures imported before the rename name it kind.
     tooltip_type = fixture.tooltipType or fixture.kind
-    for variant in [None] + variant_names(load).get(tooltip_type, []):
+    variants = [None] if retail else [None] + variant_names(load).get(tooltip_type, [])
+    for variant in variants:
         name = path.stem if variant is None else f"{path.stem}.{variant}"
+        if retail:
+            name = f"retail/{name}"
         lua, load, harness = new_runtime()
         fixture = load(path.read_text(encoding="utf-8"), f"fixtures/{path.name}")
         enums = fixture.enums or default_enums(load)
         # The files the fixture's client loads, by its language.
         client = fixture.client
-        files = addon_files(client.locale if client and client.locale else "enUS")
+        files = addon_files(client.locale if client and client.locale else "enUS",
+                            RETAIL_TOC if retail else FOREVER_TOC)
         if enums is None:
             print(f"FAIL {name}: no enums; capture it again with the current /ptip capture, then import it")
             results.append(False)
@@ -204,14 +212,19 @@ def run_fixture(path: Path, files, args) -> list[bool]:
             results.append(False)
             continue
         collect_coverage(harness)
+        if retail:
+            print(f"ok {name}")
+            results.append(True)
+            continue
         results.append(compare(name, text, list(notes.values()), args.update, args.notes))
         if options["profile"] and profile_text:
             print("    " + profile_text.replace("\n", "\n    "))
     return results
 
 
-def run_samples(files, args) -> list[bool]:
-    """Every sample the style editor shows, against outputs/samples/."""
+def run_samples(files, args, retail=False) -> list[bool]:
+    """Every sample the style editor shows, against outputs/samples/; with
+    retail, drawn with the retail .toc's files, which must not fail."""
     lua, load, harness = new_runtime()
     enums = default_enums(load)
     if enums is None:
@@ -221,9 +234,12 @@ def run_samples(files, args) -> list[bool]:
         samples, notes = harness["main"].samples(enums, lua_table(lua, dict(enumerate(files, 1))),
                                                   sources_table(lua, files), harness["serialize"], harness["wow"])
     except Exception as error:
-        print(f"FAIL samples: {error}")
+        print(f"FAIL {'retail/' if retail else ''}samples: {error}")
         return [False]
     collect_coverage(harness)
+    if retail:
+        print(f"ok retail/samples ({len(samples)} drawn)")
+        return [True]
     results = []
     for sample in samples.values():
         name = f"samples/{sample.name}"
@@ -335,8 +351,8 @@ def main() -> None:
     if args.coverage:
         COVERAGE = {}
 
-    files = addon_files()
-    tocs = {"forever": files}
+    files, retail_files = addon_files(), addon_files(toc=RETAIL_TOC)
+    tocs = {"forever": files, "retail": retail_files}
     results = run_lint() if args.strict or not args.pattern or args.pattern in "lint" else []
     for path in sorted(UNIT.glob("*.lua")):
         if args.pattern in path.stem:
@@ -344,9 +360,13 @@ def main() -> None:
     for path in sorted(FIXTURES.glob("*.lua")):
         if args.pattern in path.stem:
             results += run_fixture(path, files, args)
+        if args.pattern in f"retail/{path.stem}" and not args.update:
+            results += run_fixture(path, retail_files, args, retail=True)
     if not args.pattern or "samples" in args.pattern or any(
             args.pattern in name for name in ("item", "spell", "object", "unit", "aura", "quest")):
         results += run_samples(files, args)
+    if (not args.pattern or "retail" in args.pattern) and not args.update:
+        results += run_samples(retail_files, args, retail=True)
     passed = results.count(True)
     print(f"\n{passed} passed, {len(results) - passed} failed")
     if COVERAGE is not None:
