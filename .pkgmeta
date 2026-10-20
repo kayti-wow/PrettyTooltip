@@ -13,6 +13,7 @@ ignore:
   - art/README.md
   - art/logo-400.png
   - tests
+  - docs
   - output
   - README.md
   - UI/Capture.lua
