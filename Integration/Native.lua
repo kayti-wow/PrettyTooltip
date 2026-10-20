@@ -217,20 +217,32 @@ local function park(tooltip, panel)
     end)
 end
 
+-- GetPoint need not return the offsets exactly as set, so the parked anchor is
+-- known by being far off the screen.
+local function isParkedPoint(point)
+    return point[1] == "TOPRIGHT" and point[3] == "BOTTOMLEFT"
+        and point[4] < PARKED / 2 and point[5] < PARKED / 2
+end
+
 -- An owner or content refresh can reuse the parked anchor. Restore ours only
 -- while it is still parked; the game or another addon may already have moved it.
+-- A shown tooltip keeps its points through SetOwner, so the game's own anchor
+-- can land beside the parked one, stretching the tooltip to zero height.
 local function unpark(tooltip)
     local panel = panels[tooltip]
     local parked = panel and panel.parked
     if not parked or not util.canModify(tooltip) then return end
     local points = util.framePoints(tooltip)
     if not points then return end
-    local point = points[1]
-    if #points == 1 and point[1] == "TOPRIGHT" and point[2] == UIParent
-        and point[3] == "BOTTOMLEFT" and point[4] == PARKED and point[5] == PARKED then
+    local kept = {}
+    for _, point in ipairs(points) do
+        if not isParkedPoint(point) then kept[#kept + 1] = point end
+    end
+    if #kept < #points then
+        if #kept == 0 then kept = parked.points end
         local restored = pcall(function()
             tooltip:ClearAllPoints()
-            for _, anchor in ipairs(parked.points) do tooltip:SetPoint(unpack(anchor)) end
+            for _, anchor in ipairs(kept) do tooltip:SetPoint(unpack(anchor)) end
         end)
         if not restored then return end
     end

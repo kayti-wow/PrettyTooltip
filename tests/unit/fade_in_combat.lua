@@ -43,6 +43,7 @@ return function(test)
     end
     local default = { "BOTTOMRIGHT", true, "BOTTOMRIGHT", -20, 30 }
     local parked = { "TOPRIGHT", true, "BOTTOMLEFT", -10000, -10000 }
+    local PARKED_DRIFT = -9999.999023
 
     for _, inCombat in ipairs({ true, false }) do
         local label = inCombat and "in combat" or "out of combat"
@@ -90,6 +91,21 @@ return function(test)
     tooltip:FadeOut()
     tooltip:SetOwner(UIParent, "ANCHOR_NONE")
     test.check("all saved anchor points are restored", ns.util.framePoints(tooltip), points)
+
+    show()
+    tooltip:FadeOut()
+    tooltip._points[1][4], tooltip._points[1][5] = PARKED_DRIFT, PARKED_DRIFT
+    tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+    test.check("reuse restores the anchor when the parked offsets read back slightly off",
+        { anchor(tooltip), tooltip:GetNumPoints(), ns.Native.isParked(tooltip) }, { default, 1, false })
+
+    -- The game re-anchors a shown tooltip without clearing its points first.
+    show()
+    tooltip:FadeOut()
+    tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -20, 30)
+    callback(tooltip, fixture.data)
+    test.check("a game anchor added beside the parked one replaces it",
+        { anchor(tooltip), tooltip:GetNumPoints(), tooltip:IsClampedToScreen() }, { default, 1, true })
 
     show()
     tooltip:FadeOut()

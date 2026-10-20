@@ -1,3 +1,16 @@
+# PrettyTooltip 1.3.4
+
+## Options
+
+- Fixed the **Global scale** slider's layout on the main options page: the percentage stays inside the settings window, and the slider uses the game's artwork without overlapping custom graphics.
+
+# PrettyTooltip 1.3.3
+
+## Tooltips
+
+- Improved anchor restoration when the game rounds tooltip positions or adds a new anchor while the tooltip is temporarily off-screen.
+- Class colors from other addons now take priority over the style editor's choices and update when those addons change their colors. The editor's class color swatches explain when another addon controls them.
+
 # PrettyTooltip 1.3.2
 
 ## Options
