@@ -2,6 +2,8 @@
 
 This is a guide for working on the addon's code: how a tooltip becomes a panel, how the code is laid out, and why it was built this way. The user-facing features are in [README.md](../README.md), the tests in [tests/README.md](../tests/README.md), and the full taint and hidden-value audit in [tests/taint-safety.md](../tests/taint-safety.md).
 
+This page is the overview. Each area has a detailed guide, listed in the [docs index](README.md): [tooltip types](tooltip-types.md), [rendering](rendering.md), [game integration](game-integration.md), [localization](localization.md), [settings and the style editor](settings-and-editor.md), [static data](data.md), and [debugging](debugging.md).
+
 ## In one paragraph
 
 PrettyTooltip never replaces or rewrites the game's tooltips. The game fills `GameTooltip` (or `ItemRefTooltip`, or a comparison tooltip) as usual. The addon then reads what the game filled, turns it into a plain Lua **model**, and draws its own frame, the **panel**, over it. The game's tooltip stays underneath. It is invisible (alpha 0) and padded to the panel's size, so the game's comparison anchoring and screen clamping still work. Whenever anything can't be read, fails, or the player holds the original-tooltip key, the panel hides and the game's tooltip comes back as it was.
