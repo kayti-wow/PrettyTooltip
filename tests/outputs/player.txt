@@ -1,6 +1,7 @@
 == tooltip model
 afk: true
 classFile: "WARRIOR"
+classID: 1
 className: "Warrior"
 color:
   1: 0.78

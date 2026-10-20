@@ -251,6 +251,8 @@ local TYPES = {
                     name = "Somniferie", iconPath = "Interface\\Icons\\INV_Misc_Head_Human_02",
                     isPlayer = true, level = 60, race = L["Human"],
                     className = LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE.WARRIOR or "Warrior",
+                    -- Retail names a player's specialization too: Arms, the warrior's first.
+                    spec = ns.retail and (ns.Game.classSpecs(1) or {})[1] or nil,
                     classFile = "WARRIOR", guild = "Dawnbreakers", faction = "Alliance", pvp = true, healthShare = 1,
                     target = L["Ragnaros"], targetColor = { 1, .27, .22 },
                     extras = { { left = fill(ITEM_LEVEL, 61), right = "", color = { .60, .60, .63 } } },

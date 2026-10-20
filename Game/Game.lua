@@ -236,6 +236,19 @@ function game.unitIsPVP(unit) return call(UnitIsPVP, unit) end
 function game.unitIsDead(unit) return call(UnitIsDeadOrGhost, unit) end
 function game.unitReaction(unit, other) return call(UnitReaction, unit, other) end
 function game.unitIsTapDenied(unit) return call(UnitIsTapDenied, unit) end
+-- The names of a class's specializations, by class ID; nil where the client has none.
+function game.classSpecs(classID)
+    if isSecret(classID) or type(classID) ~= "number" or not GetSpecializationInfoForClassID then return end
+    local specs = C_SpecializationInfo or {}
+    local count = number((call(specs.GetNumSpecializationsForClassID or GetNumSpecializationsForClassID, classID)))
+    if not count or count < 1 then return end
+    local names = {}
+    for index = 1, count do
+        local _, name = call(GetSpecializationInfoForClassID, classID, index)
+        if not isSecret(name) and type(name) == "string" and name ~= "" then names[#names + 1] = name end
+    end
+    return #names > 0 and names or nil
+end
 
 -- A class's color, by its file name, as { r, g, b }.
 -- The units a nearby player may be: the group, target, focus, mouseover, and
