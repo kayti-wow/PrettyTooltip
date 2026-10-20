@@ -1196,6 +1196,8 @@ toggles({
     { "Level badge", "itemLevelBadge", "The item level on a plate under the icon, for equipment.", items },
     { "Level badge", "unitLevelBadge",
         "The level on a plate under the portrait. Off, the level stays in the info line.", units },
+    { "Guild realm", "unitRealm", "A guild from another realm has its realm beside its name, as the game "
+        .. "writes Guild-Realm, styled apart from the guild.", units },
     { "Stat markers", "statMarkers", "The small diamond before each stat; enchants use a green one.", items },
     { "Stat colors", "statColors",
         "Each kind of stat in its color below, and the school colors. Off, every stat is parchment.", items },

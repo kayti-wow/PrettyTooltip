@@ -13,6 +13,8 @@
 --     badge, badgeColor,                 the level plate under the icon
 --     header = {                         in order, beside the icon
 --         { text = "Name", style = styles.auraName, color = TITLE, gap = 4 },
+--         { text = "<Guild>", style, color, gap = 2,
+--           after = { text = "Realm", style, color } },   a part in its own style, on the same line
 --         { badges = { { "Buff", BLUE } }, style = styles.auraBadges, before = 1, gap = 4 },
 --         { rows = { { left, right } }, style, color, gap = 3 },
 --     },
@@ -54,6 +56,26 @@ end
 
 local function badgesWidth(panel, list, style)
     return ui.measureStyled(panel, badgeText(list), style)
+end
+
+-- A header line with a part after it: neither wraps, as the panel was fitted
+-- to both, and the parts share a baseline.
+local AFTER_SPACE = 4
+
+local function pairedWidth(panel, item)
+    return ui.measureStyled(panel, item.text, item.style) + AFTER_SPACE
+        + ui.measureStyled(panel, item.after.text, item.after.style)
+end
+
+local function drawPaired(panel, item, x, y)
+    local after = item.after
+    local first = ui.measureStyled(panel, item.text, item.style)
+    local tallest = math.max(item.style.size, after.style.size)
+    local height = ui.styledAt(panel, item.text, x, y + tallest - item.style.size, first + 2, item.style, item.color)
+    local second = ui.measureStyled(panel, after.text, after.style)
+    local afterHeight = ui.styledAt(panel, after.text, x + first + AFTER_SPACE, y + tallest - after.style.size,
+        second + 2, after.style, after.color)
+    return math.max(height + tallest - item.style.size, afterHeight + tallest - after.style.size)
 end
 
 local function drawBadges(panel, list, x, y, style)
@@ -108,7 +130,9 @@ local function fitWidth(panel, view)
     local indent, need = indentOf(view), 0
     local function consider(width) if width > need then need = width end end
     for _, item in ipairs(view.header) do
-        if item.text then
+        if item.text and item.after then
+            consider(pairedWidth(panel, item) + indent)
+        elseif item.text then
             consider(ui.measureStyled(panel, item.text, item.style) + indent)
         elseif item.badges and #item.badges > 0 then
             consider(badgesWidth(panel, item.badges, item.style) + indent)
@@ -209,7 +233,9 @@ local function renderView(panel, tooltip, view)
     local inner = panel.width - 2 * pad()
     local y = ui.titleTop()
     for _, item in ipairs(view.header) do
-        if item.text then
+        if item.text and item.after then
+            y = y + drawPaired(panel, item, pad() + leftIndent, y) + item.gap
+        elseif item.text then
             y = y + ui.styledAt(panel, item.text, pad() + leftIndent, y, inner - indent, item.style, item.color)
                 + item.gap
         elseif item.badges and #item.badges > 0 then
