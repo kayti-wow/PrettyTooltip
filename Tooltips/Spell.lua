@@ -19,13 +19,14 @@ local add = tooltipData.add
 local LINE = Enum.TooltipDataLineType or {}
 local styledAt, measureStyled = ui.styledAt, ui.measureStyled
 local pad = ui.pad
-local PARTS = { "spellTitle", "spellBadges", "spellValues", "spellCaptions", "spellDetails",
+local PARTS = { "spellTitle", "spellBadges", "spellValues", "spellCaptions", "spellCharges", "spellDetails",
     "spellText", "extras" }
 local TITLE_COLOR = colors.title
 local DETAIL_COLOR = colors.detail
 local CAPTION_OFFSET = 17
 local RANK_BADGE = { .60, .56, .50 }
 local REMAINING_COLOR = { 1, .60, .25 }
+local CHARGES_COLOR = { .60, .80, 1 }
 local UNMET_COLOR = colors.unmet
 local STRIP_HEIGHT = 34
 -- Spells have one title line, so a smaller icon keeps the header short.
@@ -54,6 +55,11 @@ local TIMES = {
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_MIN, SPELL_DURATION_MIN },
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_HOURS, SPELL_DURATION_HOURS },
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_DAYS, SPELL_DURATION_DAYS },
+    -- A spell with charges states the time each takes to come back instead.
+    { "cooldown", L["Recharge"], SPELL_RECAST_TIME_CHARGES_SEC, SPELL_DURATION_SEC },
+    { "cooldown", L["Recharge"], SPELL_RECAST_TIME_CHARGES_MIN, SPELL_DURATION_MIN },
+    { "cooldown", L["Recharge"], SPELL_RECAST_TIME_CHARGES_HOURS, SPELL_DURATION_HOURS },
+    { "cooldown", L["Recharge"], SPELL_RECAST_TIME_CHARGES_DAYS, SPELL_DURATION_DAYS },
 }
 -- Casts the strip shows as the game words them.
 local CASTS = { SPELL_CAST_TIME_INSTANT, SPELL_CAST_TIME_INSTANT_NO_MANA, SPELL_CAST_CHANNELED, SPELL_ON_NEXT_SWING }
@@ -95,7 +101,9 @@ local function readStat(model, text)
     end
     for _, time in ipairs(TIMES) do
         local amount = unformat(text, time[3])
-        if isAmount(amount) then
+        -- One time of each kind: Russian words the time left on a charge as a
+        -- cooldown, below the recharge it is part of.
+        if isAmount(amount) and not model[time[1]] then
             model[time[1]] = { util.fill(time[4], amount), time[2] }
             return true
         end
@@ -108,6 +116,11 @@ local function readStat(model, text)
     end
     if unformat(text, SPELL_PASSIVE) then
         model.passive = text
+        return true
+    end
+    -- Retail's "Max 2 Charges", kept as the game words it.
+    if tonumber((unformat(text, SPELL_MAX_CHARGES))) then
+        model.charges = text
         return true
     end
     local range = unformat(text, SPELL_RANGE)
@@ -236,7 +249,7 @@ local function readLine(model, line, left, right, game)
     end
     if text ~= "" and readStat(model, text) then
         if rightText ~= "" then add(model.details, rightText, "") end
-    elseif unformat(text, ITEM_COOLDOWN_TIME) then
+    elseif unformat(text, ITEM_COOLDOWN_TIME) or unformat(text, SPELL_RECHARGE_TIME) then
         add(model.details, text, rightText)
         model.details[#model.details].color = REMAINING_COLOR
     elseif isRequirement(text) then
@@ -440,6 +453,7 @@ local function bodyWidth(panel, part, body, styles)
     for _, rows in ipairs({ part.details, part.requirements }) do
         for _, row in ipairs(rows) do consider(ui.rowWidth(panel, row, styles.spellDetails)) end
     end
+    if part.charges then consider(ui.rowWidth(panel, { left = part.charges, right = "" }, styles.spellCharges)) end
     for _, sentence in ipairs(body.sentences) do
         consider(math.min(measureStyled(panel, sentence, styles.spellText), ui.PROSE_WIDTH))
     end
@@ -485,7 +499,7 @@ local function drawStrip(panel, model, y, color, styles)
 end
 
 local function hasBody(part, body)
-    return #part.cells > 0 or #part.details > 0 or #part.requirements > 0 or #body.sentences > 0
+    return #part.cells > 0 or #part.details > 0 or #part.requirements > 0 or #body.sentences > 0 or part.charges ~= nil
         or (part.hidden and #part.hidden > 0)
         or body.powerRows ~= nil or (body.nextSentences and #body.nextSentences > 0)
 end
@@ -504,11 +518,14 @@ local function drawBody(panel, part, body, y, color, styles, numberCode)
         panel.rowTail = panel.rowTail + 2
     end
     local hidden = part.hidden or {}
-    local detailed = #part.details > 0 or #part.requirements > 0 or #hidden > 0
+    local detailed = #part.details > 0 or #part.requirements > 0 or #hidden > 0 or part.charges ~= nil
     if detailed then
         -- Under the strip, a little apart from it; first, where anything would start.
-        y = ui.drawGroup(panel, part.requirements, #part.cells > 0 and y + 2 or y, styles.spellDetails,
-            DETAIL_COLOR, 0, 2)
+        if #part.cells > 0 then y = y + 2 end
+        if part.charges then
+            y = ui.drawRow(panel, { left = part.charges, right = "" }, y, styles.spellCharges, CHARGES_COLOR, 0, 2)
+        end
+        y = ui.drawGroup(panel, part.requirements, y, styles.spellDetails, DETAIL_COLOR, 0, 2)
         y = ui.drawGroup(panel, part.details, y, styles.spellDetails, DETAIL_COLOR, 0, 2)
         -- Hidden lines are the cooldown left, in combat: in its color, as out of it.
         for _, text in ipairs(hidden) do
@@ -548,10 +565,14 @@ end
 -- The spell power breakdown and the rates under it, each by its option.
 local function powerRows(part, numberCode, panel)
     local showPower, showRates = ns.showsDetail("spellPower", panel), ns.showsDetail("spellRates", panel)
-    if not (showPower or showRates) or not ns.spellPowerRows or not ns.Locale.features.coefficients then
-        return
+    if not (showPower or showRates) or not ns.Locale.features.coefficients then return end
+    local rows, rates
+    if ns.spellPowerRows then
+        rows, rates = ns.spellPowerRows(part, numberCode, ns.Game)
+    elseif showRates and ns.SpellAmounts then
+        -- Retail has no coefficients; its rates come from the text alone.
+        rates = ns.SpellAmounts.rateRowsOf(part, ns.Game)
     end
-    local rows, rates = ns.spellPowerRows(part, numberCode, ns.Game)
     local list = showPower and rows or {}
     for _, row in ipairs(showRates and rates or {}) do list[#list + 1] = row end
     if #list > 0 then return list end

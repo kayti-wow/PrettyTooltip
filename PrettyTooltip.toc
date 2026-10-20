@@ -25,6 +25,7 @@ Locale\zhCN.lua [AllowLoadTextLocale zhCN]
 Locale\zhTW.lua [AllowLoadTextLocale zhTW]
 Game\Game.lua
 Game\TooltipData.lua
+Game\SpellAmounts.lua
 Data\Schools.lua
 Data\Stats.lua
 Panel\Layout.lua

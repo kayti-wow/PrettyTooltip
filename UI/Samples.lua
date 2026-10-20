@@ -44,10 +44,26 @@ local TYPES = {
                     equippable = true,
                     slot = L["Axe"] .. DOT .. INVTYPE_2HWEAPON,
                     header = { { left = ITEM_BIND_ON_EQUIP, right = fill(ITEM_MIN_LEVEL, 58), rightColor = PALE } },
+                    -- Retail's source, upgrade level, and transmogrification.
+                    source = ns.retail and ITEM_HEROIC or nil,
+                    upgrade = ns.retail and fill(ITEM_UPGRADE_DROPDOWN_LEVEL_FORMAT_STRING, L["Myth"], 2, 6) or nil,
+                    transmog = ns.retail and itemName(7717, "Ravager") or nil,
+                    craftingQuality = ns.retail and fill(PROFESSIONS_CRAFTING_QUALITY,
+                        "|A:Professions-ChatIcon-Quality-Tier5:17:17|a") or nil,
+                    -- Retail's sockets: a gem, an empty socket, and the bonus once both are filled.
+                    sockets = ns.retail and {
+                        { left = ns.Stats.styleStat(statLine("HASTE", 70), true, false), right = "",
+                            icon = "Interface\\Icons\\INV_Misc_Gem_Diamond_02" },
+                        { left = EMPTY_SOCKET_PRISMATIC, right = "", color = { .5, .5, .5 },
+                            icon = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic" },
+                        { left = fill(ITEM_SOCKET_BONUS, statLine("STAMINA", 8)), right = "", color = { .5, .5, .5 } },
+                    } or nil,
                     weaponDps = "53.8",
                     weaponDamage = fill(DAMAGE_TEMPLATE, 153, 256), weaponSpeed = fill(formats.weaponSpeed, "3.80"),
                     primary = { statLine("STAMINA", 13) },
-                    secondary = { statLine("ATTACK_POWER", 62) },
+                    -- Retail's secondary stats, each in its color.
+                    secondary = ns.retail and { statLine("CRITICAL_STRIKE", 48), statLine("HASTE", 31),
+                        statLine("MASTERY", 27), statLine("VERSATILITY", 19) } or { statLine("ATTACK_POWER", 62) },
                     equipEffects = {
                         { left = L["Your attacks have a chance to cleave a nearby enemy."], right = "" },
                         { left = L["Wounds the target for 40 to 60 damage."], right = "", onHit = true },
@@ -198,6 +214,20 @@ local TYPES = {
                     extras = { { left = fill(L["Spell ID: %s"], 635), right = "", color = { .60, .60, .63 } } },
                 },
             },
+            -- Retail's spells with charges: their most, the time each takes to
+            -- come back, and the time left on the next.
+            ns.retail and {
+                label = "Charges",
+                fields = {
+                    name = spellName(108853, "Fire Blast"), icon = { spell = 108853 },
+                    cost = { "1%", L["Base Mana"] }, power = "Mana", cast = { SPELL_CAST_TIME_INSTANT, L["Cast"] },
+                    cooldown = { fill(SPELL_DURATION_SEC, 12), L["Recharge"] }, range = { fill(L["%s yd"], 40), L["Range"] },
+                    charges = ns.util.resolvePlurals(fill(SPELL_MAX_CHARGES, 2)),
+                    details = { { left = ns.util.resolvePlurals(fill(SPELL_RECHARGE_TIME_SEC, 5)), right = "",
+                        color = { 1, .60, .25 } } },
+                    description = { L["Blasts the enemy for 950 Fire damage."] },
+                },
+            } or nil,
         },
     },
     {
@@ -251,7 +281,9 @@ local TYPES = {
                     name = "Somniferie", iconPath = "Interface\\Icons\\INV_Misc_Head_Human_02",
                     isPlayer = true, level = 60, race = L["Human"],
                     className = LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE.WARRIOR or "Warrior",
-                    classFile = "WARRIOR", guild = "Dawnbreakers", faction = "Alliance", pvp = true, healthShare = 1,
+                    -- Retail names a player's specialization too: Arms, the warrior's first.
+                    spec = ns.retail and (ns.Game.classSpecs(1) or {})[1] or nil,
+                    classFile = "WARRIOR", guild = "Dawnbreakers", guildRealm = "Argent Dawn", faction = "Alliance", pvp = true, healthShare = 1,
                     target = L["Ragnaros"], targetColor = { 1, .27, .22 },
                     extras = { { left = fill(ITEM_LEVEL, 61), right = "", color = { .60, .60, .63 } } },
                 },

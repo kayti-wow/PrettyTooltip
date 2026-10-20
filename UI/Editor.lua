@@ -966,7 +966,8 @@ local partPicker = dropdown(CONTROLS_WIDTH, function()
     local items = {}
     for _, element in ipairs(ns.ELEMENTS) do
         local tooltipType = element.tooltipType or "item"
-        if tooltipType == state.tooltipType or tooltipType == "shared" then
+        if (tooltipType == state.tooltipType or tooltipType == "shared") and not (element.classic and ns.retail)
+            and not (element.retail and not ns.retail) then
             items[#items + 1] = { value = element.key, text = element.label }
         end
     end
@@ -1216,6 +1217,14 @@ section(function() return DETAILS[state.tooltipType] end, function() return DETA
 local items, spells, units = forTypes("item"), forTypes("spell"), forTypes("unit")
 -- The spell power rows read spell descriptions, which not every language's reading covers yet.
 local function coefficients() return ns.Locale.features.coefficients == true end
+-- Settings drawn from Classic-only data, which retail does not load.
+local function classicOnly(shown)
+    return function() return not ns.retail and shown() end
+end
+-- Settings for what only retail's tooltips have.
+local function retailOnly(shown)
+    return function() return ns.retail and shown() end
+end
 toggles({
     { "Quest parchment", "questParchment", "DialogueUI's brown parchment for quest tooltips, Quest Items, "
         .. "and items that begin a quest, with darker ink for readability. Requires DialogueUI to be installed.",
@@ -1223,6 +1232,8 @@ toggles({
     { "Level badge", "itemLevelBadge", "The item level on a plate under the icon, for equipment.", items },
     { "Level badge", "unitLevelBadge",
         "The level on a plate under the portrait. Off, the level stays in the info line.", units },
+    { "Guild realm", "unitRealm", "A guild from another realm has its realm beside its name, as the game "
+        .. "writes Guild-Realm, styled apart from the guild.", units },
     { "Stat markers", "statMarkers", "The small diamond before each stat; enchants use a green one.", items },
     { "Stat colors", "statColors",
         "Each kind of stat in its color below, and the school colors. Off, every stat is parchment.", items },
@@ -1233,23 +1244,26 @@ toggles({
     { "Swap Damage Stats", "swapDamage", "A weapon's damage on the large line, with its speed and damage per "
         .. "second on the small one under it.", items },
     { "Disenchant", "disenchant", "Green, blue, and purple armor and weapons list what they disenchant into, "
-        .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.", items },
+        .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.",
+        classicOnly(items) },
+    { "Socket hint", "socketHint", "The game's Shift Right Click to Socket line, under an item's sockets. Off, "
+        .. "the panel leaves it out.", retailOnly(items) },
     { "Sell price", "sellPrice", "The vendor price in the footer; for a stack, the price of one and of the "
         .. "whole stack.", items },
     { "Spell power", "spellPower", "Under the description, each amount's spell power coefficient and its "
         .. "split into base and spell power. No game API has coefficients: they come from Forever's client "
-        .. "data, and ones marked ~ are estimates.", spells, coefficients },
-    { "Rates", "spellRates", "Under the spell power breakdown, the average a cast deals or heals per second "
-        .. "and per mana. Per second, what lands at once counts over the cast time (instants as the 1.5 sec "
-        .. "global cooldown) and what comes over time over its duration. Crits and talents do not count.", spells,
-        coefficients },
+        .. "data, and ones marked ~ are estimates.", classicOnly(spells), coefficients },
+    { "Rates", "spellRates", "Under the spell power breakdown (on retail, the description), the average a cast "
+        .. "deals or heals per second and per mana. Per second, what lands at once counts over the cast time "
+        .. "(instants as the global cooldown: 1.5 sec, or on retail after haste) and what comes over time over "
+        .. "its duration. Crits do not count, nor on Forever do talents.", spells, coefficients },
     { "Health bar", "unitHealthBar", "The game's own health bar at the bottom of player and NPC panels. The "
         .. "game fills it, so it stays live without the addon reading health, which WoW Forever keeps from "
         .. "addons.", units },
     { "Gathering", "gatheringLoot", "What a herb or ore node holds: its yield over all the times it can be "
         .. "gathered, then the stone, gems, and other herbs it may give and the chance each time. On a dead "
         .. "creature that can be skinned, the Skinning it needs and the leather, hides, and scales it may give. "
-        .. "From Classic's loot tables.", forTypes("object", "unit") },
+        .. "From Classic's loot tables.", classicOnly(forTypes("object", "unit")) },
     { "IDs", "showIDs", "The item's, spell's, or NPC's ID at the bottom of its panel, under other addons' rows.",
         forTypes("item", "spell", "unit") },
 })
@@ -1257,6 +1271,10 @@ toggles({
 row("Stat colors", colorSwatches(ns.Stats.CATEGORIES, "statColor", function(key)
     return hexColor((ns.Stats.categoryColors(key)))
 end), colorGroupSetting(ns.Stats.CATEGORIES, "statColor"), items, true)
+-- Retail's secondary stats, each in its own color.
+row("Secondary stat colors", colorSwatches(ns.Stats.RETAIL_CATEGORIES, "statColor", function(key)
+    return hexColor((ns.Stats.categoryColors(key)))
+end), colorGroupSetting(ns.Stats.RETAIL_CATEGORIES, "statColor"), function() return ns.retail and items() end, true)
 row("Class colors", colorSwatches(ns.Palette.CLASSES, "classColor", ns.Palette.classColor, function()
     if ns.Palette.addonClassColors() then
         return L["Your class colors addon sets these; the colors chosen here apply without it."]

@@ -118,7 +118,7 @@ return function(test)
     for _, case in ipairs(cases) do
         local ns = test.load({ "Core/Util.lua", "Core/Palette.lua", "Locale/Locale.lua", "Locale/English.lua",
             "Locale/" .. case.file .. ".lua", "Game/Game.lua", "Data/Schools.lua", "Data/SpellRanks.lua",
-            "Data/Coefficients.lua" }, { client = { locale = case.locale } })
+            "Game/SpellAmounts.lua", "Data/Coefficients.lua" }, { client = { locale = case.locale } })
         local util, L = ns.util, ns.L
         localizedLabels(case.locale, L)
         local game = { spellDamage = function() return 30 end, spellHealing = function() return 300 end }

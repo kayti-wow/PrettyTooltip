@@ -9,24 +9,28 @@ from shutil import copy2
 DEFAULT_ADDONS_DIR = Path(
     r"D:\Programs\World of Warcraft\_classic_beta_\Interface\AddOns"
 )
-TOC = "PrettyTooltip.toc"
+# Forever's .toc, and retail's, which the retail game picks by its suffix; the
+# same folder serves both, so a --addons-dir for either game works.
+TOCS = ["PrettyTooltip.toc", "PrettyTooltip_Mainline.toc"]
 
 
 def game_files(source: Path) -> list[str]:
-    """The .toc, the Lua files it loads, in its order, and every texture. A path with [TextLocale] in it
+    """Each .toc, the Lua files they load, in order, and every texture. A path with [TextLocale] in it
     names the client's language, so every language's file is copied, as is a file only some clients load
     ([AllowLoadTextLocale ptBR, ptPT] after its name)."""
-    files = [TOC]
-    for line in (source / TOC).read_text(encoding="utf-8").splitlines():
-        line = re.sub(r"\s+\[[^\]]*\]$", "", line.strip())
-        if not line or line.startswith("#") or not line.endswith(".lua"):
-            continue
-        line = line.replace("\\", "/")
-        if "[TextLocale]" in line:
-            matches = sorted(path.relative_to(source).as_posix() for path in source.glob(line.replace("[TextLocale]", "*")))
-            files += [name for name in matches if name not in files]
-        else:
-            files.append(line)
+    files = list(TOCS)
+    for toc in TOCS:
+        for line in (source / toc).read_text(encoding="utf-8").splitlines():
+            line = re.sub(r"\s+\[[^\]]*\]$", "", line.strip())
+            if not line or line.startswith("#") or not line.endswith(".lua"):
+                continue
+            line = line.replace("\\", "/")
+            if "[TextLocale]" in line:
+                matches = sorted(path.relative_to(source).as_posix()
+                                 for path in source.glob(line.replace("[TextLocale]", "*")))
+                files += [name for name in matches if name not in files]
+            elif line not in files:
+                files.append(line)
     files += sorted(path.relative_to(source).as_posix() for path in (source / "art").glob("*.tga"))
     return files
 

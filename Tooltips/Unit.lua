@@ -86,7 +86,7 @@ local NO_TINT = { 1, 1, 1 }
 -- The game's health bar at the bottom of the panel: the space above it, and
 -- its height.
 local HEALTH_BEFORE, HEALTH_HEIGHT = 6, 6
-local PARTS = { "unitName", "unitInfo", "unitBadges", "unitGuild", "unitSkinning", "unitDetails",
+local PARTS = { "unitName", "unitInfo", "unitBadges", "unitGuild", "unitRealm", "unitSkinning", "unitDetails",
     "unitQuests", "extras" }
 
 -- The mouseover token can still be the previous unit; the data's GUID cannot.
@@ -156,12 +156,88 @@ local function skinning(model, game)
     return { needed = needed, player = game.skill("Skinning"), rows = rows }
 end
 
+-- Retail's player tooltips name the specialization with the class, as
+-- "Restoration Shaman", on a line of its own or with the level and race. The
+-- spec moves into the info line, in the client's words and order, and a line
+-- saying nothing more goes.
+local function escaped(text) return (text:gsub("[%^%$%(%)%%%.%[%]%*%+%-%?]", "%%%0")) end
+
+local function readSpec(model, game)
+    if model.spec or type(model.className) ~= "string" then return end
+    local specs = game.classSpecs and game.classSpecs(model.classID)
+    if not specs then return end
+    local function specIn(text)
+        if isSecret(text) or type(text) ~= "string" then return end
+        local plain = trim(util.plainText(text))
+        for _, name in ipairs(specs) do
+            for _, phrase in ipairs({ name .. " " .. model.className, model.className .. " " .. name }) do
+                -- Whole words; %w knows only ASCII letters, so other scripts match as they are.
+                local pattern = escaped(phrase)
+                if not phrase:find("[\128-\255]") then pattern = "%f[%w]" .. pattern .. "%f[%W]" end
+                local from, to = plain:find(pattern)
+                if from then
+                    local rest = plain:sub(1, from - 1) .. plain:sub(to + 1)
+                    if model.race then rest = rest:gsub(escaped(model.race), "", 1) end
+                    -- The level line can end in the unit's kind, "(Player)".
+                    return name, phrase, trim((rest:gsub("%s*%b()%s*$", "")))
+                end
+            end
+        end
+    end
+    if model.levelLine then model.spec, model.specClass = specIn(model.levelLine) end
+    if model.spec then return end
+    for index, row in ipairs(model.extras) do
+        local name, phrase, rest = specIn(row.left)
+        if name then
+            model.spec, model.specClass = name, phrase
+            if rest == "" and (row.right or "") == "" then table.remove(model.extras, index) end
+            return
+        end
+    end
+end
+
+-- A guild from another realm is written "Guild-Realm", bracketed or not; the
+-- realm becomes a part of its own beside the guild, and the line goes.
+local function guildRealmIn(text, guild)
+    if isSecret(text) or type(text) ~= "string" then return end
+    local plain = trim(util.plainText(text))
+    local inner, after = plain:match("^<(.*)>%-(.+)$")
+    if inner then
+        plain = inner .. "-" .. after
+    else
+        plain = plain:match("^<(.*)>$") or plain
+    end
+    if plain:sub(1, #guild + 1) ~= guild .. "-" then return end
+    local realm = trim(plain:sub(#guild + 2))
+    return realm ~= "" and realm or nil
+end
+
+local function readGuildRealm(model)
+    local guild = model.guild
+    if isSecret(guild) or type(guild) ~= "string" or guild == "" then return end
+    if model.tag then
+        local realm = guildRealmIn(model.tag, guild)
+        if realm then
+            model.guildRealm, model.tag = realm, nil
+            return
+        end
+    end
+    for index, row in ipairs(model.extras) do
+        local realm = (row.right or "") == "" and guildRealmIn(row.left, guild)
+        if realm then
+            model.guildRealm = realm
+            table.remove(model.extras, index)
+            return
+        end
+    end
+end
+
 local function completeModel(model, unit, game)
     if unit then
         model.isPlayer = game.unitIsPlayer(unit)
         model.level = game.unitLevel(unit)
         if model.isPlayer then
-            model.className, model.classFile = game.unitClass(unit)
+            model.className, model.classFile, model.classID = game.unitClass(unit)
             model.race = game.unitRace(unit)
             model.guild, model.guildRank = game.unitGuild(unit)
             model.faction = game.unitFaction(unit)
@@ -180,6 +256,10 @@ local function completeModel(model, unit, game)
             model.targetIsYou = game.unitIsUnit(target, "player")
             model.targetColor = unitColor(target, game)
         end
+    end
+    if model.isPlayer then
+        readSpec(model, game)
+        readGuildRealm(model)
     end
     -- An NPC's title, as "Herbalism Supplier", is the untyped line between its
     -- name and its level; Forever leaves out the brackets around it.
@@ -301,8 +381,9 @@ end
 
 -- The level and kind, then an NPC's title after a dot: "Humanoid · Herbalism Supplier".
 local function infoText(model, plated)
-    local what = model.isPlayer and table.concat({ model.race or "", model.className or "" }, " ")
-        or (model.creature or "")
+    -- The spec and class as the client wrote them, else the spec before the class.
+    local class = model.specClass or trim(table.concat({ model.spec or "", model.className or "" }, " "))
+    local what = model.isPlayer and table.concat({ model.race or "", class }, " ") or (model.creature or "")
     local info
     if plated then
         info = trim(what)
@@ -422,8 +503,10 @@ local function unitView(panel, model, healthBar)
     local header = { { text = model.name, style = styles.unitName, color = color, gap = 2 } }
     local guild = guildText(model)
     if guild then
+        local realm = model.guild and model.guildRealm and ns.option("unitRealm")
+            and { text = model.guildRealm, style = styles.unitRealm, color = DETAIL_COLOR } or nil
         header[#header + 1] = { text = guild, style = styles.unitGuild,
-            color = { color[1] * .5 + .5, color[2] * .5 + .5, color[3] * .5 + .5 }, gap = 2 }
+            color = { color[1] * .5 + .5, color[2] * .5 + .5, color[3] * .5 + .5 }, after = realm, gap = 2 }
     end
     local info = infoText(model, plate ~= nil)
     if info then header[#header + 1] = { text = info, style = styles.unitInfo, color = DETAIL_COLOR, gap = 4 } end

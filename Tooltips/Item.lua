@@ -39,6 +39,96 @@ local QUALITY = {
     [4] = { .72, .40, .94 },
     [5] = { 1.00, .57, .22 },
 }
+-- Retail's lines about where an item comes from, how far it is upgraded, and
+-- what it looks like, each in the game's color unless the editor sets one.
+local SOURCE_COLOR = { .12, 1, .12 }
+local UPGRADE_COLOR = { .90, .80, .55 }
+local TRANSMOG_COLOR = { 1, .50, 1 }
+local CRAFTED_COLOR = { .90, .85, .74 }
+-- A crafting reagent's quality icon, against its line's text.
+local REAGENT_QUALITY_SCALE = 1.6
+
+-- "Upgrade Level: Myth 2/6" as "Myth 2/6", in the game's own short wording.
+local function upgradeOf(text)
+    local track, level, most = unformat(text, ITEM_UPGRADE_TOOLTIP_FORMAT_STRING)
+    if track and tonumber(level) and tonumber(most) then
+        return util.fill(ITEM_UPGRADE_DROPDOWN_LEVEL_FORMAT_STRING, track, level, most)
+    end
+    level, most = unformat(text, ITEM_UPGRADE_TOOLTIP_FORMAT)
+    if tonumber(level) and tonumber(most) then return util.fill(ITEM_UPGRADE_DROPDOWN_LEVEL_FORMAT, level, most) end
+end
+
+-- The line naming a weapon's temporary enchant and its time left.
+local IMBUE_LINES = { ITEM_ENCHANT_TIME_LEFT_SEC, ITEM_ENCHANT_TIME_LEFT_MIN, ITEM_ENCHANT_TIME_LEFT_HOURS,
+    ITEM_ENCHANT_TIME_LEFT_DAYS }
+local function imbueLine(text)
+    for _, format in pairs(IMBUE_LINES) do
+        local name, left = unformat(text, format)
+        if name and name ~= "" and tonumber(left) then return true end
+    end
+    return false
+end
+
+-- Retail sends its quality icons at 20 px; a line's icon is its text's height.
+local function fitAtlases(text, size)
+    if type(text) ~= "string" then return text end
+    size = math.floor((size or 12) + .5)
+    return (text:gsub("|A:([^:|]+)[^|]*|a", function(atlas)
+        return "|A:" .. atlas .. ":" .. size .. ":" .. size .. ":0:0|a"
+    end))
+end
+local function fittedRows(rows, style)
+    local fitted = {}
+    for index, row in ipairs(rows or {}) do
+        local copy = {}
+        for key, value in pairs(row) do copy[key] = value end
+        copy.left = fitAtlases(row.left, style.size)
+        fitted[index] = copy
+    end
+    return fitted
+end
+
+-- Retail writes some colors with spaces for zeros, as "|cFF 0FF 0Mythic+":
+-- read as the color it means, not as text.
+local function repairedColors(text)
+    return (text:gsub("|c([%x ][%x ][%x ][%x ][%x ][%x ][%x ][%x ])", function(code)
+        return "|c" .. code:gsub(" ", "0")
+    end))
+end
+
+-- The color a line's text opens with, as a panel color; nil without one.
+local function openingColor(text)
+    local code = text:match("^%s*|c%x%x(%x%x%x%x%x%x)")
+    if not code then return end
+    local r, g, b = tonumber(code:sub(1, 2), 16), tonumber(code:sub(3, 4), 16), tonumber(code:sub(5, 6), 16)
+    return colorOf({ r = r / 255, g = g / 255, b = b / 255 })
+end
+
+-- What an item is transmogrified to: "Transmogrified to:" and the appearance,
+-- on the line after it or the same one; "" when the next line names it.
+local function transmogOf(text)
+    local header = type(TRANSMOGRIFIED_HEADER) == "string" and util.trim(TRANSMOGRIFIED_HEADER) or ""
+    local plain = util.trim(plainText(text))
+    if header == "" or plain:sub(1, #header) ~= header then return end
+    local rest = plain:sub(#header + 1):gsub("|n", "\n")
+    return util.trim((rest:gsub("%s+", " ")))
+end
+
+local GEM_COLOR = { .90, .85, .74 }
+-- A gem's own enchantment, as the game draws it: indented, in gold.
+local GEM_ENCHANT_COLOR = { 1, .82, 0 }
+local GEM_ENCHANT_INDENT = 20
+
+-- A socket's icon: the gem in it, else the game's empty socket of its kind.
+local function socketIcon(line)
+    local gem = not isSecret(line.gemIcon) and line.gemIcon or nil
+    if type(gem) == "number" or type(gem) == "string" then return gem end
+    local kind = not isSecret(line.socketType) and line.socketType or nil
+    if type(kind) == "string" and kind ~= "" then return "Interface\\ItemSocketingFrame\\UI-EmptySocket-" .. kind end
+end
+
+-- A primary stat another specialization uses, as retail's tooltip greys it.
+local INACTIVE_STAT_COLOR = { .50, .50, .50 }
 local PRIMARY_STATS = { STRENGTH = true, AGILITY = true, STAMINA = true, INTELLECT = true, SPIRIT = true,
     ALL_STATS = true }
 local lineParts = ns.Stats.lineParts
@@ -226,10 +316,27 @@ for _, key in ipairs({ "Alchemy", "Blacksmithing", "Enchanting", "Engineering", 
     for _, name in ipairs(ns.Locale.skillNames(key)) do PROFESSIONS[name] = true end
 end
 
+-- Whether a name is a profession's: its own, or, on a line the game marks as a
+-- requirement, retail's for one expansion's part of it, "Midnight
+-- Blacksmithing", which holds the profession's as a word. A reagent's name can
+-- hold one too ("Elixir of Mining"), so other lines need the name exactly.
+local function isProfession(name, marked)
+    if PROFESSIONS[name] then return true end
+    if not marked then return false end
+    for profession in pairs(PROFESSIONS) do
+        local start, stop = name:find(profession, 1, true)
+        if start and not name:sub(start - 1, start - 1):match("%a") and not name:sub(stop + 1, stop + 1):match("%a") then
+            return true
+        end
+    end
+    return false
+end
+
 -- "Requires Blacksmithing (80)": the profession and level a recipe needs.
-local function professionRequirement(text)
+local function professionRequirement(text, lineType)
     local name, level = unformat(text, ITEM_MIN_SKILL)
-    if name and PROFESSIONS[name] then return name, tonumber(level) end
+    local marked = LINE.UsageRequirement ~= nil and lineType == LINE.UsageRequirement
+    if name and tonumber(level) and isProfession(name, marked) then return name, tonumber(level) end
 end
 
 -- "Requires Bronze Bar (10), Sulfuric Acid (2)": a recipe's reagents.
@@ -238,8 +345,9 @@ end
 -- and a single one without a count: "Heavy Leather, Magenta Dye".
 local function reagentList(text, placed)
     text = plainText(text)
-    -- "Requires Cooking (80)" has the same shape, but names a skill.
-    if professionRequirement(text) then return end
+    -- "Requires Cooking (80)" has the same shape, but names a skill; so does a
+    -- crafted item's "Unique-Equipped: Embellished (2)", which is its own.
+    if professionRequirement(text) or isBinding(text) then return end
     text = unformat(text, ITEM_REQ_SKILL) or text
     if not placed and not text:find("%(%d+%)") then return end
     local list = {}
@@ -360,6 +468,7 @@ local function readModel(tooltip, data, game)
     local m = model
     local inSet, setTotal = false, 0
     local teachesLast = false
+    local nameLast, transmogLast = false, false
     local inStockChanges = false
     local function isStockChange(text)
         local trimmed = plainText(text):match("^%s*(.-)%s*$")
@@ -374,7 +483,13 @@ local function readModel(tooltip, data, game)
         return false
     end
 
-    for _, line in ipairs(data.lines) do
+    -- Whether the line after this one is the item level, as under a source.
+    local function levelFollows(index)
+        local after = data.lines[index + 1]
+        return LINE.ItemLevel ~= nil and not isSecret(after) and type(after) == "table" and not isSecret(after.type)
+            and after.type == LINE.ItemLevel
+    end
+    for lineNumber, line in ipairs(data.lines) do
         if isSecret(line) or not line or isSecret(line.type) or isSecret(line.lineIndex) then
             return
         end
@@ -387,6 +502,7 @@ local function readModel(tooltip, data, game)
         if line.lineIndex then
         local left, right = safeText(line.leftText), safeText(line.rightText)
         if not left or not right then return end
+        left, right = repairedColors(left), repairedColors(right)
         local lineType = line.type
         if line.lineIndex then model.lineIndices[line.lineIndex] = true end
         -- Read as the panel words it, each stat of a combined bonus apart.
@@ -402,6 +518,8 @@ local function readModel(tooltip, data, game)
 
         local afterTeaches = teachesLast
         teachesLast = false
+        local afterName, afterTransmog = nameLast, transmogLast
+        nameLast, transmogLast = false, false
         if isStockChange(left) then
             addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
         elseif isType(lineType, "ItemSpellTriggerLearn") or unformat(trimmed, formats.recipeTeaches) then
@@ -415,14 +533,17 @@ local function readModel(tooltip, data, game)
             model.reagents, m = reagentList(trimmed, true), model
         elseif m == model and startsQuest then
             model.startsQuest = trimmed
-        elseif professionRequirement(trimmed) and (m == model or (model.created and not model.skill)) then
+        elseif professionRequirement(trimmed, lineType) and (m == model or (model.created and not model.skill)) then
             -- A recipe's skill, before the item it creates or, as on cooking
             -- recipes, after it; once the recipe has one, the item's own.
-            local name, level = professionRequirement(trimmed)
+            local name, level = professionRequirement(trimmed, lineType)
             model.skill = { name = name, level = level, text = left, met = requirementMet(trimmed, line.leftColor, game) }
         elseif model.created and not model.reagents and reagentList(trimmed) then
             model.reagents, m = reagentList(trimmed), model
+        elseif afterTransmog and trimmed ~= "" and right == "" then
+            m.transmog = util.trim(plainText(trimmed))
         elseif lineType == LINE.ItemName then
+            nameLast = true
             if not model.name then
                 model.name, model.nameColor = left, rgb(line.leftColor)
             elseif not model.created then
@@ -434,6 +555,44 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemLevel then
             local level = left:match("(%d+)")
             if level then m.level, m.levelLine = tonumber(level), true end
+        elseif (LINE.ItemUpgradeLevel and lineType == LINE.ItemUpgradeLevel) or upgradeOf(plainText(trimmed)) then
+            m.upgrade = upgradeOf(plainText(trimmed)) or trimmed
+        elseif LINE.GemSocket and lineType == LINE.GemSocket then
+            -- A gem's stat in its stat color, without the stat marker; an empty
+            -- socket as the game words it.
+            local text = ns.Stats.styleStat(util.trim(original or left), ns.option("statColors"), false)
+            m.sockets = m.sockets or {}
+            add(m.sockets, text, right)
+            local row = m.sockets[#m.sockets]
+            row.icon, row.color = socketIcon(line), colorOf(line.leftColor)
+        elseif LINE.GemSocketEnchantment and lineType == LINE.GemSocketEnchantment then
+            m.sockets = m.sockets or {}
+            add(m.sockets, left, right)
+            m.sockets[#m.sockets].indent, m.sockets[#m.sockets].color = GEM_ENCHANT_INDENT, GEM_ENCHANT_COLOR
+        elseif right == "" and type(ITEM_SOCKETABLE) == "string" and util.trim(plainText(trimmed)) == ITEM_SOCKETABLE then
+            -- "<Shift Right Click to Socket>", with the sockets, unless turned off.
+            if ns.option("socketHint") then
+                m.sockets = m.sockets or {}
+                add(m.sockets, left, "")
+                m.sockets[#m.sockets].color = colorOf(line.leftColor)
+            end
+        elseif right == "" and imbueLine(plainText(trimmed)) then
+            -- A weapon's temporary enchant, "Windfury Weapon (59 min)", under its enchants.
+            m.imbues = m.imbues or {}
+            for _, row in ipairs(enchantRows(util.trim(plainText(trimmed)))) do add(m.imbues, row, "") end
+        elseif right == "" and unformat(plainText(trimmed), ITEM_SOCKET_BONUS) then
+            -- Green while every socket matches, grey before.
+            m.sockets = m.sockets or {}
+            add(m.sockets, original or left, "")
+            m.sockets[#m.sockets].color = colorOf(line.leftColor)
+        elseif (LINE.ProfessionCraftingQuality and lineType == LINE.ProfessionCraftingQuality)
+            or (right == "" and unformat(plainText(trimmed), PROFESSIONS_CRAFTING_QUALITY)) then
+            m.craftingQuality = trimmed
+        elseif right == "" and transmogOf(trimmed) then
+            local appearance = transmogOf(trimmed)
+            if appearance == "" then transmogLast = true else m.transmog = appearance end
+        elseif right == "" and unformat(plainText(trimmed), TRANSMOGRIFIED_ENCHANT) then
+            m.illusion = util.trim(plainText(trimmed))
         elseif lineType == LINE.EquipSlot then
             m.equippable = true
             local slot = unusable(left, line.leftColor)
@@ -448,6 +607,11 @@ local function readModel(tooltip, data, game)
         elseif itemKind(left, right) then
             local kind, text = itemKind(left, right, line.leftColor)
             m.kinds[kind] = text
+        elseif ns.retail and afterName and right == "" and trimmed ~= "" and (lineType == nil or isType(lineType, "None"))
+            and levelFollows(lineNumber) then
+            -- Retail names where an item comes from between its name and level: Heroic, Mythic.
+            m.source = util.trim(plainText(trimmed))
+            m.sourceColor = openingColor(trimmed) or colorOf(line.leftColor)
         elseif trimmed ~= "" then
             local setName, count, total = unformat(trimmed, ITEM_SET_NAME)
             if setName and tonumber(count) and tonumber(total) and not m.setName then
@@ -476,7 +640,7 @@ local function readModel(tooltip, data, game)
                 if isRed(line.leftColor) then
                     m.footerLeft[#m.footerLeft].color = UNUSABLE_COLOR
                 end
-            elseif inSet and unformat(trimmed, ITEM_SET_BONUS_GRAY) then
+            elseif inSet and (unformat(trimmed, ITEM_SET_BONUS_GRAY) or unformat(trimmed, ITEM_SET_BONUS)) then
                 add(m.setBonuses, left, right)
                 m.setBonuses[#m.setBonuses].active = isActive(line.leftColor)
             -- Set pieces are names alone: letters (of any alphabet), spaces,
@@ -511,10 +675,18 @@ local function readModel(tooltip, data, game)
                 add(m.equipEffects, withoutLabel(text, ITEM_SPELL_TRIGGER_ONPROC), "")
                 m.equipEffects[#m.equipEffects].onHit = true
             elseif original or lineParts(trimmed) == "+" then
+                -- Retail greys the primary stats another specialization uses.
+                local inactive = isActive(line.leftColor) == false
                 -- Combined bonuses arrive as one line; each stat needs its own row.
                 for piece in (displayed .. "|n"):gmatch("(.-)|n") do
                     local stat = ns.Stats.read(plainText(piece))
-                    add(stat and PRIMARY_STATS[stat.key] and m.primary or m.secondary, piece, right)
+                    local primary = stat and PRIMARY_STATS[stat.key]
+                    if primary and inactive then
+                        add(m.primary, ns.Stats.inactiveStat(piece, ns.option("statMarkers")), right)
+                        m.primary[#m.primary].color, m.primary[#m.primary].inactive = INACTIVE_STAT_COLOR, true
+                    else
+                        add(primary and m.primary or m.secondary, piece, right)
+                    end
                     right = ""
                 end
             elseif isType(lineType, "FlavorText") or trimmed:match('^".+"$') then
@@ -857,20 +1029,44 @@ local function listWidth(panel, list, style, extra, prose)
     return need
 end
 
--- Whether an item has stats, effects, or flavor, drawn under the first divider.
+-- Retail styles its secondary stats apart from the primary ones.
+local function secondaryStyle(styles)
+    return ns.retail and styles.secondaryStats or styles.stats
+end
+
+-- Whether an item has stats, effects, gems, or flavor, drawn under the first divider.
 local function hasStats(model)
     return model.weaponDps or model.weaponDamage or #model.weaponBonus > 0 or #model.armor > 0
         or #model.primary > 0 or #model.secondary > 0 or #model.equipEffects > 0 or #model.enchants > 0
-        or #model.effects > 0 or #model.flavor > 0
+        or #model.effects > 0 or #model.flavor > 0 or (model.sockets and #model.sockets > 0) or model.imbues ~= nil
+end
+
+-- A socket's row with its icon before the text, the icon the text's height.
+local function socketRow(row, style)
+    if not row.icon then return row end
+    local size = math.floor((style.size or 12) * 1.25 + .5)
+    return { left = "|T" .. row.icon .. ":" .. size .. ":" .. size .. ":0:0|t " .. row.left, right = row.right,
+        color = row.color, rightColor = row.rightColor }
+end
+
+local function drawSockets(panel, sockets, y, style)
+    for _, row in ipairs(sockets) do
+        y = drawRow(panel, socketRow(row, style), y, style, GEM_COLOR, row.indent or 0, 3)
+    end
+    return y
 end
 
 local function statsWidth(panel, model, styles)
     local need = math.max(
         listWidth(panel, model.armor, styles.armor, 0),
         listWidth(panel, model.primary, styles.stats, 0),
-        listWidth(panel, model.secondary, styles.stats, 0),
-        listWidth(panel, model.enchants, styles.enchants, markerIndent(panel, styles.enchants)),
+        listWidth(panel, model.secondary, secondaryStyle(styles), 0),
+        listWidth(panel, fittedRows(model.enchants, styles.enchants), styles.enchants, markerIndent(panel, styles.enchants)),
+        listWidth(panel, model.imbues or {}, styles.enchants, markerIndent(panel, styles.enchants)),
         listWidth(panel, model.flavor, styles.flavor, 0, true))
+    for _, row in ipairs(model.sockets or {}) do
+        need = math.max(need, listWidth(panel, { socketRow(row, styles.gems) }, styles.gems, row.indent or 0))
+    end
     for _, row in ipairs(model.equipEffects) do
         need = math.max(need, math.min(measureStyled(panel, row.left, styles.equipEffects), PROSE_WIDTH)
             + markerIndent(panel, styles.equipEffects))
@@ -982,7 +1178,11 @@ local function drawStats(panel, model, styles, y)
         }, y, styles.armor, LARGE_COLOR)
     end
     if #model.armor > 0 then y = y + 5 end
-    y = drawGroup(panel, model.primary, y, styles.stats, { .90, .85, .74 })
+    -- An inactive stat stays grey under a stats color set in the editor.
+    local inactiveStyle = setmetatable({ color = false }, { __index = styles.stats })
+    for _, row in ipairs(model.primary) do
+        y = drawRow(panel, row, y, row.inactive and inactiveStyle or styles.stats, { .90, .85, .74 })
+    end
     -- The rest of the stats sit under a divider, whatever comes above them:
     -- a wand often has its damage and no primary stats.
     local above = #model.primary > 0 or #model.armor > 0 or model.weaponDps or model.weaponDamage
@@ -990,9 +1190,16 @@ local function drawStats(panel, model, styles, y)
     if (#model.secondary > 0 or #model.equipEffects > 0) and above then
         y = divider(panel, y, GOLD_RULE, DIVIDER_AFTER)
     end
-    y = drawGroup(panel, model.secondary, y, styles.stats, { .90, .85, .74 })
+    y = drawGroup(panel, model.secondary, y, secondaryStyle(styles), { .90, .85, .74 })
     y = drawMarked(panel, model.equipEffects, y, styles.equipEffects, EQUIP_EFFECT_COLOR, STAT_MARKER, true)
-    y = drawMarked(panel, model.enchants, y, styles.enchants, { .90, .85, .74 }, ENCHANT_MARKER)
+    y = drawMarked(panel, fittedRows(model.enchants, styles.enchants), y, styles.enchants, { .90, .85, .74 },
+        ENCHANT_MARKER)
+    -- Temporary enchants under the permanent ones.
+    if model.imbues then y = drawMarked(panel, model.imbues, y, styles.enchants, { .90, .85, .74 }, ENCHANT_MARKER) end
+    if model.sockets and #model.sockets > 0 then
+        if y > top then y = y + 4 end
+        y = drawSockets(panel, model.sockets, y, styles.gems)
+    end
     -- Use effects and flavor stand apart from the stats above them; first under
     -- the divider, they start where anything would.
     if #model.effects > 0 and y > top then y = y + 5 end
@@ -1122,11 +1329,32 @@ local function itemView(panel, model)
     local quality = QUALITY[model.quality] or QUALITY[1]
     local accent = model.quest and colors.quest or quality
     local header = { { text = model.name, style = styles.title, color = quality, gap = 4 } }
+    if model.source then
+        header[#header + 1] = { text = model.source, style = styles.itemSource, color = model.sourceColor or SOURCE_COLOR,
+            gap = 4 }
+    end
     if model.slot and model.slot ~= "" then
         header[#header + 1] = { text = model.slot, style = styles.subtitle,
             color = { quality[1] * .5 + .5, quality[2] * .5 + .5, quality[3] * .5 + .5 }, gap = 4 }
     end
+    if model.upgrade then
+        header[#header + 1] = { text = model.upgrade, style = styles.itemUpgrade, color = UPGRADE_COLOR, gap = 4 }
+    end
+    if model.craftingQuality then
+        -- Gear's icon sits in its line at the text's height; a reagent's
+        -- quality is what its line is for, so its icon is larger.
+        local size = styles.craftingQuality.size * (model.equippable and 1 or REAGENT_QUALITY_SCALE)
+        header[#header + 1] = { text = fitAtlases(model.craftingQuality, size),
+            style = styles.craftingQuality, color = CRAFTED_COLOR,
+            gap = 4 }
+    end
     header[#header + 1] = { rows = model.header, style = styles.header, color = { .78, .72, .63 }, gap = 3 }
+    local looks = {}
+    if model.transmog then looks[#looks + 1] = { left = util.trim(TRANSMOGRIFIED_HEADER) .. " " .. model.transmog, right = "" } end
+    if model.illusion then looks[#looks + 1] = { left = model.illusion, right = "" } end
+    if #looks > 0 then
+        header[#header + 1] = { rows = looks, style = styles.itemTransmog, color = TRANSMOG_COLOR, gap = 3 }
+    end
 
     local sections, sectioned = {}, false
     local function section(entry) sections[#sections + 1] = entry end

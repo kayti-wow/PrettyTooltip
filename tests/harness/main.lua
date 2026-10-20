@@ -270,10 +270,11 @@ function main.track(hits)
 end
 
 -- check(name, got, expected): got and expected are compared as dumped text.
-function main.unit(testSource, testName, sources, serialize, makeWorld)
+-- tocs: each .toc's files in load order, as test.tocs.forever and test.tocs.retail.
+function main.unit(testSource, testName, sources, serialize, makeWorld, tocs)
     local results = {}
     local notes, report = notesCollector()
-    local test = {}
+    local test = { tocs = tocs }
     -- Loads the named addon files with a world answering from fixture's calls.
     function test.load(files, fixture)
         local world = makeWorld(fixture or {}, fixture and fixture.enums or {}, report)

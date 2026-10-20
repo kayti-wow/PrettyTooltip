@@ -27,7 +27,7 @@ return function(test)
     }
     local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Data/Stats.lua", "Data/SpellRanks.lua", "Data/Coefficients.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua",
+        "Data/Stats.lua", "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua",
         "Integration/Native.lua", "Integration/Hooks.lua" },
         capture)
     local model = ns.TooltipTypes[SPELL].read(world.main, capture.data, ns.Game)

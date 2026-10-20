@@ -23,9 +23,21 @@ local CATEGORIES = {
     { key = "Mana", label = L["Mana"], value = "9EB8FE", name = "C0D0FA" },
     { key = "Negative", label = L["Negative values"], value = "F66D67" },
 }
+-- Retail's secondary stats each in a color of its own, and its minor stats
+-- (Leech, Avoidance, Speed) in one; the style editor offers them on retail.
+local RETAIL_CATEGORIES = {
+    { key = "CriticalStrike", label = L["Critical Strike"], value = "F7A38E", name = "F5C8BC" },
+    { key = "Haste", label = L["Haste"], value = "F2D57C", name = "F3E2B0" },
+    { key = "Mastery", label = L["Mastery"], value = "C3A6F7", name = "D8CAF5" },
+    { key = "Versatility", label = L["Versatility"], value = "86D4CC", name = "BDE6E1" },
+    { key = "Minor", label = L["Leech, Avoidance, and Speed"], value = "D2C4A8", name = "E3DACA" },
+}
 local CATEGORY = {}
-for _, category in ipairs(CATEGORIES) do CATEGORY[category.key] = category end
+for _, list in ipairs({ CATEGORIES, RETAIL_CATEGORIES }) do
+    for _, category in ipairs(list) do CATEGORY[category.key] = category end
+end
 stats.CATEGORIES = CATEGORIES
+stats.RETAIL_CATEGORIES = RETAIL_CATEGORIES
 local STAT_MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  "
 
 local function mod(name) return _G["ITEM_MOD_" .. name] end
@@ -98,6 +110,17 @@ local STATS = {
     MANA_REGEN = { category = "Mana", name = L["Mana per 5 sec"] },
     MANA = { category = "Mana", name = mod("MANA_SHORT"), line = mod("MANA") },
 }
+
+-- Retail's ratings, as its items print them: "+120 Haste".
+if ns.retail then
+    STATS.CRITICAL_STRIKE = { category = "CriticalStrike", name = mod("CRIT_RATING_SHORT") }
+    STATS.HASTE = { category = "Haste", name = mod("HASTE_RATING_SHORT") }
+    STATS.MASTERY = { category = "Mastery", name = mod("MASTERY_RATING_SHORT") }
+    STATS.VERSATILITY = { category = "Versatility", name = mod("VERSATILITY") }
+    STATS.LEECH = { category = "Minor", name = mod("CR_LIFESTEAL_SHORT") }
+    STATS.AVOIDANCE = { category = "Minor", name = mod("CR_AVOIDANCE_SHORT") }
+    STATS.SPEED = { category = "Minor", name = mod("CR_SPEED_SHORT") }
+end
 
 -- A stat's name, as the panel shows it: "Fire Resistance", "Attack Power vs Undead".
 local function nameOf(stat)
@@ -250,6 +273,16 @@ function stats.styleStat(text, colors, markers)
     if not colored then return text end
     -- The second result supplies the colored wording without a marker.
     return (markers and STAT_MARKER or "") .. colored, colored
+end
+
+-- The marker greyed, as the 32 px art tinted.
+local INACTIVE_MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  "
+
+-- A stat that does not count, as retail's primary stats for another
+-- specialization: without its colors, under a grey marker where stats have one.
+function stats.inactiveStat(text, markers)
+    local plain = util.uncolored(text):gsub("^|T.-|t%s*", "")
+    return (markers and INACTIVE_MARKER or "") .. plain
 end
 
 -- Weapon damage of a school in that school's stat colors: a wand's
