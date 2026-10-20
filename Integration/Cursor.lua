@@ -12,7 +12,7 @@ local wasClamped
 -- while following, so the game moves both in the same frame. Anchored to,
 -- never parented: GameTooltip keeps its own parent, strata, and visibility.
 local tracker
-local trackedX, trackedY, anchoredHeight
+local trackedX, trackedY, anchoredPoint, anchoredHeight
 
 -- Kept on screen, every resize of the larger hidden tooltip near an edge would
 -- shift the panel; the panel keeps itself on screen instead.
@@ -49,29 +49,36 @@ end
 
 -- The panel hangs from the hidden tooltip's top, and refreshes briefly resize
 -- that tooltip; anchoring its top the panel's height above the cursor keeps the
--- panel still. Anchored again only when that height changes.
+-- panel still. Anchored again only when that height changes. The game's own
+-- tooltip is placed by its bottom instead, as its height can be hidden from
+-- addons (a secret value) when its text is.
 local function place()
     if not util.canModify(GameTooltip) then return false end
-    local scale = util.number(GameTooltip:GetEffectiveScale())
     local panel = ns.ui and ns.ui.shownPanel(GameTooltip)
-    local height = util.number(panel and panel:GetHeight() or GameTooltip:GetHeight())
-    local panelScale = util.number(panel and panel:GetEffectiveScale() or scale)
-    if not (scale and scale > 0 and height and panelScale and panelScale > 0) then return false end
-    height = height * panelScale / scale
-    if panel then unclamp() else reclamp() end
-    if anchoredHeight and math.abs(height - anchoredHeight) < .01 then return true end
+    local point, height = "BOTTOMLEFT", 0
+    if panel then
+        local scale = util.number(GameTooltip:GetEffectiveScale())
+        local panelHeight = util.number(panel:GetHeight())
+        local panelScale = util.number(panel:GetEffectiveScale())
+        if not (scale and scale > 0 and panelHeight and panelScale and panelScale > 0) then return false end
+        point, height = "TOPLEFT", panelHeight * panelScale / scale
+        unclamp()
+    else
+        reclamp()
+    end
+    if anchoredPoint == point and anchoredHeight and math.abs(height - anchoredHeight) < .01 then return true end
     placing = true
     local ok = pcall(function()
         GameTooltip:ClearAllPoints()
-        GameTooltip:SetPoint("TOPLEFT", tracker, "BOTTOMLEFT", snap(GameTooltip, OFFSET),
+        GameTooltip:SetPoint(point, tracker, "BOTTOMLEFT", snap(GameTooltip, OFFSET),
             snap(GameTooltip, OFFSET + height))
     end)
     placing = false
     if not ok then
-        anchoredHeight = nil
+        anchoredPoint, anchoredHeight = nil, nil
         return false
     end
-    anchoredHeight = height
+    anchoredPoint, anchoredHeight = point, height
     -- The panel took its side from the anchor the game set before this one.
     if panel then pcall(ns.ui.alignPanel, panel, GameTooltip) end
     return true
@@ -89,7 +96,7 @@ function ns.Cursor.register()
     tracker:Hide()
     local follower = tracker
     local function forgetPlacement()
-        trackedX, trackedY, anchoredHeight = nil, nil, nil
+        trackedX, trackedY, anchoredPoint, anchoredHeight = nil, nil, nil, nil
     end
 
     -- Only default-anchored tooltips follow, as with EllesmereUI; bags re-anchor
