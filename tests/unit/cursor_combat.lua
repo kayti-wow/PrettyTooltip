@@ -186,9 +186,8 @@ return function(test)
     test.check("Defaults restores the combat override", ns.option("cursorDisableInCombat"), true)
     test.check("Defaults refreshes the checkbox", combatBox:GetChecked(), true)
 
-    -- A following tooltip that starts fading is hidden at once outside combat,
-    -- and in combat left to the game's fade: hiding it would run its OnHide
-    -- under the addon's taint.
+    -- A following tooltip that starts fading is left to the game's fade and
+    -- keeps following: hiding it would run its OnHide under the addon's taint.
     local hide, hides = GameTooltip.Hide, 0
     GameTooltip.Hide = function(self) hides = hides + 1 return hide(self) end
     ns.setOption("cursorDisableInCombat", false)
@@ -197,10 +196,10 @@ return function(test)
     handover(1)
     combat = true
     GameTooltip:FadeOut()
-    test.check("in combat a fading tooltip is not hidden by the addon", { hides, follower:IsShown() }, { 0, false })
+    test.check("in combat a fading tooltip is not hidden by the addon", { hides, follower:IsShown() }, { 0, true })
     combat = false
     handover(1)
     GameTooltip:FadeOut()
-    test.check("outside combat a fading tooltip is hidden at once", hides, 1)
+    test.check("outside combat a fading tooltip is not hidden either", { hides, follower:IsShown() }, { 0, true })
     GameTooltip.Hide = hide
 end

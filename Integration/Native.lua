@@ -190,10 +190,13 @@ local function releaseNative(tooltip, panel)
     end
 end
 
--- A world unit's tooltip fades out once the mouse leaves the unit. The game
--- sets that fade's alpha itself, past the SetAlpha hook, so the hidden tooltip
--- shows through whenever its fade runs after the panel's OnUpdate; it goes at
--- once instead, and the panel fades in its place.
+-- A world unit's tooltip fades out once the mouse leaves the unit, and the
+-- panel fades in its place. The game sets its fade's alpha itself, past the
+-- SetAlpha hook, so only the panel's OnUpdate holds the hidden tooltip at
+-- zero: a faded panel stays shown, at zero alpha, until the game hides its
+-- tooltip. Hiding the tooltip here instead would run the game's OnHide code as
+-- this addon, tainting the tooltip for the game's later use of it, in combat
+-- or out of it.
 local FADE_TIME = .5
 
 local function stopFade(panel)
@@ -205,11 +208,7 @@ end
 
 local function fadeOut(tooltip)
     if not util.canModify(tooltip) then return end
-    -- Hiding the game's tooltip from here runs its OnHide under the addon's
-    -- taint. In combat the panel stays until the game hides the tooltip itself.
-    if InCombatLockdown() then return end
     local panel = panels[tooltip]
-    -- Following the cursor hides the tooltip at once, before this hook runs.
     if not (panel and panel:IsShown() and panel.nativeAlpha and util.call(tooltip.IsShown, tooltip)) then return end
     if not panel.fade then
         local fade = panel:CreateAnimationGroup()
@@ -219,15 +218,17 @@ local function fadeOut(tooltip)
         alpha:SetDuration(FADE_TIME)
         fade:SetToFinalAlpha(true)
         fade:SetScript("OnFinished", function()
+            -- Still fading, the game's tooltip needs the panel's OnUpdate.
+            if panel.fadePending and util.call(tooltip.IsShown, tooltip) then return end
             panel:Hide()
             panel:SetAlpha(1)
         end)
         panel.fade = fade
     end
     panel.fade:Play()
-    -- The restore this hide schedules leaves the panel to its fade.
+    -- Until the game hides its tooltip, or new content arrives.
     panel.fadePending = true
-    tooltip:Hide()
+    tooltip:SetAlpha(0)
 end
 fadeOut = probe("fade out", fadeOut)
 
@@ -241,7 +242,8 @@ local function restoreNative(tooltip)
     if not panel then return end
     panel.restorePending = false
     pcall(releaseNative, tooltip, panel)
-    if panel.fadePending then
+    -- A panel still fading is left to its fade; a faded one goes now.
+    if panel.fadePending and isFading(panel) then
         panel.fadePending = false
     else
         stopFade(panel)

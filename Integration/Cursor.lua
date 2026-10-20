@@ -158,15 +158,9 @@ function ns.Cursor.register()
         end
     end)
 
-    -- A world unit's tooltip fades out where it stands, which trails the cursor.
-    -- In combat it stops following instead, as hiding it from here would run
-    -- its OnHide under the addon's taint.
-    if GameTooltip.FadeOut then
-        hooksecurefunc(GameTooltip, "FadeOut", function(self)
-            if not (util.canModify(self) and follower:IsShown()) then return end
-            if InCombatLockdown() then follower:Hide() else self:Hide() end
-        end)
-    end
+    -- A world unit's tooltip that fades out keeps following until the game
+    -- hides it. Hiding it here would run the game's OnHide code as this
+    -- addon, tainting the tooltip.
 
     -- Cleared before every new content, so a tooltip type left off is not dragged along.
     GameTooltip:HookScript("OnTooltipCleared", function()

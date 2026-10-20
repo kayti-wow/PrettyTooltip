@@ -1,6 +1,6 @@
--- A world unit's tooltip that starts fading: outside combat the panel fades
--- and the game's tooltip hides at once; in combat the addon never hides the
--- game's tooltip, as that would run its OnHide under the addon's taint.
+-- A world unit's tooltip that starts fading: in combat or out of it the panel
+-- fades and the addon never hides the game's tooltip, as that would run its
+-- OnHide under the addon's taint.
 return function(test)
     local fixture = { enums = { TooltipDataType = { Item = 0, Object = 33, UnitAura = 7 } },
         data = { type = 33, id = 1, lines = { { lineIndex = 1, leftText = "Mailbox" } } },
@@ -30,5 +30,7 @@ return function(test)
     ns.Native.restoreNative(tooltip)
     panel = show()
     ns.Native.fadeOut(tooltip)
-    test.check("outside combat the game's tooltip hides at once", tooltip:IsShown(), false)
+    test.check("outside combat the game's tooltip is left to its own fade too", { tooltip:IsShown(), panel:IsShown() },
+        { true, true })
+    test.check("and held at zero alpha under the fading panel", tooltip:GetAlpha(), 0)
 end
