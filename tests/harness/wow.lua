@@ -490,6 +490,7 @@ return function(fixture, enums, report, strings)
     UISpecialFrames = {}
     PrettyTooltipDB = nil
     RAID_CLASS_COLORS = {}
+    CUSTOM_CLASS_COLORS = nil
     for class, color in pairs({
         WARRIOR = { .78, .61, .43 }, PALADIN = { .96, .55, .73 }, HUNTER = { .67, .83, .45 },
         ROGUE = { 1, .96, .41 }, PRIEST = { 1, 1, 1 }, SHAMAN = { 0, .44, .87 }, MAGE = { .25, .78, .92 },

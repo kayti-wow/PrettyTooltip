@@ -31,7 +31,7 @@ read_globals = {
     "GameTooltipHeaderText", "QuestScrollFrame", "GameFontHighlightSmall", "UISpecialFrames", "ShowUIPanel", "HideUIPanel",
     "SetPortraitTexture", "ChatEdit_InsertLink", "GetCursorPosition", "NUM_CHAT_WINDOWS",
     "Settings", "SettingsPanel", "InterfaceOptions_AddCategory", "InterfaceOptionsFrame_OpenToCategory",
-    "STANDARD_TEXT_FONT", "RAID_CLASS_COLORS", "LOCALIZED_CLASS_NAMES_MALE", "NineSliceUtil",
+    "STANDARD_TEXT_FONT", "RAID_CLASS_COLORS", "CUSTOM_CLASS_COLORS", "LOCALIZED_CLASS_NAMES_MALE", "NineSliceUtil",
     -- The game's strings, in the client's language; tools/make_strings.py gives
     -- the tests each one listed here.
     "ITEM_DELTA_DESCRIPTION", "ITEM_SPELL_TRIGGER_ONUSE", "ITEM_SPELL_TRIGGER_ONEQUIP", "ITEM_SPELL_TRIGGER_ONPROC",

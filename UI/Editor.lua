@@ -1013,7 +1013,8 @@ local function hexColor(hex)
     return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255 }
 end
 
-local function colorSwatches(list, prefix, colorOf)
+-- note, if given, says why the colors shown may not be the ones chosen.
+local function colorSwatches(list, prefix, colorOf, note)
     local holder = CreateFrame("Frame", nil, content)
     holder:SetSize(CONTROLS_WIDTH, 22)
     local chips = {}
@@ -1042,6 +1043,8 @@ local function colorSwatches(list, prefix, colorOf)
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:SetText(L[choice.label], 1, 1, 1)
             GameTooltip:AddLine(L["Click to choose its color; right-click for the default."], nil, nil, nil, true)
+            local why = note and note()
+            if why then GameTooltip:AddLine(why, 1, .82, 0, true) end
             GameTooltip:Show()
         end)
         swatch:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -1217,7 +1220,11 @@ toggles({
 row("Stat colors", colorSwatches(ns.Stats.CATEGORIES, "statColor", function(key)
     return hexColor((ns.Stats.categoryColors(key)))
 end), colorGroupSetting(ns.Stats.CATEGORIES, "statColor"), items, true)
-row("Class colors", colorSwatches(ns.Palette.CLASSES, "classColor", ns.Palette.classColor),
+row("Class colors", colorSwatches(ns.Palette.CLASSES, "classColor", ns.Palette.classColor, function()
+    if ns.Palette.addonClassColors() then
+        return L["Your class colors addon sets these; the colors chosen here apply without it."]
+    end
+end),
     colorGroupSetting(ns.Palette.CLASSES, "classColor"), units, true)
 
 -- Lays out the entries shown, top to bottom, and sizes the scroll to them.

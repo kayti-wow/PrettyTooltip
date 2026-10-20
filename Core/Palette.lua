@@ -82,12 +82,21 @@ function palette.schoolStatColors(name)
     return util.hex(color), util.hex(shade)
 end
 
+-- A class-color addon's colors come first, then the editor's, then the game's.
 function palette.classColor(classFile, game)
     if type(classFile) ~= "string" then return end
-    local color = customColor("classColor" .. classFile)
-    if color then return color end
     game = game or ns.Game
+    local color = game and game.customClassColor and game.customClassColor(classFile)
+    if color then return color end
+    color = customColor("classColor" .. classFile)
+    if color then return color end
     if game and game.classColor then return game.classColor(classFile) end
+end
+
+-- Whether a class-color addon sets the class colors, over the editor's.
+function palette.addonClassColors(game)
+    game = game or ns.Game
+    return game and game.customClassColor and game.customClassColor("WARRIOR") ~= nil or false
 end
 
 -- Left to right.

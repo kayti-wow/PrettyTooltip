@@ -53,4 +53,29 @@ return function(test)
     ns.setOption("classColorWARRIOR", { 0, 1, 0 })
     ns.resetStyles()
     test.check("reset fonts and colors also clears class overrides", ns.savedOption("classColorWARRIOR"), nil)
+
+    -- A class-color addon's CUSTOM_CLASS_COLORS come before the editor's.
+    test.check("no class colors addon", palette.addonClassColors(), false)
+    local onChange
+    CUSTOM_CLASS_COLORS = {
+        WARRIOR = { r = .7, g = .6, b = .5 },
+        RegisterCallback = function(_, handler) onChange = handler end,
+    }
+    ns.setOption("classColorWARRIOR", { 0, 1, 0 })
+    test.check("the addon's color beats the editor's", palette.classColor("WARRIOR"), { .7, .6, .5 })
+    test.check("the addon is noticed", palette.addonClassColors(), true)
+    ns.setOption("classColorMAGE", { 0, 0, 1 })
+    test.check("a class the addon lacks keeps the editor's", palette.classColor("MAGE"), { 0, 0, 1 })
+    ns.setOption("classColorMAGE", nil)
+    test.check("and else the game's", palette.classColor("MAGE"), ns.Game.classColor("MAGE"))
+    local version = ns.settingsVersion
+    CUSTOM_CLASS_COLORS.WARRIOR = { r = .2, g = .2, b = .2 }
+    onChange()
+    test.check("a change in the addon redraws panels", ns.settingsVersion, version + 1)
+    test.check("and shows its new color", palette.classColor("WARRIOR"), { .2, .2, .2 })
+    CUSTOM_CLASS_COLORS = { WARRIOR = { r = "bad" } }
+    test.check("a malformed addon color falls back to the editor's", palette.classColor("WARRIOR"), { 0, 1, 0 })
+    CUSTOM_CLASS_COLORS = nil
+    test.check("without the addon, the editor's again", palette.classColor("WARRIOR"), { 0, 1, 0 })
+    ns.setOption("classColorWARRIOR", nil)
 end

@@ -261,6 +261,22 @@ function game.classColor(classFile)
     if not isSecret(classFile) and classFile and RAID_CLASS_COLORS then return rgb(RAID_CLASS_COLORS[classFile]) end
 end
 
+-- A class-color addon's color for the class, from the CUSTOM_CLASS_COLORS
+-- table those addons share; nil without one, or one without the class.
+local watching
+function game.customClassColor(classFile)
+    local colors = CUSTOM_CLASS_COLORS
+    if isSecret(classFile) or not classFile or isSecret(colors) or type(colors) ~= "table" then return end
+    -- Its colors can change while panels are cached; a change draws them again.
+    if not watching and type(colors.RegisterCallback) == "function" then
+        watching = pcall(colors.RegisterCallback, colors, function()
+            ns.settingsVersion = (ns.settingsVersion or 0) + 1
+        end)
+    end
+    local ok, color = pcall(function() return rgb(colors[classFile]) end)
+    if ok then return color end
+end
+
 -- The color the game gives a level, relative to the player's, as { r, g, b }.
 function game.difficultyColor(level)
     if isSecret(level) or type(level) ~= "number" or not GetQuestDifficultyColor then return end
