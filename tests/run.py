@@ -51,12 +51,16 @@ COVERAGE: dict[str, set[int]] | None = None
 STRICT = False
 
 
-def addon_files(locale: str = "enUS") -> list[str]:
-    """The addon's Lua files, in the order its .toc loads them on a client in that language. [TextLocale]
+# The .toc the game loads.
+FOREVER_TOC = "PrettyTooltip.toc"
+
+
+def addon_files(locale: str = "enUS", toc: str = FOREVER_TOC) -> list[str]:
+    """The addon's Lua files, in the order the .toc loads them on a client in that language. [TextLocale]
     in a path names the client's language, and a file it names that is missing is skipped, as the client
     skips it. A file with [AllowLoadTextLocale ptBR, ptPT] after its name loads only in those languages."""
     files = []
-    for line in (ROOT / "PrettyTooltip.toc").read_text(encoding="utf-8").splitlines():
+    for line in (ROOT / toc).read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line.startswith("#"):
             continue
@@ -250,12 +254,14 @@ def run_lint() -> list[bool]:
     return [ok]
 
 
-def run_unit(path: Path, files, show_notes: bool) -> bool:
+def run_unit(path: Path, tocs: dict[str, list[str]], show_notes: bool) -> bool:
+    """tocs: each .toc's files in load order, by the client it serves, for test.tocs."""
     lua, load, harness = new_runtime()
+    lists = lua_table(lua, {client: lua_table(lua, dict(enumerate(files, 1))) for client, files in tocs.items()})
     try:
         results, notes = harness["main"].unit(path.read_text(encoding="utf-8"), f"unit/{path.name}",
                                                 sources_table(lua, every_source()), harness["serialize"],
-                                                harness["wow"])
+                                                harness["wow"], lists, default_enums(load))
     except Exception as error:
         print(f"FAIL unit/{path.stem}: {error}")
         return False
@@ -330,10 +336,11 @@ def main() -> None:
         COVERAGE = {}
 
     files = addon_files()
+    tocs = {"forever": files}
     results = run_lint() if args.strict or not args.pattern or args.pattern in "lint" else []
     for path in sorted(UNIT.glob("*.lua")):
         if args.pattern in path.stem:
-            results.append(run_unit(path, files, args.notes))
+            results.append(run_unit(path, tocs, args.notes))
     for path in sorted(FIXTURES.glob("*.lua")):
         if args.pattern in path.stem:
             results += run_fixture(path, files, args)

@@ -845,7 +845,11 @@ local function section(title, shown, first)
     rule:SetPoint("TOPLEFT", 0, -top - 16)
     rule:SetSize(CONTROLS_WIDTH, 1)
     controls[#controls + 1] = {
-        refresh = function() label:SetText(L[type(title) == "function" and title() or title]) end,
+        refresh = function()
+            local shownTitle = title
+            if type(title) == "function" then shownTitle = title() end
+            label:SetText(shownTitle and L[shownTitle] or "")
+        end,
     }
 end
 

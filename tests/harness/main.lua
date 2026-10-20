@@ -246,10 +246,12 @@ function main.track(hits)
 end
 
 -- check(name, got, expected): got and expected are compared as dumped text.
-function main.unit(testSource, testName, sources, serialize, makeWorld)
+-- tocs: each .toc's files in load order, as test.tocs.forever.
+-- enums: the game's enums from harness/enums.lua, as test.enums, to load with.
+function main.unit(testSource, testName, sources, serialize, makeWorld, tocs, enums)
     local results = {}
     local notes, report = notesCollector()
-    local test = {}
+    local test = { tocs = tocs, enums = enums }
     -- Loads the named addon files with a world answering from fixture's calls.
     function test.load(files, fixture)
         local world = makeWorld(fixture or {}, fixture and fixture.enums or {}, report)
