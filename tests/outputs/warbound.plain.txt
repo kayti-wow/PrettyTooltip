@@ -1,0 +1,50 @@
+== tooltip model
+armor: {}
+comparison: false
+effects: {}
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor:
+  1:
+    left: "\"An exquisitely intact piece of Highmaul antiquity. The Steamwheedle Preservation Society would be interested in this relic.\""
+    right: ""
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    color:
+      1: 0
+      2: 0.8
+      3: 1
+    left: "Warbound"
+    right: ""
+icon: 1017867
+kinds: {}
+level: 1
+lineIndices:
+  1: true
+  2: true
+  3: true
+link: "|cnIQ3:|Hitem:118100::::::::90:264:::::::::|h[Highmaul Relic]|h|r"
+name: "Highmaul Relic"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+weaponBonus: {}
+== tooltip render
+panel 308 x 147
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x64 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.32,0.59,0.98 "HIGHMAUL RELIC"
+text at 19,47 w=270 size=12 rgb=0,0.8,1 "Warbound"
+text at 19,70 w=270 size=12 rgb=0.86,0.74,0.45 "\"An exquisitely intact piece of Highmaul antiquity. The Steamwheedle Preservation Society would be interested in this relic.\""
+text at 19,115 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 118100"

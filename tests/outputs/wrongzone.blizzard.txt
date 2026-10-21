@@ -1,0 +1,57 @@
+== tooltip as the game shows it
+ 1 "Unity"
+ 2 "Item Level 61"
+ 3 "Soulbound"
+ 4 "Unique-Equipped: Enlightened Legendary (1)"
+ 5 "Waist  ||  Mail"
+ 6 "16 Armor"
+ 7 "+10 Intellect"
+ 8 "+14 Stamina"
+ 9 "+10 Haste"
+10 "+10 Versatility"
+11 "+10 Agility"
+12 " "
+13 "|cffffffff+4 Versatility|r"
+14 " "
+15 "Equip: Gain the legendary effect of |cffffffffRaging Vesper Vortex|r:\r\
+\r\
+When 3 charges of Vesper Totem are consumed, Vesper Totem will radiate a 15 yd burst of 10,328 Arcane damage and 4,442 healing."
+16 "You are in the wrong zone."
+17 "Use: Shift into a slightly different dimension, making it difficult for enemies to detect you.\r\
+\r\
+... Unless it backfires.\r\
+\r\
+Cannot be used in combat. (2 Min Cooldown)"
+18 " "
+19 "Durability 70 / 70"
+20 " "
+21 "<Shift Right Click to Socket>"
+   below the lines:
+   "Item ID: 172328"
+
+== comparison 1 as the game shows it
+ 1 "Cursed Reliquary Cincture"
+ 2 "|cFF 0FF 0Heroic|r"
+ 3 "Item Level 321"
+ 4 "Upgrade Level: Hero 6/6"
+ 5 "Soulbound"
+ 6 "Waist  ||  Mail"
+ 7 "149 Armor"
+ 8 "+125 Intellect"
+ 9 "+2,527 Stamina"
+10 "+99 Critical Strike"
+11 "+44 Versatility"
+12 "+125 Agility"
+13 "Durability 55 / 55"
+14 "Sell Price: 30|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 28|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 82|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+15 " "
+16 "If you replace this item, the following stat changes will occur:"
+17 "|cffff2020-133|r Armor"
+18 "|cffff2020-115|r Intellect"
+19 "|cffff2020-2,513|r Stamina"
+20 "|cffff2020-99|r Critical Strike"
+21 "|cff00ff00+10|r Haste"
+22 "|cffff2020-34|r Versatility"
+23 "|cff00ff00+1|r |TInterface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic.blp:12|t  Prismatic Socket"
+   below the lines:
+   "Item ID: 268216"

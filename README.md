@@ -4,7 +4,7 @@ A full reskin of tooltips for WoW Forever and retail World of Warcraft. PrettyTo
 
 ## Forever and retail
 
-One download serves both games: retail loads `PrettyTooltip_Mainline.toc`, every other client `PrettyTooltip.toc`. Retail leaves out what comes from Classic's data, as no retail source exists for it: disenchant results, spell power coefficients, and herb, ore, and skinning loot. Their settings are hidden there. Spell schools come from retail's own spell tables, and damage and healing rates from the description alone, with the global cooldown after haste.
+One download serves both games: Forever loads `PrettyTooltip_Camelot.toc`, retail `PrettyTooltip_Mainline.toc`. Forever's file needs its own suffix: Forever counts as a Mainline game too, and would load retail's file over a plain `PrettyTooltip.toc`. Retail leaves out what comes from Classic's data, as no retail source exists for it: disenchant results, spell power coefficients, and herb, ore, and skinning loot. Their settings are hidden there. Spell schools come from retail's own spell tables, and damage and healing rates from the description alone, with the global cooldown after haste.
 
 ## Item tooltips
 

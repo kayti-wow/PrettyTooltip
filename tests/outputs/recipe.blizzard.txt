@@ -1,0 +1,17 @@
+== tooltip as the game shows it
+ 1 "Pattern: Snakeskin Lining"
+ 2 "\
+Snakeskin Lining"
+ 3 "Optional Crafting Reagent"
+ 4 "|cff19ff19+15 Recipe Difficulty|r"
+ 5 " "
+ 6 "Provides the following property: Your damaging abilities can apply Corrosive Acid to a target, dealing damage over time. Damaging the target again has a chance to detonate the venom and splash damage to surrounding enemies."
+ 7 " "
+ 8 "Usable with: |cffffffffMidnight recipes for most unembellished armor.|r"
+ 9 " "
+10 "\"Can be bought and sold on the Auction House.\""
+11 "Use: Teaches you how to create Snakeskin Lining."
+12 "Embroidery Floss, Cursebound Globe (6), Neutralized Venom Clot (4), Arcanoweave Bolt (2), Sunfire Silk Bolt (2)"
+13 "Requires Midnight Tailoring (50)"
+   below the lines:
+   "Item ID: 270900"

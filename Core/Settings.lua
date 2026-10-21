@@ -134,7 +134,7 @@ end
 
 -- tooltipType: "item" (default), "spell", "object", "unit", "aura", "quest", "macro", or "shared" by all. color is where the picker starts
 -- while the color is automatic. classic: drawn from Classic-only data, so not offered on retail. Retail's own
--- parts, marked retail, are in Retail/Settings.lua.
+-- parts, marked retail, are in Retail/Core/Settings.lua.
 ns.ELEMENTS = {
     { key = "title", label = "Item name", size = 19, title = true, color = { 1, 1, 1 },
         note = "Quality color unless set." },
@@ -263,7 +263,7 @@ ns.TOOLTIP_TYPES = {
     { label = "Flyout buttons", cursor = "cursorFlyouts", types = { "Flyout" } },
 }
 
--- Retail's own parts and defaults (Retail/Settings.lua), each part after the one it names.
+-- Retail's own parts and defaults (Retail/Core/Settings.lua), each part after the one it names.
 if ns.IsRetail() then
     for key, value in pairs(ns.Retail.Settings.DEFAULTS) do DEFAULTS[key] = value end
     for _, element in ipairs(ns.Retail.Settings.ELEMENTS) do

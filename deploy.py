@@ -9,9 +9,10 @@ from shutil import copy2
 DEFAULT_ADDONS_DIR = Path(
     r"D:\Programs\World of Warcraft\_classic_beta_\Interface\AddOns"
 )
-# Forever's .toc, and retail's, which the retail game picks by its suffix; the
+# Forever's .toc and retail's, each picked by its suffix (Forever counts as
+# Mainline too, so it needs _Camelot, which the game ranks first); the
 # same folder serves both, so a --addons-dir for either game works.
-TOCS = ["PrettyTooltip.toc", "PrettyTooltip_Mainline.toc"]
+TOCS = ["PrettyTooltip_Camelot.toc", "PrettyTooltip_Mainline.toc"]
 
 
 def game_files(source: Path) -> list[str]:

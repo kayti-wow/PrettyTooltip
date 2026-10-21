@@ -384,7 +384,7 @@ local TYPES = {
         },
     },
 }
--- Retail's own parts in the samples (Retail/Samples.lua).
+-- Retail's own parts in the samples (Retail/UI/Samples.lua).
 if ns.IsRetail() then
     ns.Retail.Samples.extend(TYPES, { statLine = statLine, itemName = itemName, spellName = spellName })
 end

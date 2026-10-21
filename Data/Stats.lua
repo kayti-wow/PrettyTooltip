@@ -25,7 +25,7 @@ local CATEGORIES = {
 }
 local CATEGORY = {}
 for _, category in ipairs(CATEGORIES) do CATEGORY[category.key] = category end
--- Retail's secondary stats' colors (Retail/Stats.lua), which the editor lists apart.
+-- Retail's secondary stats' colors (Retail/Data/Stats.lua), which the editor lists apart.
 if ns.IsRetail() then
     for _, category in ipairs(ns.Retail.Stats.CATEGORIES) do CATEGORY[category.key] = category end
 end
@@ -103,7 +103,7 @@ local STATS = {
     MANA = { category = "Mana", name = mod("MANA_SHORT"), line = mod("MANA") },
 }
 
--- Retail's ratings, as its items print them: "+120 Haste" (Retail/Stats.lua).
+-- Retail's ratings, as its items print them: "+120 Haste" (Retail/Data/Stats.lua).
 if ns.IsRetail() then
     for key, def in pairs(ns.Retail.Stats.STATS) do STATS[key] = def end
 end

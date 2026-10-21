@@ -1,0 +1,93 @@
+== tooltip model
+armor: {}
+comparison: false
+craftingQuality: "Quality: |A:Professions-Icon-Quality-12-Tier1-Small:38:40:0:-1|a"
+effects:
+  1:
+    left: "|cff19ff19+15 Recipe Difficulty|r"
+    right: ""
+  2:
+    apart: true
+    left: "Your damaging or healing spells and abilities have a chance to fire up to 5 Big Booms, dealing up to 241 Fire damage or 363  healing based on the amount of Big Booms delivered."
+    right: ""
+  3:
+    apart: true
+    color:
+      1: 1
+      2: 0.8235
+      3: 0
+    left: "Usable with: |cffffffffMidnight Engineering Crafted Equipment|r"
+    right: ""
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor:
+  1:
+    left: "\"Can be bought and sold on the Auction House.\""
+    right: ""
+footerLeft: {}
+footerRight:
+  1:
+    left: "8|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 65|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header: {}
+icon: 5242296
+kinds:
+  Optional Crafting Reagent: "|cff66BBFFOptional Crafting Reagent|r"
+level: 72
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+link: "|cnIQ3:|Hitem:257735::::::::90:264::::2:38:13:40:6450:::::|h[B0P, Curator of Booms |A:Professions-ChatIcon-Quality-12-Tier1:17:15::1|a]|h|r"
+name: "B0P, Curator of Booms"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+secondary: {}
+sellPrice: 865
+setBonuses: {}
+setItems: {}
+slot: "|cff66BBFFOptional Crafting Reagent|r"
+weaponBonus: {}
+== tooltip render
+panel 308 x 355
+texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x89 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 5242296
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.32,0.59,0.98,0.85 WHITE8X8
+texture at 0,0 0x2 rgb=0.256,0.472,0.784,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+text at 72,21 w=217 size=19 rgb=0.32,0.59,0.98 "B0P, CURATOR OF BOOMS"
+text at 72,47 w=217 size=13 rgb=0.66,0.795,0.99 "|cff66BBFFOptional Crafting Reagent|r"
+text at 72,66 w=217 size=12 rgb=0.9,0.85,0.74 "Quality: |A:Professions-Icon-Quality-12-Tier1-Small:19:19:0:0|a"
+texture at 19,95 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-95 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-90 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,108 w=270 size=13 rgb=0.48,0.88,0.48 "|cff19ff19+15 Recipe Difficulty|r"
+text at 19,131 w=270 size=13 rgb=0.48,0.88,0.48 "Your damaging or healing spells and abilities have a chance to fire up to 5 Big Booms, dealing up to 241 Fire damage or 363  healing based on the amount of Big Booms delivered."
+text at 19,214 w=270 size=13 rgb=1,0.8235,0 "Usable with: |cffffffffMidnight Engineering Crafted Equipment|r"
+text at 19,252 w=270 size=12 rgb=0.86,0.74,0.45 "\"Can be bought and sold on the Auction House.\""
+texture at 19,288 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,297 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 257735"
+text at 243,321 w=46 size=11 rgb=0.88,0.78,0.6 "8|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 65|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"

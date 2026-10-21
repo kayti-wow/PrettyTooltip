@@ -17,7 +17,7 @@ import run as regression
 
 ROOT = Path(__file__).resolve().parent.parent
 ADDON = "PrettyTooltip"
-TOC = f"{ADDON}.toc"
+TOC = f"{ADDON}_Camelot.toc"
 # Retail's, which the retail game picks by its suffix.
 RETAIL_TOC = f"{ADDON}_Mainline.toc"
 TOCS = (TOC, RETAIL_TOC)

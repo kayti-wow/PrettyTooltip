@@ -1,0 +1,18 @@
+== tooltip as the game shows it
+ 1 "Red Winter Hat"
+ 2 "Cosmetic"
+ 3 "Warbound"
+ 4 "Head"
+ 5 " "
+ 6 "Winter Garb (0/3)"
+ 7 "  Green Winter Clothes"
+ 8 "  Green Winter Hat"
+ 9 "  Red Winter Clothes"
+10 "  Red Winter Hat"
+11 "  Winter Boots"
+12 " "
+13 "(3) Set: Full Winter Garb"
+14 " "
+15 "Sell Price: 3|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 21524"

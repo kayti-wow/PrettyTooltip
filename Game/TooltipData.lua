@@ -112,10 +112,12 @@ local function itemWording(line)
         wordings, wordingCount = {}, 0
         wordingVersion, wordingColors, wordingMarkers = version, colors, markers
     end
-    local key = (proc and "1" or "0") .. text
+    -- A line retail greys or reds keeps the game's color, without stat colors in it.
+    local inactive = ns.IsRetail() and ns.Retail.TooltipData.inactiveColor(line.leftColor) ~= nil
+    local key = ((proc and 1 or 0) + (inactive and 2 or 0)) .. text
     local cached = wordings[key]
     if cached ~= nil then return cached or nil end
-    local wording = ns.Stats.itemWording(text, proc, colors, markers)
+    local wording = ns.Stats.itemWording(text, proc, colors and not inactive, markers)
     if wordingCount >= WORDING_LIMIT then wordings, wordingCount = {}, 0 end
     wordings[key], wordingCount = wording or false, wordingCount + 1
     return wording

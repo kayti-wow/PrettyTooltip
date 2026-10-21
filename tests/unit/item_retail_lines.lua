@@ -77,5 +77,5 @@ return function(test)
     for _, element in ipairs(ns.ELEMENTS) do
         if element.retail and not element.tooltipType and element.key:find("^item") then parts[#parts + 1] = element.key end
     end
-    test.check("each its own style part, offered on retail", parts, { "itemSource", "itemUpgrade", "itemTransmog" })
+    test.check("each its own style part, offered on retail", parts, { "itemSource", "itemCosmetic", "itemUpgrade", "itemTransmog" })
 end

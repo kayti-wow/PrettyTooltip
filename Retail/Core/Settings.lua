@@ -13,7 +13,9 @@ settings.DEFAULTS = {
 settings.ELEMENTS = {
     { after = "header", key = "itemSource", label = "Source", size = 12, color = { .12, 1, .12 }, retail = true,
         note = "Where the item comes from, as Heroic or Mythic, under its name. The game's color unless set." },
-    { after = "itemSource", key = "itemUpgrade", label = "Upgrade level", size = 12, color = { .90, .80, .55 },
+    { after = "itemSource", key = "itemCosmetic", label = "Cosmetic", size = 12, color = { 1, .50, 1 },
+        retail = true, note = "Cosmetic, under the name of an item worn for its look alone. The game's color unless set." },
+    { after = "itemCosmetic", key = "itemUpgrade", label = "Upgrade level", size = 12, color = { .90, .80, .55 },
         retail = true, note = "The upgrade track and level, as Myth 2/6." },
     { after = "itemUpgrade", key = "craftingQuality", label = "Crafted quality", size = 12,
         color = { .90, .85, .74 }, retail = true, note = "A crafted item's quality, with the game's quality icon." },

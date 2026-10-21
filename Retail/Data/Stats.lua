@@ -8,7 +8,8 @@ local stats = {}
 ns.Retail.Stats = stats
 
 -- Retail's secondary stats each in a color of its own, and its minor stats
--- (Leech, Avoidance, Speed) in one; the style editor offers them on retail.
+-- (Leech, Avoidance, Speed, and a profession tool's) in one; the style editor
+-- offers them on retail.
 stats.CATEGORIES = {
     { key = "CriticalStrike", label = L["Critical Strike"], value = "F7A38E", name = "F5C8BC" },
     { key = "Haste", label = L["Haste"], value = "F2D57C", name = "F3E2B0" },
@@ -28,6 +29,17 @@ stats.STATS = {
     LEECH = { category = "Minor", name = mod("CR_LIFESTEAL_SHORT") },
     AVOIDANCE = { category = "Minor", name = mod("CR_AVOIDANCE_SHORT") },
     SPEED = { category = "Minor", name = mod("CR_SPEED_SHORT") },
+    -- A profession tool's or accessory's stats, with the minor ones.
+    INGENUITY = { category = "Minor", name = mod("INGENUITY_SHORT") },
+    MULTICRAFT = { category = "Minor", name = mod("MULTICRAFT_SHORT") },
+    RESOURCEFULNESS = { category = "Minor", name = mod("RESOURCEFULNESS_SHORT") },
+    CRAFTING_SPEED = { category = "Minor", name = mod("CRAFTING_SPEED_SHORT") },
+    PERCEPTION = { category = "Minor", name = mod("PERCEPTION_SHORT") },
+    DEFTNESS = { category = "Minor", name = mod("DEFTNESS_SHORT") },
+    FINESSE = { category = "Minor", name = mod("FINESSE_SHORT") },
+    -- A recipe's crafted gear before its secondary stats are chosen: "+32 Random Stat 1".
+    RANDOM_STAT_1 = { category = "Minor", name = mod("MODIFIED_CRAFTING_STAT_1") },
+    RANDOM_STAT_2 = { category = "Minor", name = mod("MODIFIED_CRAFTING_STAT_2") },
 }
 
 -- The marker greyed, as the 32 px art tinted.

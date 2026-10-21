@@ -1,0 +1,210 @@
+== tooltip model
+armor: {}
+comparison: false
+created:
+  armor: {}
+  binding: "Binds when picked up · Unique-Equipped: Embellished (2)"
+  effects: {}
+  enchants: {}
+  equipEffects:
+    1:
+      left: "Your harmful spells and abilities have a chance to bleed your target for 559 Physical damage every 1.6 over 10 sec."
+      right: ""
+  equippable: true
+  extras: {}
+  flavor: {}
+  footerLeft:
+    1:
+      color:
+        1: 0.5333
+        2: 0.6667
+        3: 1
+      left: "You haven't collected this appearance"
+      right: ""
+  footerRight: {}
+  header:
+    1:
+      left: "Binds when picked up"
+      right: ""
+    2:
+      left: "Unique-Equipped: Embellished (2)"
+      right: ""
+  id: 244679
+  kinds: {}
+  level: 246
+  levelLine: true
+  link: 244679
+  name: "Murder Row Fishhook"
+  nameColor:
+    1: 0.6392
+    2: 0.2078
+    3: 0.9333
+  primary:
+    1:
+      color:
+        1: 0.5
+        2: 0.5
+        3: 0.5
+      inactive: true
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +42 Agility"
+      right: ""
+    2:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+692|r |cffEEE7DAStamina|r"
+      right: ""
+  secondary:
+    1:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 1|r"
+      right: ""
+    2:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 2|r"
+      right: ""
+  setBonuses: {}
+  setItems: {}
+  slot: "Dagger · One-Hand"
+  weaponBonus: {}
+  weaponDamage: "63 - 106 Damage"
+  weaponDps: "46.9"
+  weaponSpeed: "Speed 1.80"
+effects: {}
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor: {}
+footerLeft: {}
+footerRight:
+  1:
+    left: "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: ""
+    right: "Requires Midnight Blacksmithing 50"
+    rightColor:
+      1: 1
+      2: 0.34
+      3: 0.28
+icon: 4549189
+kinds: {}
+level: 1
+levelRequirement:
+  met: false
+  text: "Requires Midnight Blacksmithing 50"
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+link: 258518
+name: "Plans: Murder Row Fishhook"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+reagents:
+  1:
+    count: 1
+    name: "Dazzling Thorium"
+  2:
+    count: 1
+    name: "Tormented Tantalum"
+  3:
+    count: 10
+    have: 0
+    name: "Gloaming Alloy"
+  4:
+    count: 10
+    have: 0
+    name: "Sterling Alloy"
+  5:
+    count: 1
+    name: "Silvermoon Weapon Wrap"
+  6:
+    count: 2
+    have: 0
+    name: "Spark"
+secondary: {}
+sellPrice: 50000
+setBonuses: {}
+setItems: {}
+skill:
+  level: 50
+  met: false
+  name: "Midnight Blacksmithing"
+  text: "Requires Midnight Blacksmithing (50)"
+slot: "Plans · Midnight Blacksmithing"
+teaches:
+  left: "Use: Teaches you how to craft Murder Row Fishhook."
+  right: ""
+weaponBonus: {}
+== tooltip render
+panel 342 x 577
+texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x88 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 4549189
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.32,0.59,0.98,0.85 WHITE8X8
+texture at 0,0 0x2 rgb=0.256,0.472,0.784,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.1152,0.2124,0.3528,0.95 WHITE8X8
+text at 72,21 w=251 size=19 rgb=0.32,0.59,0.98 "PLANS: MURDER ROW FISHHOOK"
+text at 72,47 w=251 size=13 rgb=0.66,0.795,0.99 "Plans · Midnight Blacksmithing"
+text at 117,66 w=206 size=12 rgb=1,0.34,0.28 "Requires Midnight Blacksmithing 50"
+text at 154.2,93 w=33.5 size=9 rgb=0.6,0.57,0.52 "CREATES"
+texture at 19,98 127x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-98 127x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+text at 19,111 w=304 size=14 rgb=0.6392,0.2078,0.9333 "MURDER ROW FISHHOOK"
+text at 19,129 w=304 size=13 rgb=0.8196,0.6039,0.9667 "Dagger · One-Hand · Binds when picked up · Unique-Equipped: Embellished (2)"
+text at 19,169 w=304 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF246.9|r |cffAEB9C7Damage per Second|r"
+text at 26,195 w=297 size=12 rgb=0.62,0.65,0.7 "63 - 106 Damage  ·  Speed 1.80"
+text at 19,216 w=304 size=13 rgb=0.5,0.5,0.5 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +42 Agility"
+text at 19,234 w=304 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+692|r |cffEEE7DAStamina|r"
+texture at 19,260 143x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-260 143x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-255 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,273 w=304 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 1|r"
+text at 19,291 w=304 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 2|r"
+text at 19,309 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,309 w=282 size=13 rgb=0.48,0.88,0.48 "Your harmful spells and abilities have a chance to bleed your target for |cffFFF6E4559|r Physical damage every |cffFFF6E41.6|r over |cffFFF6E410|r sec."
+text at 19,361 w=304 size=11 rgb=0.5333,0.6667,1 "You haven't collected this appearance"
+text at 152,385 w=38 size=9 rgb=0.6,0.57,0.52 "REAGENTS"
+texture at 19,390 125x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-390 125x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+text at 19,403 w=284 size=12 rgb=0.9,0.85,0.74 "Dazzling Thorium"
+text at 315,403 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,420 w=284 size=12 rgb=0.9,0.85,0.74 "Tormented Tantalum"
+text at 315,420 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,437 w=254 size=12 rgb=0.9,0.85,0.74 "Gloaming Alloy"
+text at 285,437 w=38 size=12 rgb=1,0.34,0.28 "0 / 10"
+text at 19,454 w=254 size=12 rgb=0.9,0.85,0.74 "Sterling Alloy"
+text at 285,454 w=38 size=12 rgb=1,0.34,0.28 "0 / 10"
+text at 19,471 w=284 size=12 rgb=0.9,0.85,0.74 "Silvermoon Weapon Wrap"
+text at 315,471 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,488 w=260 size=12 rgb=0.9,0.85,0.74 "Spark"
+text at 291,488 w=32 size=12 rgb=1,0.34,0.28 "0 / 2"
+texture at 19,510 304x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,519 w=304 size=11 rgb=0.6,0.6,0.63 "Item ID: 258518"
+text at 304.5,543 w=18.5 size=11 rgb=0.88,0.78,0.6 "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"

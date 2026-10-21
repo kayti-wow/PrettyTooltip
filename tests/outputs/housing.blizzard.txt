@@ -1,0 +1,9 @@
+== tooltip as the game shows it
+ 1 "Amani Ritual Altar  ||  |A:House-Decor-budget-icon:21:21|a 3"
+ 2 "|cFF66BBFFHousing Decor|r"
+ 3 "Warbound"
+ 4 "Total Owned: |cnHIGHLIGHT_FONT_COLOR:4 (Placed: 0, Storage: 4)|r"
+ 5 "Use: Add this Decor to your House Chest."
+ 6 "Sell Price: 1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 264332"

@@ -27,21 +27,23 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "tests" / "locales"
 LOCALES = ["enUS", "deDE", "frFR", "esES", "esMX", "ptBR", "koKR", "zhCN", "zhTW", "ruRU"]
-NAME = re.compile(r"(?<![A-Za-z0-9_])[A-Z][A-Z0-9_]{2,}(?![A-Za-z0-9_])")
+# A name, not a field (ns.Stats.CATEGORIES is the addon's own).
+NAME = re.compile(r"(?<![A-Za-z0-9_.])[A-Z][A-Z0-9_]{2,}(?![A-Za-z0-9_])")
 
 
 def addon_files():
-    """The addon's Lua files, as its .toc lists them, without any load condition after the name, and each
-    language's file where a path names the client's language ([TextLocale])."""
+    """The addon's Lua files, as Forever's .toc and retail's list them, without any load condition after the
+    name, and each language's file where a path names the client's language ([TextLocale])."""
     files = []
-    for line in (ROOT / "PrettyTooltip.toc").read_text(encoding="utf-8").splitlines():
-        line = line.strip().replace("\\", "/")
-        if "[TextLocale]" in line:
-            files += sorted(ROOT.glob(line.replace("[TextLocale]", "*")))
-            continue
-        line = re.sub(r"\s*\[.*$", "", line)
-        if line and not line.startswith("#") and line.endswith(".lua"):
-            files.append(ROOT / line)
+    for toc in ("PrettyTooltip_Camelot.toc", "PrettyTooltip_Mainline.toc"):
+        for line in (ROOT / toc).read_text(encoding="utf-8").splitlines():
+            line = line.strip().replace("\\", "/")
+            if "[TextLocale]" in line:
+                paths = sorted(ROOT.glob(line.replace("[TextLocale]", "*")))
+            else:
+                line = re.sub(r"\s*\[.*$", "", line)
+                paths = [ROOT / line] if line and not line.startswith("#") and line.endswith(".lua") else []
+            files += [path for path in paths if path not in files]
     return files
 
 

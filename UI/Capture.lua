@@ -404,7 +404,7 @@ function ns.capture(name)
     entry.client = { version = version, build = build, locale = GetLocale() }
     -- The client's numbers for the types of tooltip and line the readers compare against.
     entry.enums = copyOf({ TooltipDataType = Enum.TooltipDataType, TooltipDataLineType = Enum.TooltipDataLineType,
-        ItemClass = Enum.ItemClass })
+        ItemClass = Enum.ItemClass, TooltipDataItemBinding = Enum.TooltipDataItemBinding })
     entry.present = present()
     entry.settings = copyOf(PrettyTooltipDB)
     entry.captured = date("%Y-%m-%d %H:%M")

@@ -1,0 +1,55 @@
+== tooltip model
+armor: {}
+comparison: false
+effects: {}
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor:
+  1:
+    left: "\"Obtained from a Bountiful Coffer in a Bountiful Delve. Bring to a Worldsoul Memory to experience the radiant memories of Azeroth.\""
+    right: ""
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 135948
+kinds: {}
+level: 21
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+link: "|cnIQ4:|Hitem:246771::::::::90:264:::::::::|h[Radiant Echo]|h|r"
+name: "Radiant Echo"
+nameColor:
+  1: 0.6392
+  2: 0.2078
+  3: 0.9333
+primary: {}
+quality: 4
+quest: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+slot: "Consumable · Other"
+source: "The War Within Season 3"
+sourceColor:
+  1: 0.08333
+  2: 0.85
+  3: 0.08333
+weaponBonus: {}
+== tooltip render
+panel 308 x 184
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x101 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.72,0.4,0.94 "RADIANT ECHO"
+text at 19,47 w=270 size=12 rgb=0.08333,0.85,0.08333 "The War Within Season 3"
+text at 19,65 w=270 size=13 rgb=0.86,0.7,0.97 "Consumable · Other"
+text at 19,84 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,107 w=270 size=12 rgb=0.86,0.74,0.45 "\"Obtained from a Bountiful Coffer in a Bountiful Delve. Bring to a Worldsoul Memory to experience the radiant memories of Azeroth.\""
+text at 19,152 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 246771"

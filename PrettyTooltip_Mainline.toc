@@ -12,34 +12,44 @@
 Retail\Retail.lua
 Core\Util.lua
 Core\Palette.lua
-Retail\Settings.lua
+Retail\Core\Settings.lua
 Core\Settings.lua
 Locale\Locale.lua
 Locale\English.lua
+Retail\Locale\deDE.lua [AllowLoadTextLocale deDE]
 Locale\deDE.lua [AllowLoadTextLocale deDE]
+Retail\Locale\esES.lua [AllowLoadTextLocale esES]
 Locale\esES.lua [AllowLoadTextLocale esES]
+Retail\Locale\esMX.lua [AllowLoadTextLocale esMX]
 Locale\esMX.lua [AllowLoadTextLocale esMX]
+Retail\Locale\frFR.lua [AllowLoadTextLocale frFR]
 Locale\frFR.lua [AllowLoadTextLocale frFR]
+Retail\Locale\koKR.lua [AllowLoadTextLocale koKR]
 Locale\koKR.lua [AllowLoadTextLocale koKR]
+Retail\Locale\Portuguese.lua [AllowLoadTextLocale ptBR, ptPT]
 Locale\Portuguese.lua [AllowLoadTextLocale ptBR, ptPT]
+Retail\Locale\ruRU.lua [AllowLoadTextLocale ruRU]
 Locale\ruRU.lua [AllowLoadTextLocale ruRU]
+Retail\Locale\zhCN.lua [AllowLoadTextLocale zhCN]
 Locale\zhCN.lua [AllowLoadTextLocale zhCN]
+Retail\Locale\zhTW.lua [AllowLoadTextLocale zhTW]
 Locale\zhTW.lua [AllowLoadTextLocale zhTW]
-Retail\Game.lua
+Retail\Game\Game.lua
 Game\Game.lua
+Retail\Game\TooltipData.lua
 Game\TooltipData.lua
 Game\SpellAmounts.lua
-Retail\Schools.lua
-Retail\Stats.lua
+Retail\Data\Schools.lua
+Retail\Data\Stats.lua
 Data\Stats.lua
 Panel\Layout.lua
 Panel\Render.lua
-Retail\Item.lua
+Retail\Tooltips\Item.lua
 Tooltips\Item.lua
-Retail\Spell.lua
+Retail\Tooltips\Spell.lua
 Tooltips\Spell.lua
 Tooltips\Object.lua
-Retail\Unit.lua
+Retail\Tooltips\Unit.lua
 Tooltips\Unit.lua
 Tooltips\Aura.lua
 Tooltips\Quest.lua
@@ -48,7 +58,7 @@ Tooltips\PetAction.lua
 Tooltips\Minimap.lua
 Tooltips\FlightPath.lua
 UI\Options.lua
-Retail\Samples.lua
+Retail\UI\Samples.lua
 UI\Samples.lua
 UI\EditorSkin.lua
 UI\Editor.lua

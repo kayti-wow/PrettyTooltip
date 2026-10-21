@@ -5,7 +5,7 @@ return function(test)
     local SPELL = 1
     local files = test.retail({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Game/SpellAmounts.lua",
-        "Retail/Schools.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" })
+        "Retail/Data/Schools.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" })
     local ns = test.load(files, { enums = { TooltipDataType = { Item = 0, Spell = SPELL } } })
 
     -- The global cooldown, from the player's power and haste.

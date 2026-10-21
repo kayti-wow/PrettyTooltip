@@ -40,6 +40,10 @@ local QUALITY = {
     [3] = { .32, .59, .98 },
     [4] = { .72, .40, .94 },
     [5] = { 1.00, .57, .22 },
+    -- Retail's artifacts, heirlooms, and tokens, in the game's colors.
+    [6] = { .90, .80, .50 },
+    [7] = { 0, .80, 1 },
+    [8] = { 0, .80, 1 },
 }
 -- The line naming a weapon's temporary enchant and its time left.
 local IMBUE_LINES = { ITEM_ENCHANT_TIME_LEFT_SEC, ITEM_ENCHANT_TIME_LEFT_MIN, ITEM_ENCHANT_TIME_LEFT_HOURS,
@@ -59,6 +63,10 @@ local QUEST_MARK = "|TInterface\\GossipFrame\\AvailableQuestIcon:0|t "
 -- Kinds of item the game names on a line of their own, as "Crafting Reagent".
 local ITEM_KINDS = {}
 for _, kind in pairs({ PROFESSIONS_USED_IN_COOKING, formats.scarce }) do ITEM_KINDS[#ITEM_KINDS + 1] = kind end
+-- Retail's reagent kinds: "Finishing Crafting Reagent", "Optional Crafting Reagent".
+if ns.IsRetail() then
+    for _, kind in ipairs(ns.Retail.Item.kinds()) do ITEM_KINDS[#ITEM_KINDS + 1] = kind end
+end
 local ITEM_KIND_NAMES = {}
 for _, kind in ipairs(ITEM_KINDS) do ITEM_KIND_NAMES[kind:lower()] = kind end
 
@@ -88,7 +96,12 @@ end
 local function getItemInfo(tooltip, data)
     if tooltip.GetItem then
         local ok, _, link = pcall(tooltip.GetItem, tooltip)
-        if ok and not isSecret(link) and link then return link end
+        -- Only an item link: a keystone's "|Hkeystone:" one is no item to the
+        -- game's item calls, which give it the question mark icon.
+        if ok and not isSecret(link) and type(link) == "string" and (link:find("|Hitem:", 1, true)
+            or not link:find("|H", 1, true)) then
+            return link
+        end
     end
     if not isSecret(data.hyperlink) and data.hyperlink then return data.hyperlink end
     if not isSecret(data.id) then return data.id end
@@ -130,6 +143,13 @@ local function isActive(color)
     return not (r < .7 and math.abs(r - g) < .06 and math.abs(g - b) < .06)
 end
 
+-- Retail greys or reds an effect the character will not get; the row keeps
+-- that color.
+local function keepInactive(list, line)
+    local color = ns.IsRetail() and ns.Retail.TooltipData.inactiveColor(line.leftColor)
+    if color then list[#list].color, list[#list].inactive = color, true end
+end
+
 local function addExtra(model, left, right, leftColor, rightColor)
     add(model.extras, left, right)
     local row = model.extras[#model.extras]
@@ -149,18 +169,22 @@ local PRICE_DETAIL = "9E9485"
 -- Can arrive color coded, or appended outside the tooltip data.
 local function itemKind(left, right, color)
     if right ~= "" then return end
-    local kind = ITEM_KIND_NAMES[plainText(left):match("^%s*(.-)%s*$"):lower()]
+    local name = plainText(left):match("^%s*(.-)%s*$")
+    local kind = ITEM_KIND_NAMES[name:lower()]
+    -- Retail names an expansion's reagents after it: "Zandalari Crafting Reagent".
+    if not kind and ns.IsRetail() then kind = ns.Retail.Item.kindWithin(name, ITEM_KINDS) end
     if not kind then return end
+    local shown = ITEM_KIND_NAMES[name:lower()] and kind or name
     local code = left:match("|c(%x%x%x%x%x%x%x%x)")
-    if code then return kind, "|c" .. code .. kind .. "|r" end
-    if isSecret(color) or type(color) ~= "table" then return kind, kind end
+    if code then return kind, "|c" .. code .. shown .. "|r" end
+    if isSecret(color) or type(color) ~= "table" then return kind, shown end
     local r, g, b = color.r or color[1], color.g or color[2], color.b or color[3]
     if isSecret(r) or isSecret(g) or isSecret(b)
         or type(r) ~= "number" or type(g) ~= "number" or type(b) ~= "number" then
-        return kind, kind
+        return kind, shown
     end
     return kind, string.format("|cff%02X%02X%02X%s|r", math.floor(r * 255 + .5),
-        math.floor(g * 255 + .5), math.floor(b * 255 + .5), kind)
+        math.floor(g * 255 + .5), math.floor(b * 255 + .5), shown)
 end
 
 -- Must match STAT_MARKER in Data/Stats.lua, minus its trailing spaces.
@@ -319,6 +343,8 @@ local function stackCount(data, unitPrice, linePrice, game)
     return 1
 end
 
+local finishCreated
+
 -- A recipe's lines hold the crafted item's whole tooltip, from its name line
 -- to the reagents; those go into model.created.
 local function finishRecipe(tooltip, model, data, game)
@@ -339,8 +365,22 @@ local function finishRecipe(tooltip, model, data, game)
         end
         model.slot = (model.name:match("^([^:%s]+):") or L["Recipe"]) .. " \194\183 " .. model.skill.name
     end
+    if model.created then
+        finishCreated(tooltip, model, game)
+    elseif model.teaches then
+        add(model.effects, model.teaches.left, model.teaches.right)
+    end
+    for _, reagent in ipairs(model.reagents or {}) do
+        local link = itemByName(reagent.name, game)
+        reagent.have = game.itemCount(link or reagent.name)
+    end
+end
+
+-- The item inside another's tooltip, a recipe's or an artifact's pair: its link,
+-- icon, and quality, and its binding where the outer item's differs.
+finishCreated = function(tooltip, model, game)
     local created = model.created
-    if created then
+    do
         local link, quality, icon = itemByName(created.name, game)
         if not link and tooltip.GetItem then
             -- The game reports the crafted item as the tooltip's item, under the
@@ -353,7 +393,21 @@ local function finishRecipe(tooltip, model, data, game)
                 if loaded then quality = getQuality(itemLink, {}, game) end
             end
         end
+        if not link and created.id then
+            -- Retail names it by its id on the line it is nested under, which
+            -- gives the icon before the item loads.
+            link, icon = created.id, game.itemIcon(created.id)
+            local info = game.itemInfo(created.id)
+            if info and type(info.quality) == "number" then quality = info.quality end
+        end
         created.link, created.icon = link, icon
+        -- Its kinds, "Optional Crafting Reagent", under its name, as the item's own.
+        local kinds = {}
+        for _, kind in ipairs(ITEM_KINDS) do kinds[#kinds + 1] = created.kinds[kind] end
+        if #kinds > 0 then
+            local joined = table.concat(kinds, " \194\183 ")
+            created.slot = created.slot and created.slot ~= "" and (created.slot .. " \194\183 " .. joined) or joined
+        end
         created.quality = type(quality) == "number" and quality or nil
         -- The crafted item's binding usually repeats the recipe's.
         local recipeBinding = model.header[1] and model.header[1].left
@@ -362,12 +416,6 @@ local function finishRecipe(tooltip, model, data, game)
             if row.left ~= recipeBinding then bindings[#bindings + 1] = plainText(row.left) end
         end
         created.binding = #bindings > 0 and table.concat(bindings, " \194\183 ") or nil
-    elseif model.teaches then
-        add(model.effects, model.teaches.left, model.teaches.right)
-    end
-    for _, reagent in ipairs(model.reagents or {}) do
-        local link = itemByName(reagent.name, game)
-        reagent.have = game.itemCount(link or reagent.name)
     end
 end
 
@@ -385,6 +433,11 @@ local function readModel(tooltip, data, game)
     local inSet, setTotal = false, 0
     local teachesLast = false
     local inStockChanges = false
+    local blankBefore = false
+    local nestedID
+    -- Retail's notes on effects: the list the last effect went into, and a
+    -- note waiting for the effect it comes before.
+    local notes = {}
     local function isStockChange(text)
         local trimmed = plainText(text):match("^%s*(.-)%s*$")
         if unformat(trimmed, STOCK_CHANGES) then
@@ -402,6 +455,14 @@ local function readModel(tooltip, data, game)
         if isSecret(line) or not line or isSecret(line.type) or isSecret(line.lineIndex) then
             return
         end
+        -- The item a nested block holds, by its id: a recipe's crafted item.
+        if LINE.NestedBlock and line.type == LINE.NestedBlock and not isSecret(line.tooltipType)
+            and line.tooltipType == ITEM then
+            nestedID = number(line.tooltipID)
+        end
+        local effects, effectCount = m.effects, #m.effects
+        local equips, equipCount = m.equipEffects, #m.equipEffects
+        if notes.model ~= m then notes.model, notes.last = m, nil end
         -- The amount is drawn by a money frame, not as text, so take it from the data.
         if LINE.SellPrice and line.type == LINE.SellPrice then
             m.hasSellPrice = true
@@ -431,6 +492,8 @@ local function readModel(tooltip, data, game)
         teachesLast = false
         if isStockChange(left) then
             addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
+        elseif ns.IsRetail() and ns.Retail.Item.readKeystone(m, line, lineNumber, left, right, trimmed) then
+            -- A Mythic keystone's name, levels, modifiers, and duration.
         elseif isType(lineType, "ItemSpellTriggerLearn") or unformat(trimmed, formats.recipeTeaches) then
             -- Its type marks it in every language; cooking words it apart from
             -- the other professions ("烹制", not "制作"). The recipe's own lines follow.
@@ -452,15 +515,21 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemName then
             if not model.name then
                 model.name, model.nameColor = left, rgb(line.leftColor)
+                -- Retail's decor names its placement cost beside the name.
+                if ns.IsRetail() then ns.Retail.Item.readNameRight(model, right) end
             elseif not model.created then
                 model.created = newItemModel()
                 -- Its name line starts with a line break.
                 model.created.name, model.created.nameColor = trimmed, rgb(line.leftColor)
+                model.created.id = nestedID
                 m = model.created
             end
         elseif lineType == LINE.ItemLevel then
             local level = left:match("(%d+)")
             if level then m.level, m.levelLine = tonumber(level), true end
+        elseif ns.IsRetail() and ns.Retail.Item.readEffectNote(notes, line, right, trimmed) then
+            -- "Legacy Item: Effects are inactive", "You are in the wrong zone.":
+            -- beside the effects they speak of.
         elseif ns.IsRetail() and ns.Retail.Item.readLine(m, line, data, lineNumber, left, right, trimmed, original) then
             -- Retail's upgrade level, sockets, crafted quality, and transmogrification.
         elseif right == "" and imbueLine(plainText(trimmed)) then
@@ -475,6 +544,7 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemBinding or isBinding(trimmed) then
             add(m.header, left, right)
             if isRed(line.leftColor) then m.header[#m.header].color = UNUSABLE_COLOR end
+            if ns.IsRetail() then ns.Retail.Item.colorBinding(m.header[#m.header], line, trimmed) end
         elseif right == "" and tonumber((unformat(trimmed, CONTAINER_SLOTS))) then
             local count, kind = unformat(trimmed, CONTAINER_SLOTS)
             m.bag = { count = tonumber(count), kind = kind }
@@ -510,6 +580,10 @@ local function readModel(tooltip, data, game)
                 add(m.footerLeft, left, right)
                 if isRed(line.leftColor) then
                     m.footerLeft[#m.footerLeft].color = UNUSABLE_COLOR
+                elseif m ~= model then
+                    -- The item a recipe crafts keeps it under its stats, in the
+                    -- game's color: "You haven't collected this appearance".
+                    m.footerLeft[#m.footerLeft].color = rgb(line.leftColor)
                 end
             -- Retail keeps an active bonus in the set, worded "Set: ...".
             elseif inSet and (unformat(trimmed, ITEM_SET_BONUS_GRAY)
@@ -517,8 +591,9 @@ local function readModel(tooltip, data, game)
                 add(m.setBonuses, left, right)
                 m.setBonuses[#m.setBonuses].active = isActive(line.leftColor)
             -- Set pieces are names alone: letters (of any alphabet), spaces,
-            -- apostrophes, and hyphens.
-            elseif inSet and #m.setItems < setTotal
+            -- apostrophes, and hyphens. Retail's appearance sets can list more
+            -- pieces than they count ("(0/3)" over five), each indented.
+            elseif inSet and (#m.setItems < setTotal or (ns.IsRetail() and left:match("^%s%s%S")))
                 and right == "" and trimmed:gsub("[%a'%- \128-\255]", "") == "" then
                 add(m.setItems, trimmed, right)
                 m.setItems[#m.setItems].active = isActive(line.leftColor)
@@ -547,6 +622,7 @@ local function readModel(tooltip, data, game)
                 local text = original or trimmed
                 add(m.equipEffects, withoutLabel(text, ITEM_SPELL_TRIGGER_ONPROC), "")
                 m.equipEffects[#m.equipEffects].onHit = true
+                keepInactive(m.equipEffects, line)
             elseif original or lineParts(trimmed) == "+" then
                 -- Retail greys the primary stats another specialization uses.
                 local inactive = ns.IsRetail() and isActive(line.leftColor) == false
@@ -575,21 +651,40 @@ local function readModel(tooltip, data, game)
                 and right == "" then
                 -- Unparsed equip effects join the stats; the list implies "Equip:".
                 add(m.equipEffects, withoutLabel(trimmed, ITEM_SPELL_TRIGGER_ONEQUIP), "")
+                keepInactive(m.equipEffects, line)
             elseif (isType(lineType, "ItemSpellTriggerOnUse") or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONUSE))
                 and right == "" then
                 -- Its gear marker stands for the words.
                 add(m.effects, withoutLabel(trimmed, ITEM_SPELL_TRIGGER_ONUSE), "")
                 m.effects[#m.effects].use = true
+                keepInactive(m.effects, line)
             elseif isType(lineType, "ItemSpellTriggerOnUse") or isType(lineType, "ItemSpellTriggerOnEquip")
                 or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONEQUIP) or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONUSE) then
                 add(m.effects, left, right)
+                keepInactive(m.effects, line)
             else
                 addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
             end
         end
         end
+        -- A waiting note goes before the effect it speaks of.
+        local grown = (#effects > effectCount and effects) or (#equips > equipCount and equips) or nil
+        local grownAt = grown == effects and effectCount or equipCount
+        if notes.pending and grown then
+            table.insert(grown, grownAt + 1, notes.pending)
+            notes.pending = nil
+        end
+        -- An effect the game sets apart from the one before with a blank line
+        -- stays apart: "Use:", "When crafting:", "Usable with:".
+        if blankBefore and effectCount > 0 and #effects > effectCount then effects[effectCount + 1].apart = true end
+        local blankLeft, blankRight = safeText(line.leftText), safeText(line.rightText)
+        blankBefore = blankLeft ~= nil and blankLeft:match("^%s*$") ~= nil and (blankRight or "") == ""
+        -- A note after an effect follows it, past blank lines only.
+        if grown then notes.last = grown elseif not blankBefore then notes.last = nil end
     end
 
+    -- A note with no effect after it stays with the effects.
+    if notes.pending then table.insert((notes.model or model).effects, notes.pending) end
     if not model.name or model.name == "" then return end
     local appended = appendedRows(tooltip, model.lineIndices)
     if not appended then return end
@@ -610,8 +705,21 @@ local function readModel(tooltip, data, game)
             model.extras[#model.extras + 1] = row
         end
     end
+    -- An item inside another's tooltip that nothing teaches or crafts is its
+    -- pair, as an artifact's off hand. Hints after it, "<Shift Right Click to
+    -- View Artifact>", are the outer item's.
+    if model.created and not (model.teaches or model.skill or model.reagents) then
+        model.created.paired = true
+        local kept = {}
+        for _, row in ipairs(model.created.effects) do
+            if plainText(row.left):match("^%s*<.+>%s*$") then add(model.effects, row.left, row.right)
+            else kept[#kept + 1] = row end
+        end
+        model.created.effects = kept
+        finishCreated(tooltip, model, game)
+    end
     -- Crafted gear can need a profession too; only a recipe teaches.
-    local recipe = model.created or (model.skill and model.teaches)
+    local recipe = (model.created and not model.created.paired) or (model.skill and model.teaches)
     if recipe then
         finishRecipe(tooltip, model, data, game)
         itemInfo = model.link
@@ -628,6 +736,8 @@ local function readModel(tooltip, data, game)
     if itemType then
         classID, className, subClassName = itemType.classID, itemType.className, itemType.subClassName
         equipLoc, itemID = itemType.equipLoc, itemType.id
+        -- Retail's decor names its class, "Housing Decor", on a line of its own.
+        if ns.IsRetail() and not recipe then ns.Retail.Item.readClassLine(model, itemType) end
     end
     if ns.disenchantFor and classID and not recipe then
         local itemLevel = game.itemLevel(itemInfo) or model.level
@@ -666,6 +776,7 @@ local function readModel(tooltip, data, game)
         end
     end
     for _, kind in ipairs(ITEM_KINDS) do shown[#shown + 1] = model.kinds[kind] end
+    if ns.IsRetail() then ns.Retail.Item.addKinds(shown, model) end
     if #shown > 0 then
         local kinds = table.concat(shown, " \194\183 ")
         model.slot = model.slot and model.slot ~= "" and (model.slot .. " \194\183 " .. kinds) or kinds
@@ -732,28 +843,42 @@ local function drawMarked(panel, list, y, style, color, marker, numbers)
     local hang = markerIndent(panel, style)
     local width = panel.width - 2 * pad() - hang
     for _, row in ipairs(list) do
-        local text = row.left
-        if numbers then text = ns.Stats.styleEffect(text, ns.option("statColors")) end
+        local text, rowStyle, rowColor = row.left, style, color
+        if row.inactive then
+            text, rowStyle, rowColor = util.uncolored(text), ns.Retail.Item.inactiveStyle(style), row.color
+        elseif numbers then
+            text = ns.Stats.styleEffect(text, ns.option("statColors"))
+        end
         local stands = row.onHit and MARKED.onHit or row.use and MARKED.use
-        if hang > 0 then
-            styledAt(panel, stands and stands[1] or marker, pad(), y, hang, style, color)
+        if row.note then
+            -- A note on the effects, under their text, in its own color.
+            if not row.inactive then text, rowColor = row.left, row.color or color end
+        elseif hang > 0 then
+            local shown = stands and stands[1] or marker
+            if row.inactive then shown = ns.Retail.Item.tintedMarker(shown, row.color) end
+            styledAt(panel, shown, pad(), y, hang, rowStyle, rowColor)
         elseif stands then
             -- Without its marker, the line keeps its words.
             text = (stands[2] or "") .. text
         end
-        y = y + styledAt(panel, text, pad() + hang, y, width, style, color) + 3
+        y = y + styledAt(panel, text, pad() + hang, y, width, rowStyle, rowColor) + 3
     end
     return y
 end
 
 -- Use effects are led by the gear; the group's other rows, such as
--- "<Right Click to Open>", are drawn as they come.
+-- "<Right Click to Open>", are drawn as they come, with space where the game
+-- left a blank line between them.
 local function drawEffects(panel, list, y, style, color)
-    for _, row in ipairs(list) do
-        if row.use then
+    for index, row in ipairs(list) do
+        -- Set apart by the game, as enchants and gems are from the rows around them.
+        if row.apart and index > 1 then y = y + APART_SPACE end
+        if row.use or row.note then
             y = drawMarked(panel, { row }, y, style, color, nil, true)
+        elseif row.inactive then
+            y = drawRow(panel, row, y, ns.Retail.Item.inactiveStyle(style), color)
         else
-            y = drawRow(panel, row, y, style, color)
+            y = drawRow(panel, row, y, style, color, row.indent)
         end
     end
     return y
@@ -1177,6 +1302,13 @@ local function drawCreated(panel, created, styles, y)
     local stats = hasStats(created)
     if stats then y = drawStats(panel, created, styles, y) end
     if created.setName then y = drawSet(panel, created, styles, divider(panel, y, GOLD_RULE, stats and 11 or 0)) end
+    -- Its footer's lines, as whose classes may use it or an appearance not yet
+    -- collected, under the rest: the recipe's footer is its own.
+    local footer = {}
+    for _, row in ipairs(created.footerLeft) do
+        if not row.durability then footer[#footer + 1] = row end
+    end
+    if #footer > 0 then y = drawGroup(panel, footer, y + 4, styles.footer, { .82, .78, .71 }) end
     return y
 end
 
@@ -1230,7 +1362,7 @@ local function itemView(panel, model)
     local icon = ns.option("iconItems") and model.icon or nil
     local badge = icon and ns.option("itemLevelBadge") and model.level
         and (model.equippable or model.levelLine) and util.fill(L["iLvl %s"], model.level) or nil
-    local quality = QUALITY[model.quality] or QUALITY[1]
+    local quality = QUALITY[model.quality] or model.nameColor or QUALITY[1]
     local accent = model.quest and colors.quest or quality
     local header = { { text = model.name, style = styles.title, color = quality, gap = 4 } }
     if ns.IsRetail() then ns.Retail.Item.addSource(header, model, styles) end
@@ -1264,7 +1396,10 @@ local function itemView(panel, model)
         sectioned = true
     end
     if model.created then
-        section({ separator = { caption = L["Creates"], style = styles.caption, before = sectioned and 6 or 0 },
+        -- A pair stands under a divider; what a recipe crafts, under "Creates".
+        local separator = model.created.paired and { divider = GOLD_RULE, before = sectioned and DIVIDER_AFTER or 0 }
+            or { caption = L["Creates"], style = styles.caption, before = sectioned and 6 or 0 }
+        section({ separator = separator,
             kind = "custom",
             measure = function(p) return createdWidth(p, model.created, styles) end,
             draw = function(p, y) return drawCreated(p, model.created, styles, y) end })

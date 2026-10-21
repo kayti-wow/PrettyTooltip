@@ -1,0 +1,76 @@
+== tooltip model
+armor: {}
+comparison: false
+effects:
+  1:
+    left: "Combine 5 Mentor's Helpful Handiwork to create a Artisan's Consortium Gold Star."
+    right: ""
+    use: true
+  2:
+    apart: true
+    left: "When crafting: Increases Skill by 20."
+    right: ""
+  3:
+    apart: true
+    color:
+      1: 1
+      2: 0.8235
+      3: 0
+    left: "Usable with: |cffffffffMany Midnight recipes across all professions.|r"
+    right: ""
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor:
+  1:
+    left: "\"No need to reinvent the wheel. Can be bought and sold on the Auction House.\""
+    right: ""
+footerLeft: {}
+footerRight:
+  1:
+    left: "1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t  |cff9E9485(10 × 10|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t)|r"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header: {}
+icon: 4549170
+kinds:
+  Finishing Crafting Reagent: "|cff66BBFFFinishing Crafting Reagent|r"
+level: 23
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+link: "|cnIQ3:|Hitem:246449::::::::90:264:::::::::|h[Mentor's Helpful Handiwork]|h|r"
+name: "Mentor's Helpful Handiwork"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+secondary: {}
+sellPrice: 10000
+setBonuses: {}
+setItems: {}
+slot: "|cff66BBFFFinishing Crafting Reagent|r"
+weaponBonus: {}
+== tooltip render
+panel 308 x 249
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x66 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.32,0.59,0.98 "MENTOR'S HELPFUL HANDIWORK"
+text at 19,47 w=270 size=13 rgb=0.66,0.795,0.99 "|cff66BBFFFinishing Crafting Reagent|r"
+text at 19,72 w=270 size=13 rgb=0.48,0.88,0.48 "Use: Combine 5 Mentor's Helpful Handiwork to create a Artisan's Consortium Gold Star."
+text at 19,125 w=270 size=13 rgb=0.48,0.88,0.48 "When crafting: Increases Skill by 20."
+text at 19,148 w=270 size=13 rgb=1,0.8235,0 "Usable with: |cffffffffMany Midnight recipes across all professions.|r"
+text at 19,186 w=270 size=12 rgb=0.86,0.74,0.45 "\"No need to reinvent the wheel. Can be bought and sold on the Auction House.\""
+text at 19,217 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 246449"

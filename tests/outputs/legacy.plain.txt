@@ -1,0 +1,449 @@
+== tooltip model
+armor: {}
+comparison: false
+created:
+  armor:
+    1:
+      left: "60 Armor"
+      right: ""
+      value: "60"
+  block: "150 Block"
+  blockValue: "150"
+  effects: {}
+  enchants: {}
+  equipEffects: {}
+  equippable: true
+  extras: {}
+  flavor:
+    1:
+      left: "\"Ra and Helya crafted a shield, the Highkeeper's Ward, to act as a key to the Elemental Plane. It thrummed with the energies of the four elements, which Ra could call upon whenever he desired.\""
+      right: ""
+  footerLeft: {}
+  footerRight: {}
+  header: {}
+  icon: 1308430
+  id: 128936
+  kinds: {}
+  link: "|cnIQ6:|Hitem:128936::::::::90:264:::::::::|h[The Highkeeper's Ward]|h|r"
+  name: "The Highkeeper's Ward"
+  nameColor:
+    1: 0.902
+    2: 0.8
+    3: 0.502
+  paired: true
+  primary:
+    1:
+      left: "|cffF2E8D5+9|r |cffA89F8EIntellect|r"
+      right: ""
+    2:
+      left: "|cffF2E8D5+4|r |cffA89F8EStamina|r"
+      right: ""
+    3:
+      color:
+        1: 0.5
+        2: 0.5
+        3: 0.5
+      inactive: true
+      left: "+3 Strength"
+      right: ""
+  quality: 6
+  secondary:
+    1:
+      left: "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
+      right: ""
+    2:
+      left: "|cffF2E8D5+3|r |cffA89F8EMastery|r"
+      right: ""
+  setBonuses: {}
+  setItems: {}
+  slot: "Shield · Off Hand"
+  weaponBonus: {}
+effects:
+  1:
+    left: "<Shift Right Click to View Artifact>"
+    right: ""
+enchants: {}
+equipEffects:
+  1:
+    color:
+      1: 0
+      2: 0.8
+      3: 1
+    left: "Legacy Item: Effects are inactive"
+    note: true
+    right: ""
+  2:
+    color:
+      1: 0.502
+      2: 0.502
+      3: 0.502
+    inactive: true
+    left: "Grants the Stormkeeper ability, which massively empowers your Lightning Bolts or Chain Lightnings."
+    right: ""
+equippable: true
+extras: {}
+flavor:
+  1:
+    left: "\"To seal Al'Akir's demise, Master Ra slammed his fist into the mountaintop. The heavens split wide, and all the fire and fury they contained crashed down atop the Windlord's head.\""
+    right: ""
+footerLeft: {}
+footerRight:
+  1:
+    left: "Requires: Elemental"
+    met: false
+    requirement: true
+    right: ""
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+  2:
+    left: "Unique"
+    right: ""
+icon: 1248972
+kinds: {}
+level: 19
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+  19: true
+  20: true
+  21: true
+  22: true
+  23: true
+  24: true
+  25: true
+  26: true
+  27: true
+  28: true
+  29: true
+  30: true
+  31: true
+link: "|cnIQ6:|Hitem:128935::133039:133085:133146::::90:264::9:2:744:1521::3:664:1476:1809:4:767:1733:1477:1809:3:1793:1477:1809::|h[The Fist of Ra-den]|h|r"
+name: "The Fist of Ra-den"
+nameColor:
+  1: 0.902
+  2: 0.8
+  3: 0.502
+primary:
+  1:
+    left: "|cffF2E8D5+17|r |cffA89F8EIntellect|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+4|r |cffA89F8EStamina|r"
+    right: ""
+quality: 6
+quest: false
+secondary:
+  1:
+    left: "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+3|r |cffA89F8EMastery|r"
+    right: ""
+setBonuses: {}
+setItems: {}
+slot: "Fist Weapon · Main Hand"
+weaponBonus: {}
+weaponDamage: "3 - 5 Damage"
+weaponDps: "1.5"
+weaponSpeed: "Speed 2.60"
+== tooltip render
+panel 308 x 673
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x100 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.9,0.8,0.5 "THE FIST OF RA-DEN"
+text at 19,47 w=270 size=13 rgb=0.95,0.9,0.75 "Fist Weapon · Main Hand"
+text at 19,66 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,83 w=270 size=12 rgb=0.78,0.72,0.63 "Unique"
+text at 19,106 w=270 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF21.5|r |cffAEB9C7Damage per Second|r"
+text at 26,132 w=263 size=12 rgb=0.62,0.65,0.7 "3 - 5 Damage  ·  Speed 2.60"
+text at 19,153 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+17|r |cffA89F8EIntellect|r"
+text at 19,171 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+4|r |cffA89F8EStamina|r"
+text at 19,189 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
+text at 19,207 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+3|r |cffA89F8EMastery|r"
+text at 19,225 w=270 size=13 rgb=0,0.8,1 "Legacy Item: Effects are inactive"
+text at 19,243 w=270 size=13 rgb=0.502,0.502,0.502 "Grants the Stormkeeper ability, which massively empowers your Lightning Bolts or Chain Lightnings."
+text at 19,296 w=270 size=13 rgb=0.48,0.88,0.48 "<Shift Right Click to View Artifact>"
+text at 19,319 w=270 size=12 rgb=0.86,0.74,0.45 "\"To seal Al'Akir's demise, Master Ra slammed his fist into the mountaintop. The heavens split wide, and all the fire and fury they contained crashed down atop the Windlord's head.\""
+texture at 19,378 28x28 rgb=0.72,0.64,0.4,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 26x26 rgb=1,1,1,1 1308430
+text at 55,378 w=234 size=14 rgb=0.9,0.8,0.5 "THE HIGHKEEPER'S WARD"
+text at 55,396 w=234 size=13 rgb=0.95,0.9,0.75 "Shield · Off Hand"
+text at 19,421 w=270 size=16 rgb=0.9,0.93,0.95 "|cffE6ECF260|r |cffAEB9C7Armor|r  ·  |cffE6ECF2150|r |cffAEB9C7Block|r"
+text at 19,447 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+9|r |cffA89F8EIntellect|r"
+text at 19,465 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+4|r |cffA89F8EStamina|r"
+text at 19,483 w=270 size=13 rgb=0.5,0.5,0.5 "+3 Strength"
+text at 19,501 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
+text at 19,519 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+3|r |cffA89F8EMastery|r"
+text at 19,542 w=270 size=12 rgb=0.86,0.74,0.45 "\"Ra and Helya crafted a shield, the Highkeeper's Ward, to act as a key to the Elemental Plane. It thrummed with the energies of the four elements, which Ra could call upon whenever he desired.\""
+text at 19,615 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 128935"
+text at 182.5,639 w=106.5 size=11 rgb=1,0.34,0.28 "Requires: Elemental"
+
+== comparison 1 model
+armor: {}
+comparison: true
+craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier5-Small:26:26:0:-1|a"
+effects: {}
+enchants:
+  1:
+    left: "|cff4CE64CEnchant Weapon - Acuity of the Ren'dorei |A:Professions-ChatIcon-Quality-12-Tier2:20:20|a|r"
+    right: ""
+equipEffects:
+  1:
+    left: "Your spells and abilities have the chance to grant 85 secondary stats for 15 sec based on the target creature's type."
+    right: ""
+equippable: true
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "If you replace this item, the following stat changes will occur:"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  2:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-50.4|r Damage Per Second"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  3:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-517|r Intellect"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  4:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-1,884|r Stamina"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  5:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-47|r Critical Strike"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  6:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-50|r Haste"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  7:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cff00ff00+3|r Mastery"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+flavor: {}
+footerLeft:
+  1:
+    durability:
+      1: 80
+      2: 80
+    left: "Durability 80 / 80"
+    right: ""
+  2:
+    color:
+      1: 0.86
+      2: 0.74
+      3: 0.45
+    left: "Made by Kaysandra"
+    right: ""
+footerRight:
+  1:
+    left: "144|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 85|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 63|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+  2:
+    left: "Unique-Equipped: Embellished (2)"
+    right: ""
+icon: 7091028
+kinds: {}
+level: 331
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+  19: true
+link: 237838
+madeBy: "Kaysandra"
+name: "Magister's Ritual Knife"
+nameColor:
+  1: 0.6392
+  2: 0.2078
+  3: 0.9333
+primary:
+  1:
+    left: "|cffF2E8D5+534|r |cffA89F8EIntellect|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+1888|r |cffA89F8EStamina|r"
+    right: ""
+quality: 4
+quest: false
+secondary:
+  1:
+    left: "|cffF2E8D5+50|r |cffA89F8ECritical Strike|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+50|r |cffA89F8EHaste|r"
+    right: ""
+sellPrice: 1448563
+setBonuses: {}
+setItems: {}
+slot: "Dagger · One-Hand"
+source: "Tidal Crafted"
+sourceColor:
+  1: 0.08333
+  2: 0.85
+  3: 0.08333
+weaponBonus: {}
+weaponDamage: "70 - 117 Damage"
+weaponDps: "51.9"
+weaponSpeed: "Speed 1.80"
+== comparison 1 render
+panel 318 x 530
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x136 rgb=1,1,1,1 band
+texture TOPLEFT Frame TOPLEFT 0,0 0x0 rgb=0.55,0.45,0.3,0.9 WHITE8X8
+texture TOPLEFT Frame TOPLEFT 1,-1 0x0 rgb=0.07,0.055,0.05,1 WHITE8X8
+text CENTER Frame CENTER 0,0 w=0 size=10 rgb=0.93,0.8,0.52 "EQUIPPED"
+text at 19,21 w=280 size=19 rgb=0.72,0.4,0.94 "MAGISTER'S RITUAL KNIFE"
+text at 19,47 w=280 size=12 rgb=0.08333,0.85,0.08333 "Tidal Crafted"
+text at 19,65 w=280 size=13 rgb=0.86,0.7,0.97 "Dagger · One-Hand"
+text at 19,84 w=280 size=12 rgb=0.9,0.85,0.74 "Quality: |A:Professions-Icon-Quality-Tier5-Small:12:12:0:0|a"
+text at 19,102 w=280 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,119 w=280 size=12 rgb=0.78,0.72,0.63 "Unique-Equipped: Embellished (2)"
+text at 19,142 w=280 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF251.9|r |cffAEB9C7Damage per Second|r"
+text at 26,168 w=273 size=12 rgb=0.62,0.65,0.7 "70 - 117 Damage  ·  Speed 1.80"
+text at 19,189 w=280 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+534|r |cffA89F8EIntellect|r"
+text at 19,207 w=280 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+1888|r |cffA89F8EStamina|r"
+text at 19,225 w=280 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+50|r |cffA89F8ECritical Strike|r"
+text at 19,243 w=280 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+50|r |cffA89F8EHaste|r"
+text at 19,266 w=280 size=13 rgb=0.9,0.85,0.74 "|cff4CE64CEnchant Weapon - Acuity of the Ren'dorei |A:Professions-ChatIcon-Quality-12-Tier2:13:13:0:0|a|r"
+text at 19,289 w=280 size=13 rgb=0.48,0.88,0.48 "Your spells and abilities have the chance to grant 85 secondary stats for 15 sec based on the target creature's type."
+text at 19,337 w=280 size=11 rgb=0.85,0.7,0 "If you replace this item, the following stat changes will occur:"
+text at 19,365 w=280 size=11 rgb=0.6,0.6,0.63 "|cffff2020-50.4|r Damage Per Second"
+text at 19,380 w=280 size=11 rgb=0.6,0.6,0.63 "|cffff2020-517|r Intellect"
+text at 19,395 w=280 size=11 rgb=0.6,0.6,0.63 "|cffff2020-1,884|r Stamina"
+text at 19,410 w=280 size=11 rgb=0.6,0.6,0.63 "|cffff2020-47|r Critical Strike"
+text at 19,425 w=280 size=11 rgb=0.6,0.6,0.63 "|cffff2020-50|r Haste"
+text at 19,440 w=280 size=11 rgb=0.6,0.6,0.63 "|cff00ff00+3|r Mastery"
+text at 19,455 w=280 size=11 rgb=0.6,0.6,0.63 "Item ID: 237838"
+texture at 19,484 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,479 w=90 size=11 rgb=0.82,0.78,0.71 "80 / 80"
+text at 19,496 w=268 size=11 rgb=0.86,0.74,0.45 "Made by Kaysandra"
