@@ -914,9 +914,10 @@ end
 -- unwrapped line, and narrower until it is fitted. Pin the panel to the side
 -- the tooltip itself is anchored by, so the difference faces away from
 -- whatever it is attached to.
-local function alignPanel(panel, tooltip)
-    -- Pinned while its fading tooltip is off the screen.
-    if panel.parked then return end
+local function alignPanel(panel, tooltip, force)
+    -- Cursor placement can replace the refresh hold with its new top anchor.
+    -- A fading tooltip parked off screen always keeps its panel pinned.
+    if panel.parked or ((panel.refreshPending or panel.comparisonAnchorHeld) and not force) then return end
     local side = anchoredSide(tooltip)
     local dx, dy = gridOffset(panel, tooltip, side)
     if panel.side == side and panel:GetNumPoints() > 0
@@ -928,6 +929,25 @@ local function alignPanel(panel, tooltip)
     panel:SetPoint("TOP" .. side, tooltip, "TOP" .. side, dx, dy)
 end
 alignPanel = probe("align panel", alignPanel)
+
+-- Keep the last fitted top while the native tooltip briefly reports a
+-- different height during a refill. Use its anchored edge, so owner movement
+-- still carries the panel along. Offsets are in the panel's own units.
+local function holdPanel(panel, tooltip)
+    local point = tooltip:GetPoint(1)
+    local nativeScale, panelScale = scaleOf(tooltip), scaleOf(panel)
+    if isSecret(point) or type(point) ~= "string" or not panel.fittedHeight
+        or not (nativeScale and panelScale) then return false end
+    local side = panel.side or anchoredSide(tooltip)
+    local relative, fraction = side, .5
+    if point:find("BOTTOM") then relative, fraction = "BOTTOM" .. side, 1
+    elseif point:find("TOP") then relative, fraction = "TOP" .. side, 0 end
+    panel:ClearAllPoints()
+    panel:SetPoint("TOP" .. side, tooltip, relative, panel.gridX or 0,
+        panel.fittedHeight * nativeScale / panelScale * fraction + (panel.gridY or 0))
+    panel.side = nil
+    return true
+end
 
 -- Holds a panel where it stands while its tooltip moves; the next alignment
 -- anchors it to the tooltip again. False when where it stands cannot be read.
@@ -1002,6 +1022,7 @@ ns.ui = {
     defaultHeaderAlpha = defaultHeaderAlpha,
     styleOf = styleOf,
     alignPanel = alignPanel,
+    holdPanel = holdPanel,
     pinPanel = pinPanel,
     shownPanel = function(tooltip)
         local panel = panels[tooltip]

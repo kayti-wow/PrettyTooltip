@@ -17,8 +17,14 @@ function ns.dumpAnchors()
             local left, right = util.number(panel:GetLeft()), util.number(panel:GetRight())
             local nativeLeft, nativeRight = util.number(tooltip:GetLeft()), util.number(tooltip:GetRight())
             if left and right and nativeLeft and nativeRight then
-                shown[#shown + 1] = { tooltip = tooltip, panel = panel,
-                    left = left, right = right, nativeLeft = nativeLeft, nativeRight = nativeRight }
+                shown[#shown + 1] = {
+                    tooltip = tooltip,
+                    panel = panel,
+                    left = left,
+                    right = right,
+                    nativeLeft = nativeLeft,
+                    nativeRight = nativeRight
+                }
             end
         end
     end
@@ -59,7 +65,9 @@ function ns.dumpPixel()
     local width, height = GetPhysicalScreenSize()
     local scale = UIParent:GetEffectiveScale()
     width, height, scale = util.number(width), util.number(height), util.number(scale)
-    if not (width and height and scale) then ns.showReport("pixel", { "Screen geometry is restricted." }); return end
+    if not (width and height and scale) then
+        ns.showReport("pixel", { "Screen geometry is restricted." }); return
+    end
     ns.showReport("pixel", { ("Snapping with %s; screen %dx%d, UI scale %.3f, one pixel = %.4f units."):format(
         native and "the game's PixelUtil" or "the addon's own math", width, height, scale, ui.pixel(UIParent)) })
 end
@@ -124,7 +132,10 @@ local function shown(value)
 end
 
 local function traceLine(text)
-    if #traceLines >= MAX_LINES then tracing = false return end
+    if #traceLines >= MAX_LINES then
+        tracing = false
+        return
+    end
     traceLines[#traceLines + 1] = ("%7.3f  %s"):format(debugprofilestop() / 1000 - traceStart, text)
 end
 
@@ -157,6 +168,7 @@ local function stateOf(frame, isTooltip)
     parts[#parts + 1] = "alpha " .. shown(frame:GetAlpha())
     if frame.GetEffectiveAlpha then parts[#parts + 1] = "eff " .. shown(frame:GetEffectiveAlpha()) end
     parts[#parts + 1] = "size " .. shown(frame:GetWidth()) .. "x" .. shown(frame:GetHeight())
+    parts[#parts + 1] = "pos " .. shown(frame:GetLeft()) .. "," .. shown(frame:GetTop())
     parts[#parts + 1] = "scale " .. shown(frame:GetScale())
     if isTooltip and frame.GetPadding then
         local right, bottom, left, top = frame:GetPadding()
@@ -189,7 +201,11 @@ local function hookForTrace(tooltip, name)
     local function first(value) return shown(value) end
     record("SetAlpha", first)
     record("Show")
-    record("Hide")
+    -- Wrapping Hide makes the game's GameTooltip_Hide fail on the 1.60 beta
+    -- client ("attempt to call a nil value") for the rest of the session.
+    tooltip:HookScript("OnHide", function()
+        if tracing then traceLine(("%s OnHide  from %s"):format(name, caller())) end
+    end)
     record("SetShown", first)
     record("FadeOut")
     record("ClearAllPoints")
@@ -206,7 +222,10 @@ local function hookForTrace(tooltip, name)
 end
 
 function ns.traceTooltips(seconds)
-    if tracing then print("PrettyTooltip: a trace is already running.") return end
+    if tracing then
+        print("PrettyTooltip: a trace is already running.")
+        return
+    end
     traceLines, traceStart, tracing = {}, debugprofilestop() / 1000, true
     local previous, combat = {}, nil
     for _, name in ipairs(TRACED) do

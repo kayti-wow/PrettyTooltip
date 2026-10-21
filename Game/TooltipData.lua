@@ -94,14 +94,31 @@ tooltipData.add = add
 -- An item line's shortened wordings (Data/Stats.lua's itemWording), from the
 -- game's own data, which stays as it is. Nil for a line that reads the same,
 -- has a right side, or is hidden.
+-- Repeated comparison handovers need fresh font bindings, but their wording
+-- depends only on readable text, proc status and the current style settings.
+-- Keep negative results too; ordinary lines otherwise repeat every stat rule.
+-- Returned wording tables are shared; callers must treat them as read-only.
+local wordings, wordingCount, wordingVersion, wordingColors, wordingMarkers = {}, 0
+local WORDING_LIMIT = 512
 local function itemWording(line)
     if isSecret(line) or type(line) ~= "table" then return end
     local text, right = line.leftText, line.rightText
-    if isSecret(text) or type(text) ~= "string" or isSecret(right) or right then return end
+    if isSecret(text) or type(text) ~= "string" or isSecret(right) or right or isSecret(line.type) then return end
     -- The game marks proc lines; the text is the fallback for clients that do not.
     local procType = Enum.TooltipDataLineType and Enum.TooltipDataLineType.ItemSpellTriggerOnProc
-    local proc = procType ~= nil and not isSecret(line.type) and line.type == procType
-    return ns.Stats.itemWording(text, proc, ns.option("statColors"), ns.option("statMarkers"))
+    local proc = procType ~= nil and line.type == procType
+    local version, colors, markers = ns.settingsVersion or 0, ns.option("statColors"), ns.option("statMarkers")
+    if version ~= wordingVersion or colors ~= wordingColors or markers ~= wordingMarkers then
+        wordings, wordingCount = {}, 0
+        wordingVersion, wordingColors, wordingMarkers = version, colors, markers
+    end
+    local key = (proc and "1" or "0") .. text
+    local cached = wordings[key]
+    if cached ~= nil then return cached or nil end
+    local wording = ns.Stats.itemWording(text, proc, colors, markers)
+    if wordingCount >= WORDING_LIMIT then wordings, wordingCount = {}, 0 end
+    wordings[key], wordingCount = wording or false, wordingCount + 1
+    return wording
 end
 
 tooltipData.colorOf = colorOf
