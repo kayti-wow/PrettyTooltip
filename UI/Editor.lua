@@ -98,8 +98,8 @@ local function plainFont(font)
     ui.setFont(font, path, size, flags)
 end
 
-local function editorButton(parent, label, width, onClick)
-    local button = CreateFrame("Button", nil, parent, "UIPanelButtonTemplate")
+local function editorButton(parent, label, width, onClick, template)
+    local button = CreateFrame("Button", nil, parent, template or "UIPanelButtonTemplate")
     local parts = skin.templateParts(button)
     button:SetSize(width, 22)
     button.bg = background(button, FIELD)
@@ -107,8 +107,8 @@ local function editorButton(parent, label, width, onClick)
     button.label = text(button, "GameFontHighlightSmall", label)
     button.label:SetPoint("CENTER")
     local paint = skin:button(button, button.bg, edges, parts)
-    button:SetScript("OnEnter", function(self) self.hovered = true paint() end)
-    button:SetScript("OnLeave", function(self) self.hovered = false paint() end)
+    button:HookScript("OnEnter", function(self) self.hovered = true paint() end)
+    button:HookScript("OnLeave", function(self) self.hovered = false paint() end)
     button:SetScript("OnClick", onClick)
     function button:SetSelected(selected)
         self.selected = selected
@@ -235,13 +235,16 @@ for index, tooltipType in ipairs(TYPE_ORDER) do
     tab:SetPoint("BOTTOMLEFT", host, "TOPLEFT", (index - 1) * 68, 34)
     typeTabs[tooltipType] = tab
 end
+local examplesLabel = text(editor, "GameFontNormalSmall", "Examples:")
+examplesLabel:SetPoint("BOTTOMLEFT", host, "TOPLEFT", 0, 11)
 local sampleTabs = {}
 for index = 1, MAX_SAMPLES do
     local tab = editorButton(editor, "", 56, function()
         state.sample, state.lookup = index, nil
         refresh()
-    end)
-    tab:SetPoint("BOTTOMLEFT", host, "TOPLEFT", (index - 1) * 60, 6)
+    end, "UIMenuButtonStretchTemplate")
+    if index == 1 then tab:SetPoint("LEFT", examplesLabel, "RIGHT", 8, 0)
+    else tab:SetPoint("LEFT", sampleTabs[index - 1], "RIGHT", 4, 0) end
     sampleTabs[index] = tab
 end
 
@@ -876,9 +879,10 @@ local function section(title, shown, first)
     rule:SetSize(CONTROLS_WIDTH, 1)
     controls[#controls + 1] = {
         refresh = function()
-            local shownTitle = title
-            if type(title) == "function" then shownTitle = title() end
-            label:SetText(shownTitle and L[shownTitle] or "")
+            -- Hidden sections still refresh, and a title function can return nil.
+            local name = title
+            if type(title) == "function" then name = title() end
+            label:SetText(name and L[name] or "")
         end,
     }
 end
@@ -1340,6 +1344,7 @@ refresh = function()
         tab:SetShown(sample ~= nil)
         if sample then
             tab.label:SetText(L[sample.label])
+            tab:SetWidth(math.max(56, tab.label:GetStringWidth() + 16))
             tab:SetSelected(not state.lookup and index == state.sample)
         end
     end

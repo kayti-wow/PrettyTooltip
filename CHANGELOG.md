@@ -1,3 +1,20 @@
+# PrettyTooltip 1.3.5
+
+## Performance
+
+- ItemLite and Pretty item panels now use separate processing paths, avoiding duplicate work on the same tooltip.
+- Added several skips and caching steps to minimize stutter on tooltip refresh, particularly in comparison mode.
+- *Note: Please report any issues with the new item processing paths.*
+
+## Tooltips
+
+- Improved comparison panel sizing and anchoring while the game refreshes equipped items.
+- Fixed flickering during tooltip anchoring and layout issues when reopening the same item.
+
+## Style editor
+
+- Fixed Lua errors in buff and macro previews, and improved sample styling.
+
 # PrettyTooltip 1.3.4
 
 ## Options

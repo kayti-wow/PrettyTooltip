@@ -400,9 +400,8 @@ end
 local processor = {}
 ns.Processor = processor
 
--- The item wording first, as the panel reads the game's lines; then the
--- panel; then the details on a game tooltip no panel covers; then follow
--- cursor, which places what was drawn.
+-- Native item wording or the Pretty panel, selected by the current settings;
+-- then native details where no panel covers the tooltip, and follow cursor.
 local ORDER = { "wording", "panel", "details", "cursor" }
 local RANK = {}
 for rank, stage in ipairs(ORDER) do RANK[stage] = rank end

@@ -79,8 +79,9 @@ local function place()
         return false
     end
     anchoredPoint, anchoredHeight = point, height
-    -- The panel took its side from the anchor the game set before this one.
-    if panel then pcall(ns.ui.alignPanel, panel, GameTooltip) end
+    -- Cursor placement replaces the default anchor. Release the old panel
+    -- hold's geometry immediately, while Native can still defer its size fit.
+    if panel then pcall(ns.ui.alignPanel, panel, GameTooltip, true) end
     return true
 end
 

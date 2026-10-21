@@ -72,7 +72,7 @@ read_globals = {
     "INVTYPE_2HWEAPON", "INVTYPE_CHEST", "INVTYPE_HAND", "ITEM_REQ_REPUTATION", "FACTION_STANDING_LABEL7",
     "ITEM_COOLDOWN_TOTAL_MIN", "ITEM_COOLDOWN_TIME_SEC", "ITEM_LEVEL",
     -- Tooltip data
-    "TooltipDataProcessor", "Enum",
+    "TooltipDataProcessor", "TooltipComparisonManager", "Enum",
     -- Game state
     "C_Item", "C_Spell", "C_Texture", "C_AddOns", "C_QuestLog", "C_UnitAuras", "C_Timer", "C_CurrencyInfo",
     "GetLocale", "GetBuildInfo", "GetAddOnMetadata", "GetTime", "IsAltKeyDown", "IsControlKeyDown", "IsShiftKeyDown", "InCombatLockdown",

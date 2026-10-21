@@ -696,6 +696,27 @@ local function readModel(tooltip, data, game)
 end
 readModel = probe("read item", readModel)
 
+-- Native details need identity and disenchant metadata, never the item's
+-- stats, effects, appended native lines, or the Pretty presentation model.
+local function readDetails(tooltip, data, game)
+    if isSecret(data) or type(data) ~= "table" then return end
+    local itemInfo = getItemInfo(tooltip, data)
+    local id = number(data.id)
+    local shownID = type(itemInfo) == "string" and tonumber(itemInfo:match("item:(%d+)")) or number(itemInfo)
+    -- GetItem can name a recipe's crafted item. Details belong to the recipe.
+    if id and id ~= shownID then itemInfo = id end
+    local model = { link = itemInfo }
+    if ns.option("disenchant") and ns.disenchantFor then
+        local itemType = game.itemType(itemInfo)
+        if itemType and itemType.classID then
+            model.disenchant = ns.disenchantFor(itemType.classID, getQuality(itemInfo, data, game),
+                getLevel(itemInfo, game), itemType.equipLoc, itemType.id, game)
+        end
+    end
+    return model
+end
+readDetails = probe("read item details", readDetails)
+
 -- Where an effect's or enchant's text starts: after a marker and two spaces,
 -- as a stat's does.
 local function markerIndent(panel, style)
@@ -1334,4 +1355,4 @@ local function details(model, context)
 end
 
 ns.TooltipTypes[ITEM] = { read = readModel, render = render, key = getItemInfo, option = "itemPanels",
-    details = details, detailKeys = { "disenchant", "showIDs" } }
+    readDetails = readDetails, details = details, detailKeys = { "disenchant", "showIDs" } }

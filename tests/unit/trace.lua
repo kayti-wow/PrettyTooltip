@@ -14,6 +14,8 @@ return function(test)
     local tooltip = world.main
     tooltip:Show()
     tooltip:SetAlpha(1)
+    local top = 200
+    tooltip.GetTop = function() return top end
 
     ns.traceTooltips(4)
     local tick
@@ -24,6 +26,8 @@ return function(test)
     tooltip:SetAlpha(0)
     tick()
     tick()
+    top = 210
+    tick()
     tooltip:SetAlpha(world.secret)
     tick()
     finish()
@@ -31,7 +35,8 @@ return function(test)
     local text = table.concat(report, "\n")
     local function has(fragment) return text:find(fragment, 1, true) ~= nil end
     test.check("each change is written once, a frame with none is not",
-        select(2, text:gsub("frame %d+  GameTooltip  ", "")), 3)
+        select(2, text:gsub("frame %d+  GameTooltip  ", "")), 4)
+    test.check("position changes are reported even when size and anchors stay the same", has("pos 0.0,210.0"), true)
     test.check("calls are written with the line that made them",
         has("GameTooltip:SetAlpha(0.0)  from Test/Test.lua:12: in function <...>"), true)
     test.check("hidden values read secret", has("GameTooltip:SetAlpha(secret)"), true)

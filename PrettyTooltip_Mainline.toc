@@ -4,7 +4,7 @@
 ## Author: FallenShard
 ## X-License: MIT
 ## X-Curse-Project-ID: 1720719
-## Version: 1.3.1
+## Version: 1.3.5
 ## IconTexture: Interface\AddOns\PrettyTooltip\art\logo
 ## SavedVariables: PrettyTooltipDB, PrettyTooltipCaptures
 ## OptionalDeps: Auctionator, DialogueUI, EllesmereUI, LibSharedMedia-3.0

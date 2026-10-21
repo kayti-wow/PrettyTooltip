@@ -1,8 +1,5 @@
--- Item wording on the game's own tooltip: shortened in its own colors, the
--- panel's under a panel, or the original while the original-tooltip key is
--- held. Applied to the drawn lines after the game fills the tooltip; the
--- tooltip data stays as the game made it, so the game never reads the
--- addon's tables.
+-- Native item wording, only when the item is not presented by a Pretty
+-- panel. Apply to font strings after the fill; keep Blizzard's data intact.
 local _, ns = ...
 local isSecret = ns.util.isSecret
 local util = ns.util
@@ -15,7 +12,6 @@ local hookedTooltips = setmetatable({}, { __mode = "k" })
 
 local function wordingShown()
     if ns.originalKeyDown() then return "original" end
-    if ns.restyles("itemPanels") then return "display" end
     return ns.option("liteWording") and "lite" or "original"
 end
 
@@ -57,7 +53,7 @@ local function onItemShown(tooltip, data)
         local wording = line.lineIndex and itemWording(line)
         local fontString = wording and tooltip:GetLeftLine(line.lineIndex)
         if fontString then
-            rows[#rows + 1] = { fontString = fontString, original = line.leftText, display = wording.display,
+            rows[#rows + 1] = { fontString = fontString, original = line.leftText,
                 lite = wording.lite, lines = wording.lines }
         end
     end
@@ -71,9 +67,19 @@ function ns.ItemLite.register()
     if not ns.Locale.supported or not (ns.Processor.available()
         and Enum and Enum.TooltipDataType and Enum.TooltipDataType.Item) then return end
     registered = true
-    ns.Processor.onData("wording", Enum.TooltipDataType.Item, onItemShown)
+    ns.Processor.onData("wording", Enum.TooltipDataType.Item, function(tooltip, data)
+        -- Choose before any line traversal. The Pretty reader transforms
+        -- original data itself, and cached panels need no wording pass.
+        if ns.restyles("itemPanels") then
+            if not isSecret(tooltip) and (type(tooltip) == "table" or type(tooltip) == "userdata") then
+                activeLinesByTooltip[tooltip] = nil
+            end
+            return
+        end
+        onItemShown(tooltip, data)
+    end)
     ns.Processor.onKey("wording", function(key)
-        if not ns.isOriginalKey(key) then return end
+        if ns.restyles("itemPanels") or not ns.isOriginalKey(key) then return end
         local wording = wordingShown()
         for tooltip in pairs(activeLinesByTooltip) do
             if util.canModify(tooltip) and tooltip:IsShown()

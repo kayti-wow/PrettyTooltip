@@ -100,7 +100,7 @@ return function(test)
     SlashCmdList.PRETTYTOOLTIP("")
     test.check("commands dispatch without settings-page implementation", dispatched, 1)
 
-    -- Test the entry file's actual integration order with a rewritten item.
+    -- Pretty reads original data and does not run native item wording.
     local item = {
         enums = { TooltipDataType = { Item = 0 }, TooltipDataLineType = { None = 0, ItemName = 22 } },
         data = { type = 0, lines = {
@@ -122,7 +122,6 @@ return function(test)
     test.check("which runs wording, panel, details, and cursor in order", ns.Processor.stages(0),
         { "wording", "panel", "details", "cursor" })
     test.check("and no pre-call that would change the game's data", world.preCalls[0], nil)
-    local display = ns.TooltipData.itemWording(item.data.lines[2]).display
     local observed
     local read = ns.TooltipTypes[0].read
     ns.TooltipTypes[0].read = function(tooltip, data, game)
@@ -140,7 +139,7 @@ return function(test)
     GameTooltip_SetDefaultAnchor(world.main, UIParent)
     world.main:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -20, 30)
     for _, callback in ipairs(world.postCalls[0]) do callback(world.main, item.data) end
-    test.check("panel sees the wording applied first", observed, display)
+    test.check("panel sees the original native text", observed, "+6 Intellect")
     test.check("the game's data keeps its wording", item.data.lines[2].leftText, "+6 Intellect")
     test.check("cursor sees the fitted panel", cursorSeesPanel, true)
     IsAltKeyDown = function() return true end
@@ -149,7 +148,7 @@ return function(test)
     test.check("modifier hides the custom panel", shownPanel(world.main), nil)
     IsAltKeyDown = function() return false end
     world.fireEvent("MODIFIER_STATE_CHANGED", "LALT", 0)
-    test.check("modifier release restores the panel's wording", world.main:GetLeftLine(2):GetText(), display)
+    test.check("modifier release keeps native wording original", world.main:GetLeftLine(2):GetText(), "+6 Intellect")
     test.check("modifier release restores custom panel", shownPanel(world.main) ~= nil, true)
     local count = #world.objects
     ns.start()
