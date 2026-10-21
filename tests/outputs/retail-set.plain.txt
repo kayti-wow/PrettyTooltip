@@ -217,7 +217,7 @@ transmog: "Eternal Epaulets of Ten Storms"
 upgrade: "Hero 6/6"
 weaponBonus: {}
 == tooltip render
-panel 390 x 587
+panel 390 x 592
 texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
 texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
 texture at 6,6 0x136 rgb=1,1,1,1 band
@@ -233,26 +233,26 @@ text at 19,186 w=352 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+2527|r |cffA89F8EStam
 text at 19,204 w=352 size=13 rgb=0.5,0.5,0.5 "+125 Agility"
 text at 19,222 w=352 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+90|r |cffA89F8EHaste|r"
 text at 19,240 w=352 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+53|r |cffA89F8EVersatility|r"
-text at 19,258 w=352 size=13 rgb=0.9,0.85,0.74 "|cff4CE64CEnchant Shoulders - Silvermoon's Mending |A:Professions-ChatIcon-Quality-12-Tier2:13:13:0:0|a|r"
-text at 19,276 w=307 size=15 rgb=1,0.76,0.18 "OPHIDIAN ORACLE'S PROPHECY"
-text at 329,276 w=42 size=12 rgb=1,0.76,0.18 "3/5"
-text at 24,300 w=347 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rFanged Raiment of the Ophidian Oracle"
-text at 24,317 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHexing Grips of the Ophidian Oracle"
-text at 24,334 w=347 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rSerpent Crown of the Ophidian Oracle"
-text at 24,351 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rLeggings of the Ophidian Oracle"
-text at 24,368 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHissing Mantle of the Ophidian Oracle"
-text at 22,392 w=349 size=12 rgb=0.48,0.88,0.48 "Set: Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8.0 sec."
-text at 22,423 w=349 size=12 rgb=0.44,0.42,0.4 "(4) Set: Every 1 sec, 1 ally inside of Healing Rain gains a watery shield that absorbs 8,178 damage for 10 sec."
-text at 19,454 w=244.5 size=11 rgb=0.85,0.7,0 "Vendor"
-text at 275.5,454 w=95.5 size=11 rgb=0.85,0.7,0 "|cffffffff43 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 11 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 37 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
-text at 19,469 w=352 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
-text at 19,484 w=299.5 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
-text at 330.5,484 w=40.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff43|r|cffffd70ag|r |cffffffff11|r|cffc7c7cfs|r"
-text at 19,499 w=277.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
-text at 308.5,499 w=62.5 size=11 rgb=0.85,0.7,0 "|cff66bbffEquipped: |cffffffff1|r|r"
-text at 19,514 w=294 size=11 rgb=0.85,0.7,0 "Inventory"
-text at 325,514 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
-text at 19,529 w=352 size=11 rgb=0.6,0.6,0.63 "Item ID: 271481"
-texture at 19,558 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+text at 19,263 w=352 size=13 rgb=0.9,0.85,0.74 "|cff4CE64CEnchant Shoulders - Silvermoon's Mending |A:Professions-ChatIcon-Quality-12-Tier2:13:13:0:0|a|r"
+text at 19,281 w=307 size=15 rgb=1,0.76,0.18 "OPHIDIAN ORACLE'S PROPHECY"
+text at 329,281 w=42 size=12 rgb=1,0.76,0.18 "3/5"
+text at 24,305 w=347 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rFanged Raiment of the Ophidian Oracle"
+text at 24,322 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHexing Grips of the Ophidian Oracle"
+text at 24,339 w=347 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rSerpent Crown of the Ophidian Oracle"
+text at 24,356 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rLeggings of the Ophidian Oracle"
+text at 24,373 w=347 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHissing Mantle of the Ophidian Oracle"
+text at 22,397 w=349 size=12 rgb=0.48,0.88,0.48 "Set: Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8.0 sec."
+text at 22,428 w=349 size=12 rgb=0.44,0.42,0.4 "(4) Set: Every 1 sec, 1 ally inside of Healing Rain gains a watery shield that absorbs 8,178 damage for 10 sec."
+text at 19,459 w=244.5 size=11 rgb=0.85,0.7,0 "Vendor"
+text at 275.5,459 w=95.5 size=11 rgb=0.85,0.7,0 "|cffffffff43 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 11 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 37 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,474 w=352 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
+text at 19,489 w=299.5 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
+text at 330.5,489 w=40.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff43|r|cffffd70ag|r |cffffffff11|r|cffc7c7cfs|r"
+text at 19,504 w=277.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
+text at 308.5,504 w=62.5 size=11 rgb=0.85,0.7,0 "|cff66bbffEquipped: |cffffffff1|r|r"
+text at 19,519 w=294 size=11 rgb=0.85,0.7,0 "Inventory"
+text at 325,519 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
+text at 19,534 w=352 size=11 rgb=0.6,0.6,0.63 "Item ID: 271481"
+texture at 19,563 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
 texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
-text at 80,553 w=90 size=11 rgb=0.82,0.78,0.71 "100 / 100"
+text at 80,558 w=90 size=11 rgb=0.82,0.78,0.71 "100 / 100"

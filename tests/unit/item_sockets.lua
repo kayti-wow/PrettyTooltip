@@ -28,9 +28,9 @@ return function(test)
         capture.data.lines[index] = line
         capture.lines[index] = { left = { text = line.leftText } }
     end
-    local ns, world = test.load({ "Core/Retail.lua", "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load(test.retail({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua" }, capture)
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua" }), capture)
     PrettyTooltipDB = {}
     local model = ns.TooltipTypes[ITEM].read(world.main, capture.data, ns.Game)
 
@@ -56,15 +56,36 @@ return function(test)
     local found = {}
     for _, font in ipairs(panel.pool or {}) do
         if font._shown and font._text then
-            if font._text:find("|T4555555:20:20", 1, true) then found.gem = select(2, font:GetFont()) end
-            if font._text:find("UI-EmptySocket-Prismatic:20:20", 1, true) then found.empty = true end
+            if font._text:find("Haste", 1, true) then found.gemText = font end
+            if font._text:find("Prismatic Socket", 1, true) then found.emptyText = font end
             -- The quality icon at the line's size, not the game's 20 px.
             if font._text:find("Quality: |A:Professions-ChatIcon-Quality-Tier5:15:15:0:0|a", 1, true) then
                 found.quality = select(2, font:GetFont())
             end
         end
     end
-    test.check("drawn in their own parts", found, { gem = 16, empty = true, quality = 15 })
+    -- Each socket's icon is drawn apart from its text, 20 px for 16 px text, and
+    -- centered on the text's line (the size and 2 tall); the text starts after it.
+    local icons = {}
+    for _, texture in ipairs(panel.texturePool or {}) do
+        if texture._shown and (texture._texture == 4555555
+            or texture._texture == "Interface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic") then
+            icons[#icons + 1] = texture
+        end
+    end
+    local function placed(icon, font)
+        if not (icon and font) then return false end
+        local _, _, _, iconX, iconY = icon:GetPoint(1)
+        local _, _, _, textX, textY = font:GetPoint(1)
+        return { width = icon:GetWidth(), middle = -iconY + icon:GetHeight() / 2 - (-textY),
+            textAfter = textX - iconX, iconInText = font._text:find("|T", 1, true) ~= nil }
+    end
+    local wanted = { width = 20, middle = 9, textAfter = 24, iconInText = false }
+    test.check("each socket's icon centered on its line", { placed(icons[1], found.gemText),
+        placed(icons[2], found.emptyText) }, { wanted, wanted })
+    test.check("drawn in their own parts",
+        { gem = found.gemText and select(2, found.gemText:GetFont()), quality = found.quality },
+        { gem = 16, quality = 15 })
     local parts = {}
     for _, element in ipairs(ns.ELEMENTS) do
         if element.key == "gems" or element.key == "craftingQuality" then parts[element.key] = element.retail end

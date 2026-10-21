@@ -77,7 +77,7 @@ weaponDamage: "153 - 256 Damage"
 weaponDps: "53.8"
 weaponSpeed: "Speed 3.80"
 == sample render
-panel 330 x 421
+panel 330 x 431
 texture at -16,-16 0x0 rgb=0.72,0.4,0.94,0.55 glow
 texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
 texture at 4,4 0x91 rgb=1,1,1,1 WHITE8X8
@@ -108,22 +108,22 @@ texture at 19,186 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
 texture TOPRIGHT panel TOPRIGHT -19,-186 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
 texture TOP panel TOP 0,-181 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
 text at 19,199 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffFAA365+62|r |cffF7C5A5Attack Power|r"
-text at 19,217 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
-text at 41,217 w=270 size=13 rgb=0.48,0.88,0.48 "Your attacks have a chance to cleave a nearby enemy."
-text at 19,250 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sword:11:11:-1:-2:32:32:0:32:0:32:200:210:225|t"
-text at 41,250 w=270 size=13 rgb=0.48,0.88,0.48 "Wounds the target for |cffFFF6E440|r to |cffFFF6E460|r damage."
-text at 19,268 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
-text at 41,268 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+25|r |cffA6EBA6Agility|r"
-text at 19,291 w=292 size=12 rgb=0.86,0.74,0.45 "\"Sample flavor text sits here, in gold.\""
-texture at 19,316 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOPRIGHT panel TOPRIGHT -19,-316 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOP panel TOP 0,-311 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
-text at 19,329 w=151.5 size=11 rgb=0.86,0.74,0.45 "Disenchant"
-text at 182.5,329 w=128.5 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 225"
-text at 19,346 w=256 size=11 rgb=0.88,0.84,0.76 "1–2 Nexus Crystal"
-text at 287,346 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
-text at 237.5,370 w=73.5 size=11 rgb=0.88,0.78,0.6 "6|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 42|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
-texture at 19,375 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+text at 19,222 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,222 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+25|r |cffA6EBA6Agility|r"
+text at 19,245 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,245 w=270 size=13 rgb=0.48,0.88,0.48 "Your attacks have a chance to cleave a nearby enemy."
+text at 19,278 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sword:11:11:-1:-2:32:32:0:32:0:32:200:210:225|t"
+text at 41,278 w=270 size=13 rgb=0.48,0.88,0.48 "Wounds the target for |cffFFF6E440|r to |cffFFF6E460|r damage."
+text at 19,301 w=292 size=12 rgb=0.86,0.74,0.45 "\"Sample flavor text sits here, in gold.\""
+texture at 19,326 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-326 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-321 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,339 w=151.5 size=11 rgb=0.86,0.74,0.45 "Disenchant"
+text at 182.5,339 w=128.5 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 225"
+text at 19,356 w=256 size=11 rgb=0.88,0.84,0.76 "1–2 Nexus Crystal"
+text at 287,356 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
+text at 237.5,380 w=73.5 size=11 rgb=0.88,0.78,0.6 "6|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 42|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+texture at 19,385 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
 texture TOPLEFT Texture TOPLEFT 0,0 27.45x4 rgb=0.45,0.8,0.4,1 WHITE8X8
-text at 80,370 w=90 size=11 rgb=0.82,0.78,0.71 "61 / 120"
-text at 19,387 w=280 size=11 rgb=0.86,0.74,0.45 "Made by Lorelei"
+text at 80,380 w=90 size=11 rgb=0.82,0.78,0.71 "61 / 120"
+text at 19,397 w=280 size=11 rgb=0.86,0.74,0.45 "Made by Lorelei"

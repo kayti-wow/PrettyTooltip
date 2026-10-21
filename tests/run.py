@@ -293,7 +293,7 @@ def run_unit(path: Path, tocs: dict[str, list[str]], show_notes: bool) -> bool:
     try:
         results, notes = harness["main"].unit(path.read_text(encoding="utf-8"), f"unit/{path.name}",
                                                 sources_table(lua, every_source()), harness["serialize"],
-                                                harness["wow"], lists)
+                                                harness["wow"], lists, default_enums(load))
     except Exception as error:
         print(f"FAIL unit/{path.stem}: {error}")
         return False

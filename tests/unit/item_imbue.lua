@@ -11,9 +11,9 @@ return function(test)
                 leftColor = { r = 1, g = 1, b = 1 } }
             capture.lines[index] = { left = { text = line[1] } }
         end
-        local ns, world = test.load({ "Core/Retail.lua", "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+        local ns, world = test.load(test.retail({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
             "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-            "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua" }, capture)
+            "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua" }), capture)
         PrettyTooltipDB = {}
         return ns.TooltipTypes[ITEM].read(world.main, capture.data, ns.Game), ns
     end

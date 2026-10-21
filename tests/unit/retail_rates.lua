@@ -3,9 +3,9 @@
 -- global cooldown, which shrinks with haste, and is 1 sec for energy users.
 return function(test)
     local SPELL = 1
-    local files = { "Core/Retail.lua", "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local files = test.retail({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Game/SpellAmounts.lua",
-        "Data/SchoolsRetail.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" }
+        "Retail/Schools.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" })
     local ns = test.load(files, { enums = { TooltipDataType = { Item = 0, Spell = SPELL } } })
 
     -- The global cooldown, from the player's power and haste.
@@ -20,9 +20,10 @@ return function(test)
     power = "ENERGY"
     test.check("an energy user's is 1 sec, whatever the haste", gcd(), 1)
     power, haste = "MANA", 0
-    ns.retail = nil
+    local retail = ns.Retail
+    ns.Retail = nil
     test.check("Forever's is 1.5 sec", gcd(), 1.5)
-    ns.retail = true
+    ns.Retail = retail
 
     local game = { globalCooldown = function() return 1.2 end }
     local function rates(cast, cost, text)

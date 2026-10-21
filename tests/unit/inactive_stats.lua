@@ -4,9 +4,9 @@
 return function(test)
     local ITEM = 0
     local LINE = { None = 0, ItemName = 1 }
-    local FILES = { "Core/Retail.lua", "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
+    local FILES = test.retail({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
         "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua", "Panel/Layout.lua",
-        "Panel/Render.lua", "Tooltips/Item.lua" }
+        "Panel/Render.lua", "Tooltips/Item.lua" })
     local WHITE, GREY, GREEN = { r = 1, g = 1, b = 1 }, { r = .5, g = .5, b = .5 }, { r = 0, g = 1, b = 0 }
     local lines = {
         { "Ancestral Gauntlets", WHITE }, { "+120 Intellect", WHITE }, { "+120 Agility", GREY },

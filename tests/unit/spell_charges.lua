@@ -9,7 +9,7 @@ return function(test)
         if locale ~= "enUS" then list[#list + 1] = "Locale/" .. locale .. ".lua" end
         for _, file in ipairs({ "Game/Game.lua", "Game/TooltipData.lua", "Panel/Layout.lua", "Panel/Render.lua",
             "Tooltips/Spell.lua" }) do list[#list + 1] = file end
-        return list
+        return test.retail(list)
     end
 
     local function read(locale, lines)

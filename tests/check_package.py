@@ -127,7 +127,7 @@ def check_startup(entries_by_toc: dict[str, list[str]], sources: dict[str, str])
             PrettyTooltipDB = {}
             world.fireEvent('ADDON_LOADED', 'PrettyTooltip')
             assert(ns.Locale.supported, 'locale not enabled')
-            assert(ns.retail == (retail or nil), 'retail flag does not match the TOC')
+            assert(ns.IsRetail() == (retail == true), 'retail flag does not match the TOC')
             assert(retail or ns.spellPowerRows, 'coefficients not loaded')
             assert(ns.Locale.features.coefficients, 'localized coefficients not enabled')
             assert(type(SlashCmdList.PRETTYTOOLTIP) == 'function', 'startup did not register commands')

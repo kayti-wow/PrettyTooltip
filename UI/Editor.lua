@@ -875,7 +875,11 @@ local function section(title, shown, first)
     rule:SetPoint("TOPLEFT", 0, -top - 16)
     rule:SetSize(CONTROLS_WIDTH, 1)
     controls[#controls + 1] = {
-        refresh = function() label:SetText(L[type(title) == "function" and title() or title]) end,
+        refresh = function()
+            local shownTitle = title
+            if type(title) == "function" then shownTitle = title() end
+            label:SetText(shownTitle and L[shownTitle] or "")
+        end,
     }
 end
 
@@ -966,8 +970,8 @@ local partPicker = dropdown(CONTROLS_WIDTH, function()
     local items = {}
     for _, element in ipairs(ns.ELEMENTS) do
         local tooltipType = element.tooltipType or "item"
-        if (tooltipType == state.tooltipType or tooltipType == "shared") and not (element.classic and ns.retail)
-            and not (element.retail and not ns.retail) then
+        if (tooltipType == state.tooltipType or tooltipType == "shared") and not (element.classic and ns.IsRetail())
+            and not (element.retail and not ns.IsRetail()) then
             items[#items + 1] = { value = element.key, text = element.label }
         end
     end
@@ -1219,11 +1223,11 @@ local items, spells, units = forTypes("item"), forTypes("spell"), forTypes("unit
 local function coefficients() return ns.Locale.features.coefficients == true end
 -- Settings drawn from Classic-only data, which retail does not load.
 local function classicOnly(shown)
-    return function() return not ns.retail and shown() end
+    return function() return not ns.IsRetail() and shown() end
 end
 -- Settings for what only retail's tooltips have.
 local function retailOnly(shown)
-    return function() return ns.retail and shown() end
+    return function() return ns.IsRetail() and shown() end
 end
 toggles({
     { "Quest parchment", "questParchment", "DialogueUI's brown parchment for quest tooltips, Quest Items, "
@@ -1272,9 +1276,12 @@ row("Stat colors", colorSwatches(ns.Stats.CATEGORIES, "statColor", function(key)
     return hexColor((ns.Stats.categoryColors(key)))
 end), colorGroupSetting(ns.Stats.CATEGORIES, "statColor"), items, true)
 -- Retail's secondary stats, each in its own color.
-row("Secondary stat colors", colorSwatches(ns.Stats.RETAIL_CATEGORIES, "statColor", function(key)
-    return hexColor((ns.Stats.categoryColors(key)))
-end), colorGroupSetting(ns.Stats.RETAIL_CATEGORIES, "statColor"), function() return ns.retail and items() end, true)
+if ns.IsRetail() then
+    local categories = ns.Retail.Stats.CATEGORIES
+    row("Secondary stat colors", colorSwatches(categories, "statColor", function(key)
+        return hexColor((ns.Stats.categoryColors(key)))
+    end), colorGroupSetting(categories, "statColor"), items, true)
+end
 row("Class colors", colorSwatches(ns.Palette.CLASSES, "classColor", ns.Palette.classColor, function()
     if ns.Palette.addonClassColors() then
         return L["Your class colors addon sets these; the colors chosen here apply without it."]

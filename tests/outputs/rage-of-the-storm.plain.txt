@@ -105,7 +105,7 @@ weaponDamage: "94 - 141 Damage"
 weaponDps: "35.6"
 weaponSpeed: "Speed 3.30"
 == tooltip render
-panel 308 x 311
+panel 308 x 316
 texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
 texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
 texture at 4,4 0x85 rgb=1,1,1,1 WHITE8X8
@@ -124,12 +124,12 @@ text at 19,89 w=270 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF235.6|r |cffAEB9C7Damage
 text at 26,115 w=263 size=12 rgb=0.62,0.65,0.7 "94 - 141 Damage  ·  Speed 3.30"
 text at 19,136 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+12|r |cffA89F8EIntellect|r"
 text at 19,154 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+15|r |cffA89F8EStamina|r"
-text at 19,172 w=270 size=13 rgb=0.48,0.88,0.48 "Increases the damage dealt by your Stormstrike ability by 10%."
-text at 19,205 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+5|r |cffA6EBA6Weapon Damage|r"
-text at 19,223 w=270 size=11 rgb=0,0.85,0 "Windfury 1"
-text at 19,238 w=270 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
-text at 19,253 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 280604"
-text at 19,277 w=258 size=11 rgb=0.82,0.78,0.71 "You haven't collected this appearance"
+text at 19,172 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+5|r |cffA6EBA6Weapon Damage|r"
+text at 19,195 w=270 size=13 rgb=0.48,0.88,0.48 "Increases the damage dealt by your Stormstrike ability by 10%."
+text at 19,228 w=270 size=11 rgb=0,0.85,0 "Windfury 1"
+text at 19,243 w=270 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
+text at 19,258 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 280604"
+text at 19,282 w=258 size=11 rgb=0.82,0.78,0.71 "You haven't collected this appearance"
 
 == comparison 1 model
 armor: {}

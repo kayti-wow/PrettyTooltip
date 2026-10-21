@@ -9,9 +9,10 @@
 ## SavedVariables: PrettyTooltipDB, PrettyTooltipCaptures
 ## OptionalDeps: Auctionator, DialogueUI, EllesmereUI, LibSharedMedia-3.0
 
-Core\Retail.lua
+Retail\Retail.lua
 Core\Util.lua
 Core\Palette.lua
+Retail\Settings.lua
 Core\Settings.lua
 Locale\Locale.lua
 Locale\English.lua
@@ -24,16 +25,21 @@ Locale\Portuguese.lua [AllowLoadTextLocale ptBR, ptPT]
 Locale\ruRU.lua [AllowLoadTextLocale ruRU]
 Locale\zhCN.lua [AllowLoadTextLocale zhCN]
 Locale\zhTW.lua [AllowLoadTextLocale zhTW]
+Retail\Game.lua
 Game\Game.lua
 Game\TooltipData.lua
 Game\SpellAmounts.lua
-Data\SchoolsRetail.lua
+Retail\Schools.lua
+Retail\Stats.lua
 Data\Stats.lua
 Panel\Layout.lua
 Panel\Render.lua
+Retail\Item.lua
 Tooltips\Item.lua
+Retail\Spell.lua
 Tooltips\Spell.lua
 Tooltips\Object.lua
+Retail\Unit.lua
 Tooltips\Unit.lua
 Tooltips\Aura.lua
 Tooltips\Quest.lua
@@ -42,6 +48,7 @@ Tooltips\PetAction.lua
 Tooltips\Minimap.lua
 Tooltips\FlightPath.lua
 UI\Options.lua
+Retail\Samples.lua
 UI\Samples.lua
 UI\EditorSkin.lua
 UI\Editor.lua

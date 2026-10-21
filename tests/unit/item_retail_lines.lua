@@ -10,7 +10,7 @@ return function(test)
         local list = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
             "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua", "Panel/Layout.lua",
             "Panel/Render.lua", "Tooltips/Item.lua" }
-        if retail then table.insert(list, 1, "Core/Retail.lua") end
+        if retail then list = test.retail(list) end
         return list
     end
     local function read(lines, retail)

@@ -5,6 +5,13 @@ local _, ns = ...
 local util = {}
 ns.util = util
 
+-- Whether this is retail's client, whose .toc alone loads the Retail/ folder,
+-- Retail/Retail.lua first. Every call from shared code into ns.Retail is
+-- behind this.
+function ns.IsRetail()
+    return ns.Retail ~= nil
+end
+
 -- Secret values and tables whose contents this addon cannot access must be
 -- rejected before indexing, comparing, formatting, or doing arithmetic.
 local secretValue = issecretvalue or function() return false end

@@ -43,8 +43,6 @@ local DEFAULTS = {
     -- What herb and ore nodes and skinnable creatures give, on their panels.
     gatheringLoot = true,
     sellPrice = true,
-    -- Retail's "<Shift Right Click to Socket>" under an item's sockets.
-    socketHint = true,
     spellPower = true,
     -- Damage or healing per second and per mana, under the spell power breakdown.
     spellRates = true,
@@ -135,8 +133,8 @@ function ns.resetOptions()
 end
 
 -- tooltipType: "item" (default), "spell", "object", "unit", "aura", "quest", "macro", or "shared" by all. color is where the picker starts
--- while the color is automatic. classic: drawn from Classic-only data, so not offered on retail. retail: only
--- retail's tooltips have it.
+-- while the color is automatic. classic: drawn from Classic-only data, so not offered on retail. Retail's own
+-- parts, marked retail, are in Retail/Settings.lua.
 ns.ELEMENTS = {
     { key = "title", label = "Item name", size = 19, title = true, color = { 1, 1, 1 },
         note = "Quality color unless set." },
@@ -144,27 +142,14 @@ ns.ELEMENTS = {
         note = "Half the quality color, red for a type you cannot use." },
     { key = "header", label = "Binding and level", size = 12, color = { .78, .72, .63 },
         note = "The required level is red while you are below it." },
-    { key = "itemSource", label = "Source", size = 12, color = { .12, 1, .12 }, retail = true,
-        note = "Where the item comes from, as Heroic or Mythic, under its name. The game's color unless set." },
-    { key = "itemUpgrade", label = "Upgrade level", size = 12, color = { .90, .80, .55 }, retail = true,
-        note = "The upgrade track and level, as Myth 2/6." },
-    { key = "craftingQuality", label = "Crafted quality", size = 12, color = { .90, .85, .74 }, retail = true,
-        note = "A crafted item's quality, with the game's quality icon." },
-    { key = "itemTransmog", label = "Transmogrification", size = 12, color = { 1, .50, 1 }, retail = true,
-        note = "The appearance and weapon illusion the item is transmogrified to." },
     { key = "dps", label = "Damage per second", size = 18, color = { .90, .93, .95 } },
     { key = "damage", label = "Damage and speed", size = 12, color = { .62, .65, .70 } },
     { key = "armor", label = "Armor", size = 16, color = { .90, .93, .95 } },
     { key = "stats", label = "Stats", size = 13, color = { .90, .85, .74 },
         note = "Colored by category unless set." },
-    { key = "secondaryStats", label = "Secondary stats", size = 13, color = { .90, .85, .74 }, retail = true,
-        note = "Critical Strike, Haste, Mastery, Versatility, and the stats under them. Colored by stat unless set." },
     { key = "equipEffects", label = "Equip effects", size = 13, color = { .48, .88, .48 },
         note = "On-hit numbers use the spell tooltip's school colors unless set." },
     { key = "enchants", label = "Enchants", size = 13, color = { .30, .90, .30 } },
-    { key = "gems", label = "Gems and sockets", size = 12, color = { .90, .85, .74 }, retail = true,
-        note = "Socketed gems with their icons, empty sockets, and the socket bonus. Gem stats in their stat colors, "
-            .. "the socket bonus green once active, unless set." },
     { key = "effects", label = "Use and other effects", size = 13, color = { .48, .88, .48 } },
     { key = "flavor", label = "Flavor text", size = 12, color = colors.flavor },
     { key = "setName", label = "Set name and count", size = 15, title = true,
@@ -195,8 +180,6 @@ ns.ELEMENTS = {
         note = "The cost takes its resource color unless set." },
     { key = "spellCaptions", label = "Strip captions", size = 9, color = colors.caption,
         tooltipType = "spell" },
-    { key = "spellCharges", label = "Charges", size = 11, color = { .60, .80, 1 }, tooltipType = "spell",
-        retail = true, note = "Under the strip, on a spell with charges: Max 2 Charges." },
     { key = "spellDetails", label = "Requirements and details", size = 11,
         color = colors.detail, tooltipType = "spell",
         note = "Unmet requirements red, time remaining orange, unless set." },
@@ -279,6 +262,19 @@ ns.TOOLTIP_TYPES = {
     { label = "Totems", cursor = "cursorTotems", types = { "Totem" } },
     { label = "Flyout buttons", cursor = "cursorFlyouts", types = { "Flyout" } },
 }
+
+-- Retail's own parts and defaults (Retail/Settings.lua), each part after the one it names.
+if ns.IsRetail() then
+    for key, value in pairs(ns.Retail.Settings.DEFAULTS) do DEFAULTS[key] = value end
+    for _, element in ipairs(ns.Retail.Settings.ELEMENTS) do
+        for index, other in ipairs(ns.ELEMENTS) do
+            if other.key == element.after then
+                table.insert(ns.ELEMENTS, index + 1, element)
+                break
+            end
+        end
+    end
+end
 
 local ELEMENT_BY_KEY = {}
 for _, element in ipairs(ns.ELEMENTS) do ELEMENT_BY_KEY[element.key] = element end

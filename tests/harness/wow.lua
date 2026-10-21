@@ -255,6 +255,11 @@ return function(fixture, enums, report, strings)
 
     -- Text, on font strings and the buttons that carry one.
     function Object:SetText(text)
+        -- The game takes text, a number, or nil, and errors on anything else.
+        local kind = type(text)
+        if kind ~= "string" and kind ~= "number" and kind ~= "nil" and not (issecretvalue and issecretvalue(text)) then
+            error("bad argument #1 to 'SetText' (Usage: self:SetText([text]))", 2)
+        end
         if text == self._text then tally("SetText, same text") end
         self._text = text
     end

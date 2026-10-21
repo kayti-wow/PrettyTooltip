@@ -79,7 +79,7 @@ end
 
 -- The list is Classic's; retail's nodes need other skill levels.
 local function nodeFor(name)
-    if ns.retail then return end
+    if ns.IsRetail() then return end
     return NODES[nodeKey(name)]
 end
 

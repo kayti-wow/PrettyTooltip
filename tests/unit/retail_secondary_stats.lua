@@ -8,7 +8,7 @@ return function(test)
         local list = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
             "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua", "Panel/Layout.lua",
             "Panel/Render.lua", "Tooltips/Item.lua" }
-        if retail then table.insert(list, 1, "Core/Retail.lua") end
+        if retail then list = test.retail(list) end
         return list
     end
     local lines = { "Ancestral Gauntlets", "+120 Intellect", "+80 Critical Strike", "+70 Haste", "+60 Mastery",
@@ -35,7 +35,7 @@ return function(test)
     test.check("a color the editor sets", valueColor("+70 Haste"), "FF0000")
     ns.setOption("statColorHaste", nil)
     local swatches = {}
-    for _, category in ipairs(ns.Stats.RETAIL_CATEGORIES) do swatches[#swatches + 1] = category.key end
+    for _, category in ipairs(ns.Retail.Stats.CATEGORIES) do swatches[#swatches + 1] = category.key end
     test.check("the editor's swatches", swatches, { "CriticalStrike", "Haste", "Mastery", "Versatility", "Minor" })
 
     -- Drawn in the Secondary stats part, the primary stats in Stats.
