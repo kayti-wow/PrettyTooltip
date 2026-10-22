@@ -64,9 +64,7 @@ local function readMinimap(tooltip, data, game)
     if #model.blips == 0 then return end
     local appended = tooltipData.appendedRows(tooltip, model.lineIndices)
     if not appended then return end
-    for _, row in ipairs(appended) do
-        if trim(row.left) ~= "" or row.right ~= "" then model.extras[#model.extras + 1] = row end
-    end
+    tooltipData.addExtras(model.extras, appended)
     return model
 end
 

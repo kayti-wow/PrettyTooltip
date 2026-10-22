@@ -8,6 +8,10 @@ creature: "Humanoide"
 dead: false
 extras:
   1:
+    blank: true
+    left: ""
+    right: ""
+  2:
     color:
       1: 0.85
       2: 0.7
@@ -43,7 +47,7 @@ tag: "Ferreiro Artífice"
 tapped: false
 unit: "mouseover"
 == tooltip render
-panel 286 x 155
+panel 286 x 170
 texture at -16,-16 0x0 rgb=0.3,0.85,0.35,0.385 glow
 texture at 0,0 0x0 rgb=0.7795,0.9527,0.7953,0.9 TooltipBackground-Temp.png
 texture at 0,0 0x0 rgb=0.3,0.85,0.35,0.2205 TooltipBackground-Temp.png
@@ -57,5 +61,5 @@ text at 67,21 w=200 size=17 rgb=0.3,0.85,0.35 "BENGUS BAIXAFORJA"
 text at 67,43 w=200 size=12 rgb=0.82,0.78,0.71 "Humanoide · Ferreiro Artífice"
 text at 67,61 w=200 size=12 rgb=0.82,0.78,0.71 "Altaforja"
 text at 67,80 w=20 size=12 rgb=0.82,0.78,0.71 "|cffFF9D8BJxJ|r"
-text at 19,108 w=248 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Creature"
-text at 19,123 w=248 size=11 rgb=0.6,0.6,0.63 "ID do PNJ: 4258"
+text at 19,123 w=248 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Creature"
+text at 19,138 w=248 size=11 rgb=0.6,0.6,0.63 "ID do PNJ: 4258"

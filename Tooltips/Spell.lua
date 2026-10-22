@@ -405,9 +405,11 @@ local function readSpell(tooltip, data, game)
     local appended = tooltipData.appendedRows(tooltip, model.lineIndices) or {}
     local rows = {}
     for _, row in ipairs(appended) do
-        if trim(row.left) ~= "" or row.right ~= "" then rows[#rows + 1] = row end
+        if not tooltipData.isBlank(row) then rows[#rows + 1] = row end
     end
-    for _, row in ipairs(readTalent(model, rows) or rows) do model.extras[#model.extras + 1] = row end
+    -- A talent's rows are read without their blank lines; anything else keeps them as gaps.
+    local talentExtras = readTalent(model, rows)
+    tooltipData.addExtras(model.extras, talentExtras or appended)
     for _, part in ipairs({ model, model.nested }) do
         for _, field in ipairs({ "cost", "cast", "cooldown", "range" }) do
             if part[field] then part.cells[#part.cells + 1] = part[field] end

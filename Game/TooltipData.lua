@@ -68,6 +68,33 @@ local function appendedRows(tooltip, lineIndices)
     end
     return rows
 end
+
+-- An empty line, as other addons add between their sections.
+local function isBlank(row)
+    return util.trim(util.plainText(row.left or "")) == "" and util.trim(util.plainText(row.right or "")) == ""
+end
+
+-- Adds other addons' rows to extras, one at a time: adder(row). A blank row
+-- separates an addon's sections, so it is kept as a gap, but only between two
+-- rows, and never two together.
+local function extrasAdder(extras)
+    local gap = false
+    return function(row)
+        if isBlank(row) then
+            gap = #extras > 0
+            return
+        end
+        if gap and not extras[#extras].blank then extras[#extras + 1] = { left = "", right = "", blank = true } end
+        gap = false
+        extras[#extras + 1] = row
+    end
+end
+
+local function addExtras(extras, rows)
+    local adder = extrasAdder(extras)
+    for _, row in ipairs(rows) do adder(row) end
+end
+
 -- The spell or item a tooltip shows in full, as a #showtooltip macro's or a
 -- pet ability's: a nested block naming it, then its own lines. Data for that
 -- type's reader, or nil.
@@ -129,3 +156,6 @@ tooltipData.isRed = isRed
 tooltipData.requirementMet = requirementMet
 tooltipData.appendedRows = appendedRows
 tooltipData.nested = nested
+tooltipData.isBlank = isBlank
+tooltipData.extrasAdder = extrasAdder
+tooltipData.addExtras = addExtras

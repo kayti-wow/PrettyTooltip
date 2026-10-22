@@ -102,6 +102,10 @@ extras:
       3: 0
       4: 1
   3:
+    blank: true
+    left: ""
+    right: ""
+  4:
     color:
       1: 0.4033
       2: 0.54
@@ -117,7 +121,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  4:
+  5:
     color:
       1: 0.4033
       2: 0.54
@@ -133,7 +137,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  5:
+  6:
     color:
       1: 0.4033
       2: 0.54
@@ -149,7 +153,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  6:
+  7:
     color:
       1: 0.4033
       2: 0.54
@@ -165,7 +169,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  7:
+  8:
     color:
       1: 0.4033
       2: 0.54
@@ -181,7 +185,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  8:
+  9:
     color:
       1: 0.4033
       2: 0.54
@@ -197,7 +201,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  9:
+  10:
     color:
       1: 0.4033
       2: 0.54
@@ -213,7 +217,7 @@ extras:
       2: 0.6353
       3: 1
       4: 1
-  10:
+  11:
     color:
       1: 0.85
       2: 0.7
@@ -229,7 +233,7 @@ extras:
       2: 0.8235
       3: 0
       4: 1
-  11:
+  12:
     color:
       1: 0.85
       2: 0.7
@@ -332,7 +336,7 @@ teaches:
   right: ""
 weaponBonus: {}
 == tooltip render
-panel 366 x 742
+panel 366 x 757
 texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
 texture at 0,0 0x0 rgb=0.694,0.8155,0.991,0.9 TooltipBackground-Temp.png
 texture at 0,0 0x0 rgb=0.32,0.59,0.98,0.315 TooltipBackground-Temp.png
@@ -379,22 +383,22 @@ text at 19,519 w=226 size=11 rgb=0.85,0.7,0 "Vendor"
 text at 257,519 w=90 size=11 rgb=0.85,0.7,0 "|cffffffff5 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
 text at 19,534 w=220.5 size=11 rgb=0.85,0.7,0 "Auction"
 text at 251.5,534 w=95.5 size=11 rgb=0.85,0.7,0 "|cffffffff13 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 99 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
-text at 19,549 w=328 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
-text at 19,564 w=281 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
-text at 312,564 w=35 size=11 rgb=0.4033,0.54,0.85 "|cffffffff5|r|cffffd70ag|r |cffffffff00|r|cffc7c7cfs|r"
-text at 19,579 w=61 size=11 rgb=0.4033,0.54,0.85 "  Inventory"
-text at 92,579 w=255 size=11 rgb=0.4033,0.54,0.85 "|cffffffff1|r (|cffffffff1|r player, |cffffffff0|r alts, |cffffffff0|r guild, |cffffffff0|r warbank, |cffffffff0|r AH)"
-text at 19,594 w=138 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM AuctionDB|r"
-text at 169,594 w=178 size=11 rgb=0.4033,0.54,0.85 "|cffffffff36 auctions|r (|cfff72d20189 Days 19 Hr ago|r)"
-text at 19,609 w=270 size=11 rgb=0.4033,0.54,0.85 "  Min Buyout"
-text at 301,609 w=46 size=11 rgb=0.4033,0.54,0.85 "|cffffffff179|r|cffffd70ag|r |cffffffff99|r|cffc7c7cfs|r"
-text at 19,624 w=226 size=11 rgb=0.4033,0.54,0.85 "  Market Value"
-text at 257,624 w=90 size=11 rgb=0.4033,0.54,0.85 "[|TInterface\\Addons\\TradeSkillMaster\\Media\\IconPack.tga:12:12:0:0:256:256:134:146:92:104:247:45:32|t|cfff72d2088%|r] |cffffffff436|r|cffffd70ag|r |cffffffff28|r|cffc7c7cfs|r"
-text at 19,639 w=286.5 size=11 rgb=0.4033,0.54,0.85 "  Region Avg Daily Sold"
-text at 317.5,639 w=29.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff2.057|r"
-text at 19,654 w=275.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
-text at 306.5,654 w=40.5 size=11 rgb=0.85,0.7,0 "|cff66bbffBags: |cffffffff1|r|r"
-text at 19,669 w=270 size=11 rgb=0.85,0.7,0 "Inventory"
-text at 301,669 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
-text at 19,684 w=328 size=11 rgb=0.6,0.6,0.63 "Item ID: 258518"
-text at 328.5,708 w=18.5 size=11 rgb=0.88,0.78,0.6 "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+text at 19,564 w=328 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
+text at 19,579 w=281 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
+text at 312,579 w=35 size=11 rgb=0.4033,0.54,0.85 "|cffffffff5|r|cffffd70ag|r |cffffffff00|r|cffc7c7cfs|r"
+text at 19,594 w=61 size=11 rgb=0.4033,0.54,0.85 "  Inventory"
+text at 92,594 w=255 size=11 rgb=0.4033,0.54,0.85 "|cffffffff1|r (|cffffffff1|r player, |cffffffff0|r alts, |cffffffff0|r guild, |cffffffff0|r warbank, |cffffffff0|r AH)"
+text at 19,609 w=138 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM AuctionDB|r"
+text at 169,609 w=178 size=11 rgb=0.4033,0.54,0.85 "|cffffffff36 auctions|r (|cfff72d20189 Days 19 Hr ago|r)"
+text at 19,624 w=270 size=11 rgb=0.4033,0.54,0.85 "  Min Buyout"
+text at 301,624 w=46 size=11 rgb=0.4033,0.54,0.85 "|cffffffff179|r|cffffd70ag|r |cffffffff99|r|cffc7c7cfs|r"
+text at 19,639 w=226 size=11 rgb=0.4033,0.54,0.85 "  Market Value"
+text at 257,639 w=90 size=11 rgb=0.4033,0.54,0.85 "[|TInterface\\Addons\\TradeSkillMaster\\Media\\IconPack.tga:12:12:0:0:256:256:134:146:92:104:247:45:32|t|cfff72d2088%|r] |cffffffff436|r|cffffd70ag|r |cffffffff28|r|cffc7c7cfs|r"
+text at 19,654 w=286.5 size=11 rgb=0.4033,0.54,0.85 "  Region Avg Daily Sold"
+text at 317.5,654 w=29.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff2.057|r"
+text at 19,669 w=275.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
+text at 306.5,669 w=40.5 size=11 rgb=0.85,0.7,0 "|cff66bbffBags: |cffffffff1|r|r"
+text at 19,684 w=270 size=11 rgb=0.85,0.7,0 "Inventory"
+text at 301,684 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
+text at 19,699 w=328 size=11 rgb=0.6,0.6,0.63 "Item ID: 258518"
+text at 328.5,723 w=18.5 size=11 rgb=0.88,0.78,0.6 "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"

@@ -686,10 +686,11 @@ local function readModel(tooltip, data, game)
     if not model.name or model.name == "" then return end
     local appended = appendedRows(tooltip, model.lineIndices)
     if not appended then return end
+    local addAppended = ns.TooltipData.extrasAdder(model.extras)
     for _, row in ipairs(appended) do
         local trimmed = row.left:match("^%s*(.-)%s*$")
         if isStockChange(row.left) then
-            model.extras[#model.extras + 1] = row
+            addAppended(row)
         elseif model.created and not model.reagents and reagentList(trimmed) then
             model.reagents = reagentList(trimmed)
         elseif startsWith(trimmed, SELL_PRICE) then
@@ -699,8 +700,8 @@ local function readModel(tooltip, data, game)
             model.kinds[kind] = text
         elseif readCopyLine(model, row.left, row.right) then
             -- Crafter or enchant, taken into their own rows.
-        elseif trimmed ~= "" or row.right ~= "" then
-            model.extras[#model.extras + 1] = row
+        else
+            addAppended(row)
         end
     end
     -- An item inside another's tooltip that nothing teaches or crafts is its
