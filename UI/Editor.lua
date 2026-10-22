@@ -907,8 +907,10 @@ end
 
 -- A label, the control beside it, and, once the setting is changed, the label
 -- in gold with a button to put it back.
+-- A control taller than one line (colorSwatches over two) gives the extra
+-- height in extraHeight.
 local function row(label, control, setting, shown, stacked)
-    local holder = entry(stacked and 54 or 30, shown)
+    local holder = entry((stacked and 54 or 30) + (control.extraHeight or 0), shown)
     local caption = text(holder, "GameFontHighlightSmall", label)
     caption:SetPoint("TOPLEFT", 0, -5)
     control:SetParent(holder)
@@ -1053,16 +1055,24 @@ local function hexColor(hex)
     return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255 }
 end
 
--- note, if given, says why the colors shown may not be the ones chosen.
+-- note, if given, says why the colors shown may not be the ones chosen. More
+-- swatches than fit across, as retail's thirteen classes, share out over
+-- lines of about equal length.
+local SWATCH_SIZE, SWATCH_STEP = 22, 28
 local function colorSwatches(list, prefix, colorOf, note)
     local holder = CreateFrame("Frame", nil, content)
-    holder:SetSize(CONTROLS_WIDTH, 22)
+    local fit = math.max(1, math.floor((CONTROLS_WIDTH - SWATCH_SIZE) / SWATCH_STEP) + 1)
+    local lines = math.max(1, math.ceil(#list / fit))
+    local across = math.ceil(#list / lines)
+    holder:SetSize(CONTROLS_WIDTH, SWATCH_SIZE + (lines - 1) * SWATCH_STEP)
+    holder.extraHeight = (lines - 1) * SWATCH_STEP
     local chips = {}
     for index, choice in ipairs(list) do
         local key = prefix .. choice.key
         local swatch = CreateFrame("Button", nil, holder)
-        swatch:SetSize(22, 22)
-        swatch:SetPoint("LEFT", (index - 1) * 28, 0)
+        swatch:SetSize(SWATCH_SIZE, SWATCH_SIZE)
+        local place, line = (index - 1) % across, math.floor((index - 1) / across)
+        swatch:SetPoint("TOPLEFT", place * SWATCH_STEP, -line * SWATCH_STEP)
         outline(swatch, LINE)
         local chip = fill(swatch, "ARTWORK", { 1, 1, 1 })
         chip:SetPoint("TOPLEFT", 3, -3)

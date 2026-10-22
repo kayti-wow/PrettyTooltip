@@ -11,6 +11,7 @@
 
 Retail\Retail.lua
 Core\Util.lua
+Retail\Core\Palette.lua
 Core\Palette.lua
 Retail\Core\Settings.lua
 Core\Settings.lua

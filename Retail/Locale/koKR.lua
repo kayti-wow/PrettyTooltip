@@ -31,3 +31,8 @@ L["Myth"] = "신화"
 L["Recharge"] = "재충전"
 L["Under the strip, on a spell with charges: Max 2 Charges."] = "충전이 있는 주문의 정보 띠 아래: 최대 2회 충전."
 L["Blasts the enemy for 950 Fire damage."] = "적에게 폭발을 일으켜 950의 화염 피해를 입힙니다."
+-- Retail's classes, as the game names them, for the style editor's class colors.
+L["Death Knight"] = "죽음의 기사"
+L["Monk"] = "수도사"
+L["Demon Hunter"] = "악마사냥꾼"
+L["Evoker"] = "기원사"

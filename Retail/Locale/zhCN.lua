@@ -31,3 +31,8 @@ L["Myth"] = "神话"
 L["Recharge"] = "充能时间"
 L["Under the strip, on a spell with charges: Max 2 Charges."] = "在信息栏下方，用于有充能的法术：最多可使用2次。"
 L["Blasts the enemy for 950 Fire damage."] = "对敌人造成950点火焰伤害。"
+-- Retail's classes, as the game names them, for the style editor's class colors.
+L["Death Knight"] = "死亡骑士"
+L["Monk"] = "武僧"
+L["Demon Hunter"] = "恶魔猎手"
+L["Evoker"] = "唤魔师"

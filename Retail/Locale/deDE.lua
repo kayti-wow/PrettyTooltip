@@ -31,3 +31,8 @@ L["Myth"] = "Mythos"
 L["Recharge"] = "Wiederaufladung"
 L["Under the strip, on a spell with charges: Max 2 Charges."] = "Unter der Leiste, bei einem Zauber mit Aufladungen: Max. 2 Aufladungen."
 L["Blasts the enemy for 950 Fire damage."] = "Trifft den Feind mit einer Explosion und verursacht 950 Feuerschaden."
+-- Retail's classes, as the game names them, for the style editor's class colors.
+L["Death Knight"] = "Todesritter"
+L["Monk"] = "Mönch"
+L["Demon Hunter"] = "Dämonenjäger"
+L["Evoker"] = "Rufer"
