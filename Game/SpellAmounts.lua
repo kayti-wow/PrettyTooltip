@@ -179,9 +179,10 @@ local function rateRows(part, direct, periodic, healing, game)
         rows[#rows + 1] = { left = healing and L["Healing per Second"] or DAMAGE_PER_SECOND, right = decimal(perSecond, 1) }
     end
     local total = directTotal + periodicTotal
-    -- A cost in mana; on retail, a share of base mana as the game works it out; not another power.
+    -- A cost in mana; a share of base mana as the game works it out, where it can
+    -- (Game/Game.lua's spellManaCost, which only retail's answers); not another power.
     local cost = part.cost and part.cost[2] == MANA and util.parseNumber(part.cost[1], LARGE_NUMBER_SEPERATOR)
-    if ns.IsRetail() and part.cost and part.cost[2] == L["Base Mana"] and game and game.spellManaCost then
+    if part.cost and part.cost[2] == L["Base Mana"] and game and game.spellManaCost then
         cost = game.spellManaCost(part.spellID)
     end
     if cost and cost > 0 then
