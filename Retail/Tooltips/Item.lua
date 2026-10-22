@@ -55,6 +55,31 @@ end
 
 -- Reading ----------------------------------------------------------------------
 
+-- Retail's own fields on an item (model.retail), each false until a line
+-- gives it: fields sets some, as the editor's samples do.
+function item.newFields(fields)
+    local retail = {
+        -- Where it comes from, between the name and level: "Heroic", "Mythic+",
+        -- and its color.
+        source = false, sourceColor = false,
+        -- "Cosmetic", under the name, and its color.
+        cosmetic = false, cosmeticColor = false,
+        -- Its upgrade track and level, "Myth 2/6", and crafted quality, with its icon.
+        upgrade = false, craftingQuality = false,
+        -- The appearance it is transmogrified to, and its weapon illusion.
+        transmog = false, illusion = false,
+        -- Whether it is a Mythic keystone.
+        keystone = false,
+        -- Decor's kind, "Housing Decor", and placement cost.
+        decorKind = false, decorCost = false,
+    }
+    for key, value in pairs(fields or {}) do
+        assert(retail[key] ~= nil, "no retail item field " .. tostring(key))
+        retail[key] = value
+    end
+    return retail
+end
+
 -- Defined with the drawing, below.
 local fitAtlases
 
@@ -127,7 +152,7 @@ end
 function item.readNameRight(model, right)
     if type(right) == "string" and right:find("|A:", 1, true)
         and tonumber(util.trim(plainText((right:gsub("|A:.-|a", ""))))) then
-        model.decorCost = util.trim(right)
+        model.retail.decorCost = util.trim(right)
     end
 end
 
@@ -144,7 +169,7 @@ function item.readClassLine(model, itemType)
             and (type(subclass) ~= "string" or subclass == "" or text:find(subclass, 1, true)) then
             table.remove(model.extras, index)
             local code = row.left:match("|c(%x%x%x%x%x%x%x%x)")
-            model.decorKind = code and ("|c" .. code .. text .. "|r") or text
+            model.retail.decorKind = code and ("|c" .. code .. text .. "|r") or text
             return
         end
     end
@@ -152,9 +177,10 @@ end
 
 -- Decor's kind and placement cost, its icon at the slot line's size.
 function item.addKinds(shown, model)
-    local kind = model.decorKind
-    if model.decorCost then
-        local cost = fitAtlases(model.decorCost, ns.style("subtitle").size)
+    if not model.retail then return end
+    local kind = model.retail.decorKind
+    if model.retail.decorCost then
+        local cost = fitAtlases(model.retail.decorCost, ns.style("subtitle").size)
         kind = kind and (kind .. "  " .. cost) or cost
     end
     if kind then shown[#shown + 1] = kind end
@@ -265,7 +291,6 @@ local function wholeGreen(text)
 end
 
 local function addSocket(m, text, right)
-    m.sockets = m.sockets or {}
     add(m.sockets, text, right)
     return m.sockets[#m.sockets]
 end
@@ -278,9 +303,9 @@ function item.readLine(m, line, data, lineNumber, left, right, trimmed, original
     local lineType = line.type
     local plain = plainText(trimmed)
     if afterTransmogHeader(data.lines, lineNumber) and trimmed ~= "" and right == "" then
-        m.transmog = util.trim(plain)
+        m.retail.transmog = util.trim(plain)
     elseif (LINE.ItemUpgradeLevel and lineType == LINE.ItemUpgradeLevel) or upgradeOf(plain) then
-        m.upgrade = upgradeOf(plain) or trimmed
+        m.retail.upgrade = upgradeOf(plain) or trimmed
     elseif LINE.GemSocket and lineType == LINE.GemSocket then
         -- A gem's stat in its stat color, without the stat marker; an empty
         -- socket as the game words it.
@@ -298,13 +323,13 @@ function item.readLine(m, line, data, lineNumber, left, right, trimmed, original
         addSocket(m, original or left, "").color = colorOf(line.leftColor)
     elseif (LINE.ProfessionCraftingQuality and lineType == LINE.ProfessionCraftingQuality)
         or (right == "" and unformat(plain, PROFESSIONS_CRAFTING_QUALITY)) then
-        m.craftingQuality = trimmed
+        m.retail.craftingQuality = trimmed
     elseif right == "" and transmogOf(trimmed) then
         -- Without the appearance, the next line names it.
         local appearance = transmogOf(trimmed)
-        if appearance ~= "" then m.transmog = appearance end
+        if appearance ~= "" then m.retail.transmog = appearance end
     elseif right == "" and unformat(plain, TRANSMOGRIFIED_ENCHANT) then
-        m.illusion = util.trim(plain)
+        m.retail.illusion = util.trim(plain)
     elseif right == "" and type(PROFESSIONS_FINISHING_CRAFTING_REAGENT_DESCRIPTION) == "string"
         and unformat(plain, PROFESSIONS_FINISHING_CRAFTING_REAGENT_DESCRIPTION) then
         -- A finishing reagent's effect, "When crafting: ...", with the item's effects.
@@ -329,7 +354,7 @@ function item.readLine(m, line, data, lineNumber, left, right, trimmed, original
         m.slot = util.trim(plain)
     elseif right == "" and isString(plain, ITEM_COSMETIC) then
         -- "Cosmetic", under the name, in the game's pink.
-        m.cosmetic, m.cosmeticColor = util.trim(plain), gameColor(line.leftColor, COSMETIC_COLOR)
+        m.retail.cosmetic, m.retail.cosmeticColor = util.trim(plain), gameColor(line.leftColor, COSMETIC_COLOR)
     elseif right == "" and isString(plain, ERR_COSMETIC_KNOWN, ITEM_SPELL_KNOWN) then
         -- "Already Known", in the game's red, under the effect it makes moot.
         add(m.effects, util.trim(plain), "")
@@ -352,7 +377,7 @@ function item.readKeystone(m, line, lineNumber, left, right, trimmed)
         if m.name or type(CHALLENGE_MODE_KEYSTONE_NAME) ~= "string" then return false end
         local dungeon = unformat(plain, CHALLENGE_MODE_KEYSTONE_NAME)
         if type(dungeon) ~= "string" or util.trim(dungeon) == "" then return false end
-        m.name, m.nameColor, m.keystone = util.trim(dungeon), gameColor(line.leftColor), true
+        m.name, m.nameColor, m.retail.keystone = util.trim(dungeon), gameColor(line.leftColor), true
         -- The game's item info has no link to go by; the line has its quality.
         if not isSecret(line.quality) and type(line.quality) == "number" then m.quality = line.quality end
         -- Its kind, "Keystone", the line's own word for it.
@@ -361,7 +386,7 @@ function item.readKeystone(m, line, lineNumber, left, right, trimmed)
         if kind ~= "" then m.slot = kind end
         return true
     end
-    if not m.keystone or plain == "" then return false end
+    if not m.retail.keystone or plain == "" then return false end
     if unformat(plain, CHALLENGE_MODE_ITEM_POWER_LEVEL) or unformat(plain, RESILIENT_KEY_LEVEL) then
         add(m.header, plain, "")
         m.header[#m.header].color = gameColor(line.leftColor, KEYSTONE_LEVEL_COLOR)
@@ -429,8 +454,8 @@ function item.readSource(m, line, data, lineNumber, right, trimmed)
         and (levelFollows(data.lines, lineNumber) or wholeGreen(trimmed))) then
         return false
     end
-    m.source = util.trim(plainText(trimmed))
-    m.sourceColor = openingColor(trimmed) or colorOf(line.leftColor)
+    m.retail.source = util.trim(plainText(trimmed))
+    m.retail.sourceColor = openingColor(trimmed) or colorOf(line.leftColor) or false
     return true
 end
 
@@ -529,26 +554,28 @@ end
 -- The header's lines: where the item comes from, and whether it is cosmetic,
 -- under its name.
 function item.addSource(header, model, styles)
-    if model.source then
-        header[#header + 1] = { text = model.source, style = styles.itemSource,
-            color = model.sourceColor or SOURCE_COLOR, gap = 4 }
+    if not model.retail then return end
+    if model.retail.source then
+        header[#header + 1] = { text = model.retail.source, style = styles.itemSource,
+            color = model.retail.sourceColor or SOURCE_COLOR, gap = 4 }
     end
-    if model.cosmetic then
-        header[#header + 1] = { text = model.cosmetic, style = styles.itemCosmetic,
-            color = model.cosmeticColor or COSMETIC_COLOR, gap = 4 }
+    if model.retail.cosmetic then
+        header[#header + 1] = { text = model.retail.cosmetic, style = styles.itemCosmetic,
+            color = model.retail.cosmeticColor or COSMETIC_COLOR, gap = 4 }
     end
 end
 
 -- Its upgrade level and crafted quality, under its slot.
 function item.addUpgrade(header, model, styles)
-    if model.upgrade then
-        header[#header + 1] = { text = model.upgrade, style = styles.itemUpgrade, color = UPGRADE_COLOR, gap = 4 }
+    if not model.retail then return end
+    if model.retail.upgrade then
+        header[#header + 1] = { text = model.retail.upgrade, style = styles.itemUpgrade, color = UPGRADE_COLOR, gap = 4 }
     end
-    if model.craftingQuality then
+    if model.retail.craftingQuality then
         -- Gear's icon sits in its line at the text's height; a reagent's
         -- quality is what its line is for, so its icon is larger.
         local size = styles.craftingQuality.size * (model.equippable and 1 or REAGENT_QUALITY_SCALE)
-        header[#header + 1] = { text = fitAtlases(model.craftingQuality, size),
+        header[#header + 1] = { text = fitAtlases(model.retail.craftingQuality, size),
             style = styles.craftingQuality, color = CRAFTED_COLOR,
             gap = 4 }
     end
@@ -556,9 +583,10 @@ end
 
 -- What it is transmogrified to, under its binding and level.
 function item.addLooks(header, model, styles)
+    if not model.retail then return end
     local looks = {}
-    if model.transmog then looks[#looks + 1] = { left = util.trim(TRANSMOGRIFIED_HEADER) .. " " .. model.transmog, right = "" } end
-    if model.illusion then looks[#looks + 1] = { left = model.illusion, right = "" } end
+    if model.retail.transmog then looks[#looks + 1] = { left = util.trim(TRANSMOGRIFIED_HEADER) .. " " .. model.retail.transmog, right = "" } end
+    if model.retail.illusion then looks[#looks + 1] = { left = model.retail.illusion, right = "" } end
     if #looks > 0 then
         header[#header + 1] = { rows = looks, style = styles.itemTransmog, color = TRANSMOG_COLOR, gap = 3 }
     end

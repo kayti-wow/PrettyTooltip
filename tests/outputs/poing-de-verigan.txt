@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "Masse · Deux mains"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "Dégâts : 65 - 99"
 weaponDps: "25,6"

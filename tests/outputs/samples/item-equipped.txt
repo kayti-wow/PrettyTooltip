@@ -68,6 +68,7 @@ secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Polearm · Two-Hand"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "131 - 197 Damage"
 weaponDps: "45.1"

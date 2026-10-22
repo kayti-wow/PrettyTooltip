@@ -46,6 +46,12 @@ local function headerAt(view, id)
 end
 
 descriptor.extension = {
+    -- Retail's own fields on every item, its embedded one, and the editor's
+    -- samples (Retail/Tooltips/Item.lua's item.newFields).
+    initModel = function(model)
+        model.retail = item.newFields()
+    end,
+
     -- Retail writes some colors with spaces for zeros: read as the color meant.
     readText = function(left, right)
         return item.repairedColors(left), item.repairedColors(right)

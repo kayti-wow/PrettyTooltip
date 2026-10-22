@@ -1,11 +1,6 @@
 == tooltip model
 armor: {}
 comparison: false
-cosmetic: "Cosmetic"
-cosmeticColor:
-  1: 1
-  2: 0.502
-  3: 1
 effects:
   1:
     left: "Add this appearance to your Warband collection."
@@ -58,11 +53,27 @@ nameColor:
 primary: {}
 quality: 2
 quest: false
+retail:
+  cosmetic: "Cosmetic"
+  cosmeticColor:
+    1: 1
+    2: 0.502
+    3: 1
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 1
 setBonuses: {}
 setItems: {}
 slot: "Chest"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 190

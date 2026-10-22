@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "Maza · Dos manos"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "65 - 99 Daño"
 weaponDps: "25,6"

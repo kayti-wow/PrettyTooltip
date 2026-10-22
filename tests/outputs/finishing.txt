@@ -55,11 +55,24 @@ nameColor:
 primary: {}
 quality: 1
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 5625
 setBonuses: {}
 setItems: {}
 slot: "|cff66BBFFFinishing Crafting Reagent|r"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 330 x 318

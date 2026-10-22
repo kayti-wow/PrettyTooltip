@@ -1,7 +1,6 @@
 == tooltip model
 armor: {}
 comparison: false
-craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier3-Small:26:26:0:-1|a"
 effects: {}
 enchants: {}
 equipEffects:
@@ -59,6 +58,18 @@ nameColor:
 primary: {}
 quality: 2
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier3-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+67|r |cffE3DACAIngenuity|r"
@@ -72,6 +83,7 @@ skill:
   name: "Midnight Alchemy"
   text: "Requires Midnight Alchemy (1)"
 slot: "Alchemy Tool"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 386 x 250
@@ -103,7 +115,6 @@ text at 293.5,216 w=73.5 size=11 rgb=0.88,0.78,0.6 "6|TInterface\\MoneyFrame\\UI
 == comparison 1 model
 armor: {}
 comparison: true
-craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier4-Small:26:26:0:-1|a"
 effects: {}
 enchants: {}
 equipEffects:
@@ -209,6 +220,18 @@ nameColor:
 primary: {}
 quality: 3
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier4-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+101|r |cffE3DACAMulticraft|r"
@@ -222,6 +245,7 @@ skill:
   name: "Midnight Alchemy"
   text: "Requires Midnight Alchemy (1)"
 slot: "Alchemy Tool"
+sockets: {}
 weaponBonus: {}
 == comparison 1 render
 panel 395 x 295

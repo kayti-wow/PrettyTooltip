@@ -96,6 +96,18 @@ primary:
     right: ""
 quality: 5
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+10|r |cffF3E2B0Haste|r"
@@ -370,6 +382,21 @@ primary:
     right: ""
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Heroic"
+  sourceColor:
+    1: 0
+    2: 0.85
+    3: 0
+  transmog: false
+  upgrade: "Hero 6/6"
 secondary:
   1:
     left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF7A38E+99|r |cffF5C8BCCritical Strike|r"
@@ -381,12 +408,7 @@ sellPrice: 302882
 setBonuses: {}
 setItems: {}
 slot: "Mail · Waist"
-source: "Heroic"
-sourceColor:
-  1: 0
-  2: 0.85
-  3: 0
-upgrade: "Hero 6/6"
+sockets: {}
 weaponBonus: {}
 == comparison 1 render
 panel 329 x 485

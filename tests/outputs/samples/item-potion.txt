@@ -33,6 +33,7 @@ secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Consumable · Potion"
+sockets: {}
 weaponBonus: {}
 == sample render
 panel 330 x 183

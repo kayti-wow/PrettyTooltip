@@ -95,6 +95,7 @@ skill:
   name: "Enchanting"
   text: "Requires Enchanting (20)"
 slot: "Formula · Enchanting"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to permanently enchant a piece of chest armor to give +2 Intellect."
   right: ""

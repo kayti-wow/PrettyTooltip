@@ -138,6 +138,7 @@ sellPrice: 2371
 setBonuses: {}
 setItems: {}
 slot: "손가락"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 264 x 399

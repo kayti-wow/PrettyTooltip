@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "錘 · 雙手"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "65 - 99傷害"
 weaponDps: "25.6"

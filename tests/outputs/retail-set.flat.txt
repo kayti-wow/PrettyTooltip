@@ -171,6 +171,21 @@ primary:
     right: ""
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Mythic+"
+  sourceColor:
+    1: 0
+    2: 0.85
+    3: 0
+  transmog: "Eternal Epaulets of Ten Storms"
+  upgrade: "Hero 6/6"
 secondary:
   1:
     left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+90|r |cffF3E2B0Haste|r"
@@ -212,13 +227,7 @@ setItems:
     right: ""
 setName: "Ophidian Oracle's Prophecy"
 slot: "Mail · Shoulder"
-source: "Mythic+"
-sourceColor:
-  1: 0
-  2: 0.85
-  3: 0
-transmog: "Eternal Epaulets of Ten Storms"
-upgrade: "Hero 6/6"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 408 x 703

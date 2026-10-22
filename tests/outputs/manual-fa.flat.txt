@@ -29,6 +29,7 @@ created:
   secondary: {}
   setBonuses: {}
   setItems: {}
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -128,6 +129,7 @@ skill:
   name: "First Aid"
   text: "Requires First Aid (215)"
 slot: "Manual · First Aid"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to make a Potent Anti-Venom."
   right: ""

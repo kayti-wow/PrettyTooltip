@@ -47,7 +47,7 @@ return function(test)
     test.check("the gem's stat in its stat color", model.sockets[1].left:find("|cffF2D57C", 1, true) ~= nil, true)
     test.check("an empty socket and an inactive bonus in the game's grey",
         { model.sockets[3].color, model.sockets[4].color }, { ns.TooltipData.colorOf(GREY), ns.TooltipData.colorOf(GREY) })
-    test.check("the crafted quality with its icon", model.craftingQuality, QUALITY)
+    test.check("the crafted quality with its icon", model.retail.craftingQuality, QUALITY)
 
     -- Drawn: the quality in the header, the sockets with their icons in their part.
     ns.setOption("styles", { gems = { size = 16 }, craftingQuality = { size = 15 } })
@@ -98,7 +98,7 @@ return function(test)
         { 4, "Socket Bonus: +8 Stamina", 0, 0 })
     ns.setOption("socketHint", nil)
     -- A reagent's quality icon is larger than gear's, which keeps the line's size.
-    local reagent = ns.ui.itemModel({ name = "Dazzling Thorium", quality = 3, craftingQuality = QUALITY,
+    local reagent = ns.ui.itemModel({ name = "Dazzling Thorium", quality = 3, retail = ns.Retail.Item.newFields({ craftingQuality = QUALITY }),
         kinds = { reagent = "Crafting Reagent" } })
     panel = ns.ui.renderPreview(anchor, reagent, ITEM)
     local reagentIcon

@@ -30,6 +30,7 @@ created:
   setBonuses: {}
   setItems: {}
   slot: "|cff66BBFFCrafting Reagent|r"
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -133,6 +134,7 @@ skill:
   name: "Engineering"
   text: "Requires Engineering (145)"
 slot: "Schematic · Engineering"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to make No Slip SAF-T Padding."
   right: ""

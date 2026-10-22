@@ -1,7 +1,6 @@
 == tooltip model
 armor: {}
 comparison: false
-craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier3-Small:26:26:0:-1|a"
 effects: {}
 enchants: {}
 equipEffects:
@@ -59,6 +58,18 @@ nameColor:
 primary: {}
 quality: 2
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier3-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|cffF2E8D5+67|r |cffA89F8EIngenuity|r"
@@ -72,6 +83,7 @@ skill:
   name: "Midnight Alchemy"
   text: "Requires Midnight Alchemy (1)"
 slot: "Alchemy Tool"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 333 x 201
@@ -91,7 +103,6 @@ text at 19,167 w=121.5 size=11 rgb=0.86,0.74,0.45 "Made by Voarex"
 == comparison 1 model
 armor: {}
 comparison: true
-craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier4-Small:26:26:0:-1|a"
 effects: {}
 enchants: {}
 equipEffects:
@@ -197,6 +208,18 @@ nameColor:
 primary: {}
 quality: 3
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier4-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|cffF2E8D5+101|r |cffA89F8EMulticraft|r"
@@ -210,6 +233,7 @@ skill:
   name: "Midnight Alchemy"
   text: "Requires Midnight Alchemy (1)"
 slot: "Alchemy Tool"
+sockets: {}
 weaponBonus: {}
 == comparison 1 render
 panel 342 x 259

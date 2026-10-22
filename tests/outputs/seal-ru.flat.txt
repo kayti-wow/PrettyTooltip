@@ -176,6 +176,7 @@ setItems:
     right: ""
 setName: "Соучастники"
 slot: "Палец"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 357 x 508

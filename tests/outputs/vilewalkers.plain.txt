@@ -101,6 +101,7 @@ sellPrice: 970
 setBonuses: {}
 setItems: {}
 slot: "Mail · Feet"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 264 x 265

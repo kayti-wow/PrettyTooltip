@@ -138,6 +138,7 @@ sellPrice: 2371
 setBonuses: {}
 setItems: {}
 slot: "Dedo"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 264 x 288

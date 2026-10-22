@@ -32,15 +32,26 @@ nameColor:
 primary: {}
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "The War Within Season 3"
+  sourceColor:
+    1: 0.08333
+    2: 0.85
+    3: 0.08333
+  transmog: false
+  upgrade: false
 secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Consumable · Other"
-source: "The War Within Season 3"
-sourceColor:
-  1: 0.08333
-  2: 0.85
-  3: 0.08333
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 184

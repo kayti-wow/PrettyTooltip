@@ -51,6 +51,18 @@ created:
     2:
       left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+692|r |cffEEE7DAStamina|r"
       right: ""
+  retail:
+    cosmetic: false
+    cosmeticColor: false
+    craftingQuality: false
+    decorCost: false
+    decorKind: false
+    illusion: false
+    keystone: false
+    source: false
+    sourceColor: false
+    transmog: false
+    upgrade: false
   secondary:
     1:
       left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 1|r"
@@ -61,6 +73,7 @@ created:
   setBonuses: {}
   setItems: {}
   slot: "Dagger · One-Hand"
+  sockets: {}
   weaponBonus: {}
   weaponDamage: "63 - 106 Damage"
   weaponDps: "46.9"
@@ -321,6 +334,18 @@ reagents:
     count: 2
     have: 0
     name: "Spark"
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 50000
 setBonuses: {}
@@ -331,6 +356,7 @@ skill:
   name: "Midnight Blacksmithing"
   text: "Requires Midnight Blacksmithing (50)"
 slot: "Plans · Midnight Blacksmithing"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to craft Murder Row Fishhook."
   right: ""

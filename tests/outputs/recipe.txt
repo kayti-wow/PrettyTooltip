@@ -39,10 +39,23 @@ created:
     2: 0.4392
     3: 0.8667
   primary: {}
+  retail:
+    cosmetic: false
+    cosmeticColor: false
+    craftingQuality: false
+    decorCost: false
+    decorKind: false
+    illusion: false
+    keystone: false
+    source: false
+    sourceColor: false
+    transmog: false
+    upgrade: false
   secondary: {}
   setBonuses: {}
   setItems: {}
   slot: "|cff66BBFFOptional Crafting Reagent|r"
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -108,6 +121,18 @@ reagents:
     count: 2
     have: 0
     name: "Sunfire Silk Bolt"
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 setBonuses: {}
 setItems: {}
@@ -117,6 +142,7 @@ skill:
   name: "Midnight Tailoring"
   text: "Requires Midnight Tailoring (50)"
 slot: "Pattern · Midnight Tailoring"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to create Snakeskin Lining."
   right: ""

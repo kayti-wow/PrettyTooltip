@@ -51,11 +51,24 @@ nameColor:
 primary: {}
 quality: 2
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 187
 setBonuses: {}
 setItems: {}
 slot: "Consumable · Other"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 357 x 217

@@ -1,7 +1,6 @@
 == tooltip model
 armor: {}
 comparison: false
-craftingQuality: "Quality: |A:Professions-Icon-Quality-12-Tier1-Small:38:40:0:-1|a"
 effects:
   1:
     left: "|cff19ff19+15 Recipe Difficulty|r"
@@ -57,11 +56,24 @@ nameColor:
 primary: {}
 quality: 3
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-12-Tier1-Small:38:40:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 865
 setBonuses: {}
 setItems: {}
 slot: "|cff66BBFFOptional Crafting Reagent|r"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 355

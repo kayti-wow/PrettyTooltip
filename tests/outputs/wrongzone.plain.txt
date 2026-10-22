@@ -96,6 +96,18 @@ primary:
     right: ""
 quality: 5
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|cffF2E8D5+10|r |cffA89F8EHaste|r"
@@ -348,6 +360,21 @@ primary:
     right: ""
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Heroic"
+  sourceColor:
+    1: 0
+    2: 0.85
+    3: 0
+  transmog: false
+  upgrade: "Hero 6/6"
 secondary:
   1:
     left: "|cffF2E8D5+99|r |cffA89F8ECritical Strike|r"
@@ -359,12 +386,7 @@ sellPrice: 302882
 setBonuses: {}
 setItems: {}
 slot: "Mail · Waist"
-source: "Heroic"
-sourceColor:
-  1: 0
-  2: 0.85
-  3: 0
-upgrade: "Hero 6/6"
+sockets: {}
 weaponBonus: {}
 == comparison 1 render
 panel 308 x 432

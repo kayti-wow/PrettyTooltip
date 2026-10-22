@@ -47,6 +47,18 @@ created:
       left: "+3 Strength"
       right: ""
   quality: 6
+  retail:
+    cosmetic: false
+    cosmeticColor: false
+    craftingQuality: false
+    decorCost: false
+    decorKind: false
+    illusion: false
+    keystone: false
+    source: false
+    sourceColor: false
+    transmog: false
+    upgrade: false
   secondary:
     1:
       left: "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
@@ -57,6 +69,7 @@ created:
   setBonuses: {}
   setItems: {}
   slot: "Shield · Off Hand"
+  sockets: {}
   weaponBonus: {}
 effects:
   1:
@@ -151,6 +164,18 @@ primary:
     right: ""
 quality: 6
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|cffF2E8D5+3|r |cffA89F8ECritical Strike|r"
@@ -161,6 +186,7 @@ secondary:
 setBonuses: {}
 setItems: {}
 slot: "Fist Weapon · Main Hand"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "3 - 5 Damage"
 weaponDps: "1.5"
@@ -201,7 +227,6 @@ text at 182.5,639 w=106.5 size=11 rgb=1,0.34,0.28 "Requires: Elemental"
 == comparison 1 model
 armor: {}
 comparison: true
-craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier5-Small:26:26:0:-1|a"
 effects: {}
 enchants:
   1:
@@ -393,6 +418,21 @@ primary:
     right: ""
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier5-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Tidal Crafted"
+  sourceColor:
+    1: 0.08333
+    2: 0.85
+    3: 0.08333
+  transmog: false
+  upgrade: false
 secondary:
   1:
     left: "|cffF2E8D5+50|r |cffA89F8ECritical Strike|r"
@@ -404,11 +444,7 @@ sellPrice: 1448563
 setBonuses: {}
 setItems: {}
 slot: "Dagger · One-Hand"
-source: "Tidal Crafted"
-sourceColor:
-  1: 0.08333
-  2: 0.85
-  3: 0.08333
+sockets: {}
 weaponBonus: {}
 weaponDamage: "70 - 117 Damage"
 weaponDps: "51.9"

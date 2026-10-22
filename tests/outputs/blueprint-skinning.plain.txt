@@ -29,6 +29,7 @@ created:
   secondary: {}
   setBonuses: {}
   setItems: {}
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -137,6 +138,7 @@ skill:
   name: "Skinning"
   text: "Requires Skinning (300)"
 slot: "Blueprint · Skinning"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to place a Trapper's Workbench at a campsite."
   right: ""

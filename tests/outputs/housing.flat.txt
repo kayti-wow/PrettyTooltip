@@ -1,8 +1,6 @@
 == tooltip model
 armor: {}
 comparison: false
-decorCost: "|A:House-Decor-budget-icon:21:21|a 3"
-decorKind: "|cFF66BBFFHousing Decor|r"
 effects:
   1:
     left: "Add this Decor to your House Chest."
@@ -56,11 +54,24 @@ nameColor:
 primary: {}
 quality: 2
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: "|A:House-Decor-budget-icon:21:21|a 3"
+  decorKind: "|cFF66BBFFHousing Decor|r"
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 sellPrice: 10000
 setBonuses: {}
 setItems: {}
 slot: "|cFF66BBFFHousing Decor|r  |A:House-Decor-budget-icon:13:13:0:0|a 3"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 225

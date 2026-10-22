@@ -38,8 +38,9 @@ return function(test)
         return list
     end
     local function summary(model)
-        return { source = model.source, sourceColor = model.sourceColor, upgrade = model.upgrade,
-            transmog = model.transmog, illusion = model.illusion, extras = #model.extras }
+        local retail = model.retail
+        return { source = retail.source, sourceColor = retail.sourceColor, upgrade = retail.upgrade,
+            transmog = retail.transmog, illusion = retail.illusion, extras = #model.extras }
     end
     local expected = { source = "Heroic", upgrade = "Myth 2/6", transmog = "Ravager",
         illusion = "Illusion: Crusader", extras = 0 }
@@ -52,11 +53,11 @@ return function(test)
     model = read(lines({ { "Transmogrified to:\nRavager", LINE.None, nil, PINK } }), true)
     test.check("the name on the same line", summary(model), expected)
     model = read(lines({ { "Transmogrified to:|nNightblade", LINE.None, nil, PINK } }), true)
-    test.check("a name after an escaped line break keeps its letters", model.transmog, "Nightblade")
+    test.check("a name after an escaped line break keeps its letters", model.retail.transmog, "Nightblade")
 
     -- Forever names no source under the name; the line after it is read as before.
     local forever = read({ { "Arcanite Reaper", LINE.ItemName }, { "Heroic", LINE.None, nil, GREEN } }, false)
-    test.check("Forever reads no source", forever.source, nil)
+    test.check("Forever reads no source", forever.retail, nil)
 
     -- Drawn in the header: the name, the source, the slot, the upgrade, the
     -- binding, then the transmogrification.

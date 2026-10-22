@@ -326,6 +326,8 @@ local function newItemModel()
         footerRight = {},
         kinds = {},
         weaponBonus = {},
+        -- Gems, empty sockets, and the socket bonus, as the game lists them.
+        sockets = {},
     }
     -- Runs for outer items, embedded crafted items, and editor sample models.
     -- A Retail initializer may set model.retail = {}; shared code does not.
@@ -1082,9 +1084,9 @@ local function enchantRowsOf(model, styles)
     return model.enchants
 end
 
--- Whether a retail item has gems or sockets.
+-- Whether an item has gems or sockets; only retail draws them so far.
 local function hasSockets(model)
-    return ns.IsRetail() and model.sockets ~= nil and #model.sockets > 0
+    return ns.IsRetail() and #model.sockets > 0
 end
 
 -- Whether an item has stats, effects, gems, or flavor, drawn under the first divider.

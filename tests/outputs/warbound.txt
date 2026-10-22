@@ -35,9 +35,22 @@ nameColor:
 primary: {}
 quality: 3
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 setBonuses: {}
 setItems: {}
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 185

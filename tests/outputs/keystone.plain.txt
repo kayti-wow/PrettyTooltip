@@ -115,7 +115,6 @@ header:
     left: "Unique"
     right: ""
 icon: 4352494
-keystone: true
 kinds: {}
 level: 1
 lineIndices:
@@ -139,10 +138,23 @@ nameColor:
 primary: {}
 quality: 4
 quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: true
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
 secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Keystone"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 308 x 351

@@ -45,6 +45,7 @@ created:
     met: false
     name: "Herbalism"
     text: "Requires Herbalism (20)"
+  sockets: {}
   weaponBonus: {}
 description:
   1: "Craft an Incense Candle."
