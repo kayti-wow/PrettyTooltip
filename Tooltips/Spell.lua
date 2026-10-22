@@ -48,6 +48,13 @@ local POWERS = {
     { key = "Focus", name = FOCUS, costs = { FOCUS_COST }, color = { 1, .55, .25 } },
     { key = "Runic Power", name = RUNIC_POWER, costs = { RUNIC_POWER_COST }, color = { 0, .82, 1 } },
 }
+-- A client's own resources, after these, as retail's Holy Power and Fury
+-- (Retail/Tooltips/Spell.lua); one the client has no name for is left out.
+for _, extra in ipairs(ns.contributions("spellPowers")) do
+    for _, power in ipairs(extra) do
+        if type(power.name) == "string" then POWERS[#POWERS + 1] = power end
+    end
+end
 local POWER_COLORS = {}
 for _, power in ipairs(POWERS) do POWER_COLORS[power.key] = power.color end
 
