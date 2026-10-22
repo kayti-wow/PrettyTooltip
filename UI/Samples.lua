@@ -393,9 +393,10 @@ local TYPES = {
         },
     },
 }
--- Retail's own parts in the samples (Retail/UI/Samples.lua).
-if ns.IsRetail() then
-    ns.Retail.Samples.extend(TYPES, { statLine = statLine, itemName = itemName, spellName = spellName })
+-- A client's own parts in the samples (retail's Retail/UI/Samples.lua), each a
+-- function given the samples and the helpers that make them.
+for _, extend in ipairs(ns.contributions("samples")) do
+    extend(TYPES, { statLine = statLine, itemName = itemName, spellName = spellName })
 end
 
 -- Markers ----------------------------------------------------------------------

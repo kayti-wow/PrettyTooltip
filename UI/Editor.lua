@@ -1279,12 +1279,11 @@ toggles({
 row("Stat colors", colorSwatches(ns.Stats.CATEGORIES, "statColor", function(key)
     return hexColor((ns.Stats.categoryColors(key)))
 end), colorGroupSetting(ns.Stats.CATEGORIES, "statColor"), items, true)
--- Retail's secondary stats, each in its own color.
-if ns.IsRetail() then
-    local categories = ns.Retail.Stats.CATEGORIES
-    row("Secondary stat colors", colorSwatches(categories, "statColor", function(key)
+-- A client's own stat colors, as retail's secondary stats, each group on a row of its own.
+for _, group in ipairs(ns.Stats.CATEGORY_GROUPS) do
+    row(group.label, colorSwatches(group.categories, "statColor", function(key)
         return hexColor((ns.Stats.categoryColors(key)))
-    end), colorGroupSetting(categories, "statColor"), items, true)
+    end), colorGroupSetting(group.categories, "statColor"), items, true)
 end
 row("Class colors", colorSwatches(ns.Palette.CLASSES, "classColor", ns.Palette.classColor, function()
     if ns.Palette.addonClassColors() then

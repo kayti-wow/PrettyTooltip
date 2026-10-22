@@ -6,10 +6,23 @@ local util = {}
 ns.util = util
 
 -- Whether this is retail's client, whose .toc alone loads the Retail/ folder,
--- Retail/Retail.lua first. Every call from shared code into ns.Retail is
--- behind this.
+-- Retail/Retail.lua first.
 function ns.IsRetail()
     return ns.Retail ~= nil
+end
+
+-- What a client's files add to a shared file's lists, registered before that
+-- file loads (Retail/Data/Stats.lua's, before Data/Stats.lua): the shared file
+-- reads them by its target's name, in the order they came. A client that
+-- changes what a shared file does, rather than adding to its lists, does so
+-- in a file loaded after it (Retail/Tooltips/ItemExtension.lua).
+local contributed = {}
+function ns.contribute(target, contribution)
+    contributed[target] = contributed[target] or {}
+    table.insert(contributed[target], contribution)
+end
+function ns.contributions(target)
+    return contributed[target] or {}
 end
 
 -- Secret values and tables whose contents this addon cannot access must be

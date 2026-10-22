@@ -1,7 +1,7 @@
 -- Retail's parts in the style editor's samples: the weapon's source, upgrade
 -- level, crafted quality, transmogrification, sockets, and secondary stats; a
 -- spell with charges; and the player's specialization. UI/Samples.lua adds
--- them to its own on retail.
+-- them to its own (ns.contribute "samples").
 local _, ns = ...
 local L, fill = ns.L, ns.util.fill
 local samples = {}
@@ -56,3 +56,5 @@ function samples.extend(types, helpers)
     -- Retail names a player's specialization too: Arms, the warrior's first.
     find(units.samples, "label", "Player").fields.spec = (ns.Game.classSpecs(1) or {})[1]
 end
+
+ns.contribute("samples", samples.extend)

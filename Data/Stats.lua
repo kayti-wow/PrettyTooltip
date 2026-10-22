@@ -25,11 +25,16 @@ local CATEGORIES = {
 }
 local CATEGORY = {}
 for _, category in ipairs(CATEGORIES) do CATEGORY[category.key] = category end
--- Retail's secondary stats' colors (Retail/Data/Stats.lua), which the editor lists apart.
-if ns.IsRetail() then
-    for _, category in ipairs(ns.Retail.Stats.CATEGORIES) do CATEGORY[category.key] = category end
+-- A client's own stats and colors (retail's Retail/Data/Stats.lua): its
+-- categories, which the editor lists apart under the label given, and stats.
+local contributions = ns.contributions("stats")
+local CATEGORY_GROUPS = {}
+for _, extra in ipairs(contributions) do
+    for _, category in ipairs(extra.categories or {}) do CATEGORY[category.key] = category end
+    if extra.categories then CATEGORY_GROUPS[#CATEGORY_GROUPS + 1] = { label = extra.label, categories = extra.categories } end
 end
 stats.CATEGORIES = CATEGORIES
+stats.CATEGORY_GROUPS = CATEGORY_GROUPS
 local STAT_MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  "
 
 local function mod(name) return _G["ITEM_MOD_" .. name] end
@@ -103,9 +108,9 @@ local STATS = {
     MANA = { category = "Mana", name = mod("MANA_SHORT"), line = mod("MANA") },
 }
 
--- Retail's ratings, as its items print them: "+120 Haste" (Retail/Data/Stats.lua).
-if ns.IsRetail() then
-    for key, def in pairs(ns.Retail.Stats.STATS) do STATS[key] = def end
+-- A client's own stats, as retail's ratings: "+120 Haste".
+for _, extra in ipairs(contributions) do
+    for key, def in pairs(extra.stats or {}) do STATS[key] = def end
 end
 
 -- A stat's name, as the panel shows it: "Fire Resistance", "Attack Power vs Undead".

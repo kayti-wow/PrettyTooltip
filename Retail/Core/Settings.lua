@@ -1,6 +1,6 @@
--- Retail's own style parts and settings. Core/Settings.lua adds them to
--- ns.ELEMENTS and the defaults on retail: each part after the one its after
--- names, so the style editor lists it where it is drawn.
+-- Retail's own style parts and settings, which Core/Settings.lua adds to
+-- ns.ELEMENTS and its defaults (ns.contribute "settings"): each part after the
+-- one its after names, so the style editor lists it where it is drawn.
 local _, ns = ...
 local settings = {}
 ns.Retail.Settings = settings
@@ -32,3 +32,5 @@ settings.ELEMENTS = {
     { after = "spellCaptions", key = "spellCharges", label = "Charges", size = 11, color = { .60, .80, 1 },
         tooltipType = "spell", retail = true, note = "Under the strip, on a spell with charges: Max 2 Charges." },
 }
+
+ns.contribute("settings", { defaults = settings.DEFAULTS, elements = settings.ELEMENTS })

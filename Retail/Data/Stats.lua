@@ -1,6 +1,6 @@
 -- Retail's stats: its secondary stats and the minor ones under them, which
--- Data/Stats.lua adds to its own on retail, and the grey of a stat that does
--- not count for the player's specialization.
+-- Data/Stats.lua adds to its own (ns.contribute "stats"), and the grey of a
+-- stat that does not count for the player's specialization.
 local _, ns = ...
 local util = ns.util
 local L = ns.L
@@ -51,3 +51,5 @@ function stats.inactiveStat(text, markers)
     local plain = util.uncolored(text):gsub("^|T.-|t%s*", "")
     return (markers and INACTIVE_MARKER or "") .. plain
 end
+
+ns.contribute("stats", { label = "Secondary stat colors", categories = stats.CATEGORIES, stats = stats.STATS })

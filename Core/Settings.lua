@@ -271,10 +271,11 @@ ns.TOOLTIP_TYPES = {
     { label = "Flyout buttons", cursor = "cursorFlyouts", types = { "Flyout" } },
 }
 
--- Retail's own parts and defaults (Retail/Core/Settings.lua), each part after the one it names.
-if ns.IsRetail() then
-    for key, value in pairs(ns.Retail.Settings.DEFAULTS) do DEFAULTS[key] = value end
-    for _, element in ipairs(ns.Retail.Settings.ELEMENTS) do
+-- A client's own defaults and parts (retail's Retail/Core/Settings.lua), each
+-- part after the one it names, so the style editor lists it where it is drawn.
+for _, extra in ipairs(ns.contributions("settings")) do
+    for key, value in pairs(extra.defaults or {}) do DEFAULTS[key] = value end
+    for _, element in ipairs(extra.elements or {}) do
         for index, other in ipairs(ns.ELEMENTS) do
             if other.key == element.after then
                 table.insert(ns.ELEMENTS, index + 1, element)
