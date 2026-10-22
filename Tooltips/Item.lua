@@ -68,12 +68,17 @@ local QUEST_MARK = "|TInterface\\GossipFrame\\AvailableQuestIcon:0|t "
 -- Kinds of item the game names on a line of their own, as "Crafting Reagent".
 local ITEM_KINDS = {}
 for _, kind in pairs({ PROFESSIONS_USED_IN_COOKING, formats.scarce }) do ITEM_KINDS[#ITEM_KINDS + 1] = kind end
--- Retail's reagent kinds: "Finishing Crafting Reagent", "Optional Crafting Reagent".
-if ns.IsRetail() then
-    for _, kind in ipairs(ns.Retail.Item.kinds()) do ITEM_KINDS[#ITEM_KINDS + 1] = kind end
+-- A client adds its own kinds to the list when it loads (descriptor.kinds).
+descriptor.kinds = ITEM_KINDS
+-- The kinds by their lowercase names, rebuilt when the list grows.
+local ITEM_KIND_NAMES, namedKinds = {}, 0
+local function kindNamed(name)
+    if namedKinds ~= #ITEM_KINDS then
+        ITEM_KIND_NAMES, namedKinds = {}, #ITEM_KINDS
+        for _, kind in ipairs(ITEM_KINDS) do ITEM_KIND_NAMES[kind:lower()] = kind end
+    end
+    return ITEM_KIND_NAMES[name:lower()]
 end
-local ITEM_KIND_NAMES = {}
-for _, kind in ipairs(ITEM_KINDS) do ITEM_KIND_NAMES[kind:lower()] = kind end
 
 -- The lines naming how an item binds or how many one may have: "Binds when
 -- picked up", "Soulbound", "Unique (2)".
@@ -148,13 +153,6 @@ local function isActive(color)
     return not (r < .7 and math.abs(r - g) < .06 and math.abs(g - b) < .06)
 end
 
--- Retail greys or reds an effect the character will not get; the row keeps
--- that color.
-local function keepInactive(list, line)
-    local color = ns.IsRetail() and ns.Retail.TooltipData.inactiveColor(line.leftColor)
-    if color then list[#list].color, list[#list].inactive = color, true end
-end
-
 local function addExtra(model, left, right, leftColor, rightColor)
     add(model.extras, left, right)
     local row = model.extras[#model.extras]
@@ -175,11 +173,12 @@ local PRICE_DETAIL = "9E9485"
 local function itemKind(left, right, color)
     if right ~= "" then return end
     local name = plainText(left):match("^%s*(.-)%s*$")
-    local kind = ITEM_KIND_NAMES[name:lower()]
-    -- Retail names an expansion's reagents after it: "Zandalari Crafting Reagent".
-    if not kind and ns.IsRetail() then kind = ns.Retail.Item.kindWithin(name, ITEM_KINDS) end
+    local kind = kindNamed(name)
+    -- A client can find a kind inside a longer name: "Zandalari Crafting Reagent".
+    local extension = descriptor.extension
+    if not kind and extension and extension.findKind then kind = extension.findKind(name, ITEM_KINDS) end
     if not kind then return end
-    local shown = ITEM_KIND_NAMES[name:lower()] and kind or name
+    local shown = kindNamed(name) and kind or name
     local code = left:match("|c(%x%x%x%x%x%x%x%x)")
     if code then return kind, "|c" .. code .. shown .. "|r" end
     if isSecret(color) or type(color) ~= "table" then return kind, shown end
@@ -268,13 +267,13 @@ for _, key in ipairs({ "Alchemy", "Blacksmithing", "Enchanting", "Engineering", 
     for _, name in ipairs(ns.Locale.skillNames(key)) do PROFESSIONS[name] = true end
 end
 
--- Whether a name is a profession's: its own, or, on retail and a line the game
--- marks as a requirement, one expansion's part of it, "Midnight Blacksmithing".
--- A reagent's name can hold one too ("Elixir of Mining"), so other lines need
--- the name exactly.
+-- Whether a name is a profession's: its own, or one a client recognizes, as
+-- retail's "Midnight Blacksmithing". marked: the game marks the line as a
+-- requirement.
 local function isProfession(name, marked)
     if PROFESSIONS[name] then return true end
-    return marked and ns.IsRetail() and ns.Retail.Item.isExpansionProfession(name, PROFESSIONS) or false
+    local extension = descriptor.extension
+    return extension ~= nil and extension.isProfession ~= nil and extension.isProfession(name, PROFESSIONS, marked) == true
 end
 
 -- "Requires Blacksmithing (80)": the profession and level a recipe needs.
@@ -429,6 +428,34 @@ finishCreated = function(tooltip, model, game)
     end
 end
 
+-- Each of an item's lists of rows and how long it is, before a line is read.
+local function listCounts(m)
+    local counts = {}
+    for key, value in pairs(m) do
+        if type(value) == "table" then counts[key] = { value, #value } end
+    end
+    return counts
+end
+
+-- The rows a line added to the item, after listCounts: each with the name of
+-- its list, the list, and its place in it, in order within a list.
+local function addedRows(m, counts)
+    local added = {}
+    for key, value in pairs(m) do
+        if type(value) == "table" then
+            local before = counts[key]
+            local from = before and before[1] == value and before[2] or 0
+            for index = from + 1, #value do
+                local row = value[index]
+                if type(row) == "table" and row.left ~= nil then
+                    added[#added + 1] = { list = key, rows = value, row = row, at = index }
+                end
+            end
+        end
+    end
+    return added
+end
+
 local function readModel(tooltip, data, game)
     if isSecret(data) or not data or isSecret(data.lines) or not data.lines then return end
     local itemInfo = getItemInfo(tooltip, data)
@@ -466,6 +493,7 @@ local function readModel(tooltip, data, game)
         if isSecret(line) or not line or isSecret(line.type) or isSecret(line.lineIndex) then
             return
         end
+        if context then context.lineModel, context.counts = m, listCounts(m) end
         -- The item a nested block holds, by its id: a recipe's crafted item.
         if LINE.NestedBlock and line.type == LINE.NestedBlock and not isSecret(line.tooltipType)
             and line.tooltipType == ITEM then
@@ -481,9 +509,7 @@ local function readModel(tooltip, data, game)
         if line.lineIndex then
         local left, right = safeText(line.leftText), safeText(line.rightText)
         if not left or not right then return end
-        if ns.IsRetail() then
-            left, right = ns.Retail.Item.repairedColors(left), ns.Retail.Item.repairedColors(right)
-        end
+        if extension and extension.readText then left, right = extension.readText(left, right, line, context) end
         if context then context.originalText = left end
         local lineType = line.type
         if line.lineIndex then model.lineIndices[line.lineIndex] = true end
@@ -591,15 +617,16 @@ local function readModel(tooltip, data, game)
                     -- game's color: "You haven't collected this appearance".
                     m.footerLeft[#m.footerLeft].color = rgb(line.leftColor)
                 end
-            -- Retail keeps an active bonus in the set, worded "Set: ...".
+            -- A client can recognize more of a set's bonuses, as retail's active "Set: ...".
             elseif inSet and (unformat(trimmed, ITEM_SET_BONUS_GRAY)
-                or (ns.IsRetail() and unformat(trimmed, ITEM_SET_BONUS))) then
+                or (extension and extension.isSetBonus and extension.isSetBonus(trimmed, line, context))) then
                 add(m.setBonuses, left, right)
                 m.setBonuses[#m.setBonuses].active = isActive(line.leftColor)
             -- Set pieces are names alone: letters (of any alphabet), spaces,
-            -- apostrophes, and hyphens. Retail's appearance sets can list more
-            -- pieces than they count ("(0/3)" over five), each indented.
-            elseif inSet and (#m.setItems < setTotal or (ns.IsRetail() and left:match("^%s%s%S")))
+            -- apostrophes, and hyphens. A client can allow more pieces than the
+            -- set counts, as retail's appearance sets list.
+            elseif inSet and (#m.setItems < setTotal
+                or (extension and extension.isSetPiece and extension.isSetPiece(left, m, context)))
                 and right == "" and trimmed:gsub("[%a'%- \128-\255]", "") == "" then
                 add(m.setItems, trimmed, right)
                 m.setItems[#m.setItems].active = isActive(line.leftColor)
@@ -628,19 +655,11 @@ local function readModel(tooltip, data, game)
                 local text = original or trimmed
                 add(m.equipEffects, withoutLabel(text, ITEM_SPELL_TRIGGER_ONPROC), "")
                 m.equipEffects[#m.equipEffects].onHit = true
-                keepInactive(m.equipEffects, line)
             elseif original or lineParts(trimmed) == "+" then
-                -- Retail greys the primary stats another specialization uses.
-                local inactive = ns.IsRetail() and isActive(line.leftColor) == false
                 -- Combined bonuses arrive as one line; each stat needs its own row.
                 for piece in (displayed .. "|n"):gmatch("(.-)|n") do
                     local stat = ns.Stats.read(plainText(piece))
-                    local primary = stat and PRIMARY_STATS[stat.key]
-                    if primary and inactive then
-                        ns.Retail.Item.addInactiveStat(m.primary, piece, right)
-                    else
-                        add(primary and m.primary or m.secondary, piece, right)
-                    end
+                    add(stat and PRIMARY_STATS[stat.key] and m.primary or m.secondary, piece, right)
                     right = ""
                 end
             elseif isType(lineType, "FlavorText") or trimmed:match('^".+"$') then
@@ -657,24 +676,24 @@ local function readModel(tooltip, data, game)
                 and right == "" then
                 -- Unparsed equip effects join the stats; the list implies "Equip:".
                 add(m.equipEffects, withoutLabel(trimmed, ITEM_SPELL_TRIGGER_ONEQUIP), "")
-                keepInactive(m.equipEffects, line)
             elseif (isType(lineType, "ItemSpellTriggerOnUse") or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONUSE))
                 and right == "" then
                 -- Its gear marker stands for the words.
                 add(m.effects, withoutLabel(trimmed, ITEM_SPELL_TRIGGER_ONUSE), "")
                 m.effects[#m.effects].use = true
-                keepInactive(m.effects, line)
             elseif isType(lineType, "ItemSpellTriggerOnUse") or isType(lineType, "ItemSpellTriggerOnEquip")
                 or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONEQUIP) or startsWith(trimmed, ITEM_SPELL_TRIGGER_ONUSE) then
                 add(m.effects, left, right)
-                keepInactive(m.effects, line)
             else
                 addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
             end
         end
         -- Observe/decorate the current item after classification, even when a
         -- client claimed the line. A recipe's crafted item is passed as m.
-        if extension and extension.afterReadLine then extension.afterReadLine(m, line, context) end
+        if extension and extension.afterReadLine then
+            context.added = addedRows(context.lineModel, context.counts)
+            extension.afterReadLine(m, line, context)
+        end
         end
         -- An effect the game sets apart from the one before with a blank line
         -- stays apart: "Use:", "When crafting:", "Usable with:".
@@ -801,7 +820,7 @@ local function readModel(tooltip, data, game)
     model.equippedWith = model.comparison and game.isEquipped(model.link) == false or nil
     if extension and extension.afterRead then
         context.lineNumber, context.text, context.rightText, context.originalText = nil, nil, nil, nil
-        context.leftText = nil
+        context.leftText, context.lineModel, context.counts, context.added = nil, nil, nil, nil
         -- What the game says the item is, and whether it is a recipe, which
         -- the reader has already worked out.
         context.itemType, context.recipe = itemType, recipe and true or false

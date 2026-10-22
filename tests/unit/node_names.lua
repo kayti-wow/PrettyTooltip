@@ -20,7 +20,7 @@ return function(test)
     end
     local capture = { enums = { TooltipDataType = { Item = 0, Object = 33 } } }
     ns = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
-        "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Nodes.lua", german,
+        "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Nodes.lua", german, "Data/NodeSkills.lua",
         "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua" }, capture)
     test.check("a vein by the client's name", ns.gatheringNode("Kupferader"), { level = 1, skill = "Mining" })
     test.check("an ooze covered one", ns.gatheringNode("Schlammbedeckte Silberader"), { level = 75, skill = "Mining" })

@@ -51,9 +51,11 @@ Tooltips\Item.lua
 Retail\Tooltips\ItemExtension.lua
 Retail\Tooltips\Spell.lua
 Tooltips\Spell.lua
+Retail\Tooltips\SpellExtension.lua
 Tooltips\Object.lua
 Retail\Tooltips\Unit.lua
 Tooltips\Unit.lua
+Retail\Tooltips\UnitExtension.lua
 Tooltips\Aura.lua
 Tooltips\Imbue.lua
 Tooltips\Quest.lua

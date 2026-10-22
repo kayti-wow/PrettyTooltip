@@ -6,6 +6,10 @@ if not (ui and UNIT and ui.renderView) then
     return
 end
 
+-- A client file loaded after this one can set descriptor.extension: afterRead.
+-- Retail's is Retail/Tooltips/UnitExtension.lua.
+local descriptor = {}
+
 local util = ns.util
 local tooltipData = ns.TooltipData
 local colors = ns.Palette.roles
@@ -192,7 +196,8 @@ local function readGuildRealm(model)
     end
 end
 
-local function completeModel(model, unit, game)
+-- tooltip and data: the game's, when read from them rather than the editor's sample.
+local function completeModel(model, unit, game, tooltip, data)
     if unit then
         model.isPlayer = game.unitIsPlayer(unit)
         model.level = game.unitLevel(unit)
@@ -217,10 +222,7 @@ local function completeModel(model, unit, game)
             model.targetColor = unitColor(target, game)
         end
     end
-    if model.isPlayer then
-        if ns.IsRetail() then ns.Retail.Unit.readSpec(model, game) end
-        readGuildRealm(model)
-    end
+    if model.isPlayer then readGuildRealm(model) end
     -- An NPC's title, as "Herbalism Supplier", is the untyped line between its
     -- name and its level; Forever leaves out the brackets around it.
     if not model.isPlayer and not model.tag and model.levelIndex then
@@ -266,6 +268,12 @@ local function completeModel(model, unit, game)
         model.color = TAPPED
     else
         model.color = model.reaction and REACTION[model.reaction]
+    end
+    -- A client file loaded after this one can read more into the finished
+    -- model (descriptor.extension.afterRead), as retail's player spec.
+    local extension = descriptor.extension
+    if extension and extension.afterRead then
+        extension.afterRead(model, { nativeTooltip = tooltip, data = data, game = game, rootModel = model })
     end
     return model
 end
@@ -326,7 +334,7 @@ local function readUnit(tooltip, data, game)
     local appended = tooltipData.appendedRows(tooltip, model.lineIndices)
     if not appended then return end
     tooltipData.addExtras(model.extras, appended)
-    return completeModel(model, unit, game)
+    return completeModel(model, unit, game, tooltip, data)
 end
 
 -- The level on a plate under the portrait, as the game's target frame shows
@@ -664,5 +672,6 @@ local function details(model, context)
     return rows
 end
 
-ui.defineTooltipType(UNIT, { read = readUnit, render = renderUnit, key = unitKey, option = "unitPanels", alwaysRedraw = true,
-    details = details, detailKeys = { "gatheringLoot", "showIDs" } })
+descriptor.read, descriptor.render, descriptor.key, descriptor.option = readUnit, renderUnit, unitKey, "unitPanels"
+descriptor.alwaysRedraw, descriptor.details, descriptor.detailKeys = true, details, { "gatheringLoot", "showIDs" }
+ui.defineTooltipType(UNIT, descriptor)

@@ -12,7 +12,7 @@ return function(test)
             "Locale/English.lua" }
         if language then files[#files + 1] = "Locale/" .. language .. ".lua" end
         for _, file in ipairs({ "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua", "Data/Nodes.lua",
-            "Data/NodeNames.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua",
+            "Data/NodeNames.lua", "Data/NodeSkills.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua",
             "Tooltips/Quest.lua", "UI/Samples.lua" }) do files[#files + 1] = file end
         local ns = test.load(files, { client = { locale = locale },
             enums = { TooltipDataType = { Object = 33, Quest = 23 } } })

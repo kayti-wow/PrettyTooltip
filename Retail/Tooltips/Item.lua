@@ -1,8 +1,8 @@
 -- Retail's item lines: where an item comes from (Heroic, Mythic), its upgrade
 -- level, crafted quality, and transmogrification, its gems and sockets, and
 -- the primary stats another specialization greys. Tooltips/Item.lua reads
--- and draws them through these on retail: some behind ns.IsRetail(), the rest
--- through the callbacks Retail/Tooltips/ItemExtension.lua gives it.
+-- and draws them through these on retail: it reads them through the callbacks
+-- Retail/Tooltips/ItemExtension.lua gives it, and draws some behind ns.IsRetail().
 local _, ns = ...
 local util = ns.util
 local isSecret, safeText, plainText, unformat = util.isSecret, util.safeText, util.plainText, util.unformat
@@ -435,9 +435,9 @@ function item.readSource(m, line, data, lineNumber, right, trimmed)
 end
 
 -- A primary stat another specialization uses, grey, as the game draws it.
-function item.addInactiveStat(rows, text, right)
-    add(rows, ns.Retail.Stats.inactiveStat(text, ns.option("statMarkers")), right)
-    rows[#rows].color, rows[#rows].inactive = INACTIVE_STAT_COLOR, true
+function item.markInactiveStat(row)
+    row.left = ns.Retail.Stats.inactiveStat(row.left, ns.option("statMarkers"))
+    row.color, row.inactive = INACTIVE_STAT_COLOR, true
 end
 
 -- Drawing ----------------------------------------------------------------------

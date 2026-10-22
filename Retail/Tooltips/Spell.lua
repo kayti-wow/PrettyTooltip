@@ -1,6 +1,7 @@
 -- Retail's spells with charges: "Max 2 Charges" as a part of its own under
 -- the strip, the time each charge takes to come back in the strip, and the
--- time left on the next with the details. Tooltips/Spell.lua uses these on retail.
+-- time left on the next with the details. Tooltips/Spell.lua reads them through
+-- Retail/Tooltips/SpellExtension.lua and draws them behind ns.IsRetail().
 local _, ns = ...
 local util = ns.util
 local unformat = util.unformat

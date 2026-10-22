@@ -35,6 +35,7 @@ Panel\Render.lua
 Data\Disenchant.lua
 Data\Nodes.lua
 Data\NodeNames.lua
+Data\NodeSkills.lua
 Data\Skinning.lua
 Data\SpellRanks.lua
 Data\Coefficients.lua

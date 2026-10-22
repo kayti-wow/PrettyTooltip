@@ -10,7 +10,7 @@ return function(test)
     -- Every file Forever's .toc loads, in its order, but the Classic-only data.
     local CLASSIC_ONLY = {
         ["Data/Schools.lua"] = true, ["Data/Disenchant.lua"] = true, ["Data/Nodes.lua"] = true,
-        ["Data/NodeNames.lua"] = true, ["Data/Skinning.lua"] = true, ["Data/SpellRanks.lua"] = true,
+        ["Data/NodeNames.lua"] = true, ["Data/NodeSkills.lua"] = true, ["Data/Skinning.lua"] = true, ["Data/SpellRanks.lua"] = true,
         ["Data/Coefficients.lua"] = true,
     }
     -- Retail's own files are all in Retail/, and Forever loads none of them.

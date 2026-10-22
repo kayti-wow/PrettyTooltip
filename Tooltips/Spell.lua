@@ -8,6 +8,10 @@ if not (ui and SPELL and ui.renderView) then
     return
 end
 
+-- A client file loaded after this one can set descriptor.extension: readStat,
+-- isCooldown. Retail's is Retail/Tooltips/SpellExtension.lua.
+local descriptor = {}
+
 local util = ns.util
 local tooltipData = ns.TooltipData
 local colors = ns.Palette.roles
@@ -56,10 +60,8 @@ local TIMES = {
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_HOURS, SPELL_DURATION_HOURS },
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_DAYS, SPELL_DURATION_DAYS },
 }
--- A retail spell with charges states the time each takes to come back instead.
-if ns.IsRetail() then
-    for _, time in ipairs(ns.Retail.Spell.TIMES) do TIMES[#TIMES + 1] = time end
-end
+-- A client adds its own times when it loads, as retail's charges' recharge.
+descriptor.times = TIMES
 -- Casts the strip shows as the game words them.
 local CASTS = { SPELL_CAST_TIME_INSTANT, SPELL_CAST_TIME_INSTANT_NO_MANA, SPELL_CAST_CHANNELED, SPELL_ON_NEXT_SWING }
 
@@ -117,8 +119,9 @@ local function readStat(model, text)
         model.passive = text
         return true
     end
-    -- Retail's "Max 2 Charges".
-    if ns.IsRetail() and ns.Retail.Spell.readCharges(model, text) then return true end
+    -- A client's own strip lines, as retail's "Max 2 Charges".
+    local extension = descriptor.extension
+    if extension and extension.readStat and extension.readStat(model, text) == true then return true end
     local range = unformat(text, SPELL_RANGE)
     if range then
         model.range = { util.fill(L["%s yd"], range), L["Range"] }
@@ -263,7 +266,8 @@ local function readLine(model, line, left, right, game)
     end
     if text ~= "" and readStat(model, text) then
         if rightText ~= "" then add(model.details, rightText, "") end
-    elseif unformat(text, ITEM_COOLDOWN_TIME) or (ns.IsRetail() and ns.Retail.Spell.isRecharge(text)) then
+    elseif unformat(text, ITEM_COOLDOWN_TIME)
+        or (descriptor.extension and descriptor.extension.isCooldown and descriptor.extension.isCooldown(text)) then
         add(model.details, text, rightText)
         model.details[#model.details].color = REMAINING_COLOR
     elseif isRequirement(text) then
@@ -707,7 +711,6 @@ local function details(model, context)
     return rows
 end
 
-ui.defineTooltipType(SPELL, {
-    read = readSpell, render = renderSpell, key = spellKey, option = "spellPanels",
-    details = details, detailKeys = { "spellPower", "spellRates", "showIDs" },
-})
+descriptor.read, descriptor.render, descriptor.key, descriptor.option = readSpell, renderSpell, spellKey, "spellPanels"
+descriptor.details, descriptor.detailKeys = details, { "spellPower", "spellRates", "showIDs" }
+ui.defineTooltipType(SPELL, descriptor)

@@ -20,7 +20,8 @@ return function(test)
     }
     local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua",
-        "Game/TooltipData.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Tooltips/Minimap.lua" },
+        "Game/TooltipData.lua", "Data/NodeSkills.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua",
+        "Tooltips/Minimap.lua" },
         capture)
     local model = ns.TooltipTypes[MINIMAP].read(world.main, capture.data, ns.Game)
     local function blip(index)

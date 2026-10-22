@@ -1,7 +1,7 @@
 -- Retail's player tooltips name the specialization with the class, as
 -- "Restoration Shaman", on a line of its own or with the level and race. The
 -- spec moves into the info line, in the client's words and order, and a line
--- saying nothing more goes. Tooltips/Unit.lua reads it on retail.
+-- saying nothing more goes. Retail/Tooltips/UnitExtension.lua reads it.
 local _, ns = ...
 local util = ns.util
 local isSecret, trim = util.isSecret, util.trim
