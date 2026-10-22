@@ -1,6 +1,7 @@
 -- How retail colors a line it will not act on: an effect greyed, as one from
 -- another specialization's gear, or red, as one the character cannot use.
--- Game/TooltipData.lua and Tooltips/Item.lua keep such lines in that color.
+-- Retail/Game/TooltipDataExtension.lua puts it in place of Game/TooltipData.lua's,
+-- and Tooltips/Item.lua keeps such lines in that color.
 local _, ns = ...
 local isSecret = ns.util.isSecret
 local tooltipData = {}

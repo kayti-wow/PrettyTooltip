@@ -103,7 +103,7 @@ descriptor.extension = {
         -- What the reader made of a line retail did not take: an effect the
         -- character will not get, greyed or reddened, keeps that color; so does
         -- a primary stat another specialization uses, grey.
-        local inactive = read and not context.text:match("^<.+>$") and ns.Retail.TooltipData.inactiveColor(line.leftColor)
+        local inactive = read and not context.text:match("^<.+>$") and ns.TooltipData.inactiveColor(line.leftColor)
         local grey = read and isGrey(line.leftColor)
         local effectsAt, equipsAt
         for _, entry in ipairs(context.added) do

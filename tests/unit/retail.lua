@@ -60,7 +60,8 @@ return function(test)
     test.check("retail knows no Classic herb or ore node", ns.gatheringNode("Copper Vein"), nil)
     test.check("retail answers the game's questions its own way", {
         ns.Game.spellManaCost == ns.Retail.Game.spellManaCost, ns.Game.globalCooldown == ns.Retail.Game.globalCooldown,
-        ns.Game.classSpecs == ns.Retail.Game.classSpecs }, { true, true, true })
+        ns.Game.classSpecs == ns.Retail.Game.classSpecs,
+        ns.TooltipData.inactiveColor == ns.Retail.TooltipData.inactiveColor }, { true, true, true, true })
     test.check("retail still rewrites item wording", ns.TooltipData.itemWording({ leftText =
         "Equip: Increases damage and healing done by magical spells and effects by up to 12." }) ~= nil, true)
 
@@ -71,6 +72,7 @@ return function(test)
     test.check("Forever knows Classic nodes", ns.gatheringNode("Copper Vein"), { level = 1, skill = "Mining" })
     test.check("Forever's game answers", { ns.Game.spellManaCost(133), ns.Game.globalCooldown(), ns.Game.classSpecs(1) },
         { nil, 1.5, nil })
+    test.check("Forever marks no line inactive", ns.TooltipData.inactiveColor({ r = .5, g = .5, b = .5 }), nil)
 
     local classic = {}
     for _, element in ipairs(ns.ELEMENTS) do

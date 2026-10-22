@@ -40,6 +40,7 @@ Game\Game.lua
 Retail\Game\GameExtension.lua
 Retail\Game\TooltipData.lua
 Game\TooltipData.lua
+Retail\Game\TooltipDataExtension.lua
 Game\SpellAmounts.lua
 Retail\Data\Schools.lua
 Retail\Data\Stats.lua
