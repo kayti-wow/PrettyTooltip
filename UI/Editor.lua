@@ -974,8 +974,9 @@ local partPicker = dropdown(CONTROLS_WIDTH, function()
     local items = {}
     for _, element in ipairs(ns.ELEMENTS) do
         local tooltipType = element.tooltipType or "item"
-        if (tooltipType == state.tooltipType or tooltipType == "shared") and not (element.classic and ns.IsRetail())
-            and not (element.retail and not ns.IsRetail()) then
+        -- A part drawn from data only some clients load (Classic's disenchant and
+        -- loot tables) names it, and is offered where it is loaded.
+        if (tooltipType == state.tooltipType or tooltipType == "shared") and (not element.needs or ns[element.needs] ~= nil) then
             items[#items + 1] = { value = element.key, text = element.label }
         end
     end
@@ -1225,13 +1226,14 @@ section(function() return DETAILS[state.tooltipType] end, function() return DETA
 local items, spells, units = forTypes("item"), forTypes("spell"), forTypes("unit")
 -- The spell power rows read spell descriptions, which not every language's reading covers yet.
 local function coefficients() return ns.Locale.features.coefficients == true end
--- Settings drawn from Classic-only data, which retail does not load.
-local function classicOnly(shown)
-    return function() return not ns.IsRetail() and shown() end
+-- Settings drawn from data only some clients load (Classic's tables, which
+-- retail does not), offered where it is loaded: needs names it in ns.
+local function withData(needs, shown)
+    return function() return ns[needs] ~= nil and shown() end
 end
--- Settings for what only retail's tooltips have.
-local function retailOnly(shown)
-    return function() return ns.IsRetail() and shown() end
+-- Settings for a style part a client adds (retail's gems), offered with it.
+local function withPart(key, shown)
+    return function() return ns.ELEMENT_BY_KEY[key] ~= nil and shown() end
 end
 toggles({
     { "Quest parchment", "questParchment", "DialogueUI's brown parchment for quest tooltips, Quest Items, "
@@ -1253,14 +1255,14 @@ toggles({
         .. "second on the small one under it.", items },
     { "Disenchant", "disenchant", "Green, blue, and purple armor and weapons list what they disenchant into, "
         .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.",
-        classicOnly(items) },
+        withData("disenchantFor", items) },
     { "Socket hint", "socketHint", "The game's Shift Right Click to Socket line, under an item's sockets. Off, "
-        .. "the panel leaves it out.", retailOnly(items) },
+        .. "the panel leaves it out.", withPart("gems", items) },
     { "Sell price", "sellPrice", "The vendor price in the footer; for a stack, the price of one and of the "
         .. "whole stack.", items },
     { "Spell power", "spellPower", "Under the description, each amount's spell power coefficient and its "
         .. "split into base and spell power. No game API has coefficients: they come from Forever's client "
-        .. "data, and ones marked ~ are estimates.", classicOnly(spells), coefficients },
+        .. "data, and ones marked ~ are estimates.", withData("spellPowerRows", spells), coefficients },
     { "Rates", "spellRates", "Under the spell power breakdown (on retail, the description), the average a cast "
         .. "deals or heals per second and per mana. Per second, what lands at once counts over the cast time "
         .. "(instants as the global cooldown: 1.5 sec, or on retail after haste) and what comes over time over "
@@ -1271,7 +1273,7 @@ toggles({
     { "Gathering", "gatheringLoot", "What a herb or ore node holds: its yield over all the times it can be "
         .. "gathered, then the stone, gems, and other herbs it may give and the chance each time. On a dead "
         .. "creature that can be skinned, the Skinning it needs and the leather, hides, and scales it may give. "
-        .. "From Classic's loot tables.", classicOnly(forTypes("object", "unit")) },
+        .. "From Classic's loot tables.", withData("nodeLoot", forTypes("object", "unit")) },
     { "IDs", "showIDs", "The item's, spell's, or NPC's ID at the bottom of its panel, under other addons' rows.",
         forTypes("item", "spell", "unit") },
 })

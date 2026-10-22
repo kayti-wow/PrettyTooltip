@@ -76,7 +76,7 @@ return function(test)
 
     local classic = {}
     for _, element in ipairs(ns.ELEMENTS) do
-        if element.classic then classic[#classic + 1] = element.key end
+        if element.needs then classic[#classic + 1] = element.key end
     end
     test.check("style parts drawn from Classic data", classic, { "disenchant", "objectLoot", "unitSkinning" })
 end

@@ -6,7 +6,9 @@ local util = {}
 ns.util = util
 
 -- Whether this is retail's client, whose .toc alone loads the Retail/ folder,
--- Retail/Retail.lua first.
+-- Retail/Retail.lua first. Shared code does not ask: it reads what a client
+-- contributes or extends (below, and Retail/Retail.lua). Tests and the package
+-- check do.
 function ns.IsRetail()
     return ns.Retail ~= nil
 end

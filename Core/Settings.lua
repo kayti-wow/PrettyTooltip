@@ -175,7 +175,7 @@ ns.ELEMENTS = {
         note = "On recipes; the count you carry red while short, unless set." },
     { key = "caption", label = "Section captions", size = 9, color = colors.caption, caps = true,
         note = "Creates and Reagents on recipes." },
-    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail, classic = true,
+    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail, needs = "disenchantFor",
         note = "The Enchanting needed red while yours is too low, grey without Enchanting, unless set." },
     { key = "spellTitle", label = "Spell name", size = 17, title = true,
         color = colors.title, tooltipType = "spell" },
@@ -200,7 +200,7 @@ ns.ELEMENTS = {
         note = "The skill in its skill-up color, unmet requirements red, unless set." },
     { key = "objectQuests", label = "Quest lines", size = 12, color = colors.objective,
         tooltipType = "object", note = "Quest names gold, finished objectives green, unless set." },
-    { key = "objectLoot", label = "Contents", size = 11, color = colors.detail, tooltipType = "object", classic = true,
+    { key = "objectLoot", label = "Contents", size = 11, color = colors.detail, tooltipType = "object", needs = "nodeLoot",
         note = "A herb or ore node's yield over its taps, then what else it may hold and the chance each tap. "
             .. "Turned off by Gathering contents in the options." },
     { key = "objectPrices", label = "Prices", size = 11, color = { .88, .78, .60 },
@@ -214,7 +214,7 @@ ns.ELEMENTS = {
         tooltipType = "unit", note = "The level in its difficulty color, unless set." },
     { key = "unitBadges", label = "Badges", size = 12, color = { .9, .9, .9 }, tooltipType = "unit",
         note = "Elite, rare, faction, PvP, AFK, and dead." },
-    { key = "unitSkinning", label = "Skinning", size = 11, color = colors.detail, tooltipType = "unit", classic = true,
+    { key = "unitSkinning", label = "Skinning", size = 11, color = colors.detail, tooltipType = "unit", needs = "skinningLoot",
         note = "On a dead creature that can be skinned: the Skinning it needs, in its skill-up color, and what "
             .. "it may give. Turned off by Gathering contents in the options." },
     { key = "unitDetails", label = "Target and owner", size = 11, color = colors.detail,
