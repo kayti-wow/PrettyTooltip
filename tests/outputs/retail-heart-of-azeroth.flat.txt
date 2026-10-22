@@ -1,0 +1,163 @@
+== tooltip model
+armor: {}
+comparison: false
+effects: {}
+enchants: {}
+equipEffects:
+  1:
+    left: "Harnesses the energy of raw Azerite, awakening exceptional pieces of armor that possess latent powers."
+    right: ""
+equippable: true
+extras: {}
+flavor:
+  1:
+    left: "\"A living symbol of hope, borne by the champions of a dying planet. The fate of Azeroth will be shared by all her children.\""
+    right: ""
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+  2:
+    left: "Unique"
+    right: ""
+icon: 1869493
+kinds: {}
+level: 35
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+link: "|cnIQ6:|Hitem:158075::::::::90:264::11:4:6316:4932:4933:1560::::::|h[Heart of Azeroth]|h|r"
+name: "Heart of Azeroth"
+nameColor:
+  1: 0.902
+  2: 0.8
+  3: 0.502
+primary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+7|r |cffEEE7DAStamina|r"
+    right: ""
+quality: 6
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF7A38E+8|r |cffF5C8BCCritical Strike|r"
+    right: ""
+  2:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+8|r |cffF3E2B0Haste|r"
+    right: ""
+  3:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffC3A6F7+8|r |cffD8CAF5Mastery|r"
+    right: ""
+setBonuses: {}
+setItems: {}
+slot: "Neck"
+sockets:
+  1:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-major"
+    left: "Essence Slot Available"
+    right: ""
+  2:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+  3:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+  4:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+weaponBonus: {}
+== tooltip render
+panel 330 x 439
+texture at -16,-16 0x0 rgb=0.9,0.8,0.5,0.55 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x105 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 1869493
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.9,0.8,0.5,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 45x16 rgb=0.72,0.64,0.4,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.126,0.112,0.07,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=0.955,0.91,0.775 "iLvl 35"
+texture at 0,0 0x2 rgb=0.72,0.64,0.4,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.324,0.288,0.18,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.324,0.288,0.18,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.324,0.288,0.18,0.95 WHITE8X8
+text at 72,21 w=239 size=19 rgb=0.9,0.8,0.5 "HEART OF AZEROTH"
+text at 72,47 w=239 size=13 rgb=0.95,0.9,0.75 "Neck"
+text at 72,66 w=239 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 72,83 w=239 size=12 rgb=0.78,0.72,0.63 "Unique"
+texture at 19,111 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-111 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-106 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,124 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+7|r |cffEEE7DAStamina|r"
+texture at 19,150 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-150 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-145 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,163 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF7A38E+8|r |cffF5C8BCCritical Strike|r"
+text at 19,181 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+8|r |cffF3E2B0Haste|r"
+text at 19,199 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffC3A6F7+8|r |cffD8CAF5Mastery|r"
+texture at 19,222 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-major
+text at 46,222 w=265 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,239 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,239 w=265 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,256 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,256 w=265 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,273 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,273 w=265 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+text at 19,295 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,295 w=270 size=13 rgb=0.48,0.88,0.48 "Harnesses the energy of raw Azerite, awakening exceptional pieces of armor that possess latent powers."
+text at 19,348 w=292 size=12 rgb=0.86,0.74,0.45 "\"A living symbol of hope, borne by the champions of a dying planet. The fate of Azeroth will be shared by all her children.\""
+texture at 19,398 292x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,407 w=292 size=11 rgb=0.6,0.6,0.63 "Item ID: 158075"

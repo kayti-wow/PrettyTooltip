@@ -644,6 +644,7 @@ local function acquireTexture(panel, path, sublevel)
     tex:SetTexture(path or WHITE)
     tex:SetTexCoord(0, 1, 0, 1)
     tex:SetVertexColor(1, 1, 1, 1)
+    tex:SetDesaturated(false)
     tex:ClearAllPoints()
     tex:Show()
     return tex

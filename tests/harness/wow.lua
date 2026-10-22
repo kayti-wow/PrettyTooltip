@@ -304,6 +304,7 @@ return function(fixture, enums, report, strings)
     function Object:SetTexture(path) self._texture = path end
     function Object:GetTexture() return self._texture end
     function Object:SetAtlas(atlas) self._texture = "atlas:" .. tostring(atlas) end
+    function Object:SetDesaturated(desaturated) self._desaturated = desaturated or nil end
     function Object:SetColorTexture(r, g, b, a) self._texture, self._color = "color", { r, g, b, a or 1 } end
     -- Kept for unit checks; the outputs do not print it.
     function Object:SetVertexColor(r, g, b, a) self._color, self._gradient = { r, g, b, a or 1 }, nil end

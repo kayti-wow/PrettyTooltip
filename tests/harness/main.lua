@@ -74,6 +74,7 @@ local function drawn(panel)
                     local texture = tostring(child._texture):gsub("^.*\\", "")
                     out[#out + 1] = "texture " .. place(child) .. " " .. number(child._width) .. "x"
                         .. number(child._height) .. " rgb=" .. rgb .. "," .. number(color[4]) .. " " .. texture
+                        .. (child._desaturated and " desaturated" or "")
                 end
                 walk(child)
             end

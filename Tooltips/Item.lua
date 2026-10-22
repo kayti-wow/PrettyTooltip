@@ -905,15 +905,39 @@ end
 local SOCKET_ICON_GAP = 4
 local GEM_COLOR = { .90, .85, .74 }
 
+-- A border (frame, an atlas, as an essence slot's) is half as wide again as
+-- it is tall, as the game draws it at 18 by 12; an icon inside it takes 10 of
+-- those 12.
+local FRAME_ASPECT, FRAMED_ICON = 18 / 12, 10 / 12
+
 local function socketIconSize(style)
     return math.floor((style.size or 12) * 1.25 + .5)
 end
 
--- Where a socket's text starts: past its icon, when it has one.
+-- The width a socket's art takes: its border, else its icon; 0 with neither.
+local function socketArtWidth(row, style)
+    if row.frame then return math.floor(socketIconSize(style) * FRAME_ASPECT + .5) end
+    if row.icon then return socketIconSize(style) end
+    return 0
+end
+
+-- Where a socket's text starts: past its art, when it has some.
 local function socketIndent(row, style)
     local indent = row.indent or 0
-    if row.icon then indent = indent + socketIconSize(style) + SOCKET_ICON_GAP end
+    local art = socketArtWidth(row, style)
+    if art > 0 then indent = indent + art + SOCKET_ICON_GAP end
     return indent
+end
+
+-- One texture of a socket's art, centered on the line at x.
+local function socketTexture(panel, y, x, width, height, style, sublevel, row)
+    -- The line is the text's size and 2 tall (Panel/Layout.lua's textAt).
+    local top = y + (style.size + 2 - height) / 2
+    local texture = acquireTexture(panel, nil, sublevel)
+    texture:SetPoint("TOPLEFT", panel, "TOPLEFT", x, -ui.snap(panel, top))
+    texture:SetSize(width, height)
+    if row.desaturated then texture:SetDesaturated(true) end
+    return texture
 end
 
 local function socketsWidth(panel, sockets, style)
@@ -926,13 +950,18 @@ end
 
 local function drawSockets(panel, sockets, y, style)
     for _, row in ipairs(sockets) do
+        local x, size = pad() + (row.indent or 0), socketIconSize(style)
+        local width = socketArtWidth(row, style)
         if row.icon then
-            local size = socketIconSize(style)
-            -- The line is the text's size and 2 tall (Panel/Layout.lua's textAt).
-            local top = y + (style.size + 2 - size) / 2
-            local icon = acquireTexture(panel, row.icon, 1)
-            icon:SetPoint("TOPLEFT", panel, "TOPLEFT", pad() + (row.indent or 0), -ui.snap(panel, top))
-            icon:SetSize(size, size)
+            -- Inside its border, when it has one.
+            local iconSize = row.frame and math.floor(size * FRAMED_ICON + .5) or size
+            local icon = socketTexture(panel, y, x + (width - iconSize) / 2, iconSize, iconSize, style, 1, row)
+            icon:SetTexture(row.icon)
+            local coords = row.iconCoords
+            if coords then icon:SetTexCoord(coords[1], coords[2], coords[3], coords[4]) end
+        end
+        if row.frame then
+            socketTexture(panel, y, x, width, size, style, 2, row):SetAtlas(row.frame)
         end
         y = drawRow(panel, row, y, style, GEM_COLOR, socketIndent(row, style), 3)
     end

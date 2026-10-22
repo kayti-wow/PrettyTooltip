@@ -254,6 +254,20 @@ local function socketIcon(line)
     if type(kind) == "string" and kind ~= "" then return "Interface\\ItemSocketingFrame\\UI-EmptySocket-" .. kind end
 end
 
+-- An essence slot on the Heart of Azeroth, drawn as a socket: the game's border
+-- for its kind (major or minor), the essence's icon inside it when one is set,
+-- and both greyed while the slot is disabled.
+local function essenceSlot(row, line)
+    local kind = not isSecret(line.slotType) and line.slotType or nil
+    if type(kind) == "string" and kind ~= "" then row.frame = "tooltip-heartofazerothessence-" .. kind end
+    local essence = not isSecret(line.essenceIcon) and line.essenceIcon or nil
+    if type(essence) == "number" or type(essence) == "string" then
+        -- The game crops the essence's icon to its round face.
+        row.icon, row.iconCoords = essence, { .171875, .828125, .171875, .828125 }
+    end
+    row.desaturated = not isSecret(line.disabled) and line.disabled == true or nil
+end
+
 -- The line the reader took before this one: the one before it with a line index.
 local function lineBefore(lines, index)
     for at = index - 1, 1, -1 do
@@ -294,7 +308,7 @@ local function addSocket(m, text, right)
 end
 
 -- Reads a line of retail's into m, the item or the one a recipe creates: its
--- upgrade level, a socket, gem, or socket bonus, its crafted quality, or its
+-- upgrade level, a socket, gem, socket bonus, or essence slot, its crafted quality, or its
 -- transmogrification. Whether the line was one. left and trimmed are the
 -- line's text as the panel words it, original as the game did, if it differs.
 function item.readLine(m, line, data, lineNumber, left, right, trimmed, original)
@@ -310,6 +324,11 @@ function item.readLine(m, line, data, lineNumber, left, right, trimmed, original
         local text = ns.Stats.styleStat(util.trim(original or left), ns.option("statColors"), false)
         local row = addSocket(m, text, right)
         row.icon, row.color = socketIcon(line), colorOf(line.leftColor)
+    elseif LINE.AzeriteEssenceSlot and lineType == LINE.AzeriteEssenceSlot then
+        -- "Essence Slot Available", or the essence in it, with the sockets.
+        local row = addSocket(m, util.trim(left), right)
+        row.color = colorOf(line.leftColor)
+        essenceSlot(row, line)
     elseif LINE.GemSocketEnchantment and lineType == LINE.GemSocketEnchantment then
         local row = addSocket(m, left, right)
         row.indent, row.color = GEM_ENCHANT_INDENT, GEM_ENCHANT_COLOR
