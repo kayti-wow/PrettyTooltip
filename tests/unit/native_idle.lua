@@ -11,9 +11,9 @@ return function(test)
         TooltipDataLineType = { None = 0, ItemName = 22 } },
         data = initial, lines = lines, comparisons = { { data = initial, lines = lines }, { data = initial, lines = lines } },
         shiftUp = true }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua", "Integration/Native.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua", "Integration/Native.lua", "Integration/Placement.lua",
         "Integration/Hooks.lua", "Integration/ItemLite.lua", "Integration/Details.lua" }, fixture)
     ns.setOption("itemPanels", false)
     local tooltips = { world.main, ShoppingTooltip1, ShoppingTooltip2 }

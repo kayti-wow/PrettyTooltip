@@ -1,0 +1,61 @@
+== sample model
+attachments:
+  1:
+    count: 9
+    icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+    link: "|cffffffffCooked Crab Claw|r"
+    prices:
+      1:
+        left: "Vendor"
+        right: "25|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+      2:
+        left: "Auction"
+        right: "97|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+  2:
+    count: 5
+    icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+    link: "|cff1eff00Pyrite|r"
+    prices:
+      1:
+        left: "Vendor"
+        right: "1|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t"
+      2:
+        left: "Auction"
+        right: "1|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 9|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+extras: {}
+name: "Mail contents"
+totals:
+  1:
+    left: "Total: 14 items"
+    right: "14|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+== sample render
+panel 260 x 233
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x65 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 36x36 rgb=1,1,1,1 INV_Letter_15
+texture CENTER Texture CENTER 0,0 38x38 rgb=0.62,0.66,0.74,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-RightEdge
+text at 65,21 w=176 size=16 rgb=0.96,0.92,0.84 "MAIL CONTENTS"
+text at 65,43 w=176 size=12 rgb=0.6,0.57,0.52 "14 items"
+text at 19,75 w=190 size=12 rgb=0.96,0.92,0.84 "|TInterface\\Icons\\INV_Misc_QuestionMark:20:20|t |cffffffffCooked Crab Claw|r"
+text at 221,75 w=20 size=12 rgb=0.96,0.92,0.84 "× 9"
+text at 43,93 w=160 size=12 rgb=0.6,0.57,0.52 "Vendor"
+text at 215,93 w=26 size=12 rgb=0.82,0.78,0.71 "25|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 43,111 w=160 size=12 rgb=0.6,0.57,0.52 "Auction"
+text at 215,111 w=26 size=12 rgb=0.82,0.78,0.71 "97|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 19,135 w=190 size=12 rgb=0.96,0.92,0.84 "|TInterface\\Icons\\INV_Misc_QuestionMark:20:20|t |cff1eff00Pyrite|r"
+text at 221,135 w=20 size=12 rgb=0.96,0.92,0.84 "× 5"
+text at 43,153 w=166 size=12 rgb=0.6,0.57,0.52 "Vendor"
+text at 221,153 w=20 size=12 rgb=0.82,0.78,0.71 "1|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t"
+text at 43,171 w=142 size=12 rgb=0.6,0.57,0.52 "Auction"
+text at 197,171 w=44 size=12 rgb=0.82,0.78,0.71 "1|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 9|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 19,198 w=154 size=12 rgb=0.82,0.78,0.71 "Total: 14 items"
+text at 185,198 w=56 size=12 rgb=0.82,0.78,0.71 "14|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"

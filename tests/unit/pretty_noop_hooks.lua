@@ -3,9 +3,9 @@
 return function(test)
     local item = { type = 0, id = 1, lines = { { lineIndex = 1, leftText = "Equipment" } } }
     local capture = { data = item, lines = { { left = { text = "Equipment" } } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua" }, {
+        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, {
         enums = { TooltipDataType = { Item = 0 } }, data = item, lines = capture.lines,
         comparisons = { capture },
     })
@@ -36,10 +36,6 @@ return function(test)
     tooltip.GetWidth = function(self) widthReads = widthReads + 1; return getWidth(self) end
     for _ = 1, 20 do tooltip:SetAlpha(0) end
     test.check("repeated zero-alpha callbacks perform no native layout probes", widthReads, 0)
-    ns.Native.anchoring = true
-    tooltip:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
-    ns.Native.anchoring = false
-    test.check("our own anchor writes do not trigger another native layout probe", widthReads, 0)
     tooltip:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 1, 0)
     test.check("external anchor changes still check native frame access", widthReads > 0, true)
     widthReads = 0
@@ -47,21 +43,6 @@ return function(test)
     test.check("an external alpha change is checked once, without probing our recursive write", widthReads, 1)
     test.check("external alpha still updates the saved opacity and keeps native text hidden",
         { panel.nativeAlpha, tooltip:GetAlpha() }, { .5, 0 })
-
-    widthReads = 0
-    panel.fitting = true
-    ns.Native.refitNative(tooltip, panel)
-    panel.fitting = false
-    panel.comparisonPending = true
-    ns.Native.refitNative(tooltip, panel)
-    panel.comparisonPending = nil
-    panel.refreshPending = {}
-    ns.Native.beginRefresh(tooltip)
-    ns.Native.refitUnlessPartial(tooltip, panel)
-    panel.refreshPending = nil
-    test.check("pending and recursive fits return without querying native layout", widthReads, 0)
-    ns.Native.refitNative(tooltip, panel)
-    test.check("a real fit still checks native frame access", widthReads > 0, true)
 
     local font = tooltip:GetLeftLine(1)
     local getText, polling, pollReads = font.GetText, false, 0
@@ -87,32 +68,6 @@ return function(test)
     tick(panel, .3)
     flush()
     test.check("quiet tooltips still redraw when an addon rewrites a line in place", modelReads, before + 1)
-
-    local comparison = ShoppingTooltip1
-    comparison:SetSize(200, 100)
-    comparison:Show()
-    local equipped = ns.ui.getPanel(comparison)
-    equipped:SetSize(200, 100)
-    equipped:Show()
-    equipped.dataType, equipped.nativeAlpha, equipped.fittedHeight = 0, 1, 100
-    equipped.comparisonAnchorHeld = true
-    local comparisonWidth = comparison.GetWidth
-    widthReads = 0
-    comparison.GetWidth = function(self) widthReads = widthReads + 1; return comparisonWidth(self) end
-    ns.Native.holdComparison(comparison)
-    ns.Native.beginRefresh(comparison)
-    test.check("an already held comparison needs no repeated access probe", widthReads, 0)
-    equipped.comparisonAnchorHeld = nil
-    local forbiddenQueries = 0
-    comparison.IsForbidden = function() forbiddenQueries = forbiddenQueries + 1; return true end
-    comparison.IsShown = function() error("must not inspect a forbidden native tooltip") end
-    local ok = pcall(function()
-        ns.Native.holdComparison(comparison)
-        ns.Native.beginRefresh(comparison)
-    end)
-    test.check("real comparison work still rejects forbidden frames before reading visibility",
-        { ok, forbiddenQueries, widthReads }, { true, 2, 0 })
-    comparison.IsForbidden = function() return false end
 
     local oldAlpha = tooltip.SetAlpha
     local mutations = 0

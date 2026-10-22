@@ -4,9 +4,9 @@
 return function(test)
     local data = { type = 0, id = 1, lines = { { lineIndex = 1, leftText = "Equipment" } } }
     local capture = { data = data, lines = { { left = { text = "Equipment" } } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua" }, {
+        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, {
         enums = { TooltipDataType = { Item = 0 } }, data = data, lines = capture.lines,
         comparisons = { capture },
     })
@@ -55,7 +55,6 @@ return function(test)
     local post = world.postCalls[0][1]
     for _, tooltip in ipairs({ main, comparison }) do tooltip:Show(); post(tooltip, data) end
     flush()
-    ns.Native.anchorToPanels(comparison)
     local primary, secondary = ns.ui.panels[main], ns.ui.panels[comparison]
     local original = false
     IsAltKeyDown = function() return original end
@@ -78,9 +77,9 @@ return function(test)
     key(false)
     test.check("returning restores the previous panel sizes immediately", { primary:GetHeight(), secondary:GetHeight() }, { 330, 480 })
     test.check("Alt-only native rows are not read into the returning panels", reads, before)
-    test.check("returning immediately reconnects both comparison anchors to the panel",
-        { select(2, comparison:GetPoint(1)) == primary, select(2, comparison:GetPoint(2)) == primary }, { true, true })
-    test.check("the native pair is fitted to the returning panel sizes", { main:GetHeight(), comparison:GetHeight() }, { 330, 480 })
+    test.check("native comparison anchors stay with the original tooltip",
+        { select(2, comparison:GetPoint(1)) == main, select(2, comparison:GetPoint(2)) == main }, { true, true })
+    test.check("returning to Pretty leaves native sizes independent", { main:GetHeight(), comparison:GetHeight() }, { 238, 368 })
     test.check("returning hides the original pair", { main:GetAlpha(), comparison:GetAlpha() }, { 0, 0 })
 
     -- The following ordinary refill removes the modifier-only rows.

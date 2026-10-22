@@ -261,6 +261,7 @@ local function ownerOf(tooltip)
         kind = owner.GetObjectType and owner:GetObjectType(),
         parent = owner.GetParent and owner:GetParent() and owner:GetParent().GetName and copyOf(owner:GetParent():GetName()),
         taxiNode = owner.taxiNodeData and copyOf(owner.taxiNodeData),
+        index = copyOf(owner.index),
     }
 end
 
@@ -318,10 +319,20 @@ local function captureTooltip(tooltip)
     end
     entry.lines = attempt("lines", visibleLines, tooltip) or {}
     entry.owner = attempt("owner", ownerOf, tooltip)
+    if entry.owner and type(entry.owner.name) == "string" and entry.owner.name:match("^MailItem%d+Button$")
+        and type(entry.owner.index) == "number" then
+        for slot = 1, ATTACHMENTS_MAX_RECEIVE or 12 do
+            record("GetInboxItem", GetInboxItem, entry.owner.index, slot)
+            record("GetInboxItemLink", GetInboxItemLink, entry.owner.index, slot)
+        end
+    end
     attempt("taxi", recordTaxi, record)
     if isSecret(data) or type(data) ~= "table" then
         -- Filled by an addon with lines alone, as Questie's quest links.
         entry.fromLines = true
+        if entry.owner and type(entry.owner.name) == "string" and entry.owner.name:match("^MailItem%d+Button$") then
+            entry.linesAs = "mail"
+        end
     else
         entry.data = copyOf(data)
         local dataType = not isSecret(data.type) and data.type or nil
@@ -355,6 +366,7 @@ local COMPARISONS = { "ShoppingTooltip1", "ShoppingTooltip2" }
 -- Functions the addon checks for before calling; the tests give a fixture
 -- only those its client had.
 local OPTIONAL = {
+    "GetInboxItem", "GetInboxItemLink",
     "GetNumSkillLines", "GetSkillLineInfo", "GetProfessions", "GetProfessionInfo", "UnitTokenFromGUID",
     "UnitEffectiveLevel", "UnitAura", "GetSpellInfo", "GetSpellTexture", "GetCoinTextureString",
     "BreakUpLargeNumbers", "issecretvalue", "SetPortraitTexture", "C_Item.GetItemLocation",

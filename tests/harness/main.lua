@@ -187,11 +187,16 @@ function main.fixture(fixture, enums, files, sources, serialize, makeWorld, opti
 
     local sections = {}
     local function run(label, tooltip, capture)
+        if capture.linesAs == "mail" and capture.owner then
+            local owner = CreateFrame("CheckButton", capture.owner.name, UIParent)
+            owner.index = capture.owner.index
+            tooltip:SetOwner(owner, "ANCHOR_NONE")
+        end
         local data = capture.data
         -- Filled with lines alone by a frame the addon knows: linesAs names
         -- the type it is drawn as, from its lines, as Hooks.renderLines does.
         if not data and capture.linesAs and enums.TooltipDataType then
-            data = { type = enums.TooltipDataType[capture.linesAs], lines = {}, fromLines = true }
+            data = { type = enums.TooltipDataType[capture.linesAs] or capture.linesAs, lines = {}, fromLines = true }
         end
         if not data then
             sections[#sections + 1] = "== " .. label .. "\n(filled by an addon with lines alone; not replayed yet)"

@@ -24,12 +24,13 @@ globals = {
 
 -- The game's functions, objects, and constants the addon reads.
 read_globals = {
+    "GetInboxItem", "GetInboxItemLink", "ATTACHMENTS_MAX_RECEIVE",
     -- Lua the game adds
     "date", "tinsert", "issecretvalue", "canaccesstable", "debugprofilestop", "hooksecurefunc", "geterrorhandler", "debugstack",
     -- Frames and UI
     "CreateFrame", "CreateColor", "UIParent", "GameTooltip", "GameTooltipStatusBar", "ItemRefTooltip", "GameTooltipText",
     "GameTooltipHeaderText", "QuestScrollFrame", "GameFontHighlightSmall", "UISpecialFrames", "ShowUIPanel", "HideUIPanel",
-    "SetPortraitTexture", "ChatEdit_InsertLink", "GetCursorPosition", "NUM_CHAT_WINDOWS",
+    "SetPortraitTexture", "ChatEdit_InsertLink", "GetCursorPosition", "GetMouseFoci", "GetMouseFocus", "NUM_CHAT_WINDOWS",
     "Settings", "SettingsPanel", "InterfaceOptions_AddCategory", "InterfaceOptionsFrame_OpenToCategory",
     "STANDARD_TEXT_FONT", "RAID_CLASS_COLORS", "CUSTOM_CLASS_COLORS", "LOCALIZED_CLASS_NAMES_MALE", "NineSliceUtil",
     -- The game's strings, in the client's language; tools/make_strings.py gives
@@ -79,12 +80,15 @@ read_globals = {
     "QUEST_CLASSIFICATION_RECURRING", "TARGET", "YOU", "CLOSE",
     "INVTYPE_2HWEAPON", "INVTYPE_CHEST", "INVTYPE_HAND", "ITEM_REQ_REPUTATION", "FACTION_STANDING_LABEL7",
     "ITEM_COOLDOWN_TOTAL_MIN", "ITEM_COOLDOWN_TIME_SEC", "ITEM_LEVEL",
+    "INVTYPE_WEAPONMAINHAND", "INVTYPE_WEAPONOFFHAND", "INVTYPE_RANGED", "ITEM_SPELL_CHARGES",
+    "ITEM_ENCHANT_TIME_LEFT_DAYS", "ITEM_ENCHANT_TIME_LEFT_HOURS", "ITEM_ENCHANT_TIME_LEFT_MIN", "ITEM_ENCHANT_TIME_LEFT_SEC",
     -- Tooltip data
     "TooltipDataProcessor", "TooltipComparisonManager", "Enum",
     -- Game state
     "C_Item", "C_Spell", "C_Texture", "C_AddOns", "C_QuestLog", "C_UnitAuras", "C_Timer", "C_CurrencyInfo",
+    "C_PaperDollInfo", "GetWeaponEnchantInfo", "GetInventoryItemTexture", "WOW_PROJECT_ID", "WOW_PROJECT_MAINLINE",
     "GetLocale", "GetBuildInfo", "GetAddOnMetadata", "GetTime", "IsAltKeyDown", "IsControlKeyDown", "IsShiftKeyDown", "InCombatLockdown",
-    "GetSpellInfo", "GetSpellTexture", "GetSpellBonusDamage", "GetSpellBonusHealing", "GetMacroInfo", "GetMacroIndexByName",
+    "GetSpellInfo", "GetSpellDescription", "GetSpellTexture", "GetSpellBonusDamage", "GetSpellBonusHealing", "GetMacroInfo", "GetMacroIndexByName",
     "GetNumMacros", "GetMacroSpell", "GetMacroItem", "MAX_ACCOUNT_MACROS", "GetPetActionInfo",
     "NumTaxiNodes", "TaxiNodeName", "TaxiNodeCost", "TaxiNodeGetType", "TaxiNodeOnButtonEnter",
     "TAXINODEYOUAREHERE", "UpdateAddOnMemoryUsage", "GetAddOnMemoryUsage", "GetPhysicalScreenSize", "PixelUtil",

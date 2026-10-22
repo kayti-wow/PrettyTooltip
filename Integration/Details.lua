@@ -69,6 +69,7 @@ local function fontAt(state, side, index)
     local font = list[index]
     if not font then
         font = state.block:CreateFontString(nil, "ARTWORK", "GameTooltipText")
+        font:SetRoundLayoutToNearestPixel(true)
         if font.SetWordWrap then font:SetWordWrap(false) end
         font:SetJustifyH(side == "rights" and "RIGHT" or "LEFT")
         list[index] = font
@@ -136,6 +137,7 @@ local function stateOf(tooltip)
     local state = states[tooltip]
     if state then return state end
     local block = CreateFrame("Frame", nil, tooltip)
+    block:SetRoundLayoutToNearestPixel(true)
     block:SetPoint("BOTTOMLEFT", tooltip, "BOTTOMLEFT", INSET, INSET)
     block:SetPoint("BOTTOMRIGHT", tooltip, "BOTTOMRIGHT", -INSET, INSET)
     block:Hide()

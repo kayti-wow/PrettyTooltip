@@ -4,7 +4,7 @@
 ## Author: FallenShard
 ## X-License: MIT
 ## X-Curse-Project-ID: 1720719
-## Version: 1.3.5
+## Version: 1.3.6
 ## IconTexture: Interface\AddOns\PrettyTooltip\art\logo
 ## SavedVariables: PrettyTooltipDB, PrettyTooltipCaptures
 ## OptionalDeps: Questie, Auctionator, DialogueUI, EllesmereUI, LibSharedMedia-3.0
@@ -12,6 +12,7 @@
 Core\Util.lua
 Core\Palette.lua
 Core\Settings.lua
+Core\TooltipPlacement.lua
 Locale\Locale.lua
 Locale\English.lua
 Locale\deDE.lua [AllowLoadTextLocale deDE]
@@ -28,6 +29,7 @@ Game\TooltipData.lua
 Game\SpellAmounts.lua
 Data\Schools.lua
 Data\Stats.lua
+Data\Imbues.lua
 Panel\Layout.lua
 Panel\Render.lua
 Data\Disenchant.lua
@@ -41,16 +43,19 @@ Tooltips\Spell.lua
 Tooltips\Object.lua
 Tooltips\Unit.lua
 Tooltips\Aura.lua
+Tooltips\Imbue.lua
 Tooltips\Quest.lua
 Tooltips\Macro.lua
 Tooltips\PetAction.lua
 Tooltips\Minimap.lua
 Tooltips\FlightPath.lua
+Tooltips\Mail.lua
 UI\Options.lua
 UI\Samples.lua
 UI\EditorSkin.lua
 UI\Editor.lua
 Integration\Native.lua
+Integration\Placement.lua
 Integration\Hooks.lua
 Integration\Details.lua
 Integration\ItemLite.lua

@@ -176,6 +176,19 @@ local function newModel(icon)
         icon = icon }
 end
 
+-- A line that is only a pointer to another spell's description, which the
+-- game left unfilled: "$@382021" on Earthliving Weapon's imbue, the
+-- "spelldesc" missing from it. The other spell's description, or "" while
+-- the game has not loaded it, so the pointer is never shown; nil for any
+-- other line.
+local function pointedDescription(text, game)
+    local id = tonumber(text:match("^%$@%a*(%d+)$"))
+    if not id then return end
+    local target = game.spellDescription(id)
+    if not target or target:find("^%$@") then return "" end
+    return target
+end
+
 -- A description can open with its own requirement, on a line of its own.
 local function readDescription(model, text)
     local rest = {}
@@ -218,6 +231,11 @@ end
 local function readLine(model, line, left, right, game)
     local text, rightText = trim(left), trim(right)
     if text == "" and rightText == "" then return end
+    local pointed = rightText == "" and pointedDescription(text, game)
+    if pointed then
+        if pointed ~= "" then readDescription(model, pointed) end
+        return
+    end
     if LINE.UsageRequirement and line.type == LINE.UsageRequirement then
         add(model.requirements, text, rightText)
         local usable = line.usable
@@ -578,8 +596,10 @@ local function powerRows(part, numberCode, panel)
 end
 
 -- What the panel shows, for Panel/Render.lua to draw. Each spell's body,
--- its own and a nested one's, is drawn here as one custom section.
-local function spellView(panel, model)
+-- its own and a nested one's, is drawn here as one custom section. more,
+-- when given, adds sections of another type's (sections, color) before the
+-- other addons' rows: an imbue's time left.
+local function spellView(panel, model, more)
     local styles = {}
     for _, key in ipairs(PARTS) do styles[key] = ui.styleOf(key) end
     local school = ns.Palette.detectSchool(model.description, model.name, model.spellID)
@@ -632,6 +652,7 @@ local function spellView(panel, model)
                 kind = "rows", rows = rows, style = styles.spellDetails, color = DETAIL_COLOR, gap = 2 }
         end
     end
+    if more then more(sections, color) end
     local extras = ui.withID(panel, model.extras, L["Spell ID: %s"], model.spellID)
     if #extras > 0 then
         sections[#sections + 1] = { separator = #sections > 0 and { rule = EXTRAS_RULE } or { space = 12 },
@@ -657,6 +678,7 @@ end
 local function renderSpell(panel, tooltip, model)
     ui.renderView(panel, tooltip, spellView(panel, model))
 end
+ui.spellView = spellView
 
 -- A spell model from given fields: the editor's samples.
 ui.spellModel = function(fields)

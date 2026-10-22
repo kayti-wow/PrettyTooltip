@@ -9,9 +9,9 @@ return function(test)
     local capture = { data = data, lines = {
         { left = { text = "Test Item" } }, { left = { text = combined } },
     } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua", "Integration/Native.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua", "Integration/Native.lua", "Integration/Placement.lua",
         "Integration/Hooks.lua", "Integration/ItemLite.lua" }, {
         enums = { TooltipDataType = { Item = 0 }, TooltipDataLineType = { None = 0, ItemName = 22 } },
         data = data, lines = capture.lines, comparisons = { capture, capture },

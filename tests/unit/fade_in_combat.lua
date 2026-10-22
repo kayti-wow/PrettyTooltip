@@ -4,9 +4,9 @@ return function(test)
     local fixture = { enums = { TooltipDataType = { Item = 0, Object = 33, UnitAura = 7 } },
         data = { type = 33, id = 1, lines = { { lineIndex = 1, leftText = "Mailbox" } } },
         lines = { { left = { text = "Mailbox" } } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Integration/Native.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Integration/Native.lua", "Integration/Placement.lua",
         "Integration/Hooks.lua", "Integration/Cursor.lua" }, fixture)
     local tooltip = world.main
     local combat = false
@@ -61,8 +61,8 @@ return function(test)
         test.check(label .. ": reuse restores the original anchor and clamping",
             { anchor(tooltip), tooltip:IsClampedToScreen(), ns.Native.isParked(tooltip) }, { default, true, false })
         callback(tooltip, fixture.data)
-        test.check(label .. ": new content shows the panel at its tooltip",
-            { panel:IsShown(), select(2, panel:GetPoint(1)) == tooltip }, { true, true })
+        test.check(label .. ": new content reconnects the panel to its source anchor",
+            { panel:IsShown(), select(2, panel:GetPoint(1)) == UIParent }, { true, true })
     end
 
     local panel = show()

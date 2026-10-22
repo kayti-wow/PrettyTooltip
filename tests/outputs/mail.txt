@@ -1,0 +1,111 @@
+== tooltip model
+attachments:
+  1:
+    link: "|cnIQ1:|Hitem:2682::::::::30:1486:::::::::|h[Cooked Crab Claw]|h|r"
+    prices:
+      1:
+        color:
+          1: 0.85
+          2: 0.7
+          3: 0
+        left: "Vendor"
+        right: "|cffffffff25 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+        rightColor:
+          1: 0.85
+          2: 0.7
+          3: 0
+        textColor:
+          1: 1
+          2: 0.8235
+          3: 0
+          4: 1
+      2:
+        color:
+          1: 0.85
+          2: 0.7
+          3: 0
+        left: "Auction"
+        right: "|cffffffff97 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+        rightColor:
+          1: 0.85
+          2: 0.7
+          3: 0
+        textColor:
+          1: 1
+          2: 0.8235
+          3: 0
+          4: 1
+  2:
+    link: "|cnIQ2:|Hitem:249391::::::::30:1486:::::::::|h[Pyrite]|h|r"
+    prices:
+      1:
+        color:
+          1: 0.85
+          2: 0.7
+          3: 0
+        left: "Vendor"
+        right: "|cffffffff1 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+        rightColor:
+          1: 0.85
+          2: 0.7
+          3: 0
+        textColor:
+          1: 1
+          2: 0.8235
+          3: 0
+          4: 1
+      2:
+        color:
+          1: 0.85
+          2: 0.7
+          3: 0
+        left: "Auction"
+        right: "|cffffffff1 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 09 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+        rightColor:
+          1: 0.85
+          2: 0.7
+          3: 0
+        textColor:
+          1: 1
+          2: 0.8235
+          3: 0
+          4: 1
+extras: {}
+name: "Mail contents"
+totals:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Total |cFFAAAAFF 14 items|r"
+    right: "|cffffffff14 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 18 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+== tooltip render
+panel 260 x 233
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x63 rgb=1,1,1,1 band
+texture at 19,21 36x36 rgb=1,1,1,1 INV_Letter_15
+texture CENTER Texture CENTER 0,0 38x38 rgb=0.62,0.66,0.74,0.85 WHITE8X8
+text at 65,21 w=176 size=16 rgb=0.96,0.92,0.84 "MAIL CONTENTS"
+text at 19,75 w=222 size=12 rgb=0.96,0.92,0.84 "|cnIQ1:|Hitem:2682::::::::30:1486:::::::::|h[Cooked Crab Claw]|h|r"
+text at 43,93 w=154 size=12 rgb=1,0.8235,0 "Vendor"
+text at 209,93 w=32 size=12 rgb=0.85,0.7,0 "|cffffffff25 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 43,111 w=154 size=12 rgb=1,0.8235,0 "Auction"
+text at 209,111 w=32 size=12 rgb=0.85,0.7,0 "|cffffffff97 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,135 w=222 size=12 rgb=0.96,0.92,0.84 "|cnIQ2:|Hitem:249391::::::::30:1486:::::::::|h[Pyrite]|h|r"
+text at 43,153 w=124 size=12 rgb=1,0.8235,0 "Vendor"
+text at 179,153 w=62 size=12 rgb=0.85,0.7,0 "|cffffffff1 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 43,171 w=124 size=12 rgb=1,0.8235,0 "Auction"
+text at 179,171 w=62 size=12 rgb=0.85,0.7,0 "|cffffffff1 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 09 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,198 w=142 size=12 rgb=0.85,0.7,0 "Total |cFFAAAAFF 14 items|r"
+text at 173,198 w=68 size=12 rgb=0.85,0.7,0 "|cffffffff14 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 18 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"

@@ -185,6 +185,24 @@ local function timeBar(model, color)
     end
 end
 
+-- The time left and its bar, added to sections: from model.remaining, the
+-- time left as text, and model.duration and model.expires, for the bar.
+local function timeSections(sections, model, color)
+    local time = timeRow(model)
+    if not (time or hasBar(model)) then return end
+    local separator = #sections > 0 and { rule = { color[1] * .7, color[2] * .7, color[3] * .7 } }
+        or { divider = ui.GOLD_RULE }
+    if time then
+        time.rightColor = MUTED
+        sections[#sections + 1] = { separator = separator, kind = "rows", rows = { time },
+            style = ui.styleOf("auraTime"), color = TIME_COLOR, gap = 3 }
+        separator = nil
+    end
+    if hasBar(model) then
+        sections[#sections + 1] = { separator = separator, kind = "custom", draw = timeBar(model, color) }
+    end
+end
+
 -- What the panel shows, for Panel/Render.lua to draw.
 local function auraView(model)
     local styles = {}
@@ -196,20 +214,7 @@ local function auraView(model)
         sections[#sections + 1] = { separator = { divider = ui.GOLD_RULE }, kind = "prose", sentences = sentences,
             style = styles.auraText, color = colors.description, numbers = ns.Palette.numberCode(color), gap = 5 }
     end
-    local time = timeRow(model)
-    if time or hasBar(model) then
-        local separator = #sections > 0 and { rule = { color[1] * .7, color[2] * .7, color[3] * .7 } }
-            or { divider = ui.GOLD_RULE }
-        if time then
-            time.rightColor = MUTED
-            sections[#sections + 1] = { separator = separator, kind = "rows", rows = { time },
-                style = styles.auraTime, color = TIME_COLOR, gap = 3 }
-            separator = nil
-        end
-        if hasBar(model) then
-            sections[#sections + 1] = { separator = separator, kind = "custom", draw = timeBar(model, color) }
-        end
-    end
+    timeSections(sections, model, color)
     if #model.extras > 0 then
         sections[#sections + 1] = { separator = #sections > 0 and { rule = EXTRAS_RULE } or { space = 4 },
             kind = "rows", rows = model.extras, style = styles.extras, color = ui.EXTRA_COLOR, gap = 2, wrap = true }
@@ -233,6 +238,7 @@ local function renderAura(panel, tooltip, model)
     ui.renderView(panel, tooltip, auraView(model))
 end
 
+ui.timeSections = timeSections
 ui.auraModel = function(fields)
     fields.extras = fields.extras or {}
     return completeModel(fields, nil, ns.Game)

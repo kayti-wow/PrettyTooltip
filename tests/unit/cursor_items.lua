@@ -2,9 +2,9 @@
 -- the tooltip between hovers. Item refresh holds must yield to cursor placement.
 return function(test)
     local item = { type = 0, id = 1, lines = { { lineIndex = 1, leftText = "First item" } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua",
         "Integration/Cursor.lua" }, {
         enums = { TooltipDataType = { Item = 0, Spell = 1 } }, data = item,
         lines = { { left = { text = "First item" } } },
@@ -82,6 +82,7 @@ return function(test)
     local function panelTop()
         local _, target, relative, _, offset = panel:GetPoint(1)
         if target == UIParent then return offset end
+        if target ~= tooltip then return y + offset end
         if relative:find("BOTTOM") then return tooltip:GetBottom() + offset end
         return tooltip:GetTop() + offset
     end
@@ -99,7 +100,7 @@ return function(test)
     show(2)
     test.check("changing cursor items does not retain the bottom-edge hold for a frame",
         math.abs(panelTop() - top) < .01, true)
-    test.check("the cursor panel immediately uses its tooltip's top edge", (select(3, panel:GetPoint(1))), "TOPLEFT")
+    test.check("the cursor panel immediately uses its tooltip's top edge", (select(3, panel:GetPoint(1))), "BOTTOMLEFT")
     flush()
     test.check("the delayed native fit preserves the cursor panel position", math.abs(panelTop() - top) < .01, true)
 
@@ -113,7 +114,7 @@ return function(test)
     tooltip:Hide()
     show(1)
     test.check("an item entered in the same frame is shown immediately", panel:IsShown(), true)
-    test.check("the new item immediately uses the cursor anchor", (select(3, panel:GetPoint(1))), "TOPLEFT")
+    test.check("the new item immediately uses the cursor anchor", (select(3, panel:GetPoint(1))), "BOTTOMLEFT")
     test.check("the new item is at the expected cursor height", math.abs(panelTop() - top) < .01, true)
     flush()
     test.check("the new panel survives old restore timers", panel:IsShown(), true)
@@ -132,7 +133,7 @@ return function(test)
     test.check("rapid alternating item hovers never show an orphan or displaced panel", steady, true)
 
     show(2)
-    test.check("a shown item refill has a pending native fit", panel.refreshPending ~= nil, true)
+    test.check("a shown item refill needs no pending native fit", panel.refreshPending == nil, true)
     tooltip:Hide()
     test.check("hiding cancels an active hold immediately", { panel:IsShown(), panel.refreshPending == nil }, { false, true })
     show(1)
@@ -144,7 +145,7 @@ return function(test)
     -- enough to identify the content or preserve an old item's anchor hold.
     local function atCursor()
         return panel:IsShown() and math.abs(panelTop() - (y + 16 + panel:GetHeight())) < .01
-            and select(3, panel:GetPoint(1)) == "TOPLEFT"
+            and select(3, panel:GetPoint(1)) == "BOTTOMLEFT"
     end
     show(1, 1)
     test.check("an item-to-spell switch renders the new type before deferred work",

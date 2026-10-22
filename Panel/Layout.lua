@@ -91,7 +91,7 @@ local panels = setmetatable({}, { __mode = "k" })
 
 -- /ptip perf: how often the panel's work runs and how long it takes. While no
 -- capture runs, a probed call costs one check.
-local perf = { on = false, calls = {}, time = {} }
+local perf = { on = false, calls = {}, time = {}, max = {}, depth = 0, total = 0 }
 
 local function tally(name)
     if perf.on then perf.calls[name] = (perf.calls[name] or 0) + 1 end
@@ -100,18 +100,27 @@ end
 -- Adds the time since start, from debugprofilestop, to a part of a call.
 local function timed(name, start)
     if not (perf.on and start) then return end
+    local elapsed = debugprofilestop() - start
     perf.calls[name] = (perf.calls[name] or 0) + 1
-    perf.time[name] = (perf.time[name] or 0) + debugprofilestop() - start
+    perf.time[name] = (perf.time[name] or 0) + elapsed
+    perf.max[name] = math.max(perf.max[name] or 0, elapsed)
 end
 
 local function probe(name, fn)
     return function(...)
         if not perf.on then return fn(...) end
         local start = debugprofilestop()
-        local results = pack(fn(...))
+        local depth = perf.depth
+        perf.depth = depth + 1
+        local results = pack(pcall(fn, ...))
+        local elapsed = debugprofilestop() - start
+        perf.depth = depth
+        if depth == 0 then perf.total = perf.total + elapsed end
         perf.calls[name] = (perf.calls[name] or 0) + 1
-        perf.time[name] = (perf.time[name] or 0) + debugprofilestop() - start
-        return unpack(results, 1, results.n)
+        perf.time[name] = (perf.time[name] or 0) + elapsed
+        perf.max[name] = math.max(perf.max[name] or 0, elapsed)
+        if not results[1] then error(results[2], 0) end
+        return unpack(results, 2, results.n)
     end
 end
 
@@ -235,19 +244,26 @@ local function asStyle(style)
     return { size = style, font = bodyFont(), flags = "" }
 end
 
+-- Rounding is per region, not inherited. Configure each owned region once,
+-- including those created later when a text or texture pool grows.
+local function roundLayout(region)
+    region:SetRoundLayoutToNearestPixel(true)
+    return region
+end
+
 -- Rows other addons append are absent from the data. Nil when one is unreadable.
 local function makeTexture(parent, layer, path)
-    local tex = parent:CreateTexture(nil, layer)
+    local tex = roundLayout(parent:CreateTexture(nil, layer))
     tex:SetTexture(path or WHITE)
     return tex
 end
 
 local function createPanel(parent)
-    local panel = CreateFrame("Frame", nil, parent)
+    local panel = roundLayout(CreateFrame("Frame", nil, parent))
     panel:SetFrameStrata("TOOLTIP")
     panel.width = MAX_WIDTH
     panel:SetWidth(MAX_WIDTH)
-    panel.measure = panel:CreateFontString(nil, "OVERLAY")
+    panel.measure = roundLayout(panel:CreateFontString(nil, "OVERLAY"))
     panel.measure:SetPoint("TOPLEFT", panel, "TOPLEFT")
     panel.measure:SetAlpha(0)
     panel:SetClampedToScreen(true)
@@ -255,7 +271,7 @@ local function createPanel(parent)
     panel.pool, panel.used = {}, 0
     panel.texturePool, panel.texturesUsed = {}, 0
     if panel.SetIgnoreParentAlpha then panel:SetIgnoreParentAlpha(true) end
-    panel.halo = panel:CreateTexture(nil, "BACKGROUND", nil, -8)
+    panel.halo = roundLayout(panel:CreateTexture(nil, "BACKGROUND", nil, -8))
     panel.halo:SetPoint("TOPLEFT", panel, "TOPLEFT", -HALO_SPREAD, HALO_SPREAD)
     panel.halo:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", HALO_SPREAD, -HALO_SPREAD)
     panel.halo:SetTexture(ART .. "glow")
@@ -263,11 +279,11 @@ local function createPanel(parent)
         panel.halo:SetTextureSliceMargins(HALO_MARGIN, HALO_MARGIN, HALO_MARGIN, HALO_MARGIN)
     end
     panel.halo:SetBlendMode("ADD")
-    panel.background = panel:CreateTexture(nil, "BACKGROUND", nil, -7)
+    panel.background = roundLayout(panel:CreateTexture(nil, "BACKGROUND", nil, -7))
     panel.background:SetAllPoints()
     if panel.background.SetTextureSliceMargins then
         -- Multiplying barely tints the near-black backdrop; an additive copy carries the glow.
-        panel.glow = panel:CreateTexture(nil, "BACKGROUND", nil, -6)
+        panel.glow = roundLayout(panel:CreateTexture(nil, "BACKGROUND", nil, -6))
         panel.glow:SetAllPoints()
         panel.glow:SetTexture(DIALOGUE_BACKDROP)
         panel.glow:SetTextureSliceMargins(32, 32, 32, 32)
@@ -275,7 +291,7 @@ local function createPanel(parent)
         panel.glow:SetBlendMode("ADD")
     end
     local function shade(orientation, from, to, a1, a2)
-        local tex = panel:CreateTexture(nil, "BORDER", nil, 2)
+        local tex = roundLayout(panel:CreateTexture(nil, "BORDER", nil, 2))
         tex:SetColorTexture(1, 1, 1, 1)
         tex:SetPoint(from, panel, from)
         tex:SetPoint(to, panel, to)
@@ -308,7 +324,7 @@ local function createPanel(parent)
     panel.badgeFill:SetDrawLayer("OVERLAY", 2)
     panel.badgeFill:SetPoint("TOPLEFT", panel.badge, "TOPLEFT", 1, -1)
     panel.badgeFill:SetPoint("BOTTOMRIGHT", panel.badge, "BOTTOMRIGHT", -1, 1)
-    panel.badgeText = panel:CreateFontString(nil, "OVERLAY")
+    panel.badgeText = roundLayout(panel:CreateFontString(nil, "OVERLAY"))
     panel.badgeText:SetDrawLayer("OVERLAY", 3)
     panel.badgeText:SetPoint("CENTER", panel.badge, "CENTER", 0, 0)
     panel.edges = {}
@@ -349,12 +365,14 @@ local function nativeBorder(panel)
     if not (NineSliceUtil and NineSliceUtil.ApplyLayoutByName) then return end
     local slice = GameTooltip and GameTooltip.NineSlice
     local layout = slice and type(slice.layoutType) == "string" and slice.layoutType or "TooltipDefaultLayout"
-    local frame = CreateFrame("Frame", nil, panel)
+    local frame = roundLayout(CreateFrame("Frame", nil, panel))
     frame:SetAllPoints()
     if not pcall(NineSliceUtil.ApplyLayoutByName, frame, layout) then
         frame:Hide()
         return
     end
+    -- These textures are created by Blizzard's layout on our border frame.
+    for _, region in ipairs({ frame:GetRegions() }) do roundLayout(region) end
     if frame.Center then frame.Center:Hide() end
     panel.nativeBorder = frame
     return frame
@@ -458,7 +476,7 @@ local function textAt(panel, content, x, y, width, size, color, fontPath, align,
     panel.used = panel.used + 1
     local font = panel.pool[panel.used]
     if not font then
-        font = panel:CreateFontString(nil, "OVERLAY")
+        font = roundLayout(panel:CreateFontString(nil, "OVERLAY"))
         -- The same for every row, so set once.
         font:SetJustifyV("TOP")
         font:SetShadowColor(0, 0, 0, 0)
@@ -527,7 +545,7 @@ local function hiddenTextAt(panel, content, x, y, width, style, color)
     panel.hiddenUsed = (panel.hiddenUsed or 0) + 1
     local font = panel.hiddenPool[panel.hiddenUsed]
     if not font then
-        font = panel:CreateFontString(nil, "OVERLAY")
+        font = roundLayout(panel:CreateFontString(nil, "OVERLAY"))
         font:SetJustifyV("TOP")
         font:SetJustifyH("LEFT")
         font:SetShadowColor(0, 0, 0, 0)
@@ -615,7 +633,7 @@ local function acquireTexture(panel, path, sublevel)
     panel.texturesUsed = panel.texturesUsed + 1
     local tex = panel.texturePool[panel.texturesUsed]
     if not tex then
-        tex = panel:CreateTexture(nil, "OVERLAY")
+        tex = roundLayout(panel:CreateTexture(nil, "OVERLAY"))
         panel.texturePool[panel.texturesUsed] = tex
     end
     tex:SetDrawLayer("OVERLAY", sublevel or 0)
@@ -695,12 +713,12 @@ end
 
 local function getCloseButton(panel, tooltip)
     if panel.close then return panel.close end
-    local close = CreateFrame("Button", nil, panel)
+    local close = roundLayout(CreateFrame("Button", nil, panel))
     close:SetSize(16, 16)
     close:SetPoint("TOPRIGHT", panel, "TOPRIGHT", -3, -3)
     local lines = {}
     for index, angle in ipairs({ 45, -45 }) do
-        local line = close:CreateTexture(nil, "ARTWORK")
+        local line = roundLayout(close:CreateTexture(nil, "ARTWORK"))
         line:SetTexture(WHITE)
         line:SetSize(11, 1.5)
         line:SetPoint("CENTER")
@@ -721,26 +739,35 @@ local function getCloseButton(panel, tooltip)
     return close
 end
 
+local EQUIPPED_TAG_GAP = 2
 local function getEquippedTag(panel)
     if panel.equipped then return panel.equipped end
-    local tag = CreateFrame("Frame", nil, panel)
-    tag:SetPoint("BOTTOMLEFT", panel, "TOPLEFT", 0, 2)
+    local tag = roundLayout(CreateFrame("Frame", nil, panel))
+    tag:SetPoint("BOTTOMLEFT", panel, "TOPLEFT", 0, EQUIPPED_TAG_GAP)
     tag:SetHeight(BADGE_HEIGHT)
-    tag.border = tag:CreateTexture(nil, "BACKGROUND")
+    tag.border = roundLayout(tag:CreateTexture(nil, "BACKGROUND"))
     tag.border:SetAllPoints()
     tag.border:SetTexture(WHITE)
     tag.border:SetVertexColor(.55, .45, .30, .9)
-    tag.fill = tag:CreateTexture(nil, "BORDER")
+    tag.fill = roundLayout(tag:CreateTexture(nil, "BORDER"))
     tag.fill:SetPoint("TOPLEFT", 1, -1)
     tag.fill:SetPoint("BOTTOMRIGHT", -1, 1)
     tag.fill:SetTexture(WHITE)
     tag.fill:SetVertexColor(.07, .055, .05, 1)
-    tag.text = tag:CreateFontString(nil, "OVERLAY")
+    tag.text = roundLayout(tag:CreateFontString(nil, "OVERLAY"))
     tag.text:SetFont(bodyFont(), 10)
     tag.text:SetTextColor(.93, .80, .52)
     tag.text:SetPoint("CENTER")
     panel.equipped = tag
     return tag
+end
+
+-- The comparison label sits outside the body. Include its visible bounds in
+-- frame clamping and column width without changing the body's layout size.
+local function clampInsets(panel)
+    local tag = panel.equipped
+    if not (tag and tag:IsShown()) then return 0, 0, 0, 0 end
+    return 0, math.max(0, tag:GetWidth() - panel:GetWidth()), tag:GetHeight() + EQUIPPED_TAG_GAP, 0
 end
 
 -- Returns the header height the icon and badge need.
@@ -883,80 +910,25 @@ local function drawChrome(panel, tooltip, style)
 end
 drawChrome = probe("chrome", drawChrome)
 
--- What a panel's parts are placed on whole pixels from is its corner, so the
--- corner must sit on one too: half a pixel off, a one-pixel line rounds to none
--- or two. The tooltip's corner is wherever its anchor and height put it.
-local function gridOffset(panel, tooltip, side)
-    local x = side == "RIGHT" and tooltip:GetRight() or tooltip:GetLeft()
-    local y = tooltip:GetTop()
-    local scale, panelScale = scaleOf(tooltip), scaleOf(panel)
-    if isSecret(x) or isSecret(y) or type(x) ~= "number" or type(y) ~= "number"
-        or not (scale and panelScale) then
-        return 0, 0
-    end
-    x, y = x * scale / panelScale, y * scale / panelScale
-    return snap(panel, x) - x, snap(panel, y) - y
-end
-
--- The side of the first of a tooltip's points that places a left or right
--- edge; comparisons are anchored by "TOP" first, then by "LEFT" or "RIGHT".
-local function anchoredSide(tooltip)
-    for index = 1, tooltip:GetNumPoints() do
-        local point = tooltip:GetPoint(index)
-        if isSecret(point) or type(point) ~= "string" then return "LEFT" end
-        if point:find("RIGHT") then return "RIGHT" end
-        if point:find("LEFT") then return "LEFT" end
-    end
-    return "LEFT"
-end
-
--- The hidden tooltip is often wider than its panel, as long as its longest
--- unwrapped line, and narrower until it is fitted. Pin the panel to the side
--- the tooltip itself is anchored by, so the difference faces away from
--- whatever it is attached to.
+-- Preview panels belong to the editor's anchor. Live panels are positioned
+-- by the single Pretty placement backend, independently of native dimensions.
 local function alignPanel(panel, tooltip, force)
-    -- Cursor placement can replace the refresh hold with its new top anchor.
-    -- A fading tooltip parked off screen always keeps its panel pinned.
-    if panel.parked or ((panel.refreshPending or panel.comparisonAnchorHeld) and not force) then return end
-    local side = anchoredSide(tooltip)
-    local dx, dy = gridOffset(panel, tooltip, side)
-    if panel.side == side and panel:GetNumPoints() > 0
-        and math.abs(dx - (panel.gridX or 0)) < .001 and math.abs(dy - (panel.gridY or 0)) < .001 then
-        return
+    if panel.parked then return end
+    if panel.isPreview then
+        panel:ClearAllPoints()
+        panel:SetPoint("TOPLEFT", tooltip, "TOPLEFT", 0, 0)
+    else
+        return ns.Placement.align(panel, tooltip, force)
     end
-    panel.side, panel.gridX, panel.gridY = side, dx, dy
-    panel:ClearAllPoints()
-    panel:SetPoint("TOP" .. side, tooltip, "TOP" .. side, dx, dy)
 end
 alignPanel = probe("align panel", alignPanel)
 
--- Keep the last fitted top while the native tooltip briefly reports a
--- different height during a refill. Use its anchored edge, so owner movement
--- still carries the panel along. Offsets are in the panel's own units.
-local function holdPanel(panel, tooltip)
-    local point = tooltip:GetPoint(1)
-    local nativeScale, panelScale = scaleOf(tooltip), scaleOf(panel)
-    if isSecret(point) or type(point) ~= "string" or not panel.fittedHeight
-        or not (nativeScale and panelScale) then return false end
-    local side = panel.side or anchoredSide(tooltip)
-    local relative, fraction = side, .5
-    if point:find("BOTTOM") then relative, fraction = "BOTTOM" .. side, 1
-    elseif point:find("TOP") then relative, fraction = "TOP" .. side, 0 end
-    panel:ClearAllPoints()
-    panel:SetPoint("TOP" .. side, tooltip, relative, panel.gridX or 0,
-        panel.fittedHeight * nativeScale / panelScale * fraction + (panel.gridY or 0))
-    panel.side = nil
-    return true
-end
-
--- Holds a panel where it stands while its tooltip moves; the next alignment
--- anchors it to the tooltip again. False when where it stands cannot be read.
+-- Keep a visible panel still while cursor following restores native anchors.
 local function pinPanel(panel)
     local left, top = util.number(panel:GetLeft()), util.number(panel:GetTop())
     if not (left and top) then return false end
     panel:ClearAllPoints()
     panel:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
-    panel.side = nil
     return true
 end
 
@@ -1022,7 +994,6 @@ ns.ui = {
     defaultHeaderAlpha = defaultHeaderAlpha,
     styleOf = styleOf,
     alignPanel = alignPanel,
-    holdPanel = holdPanel,
     pinPanel = pinPanel,
     shownPanel = function(tooltip)
         local panel = panels[tooltip]
@@ -1044,6 +1015,7 @@ ns.ui = {
     rule = rule,
     divider = divider,
     drawChrome = drawChrome,
+    clampInsets = clampInsets,
     finishPanel = finishPanel,
     caption = caption,
     pad = pad,

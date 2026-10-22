@@ -34,6 +34,15 @@ local function quoted(text) return '"' .. text .. '"' end
 -- The types in the editor's order; dataType names the game's tooltip type and
 -- model the completer the tooltip file shares.
 local TYPES = {
+    { key = "mail", label = "Mail", dataType = "mail", model = "mailModel", first = "mailTitle", noun = "mail",
+        noLookup = true, samples = { { label = "Attachments", fields = {
+            attachments = {
+                { link = "|cffffffffCooked Crab Claw|r", count = 9, icon = { item = 2682 },
+                    prices = { { left = "Vendor", right = { money = 25 } }, { left = "Auction", right = { money = 97 } } } },
+                { link = "|cff1eff00Pyrite|r", count = 5, icon = { item = 249391 },
+                    prices = { { left = "Vendor", right = { money = 100 } }, { left = "Auction", right = { money = 109 } } } },
+            }, totals = { { left = "Total: 14 items", right = { money = 1418 } } },
+        } } } },
     {
         key = "item", label = "Items", dataType = "Item", model = "itemModel", first = "title", noun = "item",
         samples = {
@@ -463,6 +472,7 @@ function ns.editorSampleTypes()
     local types = {}
     for _, sampleType in ipairs(TYPES) do
         local dataType = Enum.TooltipDataType[sampleType.dataType]
+            or (sampleType.key == "mail" and "mail")
         if dataType and ui[sampleType.model] then
             local samples = {}
             for index, sample in ipairs(sampleType.samples) do

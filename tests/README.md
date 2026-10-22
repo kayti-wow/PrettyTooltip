@@ -46,6 +46,11 @@ branch protection rule or repository ruleset after the first successful run.
 
 ## Fixtures and expected outputs
 
+`fixtures/mail.lua` replays the captured multi-attachment summary. `unit/mail.lua`
+checks mailbox quantities, asynchronous price fills, other addons' rows, totals,
+modifier restoration, presentation settings, owner isolation and restricted data.
+New mail captures record the inbox index and attachment API answers for replay.
+
 A fixture is a real tooltip, captured in the game:
 
 1. Hover a tooltip, or click a link in chat, and type `/ptip capture <name>`. Hold Shift first to capture the comparison tooltips too. Values the game hides, as on some player tooltips, are kept marked; the harness gives them back as hidden values that `issecretvalue` knows, so the addon's handling of them is tested too.
@@ -59,7 +64,23 @@ Each fixture is run as the game would: the addon's files load in the `.toc`'s or
 
 `unit/native_idle.lua` checks that Lite refreshes create no Pretty panels or panel cleanup timers, and prepare no hidden details. It covers details appearing in the modifier event from the latest data, canceled or restricted handovers, and switching presentations at runtime.
 
-`unit/pretty_noop_hooks.lua` counts native layout queries in Pretty callbacks. Zero-alpha writes, internal anchoring, and already pending fits must return without a layout probe; real fits, external changes, protected frames, and secret alpha values retain their access checks and cleanup behavior. Completed refreshes reset the periodic content poll, while tooltips without further handovers still detect in-place text changes.
+`unit/pretty_noop_hooks.lua` counts native layout queries in Pretty callbacks.
+Zero-alpha writes return without a layout probe; external changes, protected
+frames, and secret alpha values retain their access checks and cleanup.
+Completed refreshes reset the periodic content poll, while quiet tooltips still
+detect in-place text changes.
+
+`unit/placement_layout_boundary.lua` checks that Pretty placement never pads
+native frames, while Blizzard layout and unstyled types retain their own detail
+padding. It covers switching layouts, the original-tooltip modifier, and the
+retired placement diagnostic. Legacy fitting tests have been replaced with
+checks for stable Pretty constraints across early native Show/refill sequences.
+
+`unit/pixel_rounding.lua` checks native rounding on owned panels, borders, labels,
+close buttons and growing text/texture pools, with no setter calls when entries
+are reused. The harness records the rounding policy; fractional-scale text and
+border rasterization still require an in-game check. Explicit snapping and
+one-pixel thickness calculations remain in place during this change.
 
 A capture holds the game's answers to what the readers ask (item, spell, and unit info, the player's level, spell power, and skills), and the client's enums. A call the capture has no answer for returns nothing and is listed with `--notes`; if a reader needs it, add it to `UI/Capture.lua` and capture again.
 

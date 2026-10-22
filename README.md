@@ -88,6 +88,10 @@ With **DialogueUI** installed, enable **Quest parchment** under **Quest Details*
 
 Quest links read like a page of the quest log: the quest's name and the dungeon it is in, then badges for its level in the game's difficulty color, tags such as Elite or Dungeon, and where it stands (in progress, ready to turn in, completed, failed, repeatable). Below sit the quest giver's words in quotes and the objectives as a checklist with their progress, ticked and green once finished. The header has no icon unless **Show icon** is turned on in the style editor. With **Questie** installed, which draws quest links itself, the panel is built from Questie's tooltip, both for a clicked link and for one hovered in chat; who starts or ends the quest and where follow as label and value rows. Quests hovered in the world map's quest log get the same panel, with the level from your quest log; rows other addons add, such as a guide's note, are kept below.
 
+## Mail
+
+Mail attachment summaries have their own **Mail** category and style-editor preview. They show item icons, quality-colored names and quantities, with Auctionator's price rows beneath each attachment and its total in the footer. Individual attachments retain their normal item tooltips. Turn off **Mail** under Restyle to keep the native summary.
+
 ## World objects
 
 Herbs, ore, chests, and quest objects get a panel too. A herb or ore node shows the herb or ore it yields, with its icon; the skill it needs and the level, in the game's skill-up color (red while your skill is too low), beside your own skill; and in the footer the yield's sell price and, with **Auctionator** installed, its auction price. Locked chests show the lock and the Lockpicking they need, and quest objects show their quests and objectives. Rows other addons add, such as Questie's, are kept below.
@@ -155,6 +159,8 @@ Open the game's options, then **AddOns > PrettyTooltip**, or type `/ptip options
 `python deploy.py` copies the game files into `D:\Programs\World of Warcraft\_classic_beta_\Interface\AddOns\PrettyTooltip`; pass `--addons-dir "<path to Interface\AddOns>"` for another installation. After a deploy, `/reload` picks up Lua changes; changes to the `.toc` need a game restart.
 
 `/ptip dump` shows the raw data of the tooltip you are hovering, to see what a kind of tooltip carries, or the lines shown when an addon filled it without data. A link clicked in chat is dumped when nothing is hovered. `/ptip perf` measures for five seconds how often the panel's work runs and how long it takes. `/ptip anchors` shows where each shown panel sits, the gaps between them, and how the game's tooltips under them are anchored. `/ptip pixel` shows how lines are snapped to screen pixels at the current UI scale.
+
+`/ptip trace [seconds]` records tooltip states and calls for 1–10 seconds (4 by default), including clicked item links, hovered items, both sets of comparison tooltips, and their Pretty panels. To investigate sticky comparison flicker, run `/ptip trace 10`, click an item link, then hover the item that triggers the flicker. The report includes panel hide/show calls between frame samples, comparison-manager events, and pending layout work. For hover deadzones, move the mouse into and out of the affected area: enter/leave events include cursor coordinates, and mouse-focus changes identify the receiving frames, their parents, bounds, and opacity, including invisible controls. Repeated zero-alpha calls are filtered; if the detailed event limit is reached, frame samples and visibility and comparison-manager events continue for the full selected duration.
 
 Each opens a window with its findings already selected, under a line naming the addon's version, the client build, and the locale: Ctrl+C copies them for a bug report, and Escape closes the window.
 

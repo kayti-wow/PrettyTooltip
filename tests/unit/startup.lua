@@ -1,6 +1,6 @@
 -- Registration waits for the addon's own event and uses saved settings.
 return function(test)
-    local files = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local files = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
         "Integration/ItemLite.lua", "UI/Options.lua", "UI/Commands.lua", "PrettyTooltip.lua" }
     local fixture = { enums = { TooltipDataType = { Item = 0 } } }
@@ -109,9 +109,9 @@ return function(test)
         } },
         lines = { { left = { text = "Test Item" } }, { left = { text = "+6 Intellect" } } },
     }
-    local integrated = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local integrated = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Tooltips/Item.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua",
+        "Panel/Layout.lua", "Tooltips/Item.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua",
         "Integration/Details.lua", "Integration/ItemLite.lua", "Integration/Cursor.lua", "UI/Options.lua",
         "UI/Commands.lua", "PrettyTooltip.lua" }
     ns, world = test.load(integrated, item)
@@ -159,7 +159,7 @@ return function(test)
     test.check("repeated installation creates no post-calls", #world.postCalls[0], 1)
     test.check("or stages", #ns.Processor.stages(0), 4)
 
-    local rewriteFiles = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
+    local rewriteFiles = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua", "Locale/Locale.lua",
         "Locale/English.lua", "Game/TooltipData.lua", "Data/Stats.lua",
         "Game/Game.lua", "Integration/ItemLite.lua" }
     ns, world = test.load(rewriteFiles, { client = { locale = "ruRU" }, enums = fixture.enums })

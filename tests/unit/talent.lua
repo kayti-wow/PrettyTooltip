@@ -25,10 +25,10 @@ return function(test)
             { left = { text = "|c0042b1fePress F6 to submit an issue for this Spell", color = GOLD } },
         },
     }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
         "Data/Stats.lua", "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua",
-        "Integration/Native.lua", "Integration/Hooks.lua" },
+        "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" },
         capture)
     local model = ns.TooltipTypes[SPELL].read(world.main, capture.data, ns.Game)
     test.check("the rank is read", { model.talent.rank, model.talent.max }, { 2, 5 })

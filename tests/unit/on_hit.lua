@@ -9,10 +9,10 @@ return function(test)
         } },
         lines = { { left = { text = "Test Weapon" } }, { left = { text = original } } },
     }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
         "Data/Stats.lua", "Panel/Layout.lua", "Tooltips/Item.lua", "Panel/Render.lua", "Tooltips/Spell.lua", "Integration/ItemLite.lua",
-        "Integration/Native.lua", "Integration/Hooks.lua" }, capture)
+        "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, capture)
     ns.ItemLite.register()
     ns.Hooks.install()
     local function styleEffect(text) return ns.Stats.styleEffect(text, ns.option("statColors")) end
@@ -120,10 +120,10 @@ return function(test)
         } },
         lines = { { left = { text = "Test Weapon" } }, { left = { text = marked } } },
     }
-    ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
         "Data/Stats.lua", "Panel/Layout.lua", "Tooltips/Item.lua", "Panel/Render.lua", "Tooltips/Spell.lua", "Integration/ItemLite.lua",
-        "Integration/Native.lua", "Integration/Hooks.lua" }, markedCapture)
+        "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, markedCapture)
     local markedData = markedCapture.data
     test.check("a marked proc is read as an on-hit effect", ns.TooltipTypes[0].read(world.main, markedData, ns.Game)
         .equipEffects[1], { left = marked, right = "", onHit = true })

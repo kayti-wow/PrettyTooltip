@@ -1,9 +1,10 @@
 -- The diagnostic commands show their findings in a window of text to copy,
 -- under a line naming the addon's version and the client.
 return function(test)
-    local ns = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua",
-        "Game/TooltipData.lua", "Panel/Layout.lua", "UI/Report.lua", "UI/Debug.lua" },
+        "Game/TooltipData.lua", "Panel/Layout.lua", "Integration/Native.lua", "Integration/Placement.lua",
+        "UI/Report.lua", "UI/Debug.lua" },
         { enums = { TooltipDataType = { Item = 0 } } })
     C_AddOns = { GetAddOnMetadata = function(_, field) return field == "Version" and "1.2.0" or nil end }
     GetPhysicalScreenSize = function() return 1920, 1080 end

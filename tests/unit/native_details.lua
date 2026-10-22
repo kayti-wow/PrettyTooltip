@@ -54,6 +54,15 @@ return function(test)
     ns.setOption("layout", "blizzard")
     fill()
     test.check("the Blizzard layout shows the ID below the lines", details(tooltip), { "Item ID: 1307" })
+    local rounded = true
+    for _, child in ipairs({ tooltip:GetChildren() }) do
+        rounded = rounded and child:GetRoundLayoutToNearestPixel()
+        for _, region in ipairs({ child:GetRegions() }) do
+            rounded = rounded and region:GetRoundLayoutToNearestPixel()
+        end
+    end
+    test.check("owned details and their text use native pixel rounding", rounded, true)
+    test.check("rounding owned details leaves the native tooltip policy alone", tooltip:GetRoundLayoutToNearestPixel(), false)
     test.check("the game's lines are not added to", tooltip:NumLines(), 2)
     local height = tooltip._room.padding[2]
     test.check("the tooltip leaves room at its bottom", height > 0, true)

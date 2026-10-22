@@ -10,6 +10,26 @@ local isSecret, readable, call, number, rgb = util.isSecret, util.readable, util
 local game = {}
 ns.Game = game
 
+function game.mailAttachments(index)
+    if not (GetInboxItem and GetInboxItemLink) then return {} end
+    local items = {}
+    for slot = 1, ATTACHMENTS_MAX_RECEIVE or 12 do
+        local ok, name, id, icon, count = pcall(GetInboxItem, index, slot)
+        if not ok then return end
+        if isSecret(name) or isSecret(id) or isSecret(icon) or isSecret(count) then return end
+        local linked, link = pcall(GetInboxItemLink, index, slot)
+        if not linked or isSecret(link) then return end
+        link = util.safeText(link)
+        if link == "" then link = nil end
+        name, id, icon, count = util.safeText(name), number(id), readable(icon), number(count)
+        if name and name ~= "" and (link or id) then
+            items[#items + 1] = { name = name, id = id or tonumber(link:match("item:(%d+)")),
+                link = link, icon = icon, count = count }
+        end
+    end
+    return items
+end
+
 -- Items -----------------------------------------------------------------------
 
 -- An item's name, link, quality, icon, and unit sell price, by ID, link, or
@@ -108,11 +128,102 @@ function game.spellName(spellID)
     if ok and not isSecret(name) and type(name) == "string" then return name end
 end
 
+-- A spell's description as the game fills it in; nil while the game has not
+-- loaded the spell, or where it hides it.
+function game.spellDescription(spellID)
+    if isSecret(spellID) or type(spellID) ~= "number" then return end
+    local getter = C_Spell and C_Spell.GetSpellDescription or GetSpellDescription
+    if not getter then return end
+    local ok, text = pcall(getter, spellID)
+    if ok and not isSecret(text) and type(text) == "string" and text ~= "" then return text end
+end
+
 -- A spell's name on this client, for one the addon's data names in English,
 -- as the English client's own tables do: an English client is not asked.
 function game.localSpellName(spellID, english)
     if GetLocale() == "enUS" then return english end
     return game.spellName(spellID) or english
+end
+
+-- A spell's own tooltip, filled in a hidden tooltip no panel covers: the
+-- tooltip and its data, for the spell reader. Nil where the game hides it.
+local scanner
+function game.spellTooltip(spellID)
+    if isSecret(spellID) or type(spellID) ~= "number" then return end
+    if not scanner then
+        scanner = CreateFrame("GameTooltip", "PrettyTooltipSpellScanner", UIParent, "GameTooltipTemplate")
+        scanner.prettyTooltipScanner = true
+    end
+    local ok, data = pcall(function()
+        scanner:SetOwner(UIParent, "ANCHOR_NONE")
+        scanner:SetSpellByID(spellID)
+        return scanner:GetTooltipData()
+    end)
+    if ok and not isSecret(data) and type(data) == "table" then return scanner, data end
+end
+
+-- Weapons ---------------------------------------------------------------------
+
+-- The weapon slots a temporary enchant can be on, in GetWeaponEnchantInfo's order.
+local WEAPON_SLOTS = { [16] = 1, [17] = 2, [18] = 3 }
+
+-- Every enchant on a weapon from Forever's C_Item.GetWeaponEnchantInfo, which
+-- lists a weapon's temporary enchant (a poison, an oil) and its class imbue
+-- (Windfury, Rockbiter) apart; the other APIs miss the class imbue. Nil when
+-- the API is missing or unreadable.
+local function weaponEnchants(slot)
+    if not (C_Item and C_Item.GetWeaponEnchantInfo) then return end
+    -- Enum.WeaponSlot counts from 0: main hand, off hand, ranged.
+    local ok, enchants = pcall(C_Item.GetWeaponEnchantInfo, WEAPON_SLOTS[slot] - 1)
+    if not ok or isSecret(enchants) or type(enchants) ~= "table" then return end
+    local list = {}
+    for _, enchant in ipairs(enchants) do
+        if not isSecret(enchant) and type(enchant) == "table" and readable(enchant.hasEnchant) then
+            local id, left = number(enchant.enchantID), number(enchant.timeLeft)
+            if id then
+                list[#list + 1] = { enchantID = id, remaining = left and left / 1000,
+                    charges = number(enchant.charges) }
+            end
+        end
+    end
+    return list
+end
+
+-- Every temporary enchant on a weapon slot, each as game.weaponImbue gives
+-- one. On Forever a weapon can hold two at once, a temporary enchant and a
+-- class imbue; elsewhere one at most.
+function game.weaponImbues(slot)
+    if isSecret(slot) or not WEAPON_SLOTS[slot] then return {} end
+    return weaponEnchants(slot) or { game.weaponImbue(slot) }
+end
+
+-- A weapon slot's one temporary enchant, from the APIs that give a slot one:
+-- its enchant ID, the seconds it has left, and its charges; nil without one.
+function game.weaponImbue(slot)
+    if isSecret(slot) or not WEAPON_SLOTS[slot] then return end
+    local id, left, charges
+    if C_PaperDollInfo and C_PaperDollInfo.GetTemporaryEnchantmentInfo then
+        local ok, info = pcall(C_PaperDollInfo.GetTemporaryEnchantmentInfo, slot)
+        if not ok or isSecret(info) or type(info) ~= "table" then return end
+        id, left, charges = number(info.enchantID), number(info.remainingTimeMs), number(info.chargesRemaining)
+    elseif GetWeaponEnchantInfo then
+        local values = util.pack(pcall(GetWeaponEnchantInfo))
+        if not values[1] then return end
+        -- Four values a weapon, after pcall's own: whether it has one, the time
+        -- left in milliseconds, the charges, and the enchant ID.
+        local first = 2 + (WEAPON_SLOTS[slot] - 1) * 4
+        if not readable(values[first]) then return end
+        left, charges, id = number(values[first + 1]), number(values[first + 2]), number(values[first + 3])
+    end
+    if not id then return end
+    return { enchantID = id, remaining = left and left / 1000, charges = charges }
+end
+
+-- The icon of the item in one of the player's slots.
+function game.slotIcon(slot)
+    if isSecret(slot) or not GetInventoryItemTexture then return end
+    local ok, icon = pcall(GetInventoryItemTexture, "player", slot)
+    if ok and not isSecret(icon) and icon then return icon end
 end
 
 -- Macros ----------------------------------------------------------------------

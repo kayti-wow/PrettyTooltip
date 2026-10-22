@@ -3,9 +3,9 @@ return function(test)
     local fixture = { enums = { TooltipDataType = { Item = 0, Object = 33, UnitAura = 7 } },
         data = { type = 33, id = 1, lines = { { lineIndex = 1, leftText = "Mailbox" } } },
         lines = { { left = { text = "Mailbox" } } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Tooltips/Aura.lua", "Integration/Native.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Tooltips/Aura.lua", "Integration/Native.lua", "Integration/Placement.lua",
         "Integration/Hooks.lua", "Integration/ItemLite.lua", "Integration/Cursor.lua",
         "UI/Commands.lua", "UI/Capture.lua" }, fixture)
     local tooltip, secret, locked = world.main, world.secret, world.secretTable
@@ -53,9 +53,9 @@ return function(test)
     tooltip.SetAlpha = function(...) mutations = mutations + 1 return setAlpha(...) end
     tooltip.IsForbidden = function() return true end
     callback(tooltip, fixture.data)
-    ns.Native.refitNative(tooltip, panel)
+    ns.Placement.refresh(tooltip)
     ns.Native.fadeOut(tooltip)
-    test.check("forbidden tooltips are not rendered or refitted", mutations, 0)
+    test.check("forbidden tooltips are not rendered or placed", mutations, 0)
     tooltip.IsForbidden = function() return false end
     tooltip.IsProtected = function() return true end
     callback(tooltip, fixture.data)

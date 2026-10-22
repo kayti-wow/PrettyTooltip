@@ -10,9 +10,10 @@ return function(test)
         } },
         lines = { { left = { text = "Gold Pickup Schedule" } }, { left = { text = "Soulbound" } } },
     }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua",
-        "Game/TooltipData.lua", "Data/Stats.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua" }, capture)
+        "Game/TooltipData.lua", "Data/Stats.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Item.lua",
+        "Integration/Native.lua", "Integration/Placement.lua" }, capture)
     local model = ns.TooltipTypes[0].read(world.main, capture.data, ns.Game)
     local panel = ns.ui.getPanel(world.main)
     local preview = { isPreview = true }

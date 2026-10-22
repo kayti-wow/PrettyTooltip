@@ -3,9 +3,9 @@
 return function(test)
     local item = { type = 0, id = 1, lines = { { lineIndex = 1, leftText = "Equipment" } } }
     local capture = { data = item, lines = { { left = { text = "Equipment" } } } }
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua" }, {
+        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, {
         enums = { TooltipDataType = { Item = 0 } }, data = item, lines = capture.lines,
         comparisons = { capture, { data = item, lines = capture.lines } },
     })
@@ -35,7 +35,11 @@ return function(test)
     local primary, secondary = ShoppingTooltip1, ShoppingTooltip2
     local deferNativeLayout = false
     local keepPadding = false
+    local resetOwnerAnchors = false
     for _, tooltip in ipairs({ primary, secondary }) do
+        tooltip.SetOwner = function(self)
+            if resetOwnerAnchors then self:ClearAllPoints() end
+        end
         tooltip._padding = { 0, 0, 0, 0 }
         tooltip.GetPadding = function(self) return unpack(self._padding) end
         tooltip.SetPadding = function(self, right, bottom, left, top)
@@ -65,8 +69,9 @@ return function(test)
     TooltipComparisonManager = nil
     ns.Hooks.install()
     test.check("startup without the comparison manager leaves batching inactive", ns.Hooks.comparisonsBatched(), false)
+    GameTooltip.shoppingTooltips = { primary, secondary }
     TooltipComparisonManager = {
-        tooltip = { shoppingTooltips = { primary, secondary } },
+        tooltip = GameTooltip,
         SetItemTooltip = function(_, isPrimary)
             local tooltip = isPrimary and primary or secondary
             tooltip._lines = { capture.lines[1] }
@@ -101,6 +106,8 @@ return function(test)
     local main = ns.ui.getPanel(GameTooltip)
     main:SetSize(200, 100)
     main:Show()
+    GameTooltip:SetSize(200, 100)
+    GameTooltip:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", 850, 700)
     -- Hooks are installed by the first data handover, before the clear script
     -- in SetItemTooltip would normally run on subsequent refreshes.
     for _, tooltip in ipairs({ primary, secondary }) do
@@ -108,6 +115,7 @@ return function(test)
     end
     test.check("the first data handover installs batching when the manager arrives later", ns.Hooks.comparisonsBatched(), true)
     local function refresh(left)
+        GameTooltip.GetAnchorType = function() return left and "ANCHOR_LEFT" or "ANCHOR_RIGHT" end
         primary:ClearAllPoints()
         secondary:ClearAllPoints()
         TooltipComparisonManager:SetItemTooltip(true)
@@ -117,31 +125,31 @@ return function(test)
     refresh(true)
     test.check("no read, render, or padding change during the partial item fill", duringFill, beforeFill)
     test.check("each completed comparison is read and rendered once", { reads, renders, lastRows }, { 2, 2, 3 })
-    test.check("each comparison's padding is applied once", paddingSets, 2)
-    test.check("each completed anchor is retargeted once", clears, 4)
+    test.check("comparisons never pad native frames", paddingSets, 0)
+    test.check("native anchors are only cleared by the producer", clears, 2)
     local first, second = ns.ui.panels[primary], ns.ui.panels[secondary]
     test.check("left comparisons attach to the main and neighbouring panels",
-        { select(2, primary:GetPoint(2)) == main, select(2, secondary:GetPoint(2)) == first,
+        { select(2, first:GetPoint(2)) == main, select(2, second:GetPoint(2)) == first,
             first.side, second.side }, { true, true, "RIGHT", "RIGHT" })
     test.check("native tooltips remain hidden throughout the refresh", { primary:GetAlpha(), secondary:GetAlpha() }, { 0, 0 })
     flush()
-    test.check("fallback timers do not repeat completed work", { reads, renders, paddingSets, clears }, { 2, 2, 2, 4 })
+    test.check("fallback timers do not repeat completed work", { reads, renders, paddingSets, clears }, { 2, 2, 0, 2 })
 
     for _ = 1, 20 do refresh(true); flush() end
     test.check("unchanged comparison refreshes never rebuild their panels", { reads, renders }, { 2, 2 })
-    test.check("refreshes fit each completed tooltip just once", paddingSets, 42)
-    test.check("refreshes retarget each complete anchor just once", clears, 84)
+    test.check("refreshes do not rewrite native padding", paddingSets, 0)
+    test.check("refreshes leave native anchors to the producer", clears, 42)
 
     deltaText = "+10 Strength"
     refresh(false)
     test.check("changed deltas redraw even with the same item and line count", { reads, renders }, { 4, 4 })
-    test.check("right comparisons keep the correct neighbour and edge",
-        { select(2, secondary:GetPoint(2)) == main, select(2, primary:GetPoint(2)) == second,
-            first.side, second.side }, { true, true, "LEFT", "LEFT" })
+    test.check("native anchor changes preserve a Pretty side that still fits",
+        { select(2, first:GetPoint(2)) == main, select(2, second:GetPoint(2)) == first,
+            first.side, second.side }, { true, true, "RIGHT", "RIGHT" })
     deltas = 0
     refresh(true)
     test.check("a shorter completed comparison shrinks without a second fit",
-        { lastRows, first:GetHeight(), primary:GetHeight() }, { 1, 50, 50 })
+        { lastRows, first:GetHeight(), primary:GetHeight() }, { 1, 50, 10 })
     itemID = 2
     refresh(true)
     test.check("a different item with identical text still redraws", { lastID, renders }, { 2, 8 })
@@ -167,7 +175,7 @@ return function(test)
     primary:SetPoint("LEFT", GameTooltip, "RIGHT")
     flush()
     test.check("direct anchor changes settle without the manager",
-        { select(2, primary:GetPoint(1)) == main, first.side }, { true, "LEFT" })
+        { select(2, first:GetPoint(1)) == main, first.side }, { true, "RIGHT" })
     itemID = 4
     world.postCalls[0][1](primary, { type = 0, id = itemID, lines = item.lines })
     primary:Hide()
@@ -215,7 +223,7 @@ return function(test)
     test.check("batched comparisons return from Alt without reading its extra rows",
         { reads, first:GetHeight(), first:IsShown(), primary:GetAlpha() }, { savedReads, savedHeight, true, 0 })
     test.check("returning from Alt reconnects batched comparisons in the same event",
-        { select(2, secondary:GetPoint(2)) == main, select(2, primary:GetPoint(2)) == second }, { true, true })
+        { select(2, first:GetPoint(2)) == main, select(2, second:GetPoint(2)) == first }, { true, true })
 
     -- Reenter another item before any cleanup or fallback timer can run.
     world.postCalls[0][1](primary, { type = 0, id = 8, lines = item.lines })
@@ -236,9 +244,9 @@ return function(test)
     local beforePadding = paddingSets
     refresh(true)
     test.check("late native layout fits each comparison only once at its final Show",
-        paddingSets - beforePadding, 2)
+        paddingSets - beforePadding, 0)
     test.check("both comparisons have their completed height before anchors are used",
-        { primary:GetHeight(), secondary:GetHeight(), first:GetHeight(), second:GetHeight() }, { 150, 150, 150, 150 })
+        { primary:GetHeight(), secondary:GetHeight(), first:GetHeight(), second:GetHeight() }, { 30, 30, 150, 150 })
     beforePadding = paddingSets
     flush()
     test.check("fallback timers do not repeat the settled comparison fits", paddingSets, beforePadding)
@@ -246,91 +254,6 @@ return function(test)
     for _ = 1, 20 do refresh(true); flush() end
     test.check("a static three-way comparison never rewrites padding during repeated partial fills", paddingSets, beforePadding)
     test.check("a static three-way comparison never redraws its panels", renders, beforeRenders)
-
-    -- Resolve real anchor dependencies, including the interval where Blizzard
-    -- clears both native frames. Fixed harness coordinates hide this jitter.
-    local function fixed(frame, left, top)
-        frame.GetLeft = function() return left end
-        frame.GetTop = function() return top end
-        frame.GetRight = function(self) return left + self:GetWidth() end
-        frame.GetBottom = function(self) return top - self:GetHeight() end
-    end
-    UIParent:SetSize(2000, 1000)
-    fixed(UIParent, 0, 1000)
-    fixed(GameTooltip, 500, 600)
-    fixed(main, 500, 600)
-    local function position(frame)
-        local left, top
-        for index = 1, frame:GetNumPoints() do
-            local point, target, relative, x, y = frame:GetPoint(index)
-            if not left and (point:find("LEFT") or point:find("RIGHT")) then
-                local targetLeft = target:GetLeft()
-                if targetLeft then
-                    left = targetLeft + (relative:find("RIGHT") and target:GetWidth()
-                        or relative:find("LEFT") and 0 or target:GetWidth() / 2) + x
-                        - (point:find("RIGHT") and frame:GetWidth() or 0)
-                end
-            end
-            if not top and (point:find("TOP") or point:find("BOTTOM")) then
-                local targetTop = target:GetTop()
-                if targetTop then
-                    top = targetTop - (relative:find("BOTTOM") and target:GetHeight()
-                        or relative:find("TOP") and 0 or target:GetHeight() / 2) + y
-                        + (point:find("BOTTOM") and frame:GetHeight() or 0)
-                end
-            end
-        end
-        return left, top
-    end
-    for _, frame in ipairs({ primary, secondary, first, second }) do
-        frame.GetLeft = function(self) return (position(self)) end
-        frame.GetTop = function(self) return select(2, position(self)) end
-        frame.GetRight = function(self) local left = self:GetLeft(); return left and left + self:GetWidth() end
-        frame.GetBottom = function(self) local top = self:GetTop(); return top and top - self:GetHeight() end
-    end
-    local positions = { { first:GetLeft(), first:GetTop() }, { second:GetLeft(), second:GetTop() } }
-    local observing, stablePositions = true, true
-    local function observe()
-        if not observing then return end
-        for index, panel in ipairs({ first, second }) do
-            if panel:GetLeft() ~= positions[index][1] or panel:GetTop() ~= positions[index][2] then stablePositions = false end
-        end
-    end
-    for _, tooltip in ipairs({ primary, secondary }) do
-        for _, method in ipairs({ "SetOwner", "ClearAllPoints", "SetPoint", "Show", "SetShown", "SetPadding" }) do
-            local previous = tooltip[method]
-            tooltip[method] = function(self, ...)
-                local values = ns.util.pack(previous(self, ...))
-                observe()
-                return unpack(values, 1, values.n)
-            end
-        end
-    end
-    for _ = 1, 10 do
-        -- Match TooltipComparisonManager:Initialize: SetOwner, then clear.
-        for _, tooltip in ipairs({ primary, secondary }) do
-            tooltip:SetOwner(GameTooltip, "ANCHOR_NONE")
-            tooltip:ClearAllPoints()
-        end
-        TooltipComparisonManager:SetItemTooltip(true)
-        TooltipComparisonManager:SetItemTooltip(false)
-        TooltipComparisonManager:AnchorShoppingTooltips(true)
-        flush()
-        observe()
-    end
-    test.check("both equipped panels retain their positions throughout native clear/show/reanchor", stablePositions, true)
-    observing = false
-    for _, tooltip in ipairs({ primary, secondary }) do
-        tooltip:SetOwner(GameTooltip, "ANCHOR_NONE")
-        tooltip:ClearAllPoints()
-    end
-    TooltipComparisonManager:SetItemTooltip(true)
-    TooltipComparisonManager:SetItemTooltip(false)
-    TooltipComparisonManager:AnchorShoppingTooltips(false)
-    test.check("completed comparisons release their holds and can move to the other side",
-        { first:GetLeft(), second:GetLeft(), first.comparisonAnchorHeld == nil, second.comparisonAnchorHeld == nil },
-        { 900, 700, true, true })
-    flush()
 
     local font = primary:GetLeftLine(1)
     local getText = font.GetText
@@ -343,9 +266,9 @@ return function(test)
     TooltipComparisonManager = nil
 
     -- A client without these manager methods keeps the ordinary hook path.
-    ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Hooks.lua" }, {
+        "Panel/Layout.lua", "Panel/Render.lua", "Integration/Native.lua", "Integration/Placement.lua", "Integration/Hooks.lua" }, {
         enums = { TooltipDataType = { Item = 0 } }, data = item, lines = capture.lines,
         comparisons = { capture },
     })

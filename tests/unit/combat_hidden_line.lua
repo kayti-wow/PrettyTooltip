@@ -23,10 +23,10 @@ return function(test)
             capture.lines[index] = { left = { text = { __secret = true }, color = { { __secret = true },
                 { __secret = true }, { __secret = true } } } }
         end
-        local files = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
+        local files = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua", "Locale/Locale.lua",
             "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Panel/Layout.lua", "Panel/Render.lua",
-            "Tooltips/Spell.lua" }
-        if LANGUAGE_FILES[locale] then table.insert(files, 5, "Locale/" .. LANGUAGE_FILES[locale] .. ".lua") end
+            "Tooltips/Spell.lua", "Integration/Native.lua", "Integration/Placement.lua" }
+        if LANGUAGE_FILES[locale] then table.insert(files, 6, "Locale/" .. LANGUAGE_FILES[locale] .. ".lua") end
         local ns, world = test.load(files, capture)
         local model = ns.TooltipTypes[SPELL].read(world.main, capture.data, ns.Game)
         local panel = ns.ui.getPanel(world.main)

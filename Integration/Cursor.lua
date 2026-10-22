@@ -91,6 +91,7 @@ function ns.Cursor.register()
     if not (ns.Processor.available() and TYPES and ns.TOOLTIP_TYPES) then return end
     registered = true
     tracker = CreateFrame("Frame", nil, UIParent)
+    tracker:SetRoundLayoutToNearestPixel(true)
     tracker:SetSize(1, 1)
     tracker:Hide()
     local follower = tracker

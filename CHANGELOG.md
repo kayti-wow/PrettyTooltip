@@ -1,3 +1,20 @@
+# PrettyTooltip 1.3.6
+
+## Tooltips
+
+- Added **Mail** attachment summaries with item icons, quality-colored names, quantities, and a total item count. Auctionator's price rows appear beneath each attachment, with its total value in the footer. Mail has its own Restyle switch and style-editor preview; individual attachments keep their normal item tooltips.
+- Added **Weapon imbues**: hovering a temporary weapon enchant shows the spell that applied it, its weapon slot, charges, and time remaining. Supported imbues include shaman weapon enchants, poisons, oils, and sharpening stones.
+- Reworked comparison placement around the Pretty panels' own dimensions with a new, custom anchoring logic.
+- Improved pixel alignment of tooltip text, borders, and other panel elements at different UI scales.
+
+## Performance
+
+- Reduced repeated item reads, rendering, and anchor changes during auction-house and comparison refreshes. Pretty placement no longer inflates hidden native tooltips to match the panels' dimensions.
+
+## Bug reports
+
+- Tooltip traces now include equipped comparison panels. Performance reports include placement and dragging measurements, and `/ptip perf <seconds>` accepts a capture duration.
+
 # PrettyTooltip 1.3.5
 
 ## Performance

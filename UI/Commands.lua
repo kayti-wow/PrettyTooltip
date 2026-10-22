@@ -77,8 +77,13 @@ end
 
 local function handleCommand(message)
     local wanted = (message or ""):match("^%s*(.-)%s*$"):lower()
-    if wanted == "perf" then
-        if ns.perfCapture then ns.perfCapture(5) end
+    if wanted == "placement" or wanted:match("^placement%s") then
+        print("PrettyTooltip: Pretty panels use frame anchors. Select Blizzard layout in the options to use Blizzard tooltips.")
+        return
+    end
+    local perfSeconds = wanted:match("^perf%s*(%d*)$")
+    if perfSeconds then
+        if ns.perfCapture then ns.perfCapture(math.min(30, math.max(1, tonumber(perfSeconds) or 5))) end
         return
     end
     -- /ptip trace [seconds]: what the tooltips do while the player hovers.

@@ -1,0 +1,134 @@
+"""Writes Data/Imbues.lua: each temporary weapon enchant's spell and full duration, by its enchant ID.
+
+A weapon imbue (a shaman's Windfury Weapon, a rogue's poison, an oil, a sharpening or weight stone, a fishing
+lure) is a temporary enchant on the weapon. The game says which by its enchant ID (GetWeaponEnchantInfo,
+C_PaperDollInfo.GetTemporaryEnchantmentInfo) and how long it has left, but not which spell applied it or how
+long it lasts in all. Both are in the client's tables: the spells with an effect that enchants an item for a
+time (SpellEffect 54, and 360 for Forever's class imbues) name the enchant (EffectMiscValue_0), and the
+enchant (SpellItemEnchantment) has its duration.
+
+Forever's and retail's tables differ, so the file holds one for each client; the addon picks its own.
+
+python tools/make_imbues.py                                         newest Forever and retail builds
+python tools/make_imbues.py --build 1.60.1.70450 --retail-build 12.1.5.70448
+python tools/make_imbues.py --offline                               tables already downloaded
+"""
+
+import re
+import sys
+from argparse import ArgumentParser
+from collections import defaultdict
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+TABLES = ["SpellEffect", "SpellName", "SpellItemEnchantment"]
+# Enchant an item for a time; 360 is Forever's, for its class imbues.
+TEMPORARY = {54, 360}
+# Spells left in the tables for testing or retired: never what a player applied.
+JUNK = re.compile(r"DONOTREUSE|\bTest\b|Runecarving|^S03|\bQA\b|\[DNT\]|^zz|\bOLD\b")
+# Retail's shaman imbues enchant the weapon from a hidden spell the one the shaman casts sets off, which no
+# table links to it. The cast spell, by enchant ID, so the panel shows that one: Earthliving's hidden spell
+# has no description of its own.
+RETAIL_CAST = {
+    5400: 318038,  # Flametongue Weapon
+    5401: 33757,  # Windfury Weapon
+    6498: 382021,  # Earthliving Weapon
+}
+
+
+def label(name):
+    """An enchant's name for a comment: without its quality icon or the numbers the game fills in."""
+    name = re.sub(r"\|A:[^|]*\|a", "", name)
+    name = re.sub(r"\s*\(\+\$[^)]*\)|\s*\+\$\w+\s*", " ", name)
+    return re.sub(r"\s+", " ", name).strip(" :")
+
+
+def imbues(fs, build, offline, cast=None):
+    """{enchant ID: (spell ID, duration in seconds, name)} for one build; cast picks some enchants' spells."""
+    cast = cast or {}
+    tables = fs.load_tables(TABLES, build, fs.CACHE, offline)
+    names = {int(row["ID"]): row["Name_lang"] for row in tables["SpellName"]}
+    enchants = {int(row["ID"]): row for row in tables["SpellItemEnchantment"]}
+    spells = defaultdict(set)
+    for row in tables["SpellEffect"]:
+        if int(row["Effect"]) in TEMPORARY:
+            spells[int(row["EffectMiscValue_0"])].add((int(row["Effect"]), int(row["SpellID"])))
+    found = {}
+    for enchant_id, candidates in spells.items():
+        enchant = enchants.get(enchant_id)
+        duration = int(float(enchant["Duration"])) if enchant else 0
+        # Without a duration it is not temporary: engravings and the like.
+        if duration <= 0:
+            continue
+        usable = [(effect, spell_id) for effect, spell_id in candidates
+                  if names.get(spell_id) and not JUNK.search(names[spell_id])]
+        if not usable:
+            continue
+        # A class imbue's own spell first, then the oldest: the one the item or trainer gives.
+        _, spell_id = min(usable, key=lambda c: (c[0] != 360, c[1]))
+        if enchant_id in cast:
+            spell_id = cast[enchant_id]
+            if spell_id not in names:
+                sys.exit(f"Spell {spell_id}, for enchant {enchant_id}, is not in build {build}.")
+        found[enchant_id] = (spell_id, duration, label(enchant["Name_lang"]) or names[spell_id])
+    return found
+
+
+def table_lines(name, entries):
+    lines = [f"local {name} = {{"]
+    for enchant_id in sorted(entries):
+        spell_id, duration, comment = entries[enchant_id]
+        lines.append(f"    [{enchant_id}] = {{ {spell_id}, {duration} }}, -- {comment}")
+    return lines + ["}", ""]
+
+
+def main():
+    parser = ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--build", help="Forever build, e.g. 1.60.1.70450 (default: newest on wago.tools)")
+    parser.add_argument("--retail-build", help="retail build, e.g. 12.1.5.70448 (default: newest on wago.tools)")
+    parser.add_argument("--offline", action="store_true", help="use only tables already downloaded")
+    args = parser.parse_args()
+
+    # The builder beside this script, without leaving a __pycache__ in tools/.
+    sys.dont_write_bytecode = True
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import forever_spells as fs
+
+    build, retail = args.build, args.retail_build
+    if args.offline:
+        cached = sorted((p.name for p in Path(fs.CACHE).iterdir() if p.is_dir()), key=fs.version_key)
+        build = build or next((b for b in reversed(cached) if b.startswith("1.6")), None)
+        retail = retail or next((b for b in reversed(cached) if int(b.split(".")[0]) >= 10), None)
+    elif not (build and retail):
+        import json
+        products = json.loads(fs.get(f"{fs.WAGO}/api/builds"))
+        build = build or fs.newest_builds()[0]
+        retail = retail or max((b["version"] for b in products.get("wow", [])), key=fs.version_key, default=None)
+    if not (build and retail):
+        sys.exit("No Forever or retail build found. Pass --build and --retail-build.")
+
+    forever, mainline = imbues(fs, build, args.offline), imbues(fs, retail, args.offline, RETAIL_CAST)
+    lines = [
+        "-- Each temporary weapon enchant's spell and full duration in seconds, by its",
+        "-- enchant ID: shamans' and rogues' imbues, oils, stones, fishing lures, and the",
+        "-- rest. The game gives an imbue's enchant ID and time left; these give the spell",
+        "-- to show it as and how long it lasts in all. Generated by tools/make_imbues.py",
+        f"-- from the client tables of WoW Forever (build {build}) and retail",
+        f"-- (build {retail}). Run it again when either adds imbues.",
+        "local _, ns = ...",
+        "",
+    ]
+    lines += table_lines("FOREVER", forever)
+    lines += table_lines("RETAIL", mainline)
+    lines += [
+        "local retail = WOW_PROJECT_ID ~= nil and WOW_PROJECT_ID == WOW_PROJECT_MAINLINE",
+        "-- { spell ID, duration } by enchant ID, for this client.",
+        "ns.imbues = retail and RETAIL or FOREVER",
+        "",
+    ]
+    (ROOT / "Data" / "Imbues.lua").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    print(f"{len(forever)} Forever and {len(mainline)} retail imbues written to Data/Imbues.lua")
+
+
+if __name__ == "__main__":
+    main()

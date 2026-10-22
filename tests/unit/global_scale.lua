@@ -1,9 +1,9 @@
 -- The global size multiplies whole panels, while saved part sizes, native
 -- tooltip scale, and positions remain independent.
 return function(test)
-    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua",
+    local ns, world = test.load({ "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Core/TooltipPlacement.lua",
         "Locale/Locale.lua", "Locale/English.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Stats.lua",
-        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Integration/Native.lua",
+        "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Object.lua", "Integration/Native.lua", "Integration/Placement.lua",
         "Integration/Cursor.lua", "UI/Options.lua" },
         { enums = { TooltipDataType = { Item = 0, Object = 4 } } })
     test.check("the default global scale is 100%", ns.tooltipScale(), 1)
@@ -27,39 +27,10 @@ return function(test)
     for _, entry in ipairs({ { mainPanel, world.main }, { comparison, ShoppingTooltip1 } }) do
         ns.ui.renderView(entry[1], entry[2], { tooltipType = "item", color = { 1, 1, 1 }, header = {}, sections = {} })
     end
-    ShoppingTooltip1:SetPoint("RIGHT", world.main, "LEFT", 0, 0)
-    ns.Native.anchorToPanels(ShoppingTooltip1)
-    test.check("main and comparison tooltips share the scale and meet at their panels",
-        { mainPanel:GetScale(), comparison:GetScale(), select(2, ShoppingTooltip1:GetPoint(1)) == mainPanel },
-        { 1.25, 1.25, true })
-
-    -- A tooltip's padding is in its own units, not the scaled panel's units.
+    test.check("main and comparison panels share the scale", { mainPanel:GetScale(), comparison:GetScale() }, { 1.25, 1.25 })
     local tooltip = world.main
     tooltip:SetScale(1.25)
-    tooltip:SetSize(100, 50)
-    tooltip:Show()
-    tooltip:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -20, 30)
-    local padding = { 0, 0, 0, 0 }
-    tooltip.GetPadding = function() return unpack(padding) end
-    tooltip.SetPadding = function(self, right, bottom, left, top)
-        padding = { right, bottom, left, top }
-        self:SetSize(100 + right, 50 + bottom)
-    end
-    panel = ns.ui.getPanel(tooltip)
-    panel:SetSize(400, 200)
-    panel:SetScale(.75)
-    ns.Native.refitNative(tooltip, panel)
-    test.check("native bounds fit the panel's physical size", { tooltip:GetWidth(), tooltip:GetHeight() }, { 240, 120 })
-    panel:SetScale(1.25)
-    ns.Native.refitNative(tooltip, panel)
-    test.check("changing only scale invalidates the sizing cache",
-        { tooltip:GetWidth(), tooltip:GetHeight() }, { 400, 200 })
-    test.check("the native tooltip's own scale is preserved", tooltip:GetScale(), 1.25)
-    panel.nativeSize, panel.fittedWidth = nil, nil
-    tooltip.GetPadding = function() end
-    tooltip:SetSize(100, 50)
-    ns.Native.refitNative(tooltip, panel)
-    test.check("the fallback sizing path also converts scale", { tooltip:GetWidth(), tooltip:GetHeight() }, { 400, 200 })
+    test.check("the native tooltip retains its own scale", tooltip:GetScale(), 1.25)
 
     -- Cursor offsets stay in native units, with the panel's scaled height.
     local follows = ns.ui.getPanel(tooltip)
