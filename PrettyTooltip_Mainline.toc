@@ -48,6 +48,7 @@ Panel\Layout.lua
 Panel\Render.lua
 Retail\Tooltips\Item.lua
 Tooltips\Item.lua
+Retail\Tooltips\ItemExtension.lua
 Retail\Tooltips\Spell.lua
 Tooltips\Spell.lua
 Tooltips\Object.lua

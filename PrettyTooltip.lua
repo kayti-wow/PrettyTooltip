@@ -1,4 +1,6 @@
 -- Addon startup. Loads last; setup moves here as its modules are refactored.
+-- A client-specific TOC can load descriptor extension registrations after the
+-- shared tooltip files, before samples/editor setup and this startup file.
 local addonName, ns = ...
 
 local started = false

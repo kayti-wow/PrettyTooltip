@@ -205,6 +205,8 @@ local DRAW = {
 -- The panel ---------------------------------------------------------------------
 
 local function renderView(panel, tooltip, view)
+    -- Client view contributors must finish before this call: both measurement
+    -- and drawing below consume the same completed view (including additions).
     -- Whatever a tooltip type lent the panel goes back before anything is drawn.
     if panel.release then panel.release(panel) end
     local scale = ns.tooltipScale()

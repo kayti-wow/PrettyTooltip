@@ -1,7 +1,8 @@
 -- Retail's item lines: where an item comes from (Heroic, Mythic), its upgrade
 -- level, crafted quality, and transmogrification, its gems and sockets, and
 -- the primary stats another specialization greys. Tooltips/Item.lua reads
--- and draws them through these on retail.
+-- and draws them through these on retail: some behind ns.IsRetail(), the rest
+-- through the callbacks Retail/Tooltips/ItemExtension.lua gives it.
 local _, ns = ...
 local util = ns.util
 local isSecret, safeText, plainText, unformat = util.isSecret, util.safeText, util.plainText, util.unformat

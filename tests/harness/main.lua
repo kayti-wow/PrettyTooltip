@@ -292,13 +292,18 @@ function main.unit(testSource, testName, sources, serialize, makeWorld, tocs, en
     end
     -- A list of shared files as retail's .toc loads them: Retail/Retail.lua
     -- first, and each other file in Retail/ just before the file after it in
-    -- that .toc, when the list has that file. Retail/Data/Schools.lua, which
-    -- replaces Forever's own schools, only when the list names it. A language's
-    -- file, which that .toc lists for its clients alone, brings Retail/Locale's.
+    -- that .toc, when the list has that file; a Retail/ file named for a shared
+    -- one with "Extension" added (Retail/Tooltips/ItemExtension.lua) just after
+    -- it instead. Retail/Data/Schools.lua, which replaces Forever's own schools,
+    -- only when the list names it. A language's file, which that .toc lists for
+    -- its clients alone, brings Retail/Locale's.
     function test.retail(files)
-        local before, waiting = {}, {}
+        local before, after, waiting = {}, {}, {}
         for _, file in ipairs(tocs.retail) do
-            if file:match("^Retail/") then
+            local extended = file:match("^Retail/(.+)Extension%.lua$")
+            if extended then
+                after[extended .. ".lua"] = file
+            elseif file:match("^Retail/") then
                 waiting[#waiting + 1] = file
             else
                 before[file], waiting = waiting, {}
@@ -311,6 +316,7 @@ function main.unit(testSource, testName, sources, serialize, makeWorld, tocs, en
                 if retail ~= "Retail/Retail.lua" and retail ~= "Retail/Data/Schools.lua" then list[#list + 1] = retail end
             end
             list[#list + 1] = file
+            if after[file] then list[#list + 1] = after[file] end
         end
         return list
     end

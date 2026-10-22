@@ -7,6 +7,11 @@ if not (ui and ITEM) then
     return
 end
 
+-- Provisional extension example: a client file loaded after this one can set
+-- descriptor.extension. The shared TOC leaves it nil. Retail's is
+-- Retail/Tooltips/ItemExtension.lua.
+local descriptor = {}
+
 local util = ns.util
 local colors = ns.Palette.roles
 local isSecret, safeText, number = util.isSecret, util.safeText, util.number
@@ -306,7 +311,7 @@ local function itemByName(name, game)
 end
 
 local function newItemModel()
-    return {
+    local model = {
         header = {},
         armor = {},
         primary = {},
@@ -323,6 +328,11 @@ local function newItemModel()
         kinds = {},
         weaponBonus = {},
     }
+    -- Runs for outer items, embedded crafted items, and editor sample models.
+    -- A Retail initializer may set model.retail = {}; shared code does not.
+    local extension = descriptor.extension
+    if extension and extension.initModel then extension.initModel(model) end
+    return model
 end
 
 -- An item model from given fields, each list it lacks empty: the editor's samples.
@@ -428,6 +438,10 @@ local function readModel(tooltip, data, game)
     model.icon = game.itemIcon(itemInfo)
     model.level = getLevel(itemInfo, game)
     model.lineIndices = {}
+    local extension = descriptor.extension
+    -- Allocate extension context only when a client has registered callbacks.
+    -- The raw data/line tables remain read-only input, including secret fields.
+    local context = extension and { nativeTooltip = tooltip, data = data, game = game, rootModel = model }
     -- Lines go to the recipe or, inside its embedded tooltip, the crafted item.
     local m = model
     local inSet, setTotal = false, 0
@@ -435,9 +449,6 @@ local function readModel(tooltip, data, game)
     local inStockChanges = false
     local blankBefore = false
     local nestedID
-    -- Retail's notes on effects: the list the last effect went into, and a
-    -- note waiting for the effect it comes before.
-    local notes = {}
     local function isStockChange(text)
         local trimmed = plainText(text):match("^%s*(.-)%s*$")
         if unformat(trimmed, STOCK_CHANGES) then
@@ -461,8 +472,6 @@ local function readModel(tooltip, data, game)
             nestedID = number(line.tooltipID)
         end
         local effects, effectCount = m.effects, #m.effects
-        local equips, equipCount = m.equipEffects, #m.equipEffects
-        if notes.model ~= m then notes.model, notes.last = m, nil end
         -- The amount is drawn by a money frame, not as text, so take it from the data.
         if LINE.SellPrice and line.type == LINE.SellPrice then
             m.hasSellPrice = true
@@ -475,6 +484,7 @@ local function readModel(tooltip, data, game)
         if ns.IsRetail() then
             left, right = ns.Retail.Item.repairedColors(left), ns.Retail.Item.repairedColors(right)
         end
+        if context then context.originalText = left end
         local lineType = line.type
         if line.lineIndex then model.lineIndices[line.lineIndex] = true end
         -- Read as the panel words it, each stat of a combined bonus apart.
@@ -487,13 +497,16 @@ local function readModel(tooltip, data, game)
             m.quest = true
         end
         local displayed = left
+        if context then
+            context.lineNumber, context.text, context.rightText = lineNumber, trimmed, right
+            -- The left text as the panel words it, untrimmed.
+            context.leftText = left
+        end
 
         local afterTeaches = teachesLast
         teachesLast = false
         if isStockChange(left) then
             addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
-        elseif ns.IsRetail() and ns.Retail.Item.readKeystone(m, line, lineNumber, left, right, trimmed) then
-            -- A Mythic keystone's name, levels, modifiers, and duration.
         elseif isType(lineType, "ItemSpellTriggerLearn") or unformat(trimmed, formats.recipeTeaches) then
             -- Its type marks it in every language; cooking words it apart from
             -- the other professions ("烹制", not "制作"). The recipe's own lines follow.
@@ -515,8 +528,6 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemName then
             if not model.name then
                 model.name, model.nameColor = left, rgb(line.leftColor)
-                -- Retail's decor names its placement cost beside the name.
-                if ns.IsRetail() then ns.Retail.Item.readNameRight(model, right) end
             elseif not model.created then
                 model.created = newItemModel()
                 -- Its name line starts with a line break.
@@ -527,11 +538,9 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemLevel then
             local level = left:match("(%d+)")
             if level then m.level, m.levelLine = tonumber(level), true end
-        elseif ns.IsRetail() and ns.Retail.Item.readEffectNote(notes, line, right, trimmed) then
-            -- "Legacy Item: Effects are inactive", "You are in the wrong zone.":
-            -- beside the effects they speak of.
-        elseif ns.IsRetail() and ns.Retail.Item.readLine(m, line, data, lineNumber, left, right, trimmed, original) then
-            -- Retail's upgrade level, sockets, crafted quality, and transmogrification.
+        elseif extension and extension.readLine and extension.readLine(m, line, context) == true then
+            -- Client claims this content line instead of shared classification.
+            -- Recipe routing, name/level, and price metadata remain core-owned.
         elseif right == "" and imbueLine(plainText(trimmed)) then
             -- A weapon's temporary enchant, "Windfury Weapon (59 min)", under its enchants.
             m.imbues = m.imbues or {}
@@ -544,15 +553,12 @@ local function readModel(tooltip, data, game)
         elseif lineType == LINE.ItemBinding or isBinding(trimmed) then
             add(m.header, left, right)
             if isRed(line.leftColor) then m.header[#m.header].color = UNUSABLE_COLOR end
-            if ns.IsRetail() then ns.Retail.Item.colorBinding(m.header[#m.header], line, trimmed) end
         elseif right == "" and tonumber((unformat(trimmed, CONTAINER_SLOTS))) then
             local count, kind = unformat(trimmed, CONTAINER_SLOTS)
             m.bag = { count = tonumber(count), kind = kind }
         elseif itemKind(left, right) then
             local kind, text = itemKind(left, right, line.leftColor)
             m.kinds[kind] = text
-        elseif ns.IsRetail() and ns.Retail.Item.readSource(m, line, data, lineNumber, right, trimmed) then
-            -- Retail's source between the name and level: Heroic, Mythic.
         elseif trimmed ~= "" then
             local setName, count, total = unformat(trimmed, ITEM_SET_NAME)
             if setName and tonumber(count) and tonumber(total) and not m.setName then
@@ -666,25 +672,17 @@ local function readModel(tooltip, data, game)
                 addExtra(m, left, right, colorOf(line.leftColor), colorOf(line.rightColor))
             end
         end
-        end
-        -- A waiting note goes before the effect it speaks of.
-        local grown = (#effects > effectCount and effects) or (#equips > equipCount and equips) or nil
-        local grownAt = grown == effects and effectCount or equipCount
-        if notes.pending and grown then
-            table.insert(grown, grownAt + 1, notes.pending)
-            notes.pending = nil
+        -- Observe/decorate the current item after classification, even when a
+        -- client claimed the line. A recipe's crafted item is passed as m.
+        if extension and extension.afterReadLine then extension.afterReadLine(m, line, context) end
         end
         -- An effect the game sets apart from the one before with a blank line
         -- stays apart: "Use:", "When crafting:", "Usable with:".
         if blankBefore and effectCount > 0 and #effects > effectCount then effects[effectCount + 1].apart = true end
         local blankLeft, blankRight = safeText(line.leftText), safeText(line.rightText)
         blankBefore = blankLeft ~= nil and blankLeft:match("^%s*$") ~= nil and (blankRight or "") == ""
-        -- A note after an effect follows it, past blank lines only.
-        if grown then notes.last = grown elseif not blankBefore then notes.last = nil end
     end
 
-    -- A note with no effect after it stays with the effects.
-    if notes.pending then table.insert((notes.model or model).effects, notes.pending) end
     if not model.name or model.name == "" then return end
     local appended = appendedRows(tooltip, model.lineIndices)
     if not appended then return end
@@ -736,8 +734,6 @@ local function readModel(tooltip, data, game)
     if itemType then
         classID, className, subClassName = itemType.classID, itemType.className, itemType.subClassName
         equipLoc, itemID = itemType.equipLoc, itemType.id
-        -- Retail's decor names its class, "Housing Decor", on a line of its own.
-        if ns.IsRetail() and not recipe then ns.Retail.Item.readClassLine(model, itemType) end
     end
     if ns.disenchantFor and classID and not recipe then
         local itemLevel = game.itemLevel(itemInfo) or model.level
@@ -776,7 +772,6 @@ local function readModel(tooltip, data, game)
         end
     end
     for _, kind in ipairs(ITEM_KINDS) do shown[#shown + 1] = model.kinds[kind] end
-    if ns.IsRetail() then ns.Retail.Item.addKinds(shown, model) end
     if #shown > 0 then
         local kinds = table.concat(shown, " \194\183 ")
         model.slot = model.slot and model.slot ~= "" and (model.slot .. " \194\183 " .. kinds) or kinds
@@ -803,6 +798,15 @@ local function readModel(tooltip, data, game)
     model.quest = model.quest or classID == QUEST_CLASS
     model.comparison = isComparison(tooltip)
     model.equippedWith = model.comparison and game.isEquipped(model.link) == false or nil
+    if extension and extension.afterRead then
+        context.lineNumber, context.text, context.rightText, context.originalText = nil, nil, nil, nil
+        context.leftText = nil
+        -- What the game says the item is, and whether it is a recipe, which
+        -- the reader has already worked out.
+        context.itemType, context.recipe = itemType, recipe and true or false
+        if model.created then extension.afterRead(model.created, context) end
+        extension.afterRead(model, context)
+    end
     return model
 end
 readModel = probe("read item", readModel)
@@ -1364,15 +1368,12 @@ local function itemView(panel, model)
         and (model.equippable or model.levelLine) and util.fill(L["iLvl %s"], model.level) or nil
     local quality = QUALITY[model.quality] or model.nameColor or QUALITY[1]
     local accent = model.quest and colors.quest or quality
-    local header = { { text = model.name, style = styles.title, color = quality, gap = 4 } }
-    if ns.IsRetail() then ns.Retail.Item.addSource(header, model, styles) end
+    local header = { { id = "title", text = model.name, style = styles.title, color = quality, gap = 4 } }
     if model.slot and model.slot ~= "" then
-        header[#header + 1] = { text = model.slot, style = styles.subtitle,
+        header[#header + 1] = { id = "slot", text = model.slot, style = styles.subtitle,
             color = { quality[1] * .5 + .5, quality[2] * .5 + .5, quality[3] * .5 + .5 }, gap = 4 }
     end
-    if ns.IsRetail() then ns.Retail.Item.addUpgrade(header, model, styles) end
-    header[#header + 1] = { rows = model.header, style = styles.header, color = { .78, .72, .63 }, gap = 3 }
-    if ns.IsRetail() then ns.Retail.Item.addLooks(header, model, styles) end
+    header[#header + 1] = { id = "binding", rows = model.header, style = styles.header, color = { .78, .72, .63 }, gap = 3 }
 
     local sections, sectioned = {}, false
     local function section(entry) sections[#sections + 1] = entry end
@@ -1431,7 +1432,7 @@ local function itemView(panel, model)
             draw = function(p, y) return drawFooter(p, model, footerRight, styles.footer, y) end,
         }
     end
-    return {
+    local view = {
         tooltipType = "item",
         questItem = model.quest,
         color = accent,
@@ -1446,6 +1447,11 @@ local function itemView(panel, model)
         sections = sections,
         footer = footer,
     }
+    -- Compose additions before the shared renderer measures width and height.
+    -- This outer-item seam also runs for previews; it does not draw directly.
+    local extension = descriptor.extension
+    if extension and extension.extendView then extension.extendView(view, model, { panel = panel, styles = styles }) end
+    return view
 end
 
 local function render(panel, tooltip, model)
@@ -1489,5 +1495,6 @@ local function details(model, context)
     return rows
 end
 
-ns.TooltipTypes[ITEM] = { read = readModel, render = render, key = getItemInfo, option = "itemPanels",
-    readDetails = readDetails, details = details, detailKeys = { "disenchant", "showIDs" } }
+descriptor.read, descriptor.render, descriptor.key, descriptor.option = readModel, render, getItemInfo, "itemPanels"
+descriptor.readDetails, descriptor.details, descriptor.detailKeys = readDetails, details, { "disenchant", "showIDs" }
+ns.TooltipTypes[ITEM] = descriptor
