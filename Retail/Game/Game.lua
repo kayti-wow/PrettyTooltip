@@ -1,6 +1,6 @@
 -- What the addon asks retail's game alone: a spell's mana cost, the global
--- cooldown after haste, and a class's specializations. Game/Game.lua answers
--- with these on retail, and as Forever's client would elsewhere.
+-- cooldown after haste, and a class's specializations. Retail/Game/GameExtension.lua,
+-- loaded just after Game/Game.lua, puts them in place of Forever's answers.
 local _, ns = ...
 local util = ns.util
 local isSecret, readable, call, number = util.isSecret, util.readable, util.call, util.number

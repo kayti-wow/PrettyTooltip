@@ -301,16 +301,14 @@ function game.spellHealing()
     return number((call(GetSpellBonusHealing)))
 end
 
--- The mana a spell costs the player, on retail, whose tooltips give a share
--- of base mana; Forever's give the mana itself.
-function game.spellManaCost(spellID)
-    if ns.IsRetail() then return ns.Retail.Game.spellManaCost(spellID) end
-end
+-- The mana a spell costs the player: none here, as Forever's tooltips give the
+-- mana itself. A client whose tooltips give a share of base mana replaces it
+-- (retail's Retail/Game/GameExtension.lua).
+function game.spellManaCost(_spellID) end
 
 -- The seconds an instant cast holds the player's other spells: Forever's is
--- 1.5 sec, and retail's shrinks with haste.
+-- 1.5 sec. Retail's shrinks with haste, and it replaces this.
 function game.globalCooldown()
-    if ns.IsRetail() then return ns.Retail.Game.globalCooldown() end
     return 1.5
 end
 
@@ -362,10 +360,9 @@ function game.unitIsPVP(unit) return call(UnitIsPVP, unit) end
 function game.unitIsDead(unit) return call(UnitIsDeadOrGhost, unit) end
 function game.unitReaction(unit, other) return call(UnitReaction, unit, other) end
 function game.unitIsTapDenied(unit) return call(UnitIsTapDenied, unit) end
--- The names of a class's specializations, by class ID, on retail; Forever has none.
-function game.classSpecs(classID)
-    if ns.IsRetail() then return ns.Retail.Game.classSpecs(classID) end
-end
+-- The names of a class's specializations, by class ID: Forever has none.
+-- Retail's client does, and it replaces this.
+function game.classSpecs(_classID) end
 
 -- A class's color, by its file name, as { r, g, b }.
 -- The units a nearby player may be: the group, target, focus, mouseover, and

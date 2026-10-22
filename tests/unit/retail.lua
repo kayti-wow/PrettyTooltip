@@ -58,6 +58,9 @@ return function(test)
     test.check("retail has no skinning loot", ns.skinningLoot, nil)
     test.check("retail has no node loot", ns.nodeLoot, nil)
     test.check("retail knows no Classic herb or ore node", ns.gatheringNode("Copper Vein"), nil)
+    test.check("retail answers the game's questions its own way", {
+        ns.Game.spellManaCost == ns.Retail.Game.spellManaCost, ns.Game.globalCooldown == ns.Retail.Game.globalCooldown,
+        ns.Game.classSpecs == ns.Retail.Game.classSpecs }, { true, true, true })
     test.check("retail still rewrites item wording", ns.TooltipData.itemWording({ leftText =
         "Equip: Increases damage and healing done by magical spells and effects by up to 12." }) ~= nil, true)
 
@@ -66,6 +69,8 @@ return function(test)
     test.check("Forever has disenchant tables", type(ns.disenchantFor), "function")
     test.check("Forever's spell schools", { ns.spellSchool(nil, 7322), ns.spellSchool(nil, 116) }, { "Frost", "Frost" })
     test.check("Forever knows Classic nodes", ns.gatheringNode("Copper Vein"), { level = 1, skill = "Mining" })
+    test.check("Forever's game answers", { ns.Game.spellManaCost(133), ns.Game.globalCooldown(), ns.Game.classSpecs(1) },
+        { nil, 1.5, nil })
 
     local classic = {}
     for _, element in ipairs(ns.ELEMENTS) do
