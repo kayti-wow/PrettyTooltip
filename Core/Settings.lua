@@ -273,15 +273,20 @@ ns.TOOLTIP_TYPES = {
 
 -- A client's own defaults and parts (retail's Retail/Core/Settings.lua), each
 -- part after the one it names, so the style editor lists it where it is drawn.
+-- A part naming none stops the load: left out, its style would be missing
+-- when its tooltip is drawn.
 for _, extra in ipairs(ns.contributions("settings")) do
     for key, value in pairs(extra.defaults or {}) do DEFAULTS[key] = value end
     for _, element in ipairs(extra.elements or {}) do
+        local at
         for index, other in ipairs(ns.ELEMENTS) do
             if other.key == element.after then
-                table.insert(ns.ELEMENTS, index + 1, element)
+                at = index
                 break
             end
         end
+        assert(at, "no style part " .. tostring(element.after) .. " to put " .. tostring(element.key) .. " after")
+        table.insert(ns.ELEMENTS, at + 1, element)
     end
 end
 
