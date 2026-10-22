@@ -18,7 +18,6 @@ local TRANSMOG_COLOR = { 1, .50, 1 }
 local CRAFTED_COLOR = { .90, .85, .74 }
 -- A crafting reagent's quality icon, against its line's text.
 local REAGENT_QUALITY_SCALE = 1.6
-local GEM_COLOR = { .90, .85, .74 }
 -- A gem's own enchantment, as the game draws it: indented, in gold.
 local GEM_ENCHANT_COLOR = { 1, .82, 0 }
 local GEM_ENCHANT_INDENT = 20
@@ -80,8 +79,8 @@ function item.newFields(fields)
     return retail
 end
 
--- Defined with the drawing, below.
-local fitAtlases
+-- Quality icons at a size: Tooltips/Item.lua's, read when drawn.
+local function fitAtlases(text, size) return ns.ui.fitAtlases(text, size) end
 
 -- A line's color as the game sends it, exactly, or fallback.
 local function gameColor(color, fallback)
@@ -466,90 +465,6 @@ function item.markInactiveStat(row)
 end
 
 -- Drawing ----------------------------------------------------------------------
-
--- Retail sends its quality icons at 20 px; a line's icon is its text's height.
-fitAtlases = function(text, size)
-    if type(text) ~= "string" then return text end
-    size = math.floor((size or 12) + .5)
-    return (text:gsub("|A:([^:|]+)[^|]*|a", function(atlas)
-        return "|A:" .. atlas .. ":" .. size .. ":" .. size .. ":0:0|a"
-    end))
-end
-
--- Copies of rows with their quality icons at the style's size.
-function item.fittedRows(rows, style)
-    local fitted = {}
-    for index, row in ipairs(rows or {}) do
-        local copy = {}
-        for key, value in pairs(row) do copy[key] = value end
-        copy.left = fitAtlases(row.left, style.size)
-        fitted[index] = copy
-    end
-    return fitted
-end
-
--- A style that leaves a row in its own color, the game's grey or red, even
--- under a color set in the editor.
-function item.inactiveStyle(style)
-    return setmetatable({ color = false }, { __index = style })
-end
-
--- A marker's art tinted the row's color, as the 32 px art is.
-function item.tintedMarker(marker, color)
-    local opening = marker:match("^(|T[^:|]+:[^:|]+:[^:|]+:[^:|]+:[^:|]+)")
-    if not opening then return marker end
-    local function byte(value) return math.floor(value * 255 + .5) end
-    return string.format("%s:32:32:0:32:0:32:%d:%d:%d|t", opening, byte(color[1]), byte(color[2]), byte(color[3]))
-end
-
--- The primary stats, an inactive one grey even under a stats color set in the editor.
-function item.drawPrimary(panel, rows, y, style, color)
-    local inactiveStyle = item.inactiveStyle(style)
-    for _, row in ipairs(rows) do
-        y = ns.ui.drawRow(panel, row, y, row.inactive and inactiveStyle or style, color)
-    end
-    return y
-end
-
--- A socket's icon is a little larger than its text, and drawn apart from it:
--- an icon in the text sits on its baseline and hangs below, leaving the text
--- high. Apart, it is centered on the line, and the text starts after it.
-local SOCKET_ICON_GAP = 4
-
-local function socketIconSize(style)
-    return math.floor((style.size or 12) * 1.25 + .5)
-end
-
--- Where a socket's text starts: past its icon, when it has one.
-local function socketIndent(row, style)
-    local indent = row.indent or 0
-    if row.icon then indent = indent + socketIconSize(style) + SOCKET_ICON_GAP end
-    return indent
-end
-
-function item.socketsWidth(panel, sockets, style)
-    local need = 0
-    for _, row in ipairs(sockets) do
-        need = math.max(need, ns.ui.rowWidth(panel, row, style) + socketIndent(row, style))
-    end
-    return need
-end
-
-function item.drawSockets(panel, sockets, y, style)
-    local ui = ns.ui
-    for _, row in ipairs(sockets) do
-        if row.icon then
-            local size = socketIconSize(style)
-            -- The line is the text's size and 2 tall (Panel/Layout.lua's textAt).
-            local top = y + (style.size + 2 - size) / 2
-            local icon = ui.acquireTexture(panel, row.icon, 1)
-            icon:SetPoint("TOPLEFT", panel, "TOPLEFT", ui.pad() + (row.indent or 0), -ui.snap(panel, top))
-            icon:SetSize(size, size)
-        end
-        y = ui.drawRow(panel, row, y, style, GEM_COLOR, socketIndent(row, style), 3)
-    end
-    return y
-end
 
 -- The header's lines: where the item comes from, and whether it is cosmetic,
 -- under its name.

@@ -1,7 +1,7 @@
 -- Retail's spells with charges: "Max 2 Charges" as a part of its own under
 -- the strip, the time each charge takes to come back in the strip, and the
--- time left on the next with the details. Tooltips/Spell.lua reads them through
--- Retail/Tooltips/SpellExtension.lua and draws them behind ns.IsRetail().
+-- time left on the next with the details. Tooltips/Spell.lua reads and draws
+-- them through Retail/Tooltips/SpellExtension.lua.
 local _, ns = ...
 local util = ns.util
 local unformat = util.unformat
@@ -32,12 +32,8 @@ function spell.isRecharge(text)
     return unformat(text, SPELL_RECHARGE_TIME) ~= nil
 end
 
-local function chargesRow(part) return { left = part.charges, right = "" } end
-
-function spell.chargesWidth(panel, part, styles)
-    return ns.ui.rowWidth(panel, chargesRow(part), styles.spellCharges)
-end
-
-function spell.drawCharges(panel, part, y, styles)
-    return ns.ui.drawRow(panel, chargesRow(part), y, styles.spellCharges, CHARGES_COLOR, 0, 2)
+-- Its charges at the head of its details, in their own style and color.
+function spell.leadRows(part)
+    if not part.charges then return {} end
+    return { { left = part.charges, right = "", style = "spellCharges", color = CHARGES_COLOR } }
 end

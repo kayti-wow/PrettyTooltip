@@ -854,6 +854,91 @@ local function readDetails(tooltip, data, game)
 end
 readDetails = probe("read item details", readDetails)
 
+-- The game can send quality icons at 20 px; a line's icon is its text's height.
+local function fitAtlases(text, size)
+    if type(text) ~= "string" then return text end
+    size = math.floor((size or 12) + .5)
+    return (text:gsub("|A:([^:|]+)[^|]*|a", function(atlas)
+        return "|A:" .. atlas .. ":" .. size .. ":" .. size .. ":0:0|a"
+    end))
+end
+ui.fitAtlases = fitAtlases
+
+-- Copies of rows with their quality icons at the style's size.
+local function fittedRows(rows, style)
+    local fitted = {}
+    for index, row in ipairs(rows or {}) do
+        local copy = {}
+        for key, value in pairs(row) do copy[key] = value end
+        copy.left = fitAtlases(row.left, style.size)
+        fitted[index] = copy
+    end
+    return fitted
+end
+
+-- A style that leaves an inactive row in its own color, the game's grey or
+-- red, even under a color set in the editor.
+local function inactiveStyle(style)
+    return setmetatable({ color = false }, { __index = style })
+end
+
+-- A marker's art tinted the row's color, as the 32 px art is.
+local function tintedMarker(marker, color)
+    local opening = marker:match("^(|T[^:|]+:[^:|]+:[^:|]+:[^:|]+:[^:|]+)")
+    if not opening then return marker end
+    local function byte(value) return math.floor(value * 255 + .5) end
+    return string.format("%s:32:32:0:32:0:32:%d:%d:%d|t", opening, byte(color[1]), byte(color[2]), byte(color[3]))
+end
+
+-- Rows each in turn, an inactive one in its own color.
+local function drawRows(panel, rows, y, style, color)
+    local inactive = inactiveStyle(style)
+    for _, row in ipairs(rows) do
+        y = drawRow(panel, row, y, row.inactive and inactive or style, color)
+    end
+    return y
+end
+
+-- A socket's icon is a little larger than its text, and drawn apart from it:
+-- an icon in the text sits on its baseline and hangs below, leaving the text
+-- high. Apart, it is centered on the line, and the text starts after it.
+local SOCKET_ICON_GAP = 4
+local GEM_COLOR = { .90, .85, .74 }
+
+local function socketIconSize(style)
+    return math.floor((style.size or 12) * 1.25 + .5)
+end
+
+-- Where a socket's text starts: past its icon, when it has one.
+local function socketIndent(row, style)
+    local indent = row.indent or 0
+    if row.icon then indent = indent + socketIconSize(style) + SOCKET_ICON_GAP end
+    return indent
+end
+
+local function socketsWidth(panel, sockets, style)
+    local need = 0
+    for _, row in ipairs(sockets) do
+        need = math.max(need, rowWidth(panel, row, style) + socketIndent(row, style))
+    end
+    return need
+end
+
+local function drawSockets(panel, sockets, y, style)
+    for _, row in ipairs(sockets) do
+        if row.icon then
+            local size = socketIconSize(style)
+            -- The line is the text's size and 2 tall (Panel/Layout.lua's textAt).
+            local top = y + (style.size + 2 - size) / 2
+            local icon = acquireTexture(panel, row.icon, 1)
+            icon:SetPoint("TOPLEFT", panel, "TOPLEFT", pad() + (row.indent or 0), -ui.snap(panel, top))
+            icon:SetSize(size, size)
+        end
+        y = drawRow(panel, row, y, style, GEM_COLOR, socketIndent(row, style), 3)
+    end
+    return y
+end
+
 -- Where an effect's or enchant's text starts: after a marker and two spaces,
 -- as a stat's does.
 local function markerIndent(panel, style)
@@ -871,7 +956,7 @@ local function drawMarked(panel, list, y, style, color, marker, numbers)
     for _, row in ipairs(list) do
         local text, rowStyle, rowColor = row.left, style, color
         if row.inactive then
-            text, rowStyle, rowColor = util.uncolored(text), ns.Retail.Item.inactiveStyle(style), row.color
+            text, rowStyle, rowColor = util.uncolored(text), inactiveStyle(style), row.color
         elseif numbers then
             text = ns.Stats.styleEffect(text, ns.option("statColors"))
         end
@@ -881,7 +966,7 @@ local function drawMarked(panel, list, y, style, color, marker, numbers)
             if not row.inactive then text, rowColor = row.left, row.color or color end
         elseif hang > 0 then
             local shown = stands and stands[1] or marker
-            if row.inactive then shown = ns.Retail.Item.tintedMarker(shown, row.color) end
+            if row.inactive then shown = tintedMarker(shown, row.color) end
             styledAt(panel, shown, pad(), y, hang, rowStyle, rowColor)
         elseif stands then
             -- Without its marker, the line keeps its words.
@@ -902,7 +987,7 @@ local function drawEffects(panel, list, y, style, color)
         if row.use or row.note then
             y = drawMarked(panel, { row }, y, style, color, nil, true)
         elseif row.inactive then
-            y = drawRow(panel, row, y, ns.Retail.Item.inactiveStyle(style), color)
+            y = drawRow(panel, row, y, inactiveStyle(style), color)
         else
             y = drawRow(panel, row, y, style, color, row.indent)
         end
@@ -1073,20 +1158,26 @@ local function listWidth(panel, list, style, extra, prose)
     return need
 end
 
--- Retail styles its secondary stats apart from the primary ones.
+-- Secondary stats in their own style where a client offers one (retail's
+-- secondaryStats), else as the primary ones.
 local function secondaryStyle(styles)
-    return ns.IsRetail() and styles.secondaryStats or styles.stats
+    return styles.secondaryStats or styles.stats
 end
 
--- Retail's enchants with their quality icons sized to the text.
+-- Gems and sockets in their own style where a client offers one (retail's
+-- gems), else as enchants.
+local function socketStyle(styles)
+    return styles.gems or styles.enchants
+end
+
+-- Enchants with their quality icons sized to the text.
 local function enchantRowsOf(model, styles)
-    if ns.IsRetail() then return ns.Retail.Item.fittedRows(model.enchants, styles.enchants) end
-    return model.enchants
+    return fittedRows(model.enchants, styles.enchants)
 end
 
--- Whether an item has gems or sockets; only retail draws them so far.
+-- Whether an item has gems or sockets.
 local function hasSockets(model)
-    return ns.IsRetail() and #model.sockets > 0
+    return #model.sockets > 0
 end
 
 -- Whether an item has stats, effects, gems, or flavor, drawn under the first divider.
@@ -1104,7 +1195,7 @@ local function statsWidth(panel, model, styles)
         listWidth(panel, enchantRowsOf(model, styles), styles.enchants, markerIndent(panel, styles.enchants)),
         listWidth(panel, model.imbues or {}, styles.enchants, markerIndent(panel, styles.enchants)),
         listWidth(panel, model.flavor, styles.flavor, 0, true))
-    if hasSockets(model) then need = math.max(need, ns.Retail.Item.socketsWidth(panel, model.sockets, styles.gems)) end
+    if hasSockets(model) then need = math.max(need, socketsWidth(panel, model.sockets, socketStyle(styles))) end
     for _, row in ipairs(model.equipEffects) do
         need = math.max(need, math.min(measureStyled(panel, row.left, styles.equipEffects), PROSE_WIDTH)
             + markerIndent(panel, styles.equipEffects))
@@ -1216,11 +1307,7 @@ local function drawStats(panel, model, styles, y)
         }, y, styles.armor, LARGE_COLOR)
     end
     if #model.armor > 0 then y = y + 5 end
-    if ns.IsRetail() then
-        y = ns.Retail.Item.drawPrimary(panel, model.primary, y, styles.stats, { .90, .85, .74 })
-    else
-        y = drawGroup(panel, model.primary, y, styles.stats, { .90, .85, .74 })
-    end
+    y = drawRows(panel, model.primary, y, styles.stats, { .90, .85, .74 })
     -- The rest of the stats sit under a divider, whatever comes above them:
     -- a wand often has its damage and no primary stats.
     local above = #model.primary > 0 or #model.armor > 0 or model.weaponDps or model.weaponDamage
@@ -1250,7 +1337,7 @@ local function drawStats(panel, model, styles, y)
     if enchanted and (socketed or #model.equipEffects > 0) then standApart() end
     if socketed then
         standApart()
-        y = ns.Retail.Item.drawSockets(panel, model.sockets, y, styles.gems)
+        y = drawSockets(panel, model.sockets, y, socketStyle(styles))
         if #model.equipEffects > 0 then standApart() end
     end
     -- Equip effects after what is added to the item: its enchants and gems.

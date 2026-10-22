@@ -9,7 +9,7 @@ if not (ui and SPELL and ui.renderView) then
 end
 
 -- A client file loaded after this one can set descriptor.extension: readStat,
--- isCooldown. Retail's is Retail/Tooltips/SpellExtension.lua.
+-- isCooldown, leadRows. Retail's is Retail/Tooltips/SpellExtension.lua.
 local descriptor = {}
 
 local util = ns.util
@@ -23,9 +23,10 @@ local add = tooltipData.add
 local LINE = Enum.TooltipDataLineType or {}
 local styledAt, measureStyled = ui.styledAt, ui.measureStyled
 local pad = ui.pad
+-- The style parts a spell draws with; a client adds its own (descriptor.parts).
 local PARTS = { "spellTitle", "spellBadges", "spellValues", "spellCaptions", "spellDetails",
     "spellText", "extras" }
-if ns.IsRetail() then PARTS[#PARTS + 1] = "spellCharges" end
+descriptor.parts = PARTS
 local TITLE_COLOR = colors.title
 local DETAIL_COLOR = colors.detail
 local CAPTION_OFFSET = 17
@@ -457,9 +458,11 @@ local function stripCells(part)
     return cells
 end
 
--- Whether a retail spell has charges, read into their own part.
-local function hasCharges(part)
-    return ns.IsRetail() and part.charges ~= nil
+-- A client's rows at the head of a spell's details, as retail's charges: each
+-- a row with style, the name of its style part, and color.
+local function leadRows(part)
+    local extension = descriptor.extension
+    return extension and extension.leadRows and extension.leadRows(part) or {}
 end
 
 -- The widest thing in one spell's body: its strip, rows, and sentences.
@@ -478,7 +481,7 @@ local function bodyWidth(panel, part, body, styles)
     for _, rows in ipairs({ part.details, part.requirements }) do
         for _, row in ipairs(rows) do consider(ui.rowWidth(panel, row, styles.spellDetails)) end
     end
-    if hasCharges(part) then consider(ns.Retail.Spell.chargesWidth(panel, part, styles)) end
+    for _, row in ipairs(leadRows(part)) do consider(ui.rowWidth(panel, row, styles[row.style])) end
     for _, sentence in ipairs(body.sentences) do
         consider(math.min(measureStyled(panel, sentence, styles.spellText), ui.PROSE_WIDTH))
     end
@@ -524,7 +527,7 @@ local function drawStrip(panel, model, y, color, styles)
 end
 
 local function hasBody(part, body)
-    return #part.cells > 0 or #part.details > 0 or #part.requirements > 0 or #body.sentences > 0 or hasCharges(part)
+    return #part.cells > 0 or #part.details > 0 or #part.requirements > 0 or #body.sentences > 0 or #leadRows(part) > 0
         or (part.hidden and #part.hidden > 0)
         or body.powerRows ~= nil or (body.nextSentences and #body.nextSentences > 0)
 end
@@ -543,11 +546,12 @@ local function drawBody(panel, part, body, y, color, styles, numberCode)
         panel.rowTail = panel.rowTail + 2
     end
     local hidden = part.hidden or {}
-    local detailed = #part.details > 0 or #part.requirements > 0 or #hidden > 0 or hasCharges(part)
+    local lead = leadRows(part)
+    local detailed = #part.details > 0 or #part.requirements > 0 or #hidden > 0 or #lead > 0
     if detailed then
         -- Under the strip, a little apart from it; first, where anything would start.
         if #part.cells > 0 then y = y + 2 end
-        if hasCharges(part) then y = ns.Retail.Spell.drawCharges(panel, part, y, styles) end
+        for _, row in ipairs(lead) do y = ui.drawRow(panel, row, y, styles[row.style], row.color, 0, 2) end
         y = ui.drawGroup(panel, part.requirements, y, styles.spellDetails, DETAIL_COLOR, 0, 2)
         y = ui.drawGroup(panel, part.details, y, styles.spellDetails, DETAIL_COLOR, 0, 2)
         -- Hidden lines are the cooldown left, in combat: in its color, as out of it.
@@ -592,8 +596,9 @@ local function powerRows(part, numberCode, panel)
     local rows, rates
     if ns.spellPowerRows then
         rows, rates = ns.spellPowerRows(part, numberCode, ns.Game)
-    elseif showRates and ns.IsRetail() and ns.SpellAmounts then
-        -- Retail has no coefficients; its rates come from the text alone.
+    elseif showRates and ns.SpellAmounts then
+        -- Without coefficients (Data/Coefficients.lua, which retail's .toc leaves
+        -- out), the rates come from the text alone.
         rates = ns.SpellAmounts.rateRowsOf(part, ns.Game)
     end
     local list = showPower and rows or {}
