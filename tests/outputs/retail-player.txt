@@ -1,0 +1,82 @@
+== tooltip model
+afk: false
+classFile: "WARLOCK"
+classID: 9
+className: "Warlock"
+color:
+  1: 0.53
+  2: 0.53
+  3: 0.93
+dead: false
+dnd: false
+extras:
+  1:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "Demonology Warlock"
+    lineIndex: 4
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+  2:
+    blank: true
+    left: ""
+    right: ""
+  3:
+    color:
+      1: 0.08333
+      2: 0.85
+      3: 0.08333
+    left: "<Right click for Frame Settings>"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 0.09804
+      2: 1
+      3: 0.09804
+      4: 1
+faction: "Alliance"
+guid: "Player-1403-0AA163DC"
+guild: "Some Guild"
+guildRank: "Mythic Raider"
+isPlayer: true
+level: 90
+levelIndex: 3
+levelLine: "Level 90 Dwarf"
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+name: "Smelly Somebody"
+pvp: false
+quests: {}
+race: "Dwarf"
+reaction: 5
+tapped: false
+unit: "nameplate4"
+== tooltip render
+panel 260 x 156
+texture at -16,-16 0x0 rgb=0.53,0.53,0.93,0.385 glow
+texture at 0,0 0x0 rgb=0.852,0.852,0.978,0.9 TooltipBackground-Temp.png
+texture at 0,0 0x0 rgb=0.53,0.53,0.93,0.2205 TooltipBackground-Temp.png
+texture at 6,6 0x84 rgb=1,1,1,1 band
+texture at 19,21 38x38 rgb=1,1,1,1 WHITE8X8
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.53,0.53,0.93,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 40x16 rgb=0.424,0.424,0.744,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.0742,0.0742,0.1302,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=0.7885,0.7885,0.9685 "90"
+text at 67,21 w=174 size=17 rgb=0.53,0.53,0.93 "SMELLY SOMEBODY"
+text at 67,43 w=174 size=12 rgb=0.765,0.765,0.965 "<Some Guild>"
+text at 67,59 w=174 size=12 rgb=0.82,0.78,0.71 "Dwarf Warlock"
+text at 19,94 w=222 size=11 rgb=0.6,0.6,0.63 "Demonology Warlock"
+text at 19,124 w=222 size=11 rgb=0.08333,0.85,0.08333 "<Right click for Frame Settings>"
+texture at 104,6 150x144 rgb=0.4,0.6,1,0.12 faction-alliance

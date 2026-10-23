@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Silvermoon Guard"
+ 2 "Level 90 (Elite)"
+ 3 "PvP"
+ 4 " "
+ 5 "<Right click for Frame Settings>"
+   below the lines:
+   "NPC ID: 241703"

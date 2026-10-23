@@ -1,0 +1,7 @@
+== tooltip as the game shows it
+ 1 "Rushing Jade Wind"
+ 2 "1 Chi"
+ 3 "Instant  ||  5.7 sec cooldown"
+ 4 "Summons a whirling tornado around you, causing 979 Physical damage over 5.7 sec to all enemies within 8 yards. Deals reduced damage beyond 5 targets."
+   below the lines:
+   "Spell ID: 116847"

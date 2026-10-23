@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Intercession"
+ 2 "3 Holy Power  ||  40 yd range"
+ 3 "Instant  ||  10 min cooldown"
+ 4 "Petition the Light on the behalf of a fallen ally, restoring spirit to body and allowing them to reenter battle with 60% health and at least 20% mana."
+ 5 "You haven't added this to your action bars"
+   below the lines:
+   "Spell ID: 391054"

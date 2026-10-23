@@ -1,0 +1,46 @@
+== tooltip model
+cast:
+  1: "2.2 sec"
+  2: "Cast"
+cells:
+  1:
+    1: "2.2 sec"
+    2: "Cast"
+  2:
+    1: "2 hrs"
+    2: "Cooldown"
+cooldown:
+  1: "2 hrs"
+  2: "Cooldown"
+description:
+  1: "Summons a personal portal directly to your Warband Bank, allowing withdrawals and deposits for 10 min."
+details: {}
+extras: {}
+icon: 4914670
+lineIndices:
+  1: true
+  2: true
+  3: true
+name: "Warband Bank Distance Inhibitor"
+rank: ""
+requirements: {}
+spellID: 460905
+== tooltip render
+panel 308 x 166
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x45 rgb=1,1,1,1 band
+text at 19,21 w=270 size=17 rgb=0.96,0.92,0.84 "WARBAND BANK DISTANCE INHIBITOR"
+text at 19,51 w=67.5 size=13 rgb=0.6,0.57,0.52 "Free"
+text at 19,68 w=67.5 size=9 rgb=0.6,0.57,0.52 "COST"
+text at 86.5,51 w=67.5 size=13 rgb=0.96,0.92,0.84 "2.2 sec"
+text at 86.5,68 w=67.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 87,53 1x26 rgb=0.372,0.396,0.444,0.5 WHITE8X8
+text at 154,51 w=67.5 size=13 rgb=0.96,0.92,0.84 "2 hrs"
+text at 154,68 w=67.5 size=9 rgb=0.6,0.57,0.52 "COOLDOWN"
+texture at 154,53 1x26 rgb=0.372,0.396,0.444,0.5 WHITE8X8
+text at 221.5,51 w=67.5 size=13 rgb=0.6,0.57,0.52 "Self"
+text at 221.5,68 w=67.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 222,53 1x26 rgb=0.372,0.396,0.444,0.5 WHITE8X8
+text at 19,87 w=270 size=12 rgb=0.92,0.87,0.76 "Summons a personal portal directly to your Warband Bank, allowing withdrawals and deposits for |cffFFF6E410|r min."
+text at 19,134 w=270 size=11 rgb=0.6,0.6,0.63 "Spell ID: 460905"

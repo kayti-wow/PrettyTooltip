@@ -1,0 +1,71 @@
+== tooltip model
+cast:
+  1: "Instant"
+  2: "Cast"
+cells:
+  1:
+    1: "1"
+    2: "Chi"
+  2:
+    1: "Instant"
+    2: "Cast"
+  3:
+    1: "5.7 sec"
+    2: "Cooldown"
+cooldown:
+  1: "5.7 sec"
+  2: "Cooldown"
+cost:
+  1: "1"
+  2: "Chi"
+description:
+  1: "Summons a whirling tornado around you, causing 979 Physical damage over 5.7 sec to all enemies within 8 yards. Deals reduced damage beyond 5 targets."
+details: {}
+extras: {}
+icon: 606549
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+name: "Rushing Jade Wind"
+power: "Chi"
+rank: ""
+requirements: {}
+spellID: 116847
+== tooltip render
+panel 308 x 242
+texture at -16,-16 0x0 rgb=0.5,0.8,0.28,0.385 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x70 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 606549
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.5,0.8,0.28,0.85 WHITE8X8
+texture at 0,0 0x2 rgb=0.4,0.64,0.224,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.18,0.288,0.1008,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.18,0.288,0.1008,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.18,0.288,0.1008,0.95 WHITE8X8
+text at 67,21 w=222 size=17 rgb=0.96,0.92,0.84 "RUSHING JADE WIND"
+text at 67,46 w=38 size=12 rgb=0.82,0.78,0.71 "|cffA6DB7ENature|r"
+texture at 19,76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=67.5 size=13 rgb=0.8695,1,0.964 "1"
+text at 19,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "CHI"
+text at 86.5,89 w=67.5 size=13 rgb=0.96,0.92,0.84 "Instant"
+text at 86.5,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 87,91 1x26 rgb=0.3,0.48,0.168,0.5 WHITE8X8
+text at 154,89 w=67.5 size=13 rgb=0.96,0.92,0.84 "5.7 sec"
+text at 154,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "COOLDOWN"
+texture at 154,91 1x26 rgb=0.3,0.48,0.168,0.5 WHITE8X8
+text at 221.5,89 w=67.5 size=13 rgb=0.6,0.57,0.52 "Self"
+text at 221.5,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 222,91 1x26 rgb=0.3,0.48,0.168,0.5 WHITE8X8
+texture at 19,124 270x1 rgb=0.35,0.56,0.196,0.45 WHITE8X8
+text at 19,133 w=270 size=12 rgb=0.92,0.87,0.76 "Summons a whirling tornado around you, causing |cffA6DB7E979|r Physical damage over |cffA6DB7E5.7|r sec to all enemies within |cffA6DB7E8|r yards."
+text at 19,180 w=270 size=12 rgb=0.92,0.87,0.76 "Deals reduced damage beyond |cffA6DB7E5|r targets."
+texture at 19,201 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,210 w=270 size=11 rgb=0.6,0.6,0.63 "Spell ID: 116847"

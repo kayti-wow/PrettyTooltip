@@ -1,0 +1,33 @@
+== tooltip model
+cells: {}
+description:
+  1: "Divine Toll is replaced with |cffffffffHammer of Light|r for 20 sec after it is cast.\n|T5342121:24|t |cffffffffHammer of Light|r:\nHammer down your enemy with the power of the Light, dealing 12,466 Holy damage and 6,226 Holy damage up to 7 nearby enemies.\nAdditionally, calls down Empyrean Hammers from the sky to strike 3 nearby enemies for 466 Holy damage each.\n|cFFFFFFFFCosts 5 Holy Power."
+details: {}
+extras: {}
+icon: 571556
+lineIndices:
+  1: true
+  3: true
+  4: true
+name: "Light's Guidance"
+rank: ""
+requirements: {}
+spellID: 427445
+talent:
+  description: {}
+  details: {}
+  max: 1
+  rank: 1
+== tooltip render
+panel 308 x 267
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x64 rgb=1,1,1,1 band
+text at 19,21 w=270 size=17 rgb=0.96,0.92,0.84 "LIGHT'S GUIDANCE"
+text at 19,46 w=92 size=12 rgb=0.82,0.78,0.71 "|cffFBCF74Holy|r |cff999185·|r |cffB8B0A6Rank 1/1|r"
+text at 19,70 w=270 size=12 rgb=0.92,0.87,0.76 "Divine Toll is replaced with |cffffffffHammer of Light|r for |cffFBCF7420|r sec after it is cast."
+text at 19,103 w=270 size=12 rgb=0.92,0.87,0.76 "|T5342121:24|t |cffffffffHammer of Light|r:"
+text at 19,122 w=270 size=12 rgb=0.92,0.87,0.76 "Hammer down your enemy with the power of the Light, dealing |cffFBCF7412,466|r Holy damage and |cffFBCF746,226|r Holy damage up to |cffFBCF747|r nearby enemies."
+text at 19,169 w=270 size=12 rgb=0.92,0.87,0.76 "Additionally, calls down Empyrean Hammers from the sky to strike |cffFBCF743|r nearby enemies for |cffFBCF74466|r Holy damage each."
+text at 19,216 w=270 size=12 rgb=0.92,0.87,0.76 "|cFFFFFFFFCosts |cffFBCF745|r Holy Power."
+text at 19,235 w=270 size=11 rgb=0.6,0.6,0.63 "Spell ID: 427445"

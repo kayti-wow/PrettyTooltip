@@ -1,0 +1,7 @@
+== tooltip as the game shows it
+ 1 "Detox"
+ 2 "10 Energy  ||  40 yd range"
+ 3 "Instant  ||  8 sec cooldown"
+ 4 "Removes all Poison and Disease effects from the target."
+   below the lines:
+   "Spell ID: 218164"

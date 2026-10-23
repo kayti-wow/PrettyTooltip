@@ -1,0 +1,15 @@
+== tooltip as the game shows it
+ 1 "Light's Guidance"
+ 2 "Rank |cffffffff1|r/1"
+ 3 " "
+ 4 "Divine Toll is replaced with |cffffffffHammer of Light|r for 20 sec after it is cast.\r\
+\r\
+|T5342121:24|t |cffffffffHammer of Light|r:\r\
+Hammer down your enemy with the power of the Light, dealing 12,466 Holy damage and 6,226 Holy damage up to 7 nearby enemies. \r\
+\r\
+Additionally, calls down Empyrean Hammers from the sky to strike 3 nearby enemies for 466 Holy damage each.\r\
+\r\
+|cFFFFFFFFCosts 5 Holy Power.\r\
+"
+   below the lines:
+   "Spell ID: 427445"

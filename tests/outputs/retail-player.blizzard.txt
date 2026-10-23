@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Smelly Somebody"
+ 2 "Some Guild"
+ 3 "Level 90 Dwarf (Player)"
+ 4 "Demonology Warlock"
+ 5 "Alliance"
+ 6 " "
+ 7 "<Right click for Frame Settings>"

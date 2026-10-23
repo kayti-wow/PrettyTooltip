@@ -1,0 +1,69 @@
+== tooltip model
+cast:
+  1: "Instant"
+  2: "Cast"
+cells:
+  1:
+    1: "300"
+    2: "Mana"
+  2:
+    1: "Instant"
+    2: "Cast"
+  3:
+    1: "8 sec"
+    2: "Cooldown"
+  4:
+    1: "30 yd"
+    2: "Range"
+cooldown:
+  1: "8 sec"
+  2: "Cooldown"
+cost:
+  1: "300"
+  2: "Mana"
+description:
+  1: "Commands the attention of an enemy target, forcing them to attack you and increasing the threat you generate against them by 800% for 6 sec."
+details:
+  1:
+    color:
+      1: 0.45
+      2: 0.57
+      3: 0.85
+    left: "You haven't added this to your action bars"
+    right: ""
+extras: {}
+icon: 135984
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+name: "Hand of Reckoning"
+power: "Mana"
+range:
+  1: "30 yd"
+  2: "Range"
+rank: ""
+requirements: {}
+spellID: 62124
+== tooltip render
+panel 308 x 216
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x64 rgb=1,1,1,1 band
+text at 19,21 w=270 size=17 rgb=0.96,0.92,0.84 "HAND OF RECKONING"
+text at 19,46 w=26 size=12 rgb=0.82,0.78,0.71 "|cffFBCF74Holy|r"
+text at 19,70 w=67.5 size=13 rgb=0.6625,0.7975,1 "300"
+text at 19,87 w=67.5 size=9 rgb=0.6,0.57,0.52 "MANA"
+text at 86.5,70 w=67.5 size=13 rgb=0.96,0.92,0.84 "Instant"
+text at 86.5,87 w=67.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 87,72 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+text at 154,70 w=67.5 size=13 rgb=0.96,0.92,0.84 "8 sec"
+text at 154,87 w=67.5 size=9 rgb=0.6,0.57,0.52 "COOLDOWN"
+texture at 154,72 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+text at 221.5,70 w=67.5 size=13 rgb=0.96,0.92,0.84 "30 yd"
+text at 221.5,87 w=67.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 222,72 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+text at 19,108 w=270 size=11 rgb=0.45,0.57,0.85 "You haven't added this to your action bars"
+text at 19,123 w=270 size=12 rgb=0.92,0.87,0.76 "Commands the attention of an enemy target, forcing them to attack you and increasing the threat you generate against them by |cffFBCF74800%|r for |cffFBCF746|r sec."
+text at 19,184 w=270 size=11 rgb=0.6,0.6,0.63 "Spell ID: 62124"
