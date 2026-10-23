@@ -1,0 +1,33 @@
+== tooltip model
+blips:
+  1:
+    arrow: "|TInterface\\Minimap\\Minimap-PositionArrows:0:0:0:0:16:32:0:16:16:32|t"
+    color:
+      1: 0.6902
+      2: 0.6902
+      3: 0.6902
+    name: "Auctioneer Jenath"
+  2:
+    arrow: "|TInterface\\Minimap\\Minimap-PositionArrows:0:0:0:0:16:32:0:16:16:32|t"
+    color:
+      1: 0.6902
+      2: 0.6902
+      3: 0.6902
+    name: "Auctioneer Vynna"
+  3:
+    arrow: "|TInterface\\Minimap\\Minimap-PositionArrows:0:0:0:0:16:32:0:16:0:16|t"
+    name: "Rostrum of Transformation"
+extras: {}
+lineIndices:
+  1: true
+== tooltip render
+panel 214 x 85
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x0 rgb=1,1,1,1 band
+text at 19,17 w=150 size=12 rgb=0.6902,0.6902,0.6902 "Auctioneer Jenath"
+text at 181,17 w=14 size=12 rgb=0.6,0.57,0.52 "|TInterface\\Minimap\\Minimap-PositionArrows:12:12:0:0:16:32:0:16:16:32|t"
+text at 19,34 w=150 size=12 rgb=0.6902,0.6902,0.6902 "Auctioneer Vynna"
+text at 181,34 w=14 size=12 rgb=0.6,0.57,0.52 "|TInterface\\Minimap\\Minimap-PositionArrows:12:12:0:0:16:32:0:16:16:32|t"
+text at 19,51 w=150 size=12 rgb=0.96,0.92,0.84 "Rostrum of Transformation"
+text at 181,51 w=14 size=12 rgb=0.6,0.57,0.52 "|TInterface\\Minimap\\Minimap-PositionArrows:12:12:0:0:16:32:0:16:0:16|t"
