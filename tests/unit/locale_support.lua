@@ -6,7 +6,7 @@ return function(test)
     local function load(locale, language)
         local files = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
             "Locale/English.lua", language, "Game/Game.lua", "Game/TooltipData.lua", "Data/Schools.lua",
-            "Data/SpellRanks.lua", "Data/Coefficients.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" }
+            "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua", "Panel/Layout.lua", "Panel/Render.lua", "Tooltips/Spell.lua" }
         if not language then table.remove(files, 6) end
         return test.load(files, { client = { locale = locale }, enums = { TooltipDataType = { Item = 0, Spell = SPELL } } })
     end

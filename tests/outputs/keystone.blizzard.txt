@@ -1,0 +1,18 @@
+== tooltip as the game shows it
+ 1 "Keystone: Ruby Life Pools"
+ 2 "Mythic Level 15"
+ 3 "Resilient Level 14"
+ 4 "Soulbound"
+ 5 "Unique"
+ 6 "Dungeon Modifiers:"
+ 7 "  Tyrannical"
+ 8 "  Fortified"
+ 9 "  Xal'atath's Guile"
+10 "Duration: 7 days"
+11 "\"Place within the Font of Power inside the dungeon on Mythic difficulty.\""
+12 " "
+13 "Raider.IO M+ Base Score  ||  125"
+14 "Avg. Scores for Timed +15  ||  3225"
+15 "Player  ||  |cffffcf40+|r15 RLP"
+   below the lines:
+   "Item ID: 180653"

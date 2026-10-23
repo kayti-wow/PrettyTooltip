@@ -138,6 +138,7 @@ sellPrice: 2371
 setBonuses: {}
 setItems: {}
 slot: "Finger"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 278 x 399

@@ -1,0 +1,30 @@
+== tooltip model
+blips:
+  1:
+    name: "Mailbox"
+  2:
+    name: "Collector Unta"
+  3:
+    arrow: "|TInterface\\Minimap\\Minimap-PositionArrows:0:0:0:0:16:32:0:16:0:16|t"
+    name: "Mailbox"
+  4:
+    name: "Melanie Morten"
+  5:
+    name: "Killia"
+  6:
+    name: "Candy Bucket"
+extras: {}
+lineIndices:
+  1: true
+== tooltip render
+panel 122 x 136
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x0 rgb=1,1,1,1 band
+text at 19,17 w=84 size=12 rgb=0.96,0.92,0.84 "Mailbox"
+text at 19,34 w=84 size=12 rgb=0.96,0.92,0.84 "Collector Unta"
+text at 19,51 w=58 size=12 rgb=0.96,0.92,0.84 "Mailbox"
+text at 89,51 w=14 size=12 rgb=0.6,0.57,0.52 "|TInterface\\Minimap\\Minimap-PositionArrows:12:12:0:0:16:32:0:16:0:16|t"
+text at 19,68 w=84 size=12 rgb=0.96,0.92,0.84 "Melanie Morten"
+text at 19,85 w=84 size=12 rgb=0.96,0.92,0.84 "Killia"
+text at 19,102 w=84 size=12 rgb=0.96,0.92,0.84 "Candy Bucket"

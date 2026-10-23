@@ -92,6 +92,7 @@ sellPrice: 7459
 setBonuses: {}
 setItems: {}
 slot: "Mace · Two-Hand"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "65 - 99 Damage"
 weaponDps: "25.6"

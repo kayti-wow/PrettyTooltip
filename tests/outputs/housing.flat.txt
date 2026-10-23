@@ -1,0 +1,102 @@
+== tooltip model
+armor: {}
+comparison: false
+effects:
+  1:
+    left: "Add this Decor to your House Chest."
+    right: ""
+    use: true
+enchants: {}
+equipEffects: {}
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Total Owned: |cnHIGHLIGHT_FONT_COLOR:4 (Placed: 0, Storage: 4)|r"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+flavor: {}
+footerLeft: {}
+footerRight:
+  1:
+    left: "1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    color:
+      1: 0
+      2: 0.8
+      3: 1
+    left: "Warbound"
+    right: ""
+icon: 7509044
+kinds: {}
+level: 1
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+link: "|cnIQ2:|Hitem:264332::::::::90:264::16::1:28:1279:::::|h[Amani Ritual Altar]|h|r"
+name: "Amani Ritual Altar"
+nameColor:
+  1: 0.1176
+  2: 1
+  3: 0
+primary: {}
+quality: 2
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: "|A:House-Decor-budget-icon:21:21|a 3"
+  decorKind: "|cFF66BBFFHousing Decor|r"
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+sellPrice: 10000
+setBonuses: {}
+setItems: {}
+slot: "|cFF66BBFFHousing Decor|r  |A:House-Decor-budget-icon:13:13:0:0|a 3"
+sockets: {}
+weaponBonus: {}
+== tooltip render
+panel 308 x 225
+texture at -16,-16 0x0 rgb=0.3,0.82,0.3,0.55 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x88 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 7509044
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.3,0.82,0.3,0.85 WHITE8X8
+texture at 0,0 0x2 rgb=0.24,0.656,0.24,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.108,0.2952,0.108,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.108,0.2952,0.108,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.108,0.2952,0.108,0.95 WHITE8X8
+text at 72,21 w=217 size=19 rgb=0.3,0.82,0.3 "AMANI RITUAL ALTAR"
+text at 72,47 w=217 size=13 rgb=0.65,0.91,0.65 "|cFF66BBFFHousing Decor|r  |A:House-Decor-budget-icon:13:13:0:0|a 3"
+text at 72,66 w=217 size=12 rgb=0,0.8,1 "Warbound"
+texture at 19,94 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-94 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-89 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,107 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-gear:11:11:-1:-2:32:32:0:32:0:32:240:200:90|t"
+text at 41,107 w=248 size=13 rgb=0.48,0.88,0.48 "Add this Decor to your House Chest."
+texture at 19,130 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,139 w=270 size=11 rgb=0.85,0.7,0 "Total Owned: |cnHIGHLIGHT_FONT_COLOR:4 (Placed: 0, Storage: 4)|r"
+text at 19,167 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 264332"
+text at 270.5,191 w=18.5 size=11 rgb=0.88,0.78,0.6 "1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"

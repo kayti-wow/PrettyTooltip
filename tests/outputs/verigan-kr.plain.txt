@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "둔기 · 양손 장비"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "공격력 65 - 99"
 weaponDps: "25.6"

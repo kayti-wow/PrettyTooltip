@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Hand of Reckoning"
+ 2 "300 Mana  ||  30 yd range"
+ 3 "Instant  ||  8 sec cooldown"
+ 4 "Commands the attention of an enemy target, forcing them to attack you and increasing the threat you generate against them by 800% for 6 sec."
+ 5 "You haven't added this to your action bars"
+   below the lines:
+   "Spell ID: 62124"

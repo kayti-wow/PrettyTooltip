@@ -118,6 +118,11 @@ local function nested(data)
 end
 
 tooltipData.add = add
+
+-- The line's own color when the game marks it as one the character will not
+-- get, as { r, g, b }; nil otherwise. Forever marks none; a client that does
+-- replaces this (retail's Retail/Game/TooltipDataExtension.lua).
+function tooltipData.inactiveColor(_color) end
 -- An item line's shortened wordings (Data/Stats.lua's itemWording), from the
 -- game's own data, which stays as it is. Nil for a line that reads the same,
 -- has a right side, or is hidden.
@@ -139,10 +144,13 @@ local function itemWording(line)
         wordings, wordingCount = {}, 0
         wordingVersion, wordingColors, wordingMarkers = version, colors, markers
     end
-    local key = (proc and "1" or "0") .. text
+    -- A line the game marks inactive (greyed or reddened, on retail) keeps the
+    -- game's color, without stat colors in it.
+    local inactive = tooltipData.inactiveColor(line.leftColor) ~= nil
+    local key = ((proc and 1 or 0) + (inactive and 2 or 0)) .. text
     local cached = wordings[key]
     if cached ~= nil then return cached or nil end
-    local wording = ns.Stats.itemWording(text, proc, colors, markers)
+    local wording = ns.Stats.itemWording(text, proc, colors and not inactive, markers)
     if wordingCount >= WORDING_LIMIT then wordings, wordingCount = {}, 0 end
     wordings[key], wordingCount = wording or false, wordingCount + 1
     return wording

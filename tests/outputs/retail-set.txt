@@ -1,0 +1,290 @@
+== tooltip model
+armor:
+  1:
+    left: "182 Armor"
+    right: ""
+    value: "182"
+armorClass: "Mail"
+comparison: false
+effects: {}
+enchants:
+  1:
+    left: "|cff4CE64CEnchant Shoulders - Silvermoon's Mending |A:Professions-ChatIcon-Quality-12-Tier2:20:20|a|r"
+    right: ""
+equipEffects: {}
+equippable: true
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Vendor"
+    right: "|cffffffff43 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 11 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 37 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  2:
+    blank: true
+    left: ""
+    right: ""
+  3:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "|cffffd839TSM General Info|r"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  4:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Vendor Sell Price"
+    right: "|cffffffff43|r|cffffd70ag|r |cffffffff11|r|cffc7c7cfs|r"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  5:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "  |cff0a43ffPlayer|r"
+    right: "|cff66bbffEquipped: |cffffffff1|r|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  6:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Inventory"
+    right: "|cff66bbffTotal: |cffffffff1|r|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+flavor: {}
+footerLeft:
+  1:
+    durability:
+      1: 100
+      2: 100
+    left: "Durability 100 / 100"
+    right: ""
+footerRight:
+  1:
+    left: "43|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 11|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 37|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 7705650
+kinds: {}
+level: 321
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+  19: true
+  20: true
+  21: true
+  22: true
+  23: true
+  24: true
+  25: true
+  26: true
+  27: true
+  28: true
+link: "|cnIQ4:|Hitem:271481:8031:::::::90:264::16:5:6652:13440:13694:13697:12846:1:64:251184:::::|h[Hissing Mantle of the Ophidian Oracle]|h|r"
+name: "Hissing Mantle of the Ophidian Oracle"
+nameColor:
+  1: 0.6392
+  2: 0.2078
+  3: 0.9333
+primary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+125|r |cffEEE7DAIntellect|r"
+    right: ""
+  2:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+2527|r |cffEEE7DAStamina|r"
+    right: ""
+  3:
+    color:
+      1: 0.5
+      2: 0.5
+      3: 0.5
+    inactive: true
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +125 Agility"
+    right: ""
+quality: 4
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Mythic+"
+  sourceColor:
+    1: 0
+    2: 0.85
+    3: 0
+  transmog: "Eternal Epaulets of Ten Storms"
+  upgrade: "Hero 6/6"
+secondary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+90|r |cffF3E2B0Haste|r"
+    right: ""
+  2:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff86D4CC+53|r |cffBDE6E1Versatility|r"
+    right: ""
+sellPrice: 431137
+setBonuses:
+  1:
+    active: true
+    left: "Set: Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8.0 sec."
+    right: ""
+  2:
+    active: false
+    left: "(4) Set: Every 1 sec, 1 ally inside of Healing Rain gains a watery shield that absorbs 8,178 damage for 10 sec."
+    right: ""
+setCount: "3/5"
+setItems:
+  1:
+    active: false
+    left: "Fanged Raiment of the Ophidian Oracle"
+    right: ""
+  2:
+    active: true
+    left: "Hexing Grips of the Ophidian Oracle"
+    right: ""
+  3:
+    active: false
+    left: "Serpent Crown of the Ophidian Oracle"
+    right: ""
+  4:
+    active: true
+    left: "Leggings of the Ophidian Oracle"
+    right: ""
+  5:
+    active: true
+    left: "Hissing Mantle of the Ophidian Oracle"
+    right: ""
+setName: "Ophidian Oracle's Prophecy"
+slot: "Mail · Shoulder"
+sockets: {}
+weaponBonus: {}
+== tooltip render
+panel 408 x 703
+texture at -16,-16 0x0 rgb=0.72,0.4,0.94,0.55 glow
+texture at 0,0 0x0 rgb=0.874,0.73,0.973,0.9 TooltipBackground-Temp.png
+texture at 0,0 0x0 rgb=0.72,0.4,0.94,0.315 TooltipBackground-Temp.png
+texture at 6,6 0x158 rgb=1,1,1,1 band
+texture at 19,21 43x43 rgb=1,1,1,1 7705650
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.72,0.4,0.94,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 50x16 rgb=0.576,0.32,0.752,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.1008,0.056,0.1316,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=0.874,0.73,0.973 "iLvl 321"
+text at 72,21 w=317 size=19 rgb=0.72,0.4,0.94 "HISSING MANTLE OF THE OPHIDIAN ORACLE"
+text at 72,69 w=317 size=12 rgb=0,0.85,0 "Mythic+"
+text at 72,87 w=317 size=13 rgb=0.86,0.7,0.97 "Mail · Shoulder"
+text at 72,106 w=317 size=12 rgb=0.9,0.8,0.55 "Hero 6/6"
+text at 72,124 w=317 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 72,141 w=317 size=12 rgb=1,0.5,1 "Transmogrified to: Eternal Epaulets of Ten Storms"
+texture at 19,169 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-169 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-164 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,182 w=370 size=16 rgb=0.9,0.93,0.95 "|cffE6ECF2182|r |cffAEB9C7Armor|r"
+text at 19,208 w=370 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+125|r |cffEEE7DAIntellect|r"
+text at 19,226 w=370 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+2527|r |cffEEE7DAStamina|r"
+text at 19,244 w=370 size=13 rgb=0.5,0.5,0.5 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +125 Agility"
+texture at 19,270 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-270 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-265 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,283 w=370 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+90|r |cffF3E2B0Haste|r"
+text at 19,301 w=370 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff86D4CC+53|r |cffBDE6E1Versatility|r"
+text at 19,324 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,324 w=348 size=13 rgb=0.9,0.85,0.74 "|cff4CE64CEnchant Shoulders - Silvermoon's Mending |A:Professions-ChatIcon-Quality-12-Tier2:13:13:0:0|a|r"
+texture at 19,350 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-350 176x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-345 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,363 w=325 size=15 rgb=1,0.76,0.18 "OPHIDIAN ORACLE'S PROPHECY"
+text at 347,363 w=42 size=12 rgb=1,0.76,0.18 "3/5"
+text at 24,387 w=365 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rFanged Raiment of the Ophidian Oracle"
+text at 24,404 w=365 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHexing Grips of the Ophidian Oracle"
+text at 24,421 w=365 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rSerpent Crown of the Ophidian Oracle"
+text at 24,438 w=365 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rLeggings of the Ophidian Oracle"
+text at 24,455 w=365 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rHissing Mantle of the Ophidian Oracle"
+text at 22,479 w=367 size=12 rgb=0.48,0.88,0.48 "Set: Healing Wave and Chain Heal have a chance to create a Healing Rain at the target's location for 8.0 sec."
+text at 22,510 w=367 size=12 rgb=0.44,0.42,0.4 "(4) Set: Every 1 sec, 1 ally inside of Healing Rain gains a watery shield that absorbs 8,178 damage for 10 sec."
+texture at 19,546 370x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,555 w=262.5 size=11 rgb=0.85,0.7,0 "Vendor"
+text at 293.5,555 w=95.5 size=11 rgb=0.85,0.7,0 "|cffffffff43 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 11 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 37 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,585 w=370 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
+text at 19,600 w=317.5 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
+text at 348.5,600 w=40.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff43|r|cffffd70ag|r |cffffffff11|r|cffc7c7cfs|r"
+text at 19,615 w=295.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
+text at 326.5,615 w=62.5 size=11 rgb=0.85,0.7,0 "|cff66bbffEquipped: |cffffffff1|r|r"
+text at 19,630 w=312 size=11 rgb=0.85,0.7,0 "Inventory"
+text at 343,630 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
+text at 19,645 w=370 size=11 rgb=0.6,0.6,0.63 "Item ID: 271481"
+text at 310,669 w=79 size=11 rgb=0.88,0.78,0.6 "43|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 11|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 37|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+texture at 19,674 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,669 w=90 size=11 rgb=0.82,0.78,0.71 "100 / 100"

@@ -647,6 +647,7 @@ local function acquireTexture(panel, path, sublevel)
     tex:SetTexture(path or WHITE)
     tex:SetTexCoord(0, 1, 0, 1)
     tex:SetVertexColor(1, 1, 1, 1)
+    tex:SetDesaturated(false)
     tex:ClearAllPoints()
     tex:Show()
     return tex
@@ -951,6 +952,9 @@ end
 -- details(model, context), the detail rows the game's own tooltip gets in its
 -- place (context passed on to ns.showsDetail), with detailKeys, the settings
 -- that turn them on.
+-- Provisional item-only extension callbacks: see Tooltips/Item.lua's descriptor.
+-- An extension field is optional; it is not automatically dispatched by this
+-- registry. Each reader/view builder must explicitly implement its boundaries.
 local TooltipTypes = {}
 
 -- Records a tooltip type, its reader and renderer profiled; the entry file

@@ -1,14 +1,20 @@
 # PrettyTooltip
 
-A full reskin of tooltips for WoW Forever. PrettyTooltip replaces the game's tooltip with a compact, ornamented panel: the icon and name up front, the details in short colored rows grouped by kind, and the fine print gathered in a footer. Hold **ALT** (or the key you choose) at any time to see the game's own tooltip.
+A full reskin of tooltips for WoW Forever and retail World of Warcraft. PrettyTooltip replaces the game's tooltip with a compact, ornamented panel: the icon and name up front, the details in short colored rows grouped by kind, and the fine print gathered in a footer. Hold **ALT** (or the key you choose) at any time to see the game's own tooltip.
+
+## Forever and retail
+
+One download serves both games: Forever loads `PrettyTooltip_Camelot.toc`, retail `PrettyTooltip_Mainline.toc`. Forever's file needs its own suffix: Forever counts as a Mainline game too, and would load retail's file over a plain `PrettyTooltip.toc`. Retail leaves out what comes from Classic's data, as no retail source exists for it: disenchant results, spell power coefficients, and herb, ore, and skinning loot. Their settings are hidden there. Spell schools come from retail's own spell tables, and damage and healing rates from the description alone, with the global cooldown after haste.
 
 ## Item tooltips
 
 Top to bottom, an item panel shows:
 
 - **Header.** The icon with an item level badge, the name in its quality color, and a subtitle with the item's type and slot, such as `Mail · Head` or `Staff · Two-Hand`. The subtitle also names what the game leaves unsaid: `Consumable · Potion`, `Crafting Reagent`, `Scarce`. The binding sits below it, with the required level at the right, red while you are below it. The whole panel is tinted by quality; quest items, and items that begin a quest, are tinted quest gold.
+- **Retail's source, upgrade, and transmogrification.** On retail, where the item comes from (`Heroic`, `Mythic`) sits under its name, its upgrade level (`Myth 2/6`) under the subtitle, and what it is transmogrified to, with any weapon illusion, after the binding. A crafted item's quality, with the game's quality icon, follows the upgrade level. Each is its own part in the style editor: **Source**, **Upgrade level**, **Crafted quality**, and **Transmogrification**.
+- **Gems and sockets.** On retail, after the enchants: each socketed gem with its icon and its stat in that stat's color, its enchantment indented under it, empty sockets with the game's socket icon, and the socket bonus, green once active. The style editor's **Gems and sockets** part sets their look, and its **Socket hint** switch hides the game's `<Shift Right Click to Socket>` line.
 - **Weapon damage.** DPS as the prominent row, with damage and speed beneath it.
-- **Armor and stats.** Armor, then the stats in two blocks: the primary attributes, and everything else under a divider. Long stat wording is shortened (see below), and each stat is colored by kind.
+- **Armor and stats.** Armor (and a shield's block under it), then the stats in two blocks: the primary attributes, and everything else under a divider. Long stat wording is shortened (see below), and each stat is colored by kind. On retail, the primary stats your specialization does not use stay grey, as the game shows them. Retail's Critical Strike, Haste, Mastery, and Versatility each have a color of their own, and Leech, Avoidance, and Speed share one; set them under **Secondary stat colors** in the style editor, and their font under its **Secondary stats** part.
 - **Equip effects and enchants.** Equip effects that are not a plain stat, such as a zone-limited speed bonus, join the stat list in green without the `Equip:` prefix. A chance on hit joins them too, marked with a small sword instead of its `Chance on hit:` prefix. Its numbers follow the spell tooltip's highlighting: a lighter school color when the description names that school's damage, or a neutral highlight otherwise. Holyfire blends Holy and Fire. These highlights follow **Stat colors** and a custom **Equip effects** color in the panel. Enchants follow as green rows marked with a sparkle, one per bonus: `Enchanted: Stamina +1 and Armor +8` becomes `+1 Stamina` and `+8 Armor`.
 - **Use effects and flavor text,** as the game words them, each use effect marked with a small gear instead of its `Use:` prefix.
 - **Item set.** The set name and how many pieces you own, the pieces you own highlighted, and the set bonuses, with active ones highlighted.
@@ -60,7 +66,7 @@ Turn on **Armor colors** under **Item Details** to tell armor types apart at a g
 
 ## Spell tooltips
 
-Spells use the same panel: the icon and name, small badges for the spell's school, its rank, and **Passive** for passive spells and talents, and a strip with cost, cast time, cooldown, and range. The description follows one sentence per line, with its numbers highlighted.
+Spells use the same panel: the icon and name, small badges for the spell's school, its rank, and **Passive** for passive spells and talents, and a strip with cost, cast time, cooldown, and range. On retail, a spell with charges shows its recharge in the cooldown cell, its most charges under the strip (**Charges** in the style editor), and the time left on the next charge in orange. The description follows one sentence per line, with its numbers highlighted.
 
 The panel is tinted by the spell's school: a class spell's comes from WoW Forever's client spell data, which the addon carries, and any other spell's is read from the damage its description names (`Fire damage`) or a school that starts its name (`Holy Light`). Spells with neither are tinted by the resource they cost: blue for mana, red for rage, yellow for energy.
 
@@ -103,7 +109,7 @@ Herbs, ore, chests, and quest objects get a panel too. A herb or ore node shows 
 
 The editor uses Blizzard's settings frame borders and native controls by default. Choose **Blizzard** or **Flat** under **AddOns > PrettyTooltip > Style Editor Appearance** in the game's settings. This choice affects the editor window; **Panel style** inside the editor controls the tooltips themselves.
 
-Type `/ptip` (or `/prettytooltip`) to open the style editor, where everything about the tooltip's look is set. **Items**, **Spells**, **Objects**, **Units**, **Buffs**, and **Quests** switch between the kinds of panel. The editor shows a sample tooltip; click any part of it, such as the name, the stats, or a spell's description, to change that part's font, size, color, and outline. The samples (for items a weapon, the equipped item it is compared with, a set piece, and a potion; for spells a damage spell, an ability with a cooldown and an unmet requirement, and a heal; for objects a herb, an ore node you cannot mine yet, a locked chest, and a quest object; for units a player, a hostile elite with a quest, a friendly innkeeper, a rare, a rare elite, and a boss; for buffs a buff, a curse, and a stacked poison; for quests one in progress, one ready to turn in, and one not taken) cover every part, and the editor switches to one that has the part you pick from its list.
+Type `/ptip` (or `/prettytooltip`) to open the style editor, where everything about the tooltip's look is set. **Items**, **Spells**, **Objects**, **Units**, **Buffs**, and **Quests** switch between the kinds of panel. The editor shows a sample tooltip; click any part of it, such as the name, the stats, or a spell's description, to change that part's font, size, color, and outline. The samples (for items a weapon, the equipped item it is compared with, a set piece, and a potion; for spells a damage spell, an ability with a cooldown and an unmet requirement, and a heal, and on retail a spell with charges; for objects a herb, an ore node you cannot mine yet, a locked chest, and a quest object; for units a player, a hostile elite with a quest, a friendly innkeeper, a rare, a rare elite, and a boss; for buffs a buff, a curse, and a stacked poison; for quests one in progress, one ready to turn in, and one not taken) cover every part, and the editor switches to one that has the part you pick from its list.
 
 To preview a real item or spell instead (objects, units, auras, and quests have no ID), type its ID in the box at the top right and press Enter, or click the box and shift-click the item or spell, as you would to link it in chat. **Clear**, or a sample tab, goes back to the samples.
 
@@ -115,7 +121,7 @@ The controls on the right follow the kind of panel shown, top to bottom (hover a
 - **Items Panel**, **Spells Panel**, and so on, for the kind shown: **Show icon**, and the opacity of the header band at its top and bottom edges, of the panel's body (**Backdrop**), and of the soft rarity **Glow** around it.
 - The kind's own details:
   - **Item Details**: the item level badge, the stat markers, **Stat colors** (off, every stat is parchment) with each stat category's color below, a swatch each (click to choose, right-click for the default; the stat's name takes a lighter shade), **Armor colors** (see *Colors* above) with a swatch each for cloth, leather, mail, and plate, **Abbreviated Equip Effects** (see *The Blizzard layout* above), the disenchant section, and the sell price.
-  - **Spell Details**: the spell power breakdown, marked experimental as not all its values are correct yet, and the damage and healing rates under it.
+  - **Spell Details**: the spell power breakdown, marked experimental as not all its values are correct yet, and the damage and healing rates under it; on retail, the rates alone.
   - **Unit Details**: the level badge (off, the level stays in the info line), the health bar, what a skinnable creature gives, and the nine **Class colors** swatches. Hover a swatch for its class name.
   - **Object Details**: what herbs and ore give: a node's yield over all its taps and the stone, gems, or other herbs it may give, with the chance each tap.
 

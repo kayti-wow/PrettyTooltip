@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "Дробящее · Двуручное"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "Урон: 65-99"
 weaponDps: "25,6"

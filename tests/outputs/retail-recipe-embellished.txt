@@ -1,0 +1,430 @@
+== tooltip model
+armor: {}
+comparison: false
+created:
+  armor: {}
+  binding: "Binds when picked up · Unique-Equipped: Embellished (2)"
+  effects: {}
+  enchants: {}
+  equipEffects:
+    1:
+      left: "Your harmful spells and abilities have a chance to bleed your target for 559 Physical damage every 1.6 over 10 sec."
+      right: ""
+  equippable: true
+  extras: {}
+  flavor: {}
+  footerLeft:
+    1:
+      color:
+        1: 0.5333
+        2: 0.6667
+        3: 1
+      left: "You haven't collected this appearance"
+      right: ""
+  footerRight: {}
+  header:
+    1:
+      left: "Binds when picked up"
+      right: ""
+    2:
+      left: "Unique-Equipped: Embellished (2)"
+      right: ""
+  id: 244679
+  kinds: {}
+  level: 246
+  levelLine: true
+  link: 244679
+  name: "Murder Row Fishhook"
+  nameColor:
+    1: 0.6392
+    2: 0.2078
+    3: 0.9333
+  primary:
+    1:
+      color:
+        1: 0.5
+        2: 0.5
+        3: 0.5
+      inactive: true
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +42 Agility"
+      right: ""
+    2:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+692|r |cffEEE7DAStamina|r"
+      right: ""
+  retail:
+    cosmetic: false
+    cosmeticColor: false
+    craftingQuality: false
+    decorCost: false
+    decorKind: false
+    illusion: false
+    keystone: false
+    source: false
+    sourceColor: false
+    transmog: false
+    upgrade: false
+  secondary:
+    1:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 1|r"
+      right: ""
+    2:
+      left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 2|r"
+      right: ""
+  setBonuses: {}
+  setItems: {}
+  slot: "Dagger · One-Hand"
+  sockets: {}
+  weaponBonus: {}
+  weaponDamage: "63 - 106 Damage"
+  weaponDps: "46.9"
+  weaponSpeed: "Speed 1.80"
+effects: {}
+enchants: {}
+equipEffects: {}
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Vendor"
+    right: "|cffffffff5 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  2:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Auction"
+    right: "|cffffffff13 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 99 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  3:
+    blank: true
+    left: ""
+    right: ""
+  4:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "|cffffd839TSM General Info|r"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  5:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Vendor Sell Price"
+    right: "|cffffffff5|r|cffffd70ag|r |cffffffff00|r|cffc7c7cfs|r"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  6:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Inventory"
+    right: "|cffffffff1|r (|cffffffff1|r player, |cffffffff0|r alts, |cffffffff0|r guild, |cffffffff0|r warbank, |cffffffff0|r AH)"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  7:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "|cffffd839TSM AuctionDB|r"
+    right: "|cffffffff36 auctions|r (|cfff72d20189 Days 19 Hr ago|r)"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  8:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Min Buyout"
+    right: "|cffffffff179|r|cffffd70ag|r |cffffffff99|r|cffc7c7cfs|r"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  9:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Market Value"
+    right: "[|TInterface\\Addons\\TradeSkillMaster\\Media\\IconPack.tga:12:12:0:0:256:256:134:146:92:104:247:45:32|t|cfff72d2088%|r] |cffffffff436|r|cffffd70ag|r |cffffffff28|r|cffc7c7cfs|r"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  10:
+    color:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    left: "  Region Avg Daily Sold"
+    right: "|cffffffff2.057|r"
+    rightColor:
+      1: 0.4033
+      2: 0.54
+      3: 0.85
+    textColor:
+      1: 0.4745
+      2: 0.6353
+      3: 1
+      4: 1
+  11:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "  |cff0a43ffPlayer|r"
+    right: "|cff66bbffBags: |cffffffff1|r|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  12:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "Inventory"
+    right: "|cff66bbffTotal: |cffffffff1|r|r"
+    rightColor:
+      1: 0.85
+      2: 0.7
+      3: 0
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+flavor: {}
+footerLeft: {}
+footerRight:
+  1:
+    left: "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: ""
+    right: "Requires Midnight Blacksmithing 50"
+    rightColor:
+      1: 1
+      2: 0.34
+      3: 0.28
+icon: 4549189
+kinds: {}
+level: 1
+levelRequirement:
+  met: false
+  text: "Requires Midnight Blacksmithing 50"
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+link: 258518
+name: "Plans: Murder Row Fishhook"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+reagents:
+  1:
+    count: 1
+    name: "Dazzling Thorium"
+  2:
+    count: 1
+    name: "Tormented Tantalum"
+  3:
+    count: 10
+    have: 0
+    name: "Gloaming Alloy"
+  4:
+    count: 10
+    have: 0
+    name: "Sterling Alloy"
+  5:
+    count: 1
+    name: "Silvermoon Weapon Wrap"
+  6:
+    count: 2
+    have: 0
+    name: "Spark"
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+sellPrice: 50000
+setBonuses: {}
+setItems: {}
+skill:
+  level: 50
+  met: false
+  name: "Midnight Blacksmithing"
+  text: "Requires Midnight Blacksmithing (50)"
+slot: "Plans · Midnight Blacksmithing"
+sockets: {}
+teaches:
+  left: "Use: Teaches you how to craft Murder Row Fishhook."
+  right: ""
+weaponBonus: {}
+== tooltip render
+panel 366 x 757
+texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
+texture at 0,0 0x0 rgb=0.694,0.8155,0.991,0.9 TooltipBackground-Temp.png
+texture at 0,0 0x0 rgb=0.32,0.59,0.98,0.315 TooltipBackground-Temp.png
+texture at 6,6 0x83 rgb=1,1,1,1 band
+texture at 19,21 43x43 rgb=1,1,1,1 4549189
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.32,0.59,0.98,0.85 WHITE8X8
+text at 72,21 w=275 size=19 rgb=0.32,0.59,0.98 "PLANS: MURDER ROW FISHHOOK"
+text at 72,47 w=275 size=13 rgb=0.66,0.795,0.99 "Plans · Midnight Blacksmithing"
+text at 141,66 w=206 size=12 rgb=1,0.34,0.28 "Requires Midnight Blacksmithing 50"
+text at 166.2,93 w=33.5 size=9 rgb=0.6,0.57,0.52 "CREATES"
+texture at 19,98 139x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-98 139x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+text at 19,111 w=328 size=14 rgb=0.6392,0.2078,0.9333 "MURDER ROW FISHHOOK"
+text at 19,129 w=328 size=13 rgb=0.8196,0.6039,0.9667 "Dagger · One-Hand · Binds when picked up · Unique-Equipped: Embellished (2)"
+text at 19,169 w=328 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF246.9|r |cffAEB9C7Damage per Second|r"
+text at 26,195 w=321 size=12 rgb=0.62,0.65,0.7 "63 - 106 Damage  ·  Speed 1.80"
+text at 19,216 w=328 size=13 rgb=0.5,0.5,0.5 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  +42 Agility"
+text at 19,234 w=328 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+692|r |cffEEE7DAStamina|r"
+texture at 19,260 155x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-260 155x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-255 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,273 w=328 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 1|r"
+text at 19,291 w=328 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffD2C4A8+32|r |cffE3DACARandom Stat 2|r"
+text at 19,309 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,309 w=306 size=13 rgb=0.48,0.88,0.48 "Your harmful spells and abilities have a chance to bleed your target for |cffFFF6E4559|r Physical damage every |cffFFF6E41.6|r over |cffFFF6E410|r sec."
+text at 19,361 w=328 size=11 rgb=0.5333,0.6667,1 "You haven't collected this appearance"
+text at 164,385 w=38 size=9 rgb=0.6,0.57,0.52 "REAGENTS"
+texture at 19,390 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-390 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+text at 19,403 w=308 size=12 rgb=0.9,0.85,0.74 "Dazzling Thorium"
+text at 339,403 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,420 w=308 size=12 rgb=0.9,0.85,0.74 "Tormented Tantalum"
+text at 339,420 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,437 w=278 size=12 rgb=0.9,0.85,0.74 "Gloaming Alloy"
+text at 309,437 w=38 size=12 rgb=1,0.34,0.28 "0 / 10"
+text at 19,454 w=278 size=12 rgb=0.9,0.85,0.74 "Sterling Alloy"
+text at 309,454 w=38 size=12 rgb=1,0.34,0.28 "0 / 10"
+text at 19,471 w=308 size=12 rgb=0.9,0.85,0.74 "Silvermoon Weapon Wrap"
+text at 339,471 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,488 w=284 size=12 rgb=0.9,0.85,0.74 "Spark"
+text at 315,488 w=32 size=12 rgb=1,0.34,0.28 "0 / 2"
+texture at 19,510 328x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,519 w=226 size=11 rgb=0.85,0.7,0 "Vendor"
+text at 257,519 w=90 size=11 rgb=0.85,0.7,0 "|cffffffff5 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,534 w=220.5 size=11 rgb=0.85,0.7,0 "Auction"
+text at 251.5,534 w=95.5 size=11 rgb=0.85,0.7,0 "|cffffffff13 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 99 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r"
+text at 19,564 w=328 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM General Info|r"
+text at 19,579 w=281 size=11 rgb=0.4033,0.54,0.85 "  Vendor Sell Price"
+text at 312,579 w=35 size=11 rgb=0.4033,0.54,0.85 "|cffffffff5|r|cffffd70ag|r |cffffffff00|r|cffc7c7cfs|r"
+text at 19,594 w=61 size=11 rgb=0.4033,0.54,0.85 "  Inventory"
+text at 92,594 w=255 size=11 rgb=0.4033,0.54,0.85 "|cffffffff1|r (|cffffffff1|r player, |cffffffff0|r alts, |cffffffff0|r guild, |cffffffff0|r warbank, |cffffffff0|r AH)"
+text at 19,609 w=138 size=11 rgb=0.4033,0.54,0.85 "|cffffd839TSM AuctionDB|r"
+text at 169,609 w=178 size=11 rgb=0.4033,0.54,0.85 "|cffffffff36 auctions|r (|cfff72d20189 Days 19 Hr ago|r)"
+text at 19,624 w=270 size=11 rgb=0.4033,0.54,0.85 "  Min Buyout"
+text at 301,624 w=46 size=11 rgb=0.4033,0.54,0.85 "|cffffffff179|r|cffffd70ag|r |cffffffff99|r|cffc7c7cfs|r"
+text at 19,639 w=226 size=11 rgb=0.4033,0.54,0.85 "  Market Value"
+text at 257,639 w=90 size=11 rgb=0.4033,0.54,0.85 "[|TInterface\\Addons\\TradeSkillMaster\\Media\\IconPack.tga:12:12:0:0:256:256:134:146:92:104:247:45:32|t|cfff72d2088%|r] |cffffffff436|r|cffffd70ag|r |cffffffff28|r|cffc7c7cfs|r"
+text at 19,654 w=286.5 size=11 rgb=0.4033,0.54,0.85 "  Region Avg Daily Sold"
+text at 317.5,654 w=29.5 size=11 rgb=0.4033,0.54,0.85 "|cffffffff2.057|r"
+text at 19,669 w=275.5 size=11 rgb=0.85,0.7,0 "  |cff0a43ffPlayer|r"
+text at 306.5,669 w=40.5 size=11 rgb=0.85,0.7,0 "|cff66bbffBags: |cffffffff1|r|r"
+text at 19,684 w=270 size=11 rgb=0.85,0.7,0 "Inventory"
+text at 301,684 w=46 size=11 rgb=0.85,0.7,0 "|cff66bbffTotal: |cffffffff1|r|r"
+text at 19,699 w=328 size=11 rgb=0.6,0.6,0.63 "Item ID: 258518"
+text at 328.5,723 w=18.5 size=11 rgb=0.88,0.78,0.6 "5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"

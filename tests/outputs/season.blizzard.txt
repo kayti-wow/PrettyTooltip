@@ -1,0 +1,7 @@
+== tooltip as the game shows it
+ 1 "Radiant Echo"
+ 2 "|cFF19FF19The War Within Season 3|r"
+ 3 "Soulbound"
+ 4 "\"Obtained from a Bountiful Coffer in a Bountiful Delve. Bring to a Worldsoul Memory to experience the radiant memories of Azeroth.\""
+   below the lines:
+   "Item ID: 246771"

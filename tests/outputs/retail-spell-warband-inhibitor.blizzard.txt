@@ -1,0 +1,6 @@
+== tooltip as the game shows it
+ 1 "Warband Bank Distance Inhibitor"
+ 2 "2.2 sec cast  ||  2 hour cooldown"
+ 3 "Summons a personal portal directly to your Warband Bank, allowing withdrawals and deposits for 10 min."
+   below the lines:
+   "Spell ID: 460905"

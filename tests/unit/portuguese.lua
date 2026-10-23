@@ -6,7 +6,7 @@ return function(test)
     local FILES = { "Core/Util.lua", "Core/Palette.lua", "Core/Settings.lua", "Locale/Locale.lua",
         "Locale/English.lua", "Locale/Portuguese.lua", "Game/Game.lua", "Game/TooltipData.lua", "Data/Schools.lua",
         "Data/Stats.lua", "Panel/Layout.lua", "Panel/Render.lua", "Data/Disenchant.lua", "Data/Nodes.lua",
-        "Data/NodeNames.lua", "Data/SpellRanks.lua", "Data/Coefficients.lua", "Tooltips/Item.lua",
+        "Data/NodeNames.lua", "Data/NodeSkills.lua", "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua", "Tooltips/Item.lua",
         "Tooltips/Spell.lua", "Tooltips/Object.lua", "Tooltips/Unit.lua" }
 
     -- A model from lines, the first the name: each a left text, or { left, right }.

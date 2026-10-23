@@ -1,0 +1,196 @@
+== tooltip model
+armor: {}
+comparison: false
+effects:
+  1:
+    color:
+      1: 1
+      2: 1
+      3: 1
+    left: "Dungeon Modifiers:"
+    right: ""
+  2:
+    color:
+      1: 0
+      2: 1
+      3: 0
+    indent: 12
+    left: "Tyrannical"
+    right: ""
+  3:
+    color:
+      1: 0
+      2: 1
+      3: 0
+    indent: 12
+    left: "Fortified"
+    right: ""
+  4:
+    color:
+      1: 0
+      2: 1
+      3: 0
+    indent: 12
+    left: "Xal'atath's Guile"
+    right: ""
+enchants: {}
+equipEffects: {}
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7233
+      3: 0
+    left: "Raider.IO M+ Base Score"
+    right: "125"
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 0.851
+      3: 0
+      4: 1
+  2:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "Avg. Scores for Timed +15"
+    right: "3225"
+    rightColor:
+      1: 0.4167
+      2: 0.28
+      3: 0.7733
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  3:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "Player"
+    right: "|cffffcf40+|r15 RLP"
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+flavor:
+  1:
+    left: "\"Place within the Font of Power inside the dungeon on Mythic difficulty.\""
+    right: ""
+footerLeft:
+  1:
+    left: "Duration: 7 days"
+    right: ""
+footerRight: {}
+header:
+  1:
+    color:
+      1: 1
+      2: 0.8235
+      3: 0
+    left: "Mythic Level 15"
+    right: ""
+  2:
+    color:
+      1: 1
+      2: 0.8235
+      3: 0
+    left: "Resilient Level 14"
+    right: ""
+  3:
+    left: "Soulbound"
+    right: ""
+  4:
+    left: "Unique"
+    right: ""
+icon: 4352494
+kinds: {}
+level: 1
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+link: 180653
+name: "Ruby Life Pools"
+nameColor:
+  1: 0.6392
+  2: 0.2078
+  3: 0.9333
+primary: {}
+quality: 4
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: true
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+slot: "Keystone"
+sockets: {}
+weaponBonus: {}
+== tooltip render
+panel 308 x 383
+texture at -16,-16 0x0 rgb=0.72,0.4,0.94,0.55 glow
+texture at 0,0 0x0 rgb=1,1,1,1 color
+texture at 0,0 0x10 rgb=1,1,1,1 color
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x10 rgb=1,1,1,1 color
+texture at 0,0 8x0 rgb=1,1,1,1 color
+texture TOPRIGHT panel TOPRIGHT 0,0 8x0 rgb=1,1,1,1 color
+texture at 1,1 0x139 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 4352494
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.72,0.4,0.94,0.85 WHITE8X8
+texture at 0,0 0x2 rgb=0.576,0.32,0.752,0.95 WHITE8X8
+texture BOTTOMLEFT panel BOTTOMLEFT 0,0 0x1 rgb=0.2592,0.144,0.3384,0.95 WHITE8X8
+texture at 0,0 1x0 rgb=0.2592,0.144,0.3384,0.95 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT 0,0 1x0 rgb=0.2592,0.144,0.3384,0.95 WHITE8X8
+text at 72,21 w=217 size=19 rgb=0.72,0.4,0.94 "RUBY LIFE POOLS"
+text at 72,47 w=217 size=13 rgb=0.86,0.7,0.97 "Keystone"
+text at 72,66 w=217 size=12 rgb=1,0.8235,0 "Mythic Level 15"
+text at 72,83 w=217 size=12 rgb=1,0.8235,0 "Resilient Level 14"
+text at 72,100 w=217 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 72,117 w=217 size=12 rgb=0.78,0.72,0.63 "Unique"
+texture at 19,145 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-145 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-140 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,158 w=270 size=13 rgb=1,1,1 "Dungeon Modifiers:"
+text at 31,176 w=258 size=13 rgb=0,1,0 "Tyrannical"
+text at 31,194 w=258 size=13 rgb=0,1,0 "Fortified"
+text at 31,212 w=258 size=13 rgb=0,1,0 "Xal'atath's Guile"
+text at 19,235 w=270 size=12 rgb=0.86,0.74,0.45 "\"Place within the Font of Power inside the dungeon on Mythic difficulty.\""
+texture at 19,271 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,280 w=239.5 size=11 rgb=0.85,0.7233,0 "Raider.IO M+ Base Score"
+text at 270.5,280 w=18.5 size=11 rgb=0.6,0.6,0.63 "125"
+text at 19,295 w=234 size=11 rgb=0.6,0.6,0.63 "Avg. Scores for Timed +15"
+text at 265,295 w=24 size=11 rgb=0.4167,0.28,0.7733 "3225"
+text at 19,310 w=217.5 size=11 rgb=0.6,0.6,0.63 "Player"
+text at 248.5,310 w=40.5 size=11 rgb=0.6,0.6,0.63 "|cffffcf40+|r15 RLP"
+text at 19,325 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 180653"
+text at 19,349 w=258 size=11 rgb=0.82,0.78,0.71 "Duration: 7 days"

@@ -1,0 +1,176 @@
+== tooltip model
+armor: {}
+comparison: false
+created:
+  armor: {}
+  effects:
+    1:
+      left: "|cff19ff19+15 Recipe Difficulty|r"
+      right: ""
+    2:
+      apart: true
+      left: "Your damaging abilities can apply Corrosive Acid to a target, dealing damage over time. Damaging the target again has a chance to detonate the venom and splash damage to surrounding enemies."
+      right: ""
+    3:
+      apart: true
+      color:
+        1: 1
+        2: 0.8235
+        3: 0
+      left: "Usable with: |cffffffffMidnight recipes for most unembellished armor.|r"
+      right: ""
+  enchants: {}
+  equipEffects: {}
+  extras: {}
+  flavor:
+    1:
+      left: "\"Can be bought and sold on the Auction House.\""
+      right: ""
+  footerLeft: {}
+  footerRight: {}
+  header: {}
+  id: 270898
+  kinds:
+    Optional Crafting Reagent: "|cff66BBFFOptional Crafting Reagent|r"
+  link: 270898
+  name: "Snakeskin Lining"
+  nameColor:
+    1: 0
+    2: 0.4392
+    3: 0.8667
+  primary: {}
+  retail:
+    cosmetic: false
+    cosmeticColor: false
+    craftingQuality: false
+    decorCost: false
+    decorKind: false
+    illusion: false
+    keystone: false
+    source: false
+    sourceColor: false
+    transmog: false
+    upgrade: false
+  secondary: {}
+  setBonuses: {}
+  setItems: {}
+  slot: "|cff66BBFFOptional Crafting Reagent|r"
+  sockets: {}
+  weaponBonus: {}
+effects: {}
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor: {}
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    left: ""
+    right: "Requires Midnight Tailoring 50"
+    rightColor:
+      1: 1
+      2: 0.34
+      3: 0.28
+icon: 4549191
+kinds: {}
+level: 1
+levelRequirement:
+  met: false
+  text: "Requires Midnight Tailoring 50"
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+link: 270900
+name: "Pattern: Snakeskin Lining"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+reagents:
+  1:
+    count: 1
+    name: "Embroidery Floss"
+  2:
+    count: 6
+    have: 0
+    name: "Cursebound Globe"
+  3:
+    count: 4
+    have: 0
+    name: "Neutralized Venom Clot"
+  4:
+    count: 2
+    have: 0
+    name: "Arcanoweave Bolt"
+  5:
+    count: 2
+    have: 0
+    name: "Sunfire Silk Bolt"
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+skill:
+  level: 50
+  met: false
+  name: "Midnight Tailoring"
+  text: "Requires Midnight Tailoring (50)"
+slot: "Pattern · Midnight Tailoring"
+sockets: {}
+teaches:
+  left: "Use: Teaches you how to create Snakeskin Lining."
+  right: ""
+weaponBonus: {}
+== tooltip render
+panel 308 x 472
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x83 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.32,0.59,0.98 "PATTERN: SNAKESKIN LINING"
+text at 19,47 w=270 size=13 rgb=0.66,0.795,0.99 "Pattern · Midnight Tailoring"
+text at 107,66 w=182 size=12 rgb=1,0.34,0.28 "Requires Midnight Tailoring 50"
+text at 137.2,93 w=33.5 size=9 rgb=0.6,0.57,0.52 "CREATES"
+text at 19,111 w=270 size=14 rgb=0,0.4392,0.8667 "SNAKESKIN LINING"
+text at 19,129 w=270 size=13 rgb=0.5,0.7196,0.9333 "|cff66BBFFOptional Crafting Reagent|r"
+text at 19,154 w=270 size=13 rgb=0.48,0.88,0.48 "|cff19ff19+15 Recipe Difficulty|r"
+text at 19,177 w=270 size=13 rgb=0.48,0.88,0.48 "Your damaging abilities can apply Corrosive Acid to a target, dealing damage over time. Damaging the target again has a chance to detonate the venom and splash damage to surrounding enemies."
+text at 19,260 w=270 size=13 rgb=1,0.8235,0 "Usable with: |cffffffffMidnight recipes for most unembellished armor.|r"
+text at 19,298 w=270 size=12 rgb=0.86,0.74,0.45 "\"Can be bought and sold on the Auction House.\""
+text at 135,337 w=38 size=9 rgb=0.6,0.57,0.52 "REAGENTS"
+text at 19,355 w=250 size=12 rgb=0.9,0.85,0.74 "Embroidery Floss"
+text at 281,355 w=8 size=12 rgb=0.9,0.85,0.74 "1"
+text at 19,372 w=226 size=12 rgb=0.9,0.85,0.74 "Cursebound Globe"
+text at 257,372 w=32 size=12 rgb=1,0.34,0.28 "0 / 6"
+text at 19,389 w=226 size=12 rgb=0.9,0.85,0.74 "Neutralized Venom Clot"
+text at 257,389 w=32 size=12 rgb=1,0.34,0.28 "0 / 4"
+text at 19,406 w=226 size=12 rgb=0.9,0.85,0.74 "Arcanoweave Bolt"
+text at 257,406 w=32 size=12 rgb=1,0.34,0.28 "0 / 2"
+text at 19,423 w=226 size=12 rgb=0.9,0.85,0.74 "Sunfire Silk Bolt"
+text at 257,423 w=32 size=12 rgb=1,0.34,0.28 "0 / 2"
+text at 19,440 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 270900"

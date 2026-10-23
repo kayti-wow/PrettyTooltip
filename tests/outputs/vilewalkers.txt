@@ -102,9 +102,10 @@ sellPrice: 970
 setBonuses: {}
 setItems: {}
 slot: "Mail · Feet"
+sockets: {}
 weaponBonus: {}
 == tooltip render
-panel 264 x 351
+panel 264 x 356
 texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
 texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
 texture at 4,4 0x91 rgb=1,1,1,1 WHITE8X8
@@ -131,21 +132,21 @@ texture TOP panel TOP 0,-95 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
 text at 19,113 w=226 size=16 rgb=0.9,0.93,0.95 "|cffE6ECF2131|r |cffAEB9C7Armor|r"
 text at 19,139 w=226 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+7|r |cffEEE7DAStrength|r"
 text at 19,157 w=226 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+5|r |cffEEE7DAStamina|r"
-text at 19,175 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
-text at 41,175 w=204 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+2|r |cffA6EBA6Stamina|r"
-text at 19,193 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
-text at 41,193 w=204 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+16|r |cffA6EBA6Armor|r"
-texture at 19,219 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOPRIGHT panel TOPRIGHT -19,-219 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOP panel TOP 0,-214 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
-text at 19,232 w=91 size=11 rgb=0.86,0.74,0.45 "Disenchant"
-text at 122,232 w=123 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 25"
-text at 19,249 w=190 size=11 rgb=0.88,0.84,0.76 "|T132877:0|t Small Glimmering Shard"
-text at 221,249 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
-texture at 19,269 226x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
-text at 19,278 w=226 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
-text at 19,293 w=226 size=11 rgb=0.6,0.6,0.63 "Item ID: 271211"
-text at 199,317 w=46 size=11 rgb=0.88,0.78,0.6 "9|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 70|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
-texture at 19,322 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+text at 19,180 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,180 w=204 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+2|r |cffA6EBA6Stamina|r"
+text at 19,198 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,198 w=204 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+16|r |cffA6EBA6Armor|r"
+texture at 19,224 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-224 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-219 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,237 w=91 size=11 rgb=0.86,0.74,0.45 "Disenchant"
+text at 122,237 w=123 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 25"
+text at 19,254 w=190 size=11 rgb=0.88,0.84,0.76 "|T132877:0|t Small Glimmering Shard"
+text at 221,254 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
+texture at 19,274 226x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,283 w=226 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
+text at 19,298 w=226 size=11 rgb=0.6,0.6,0.63 "Item ID: 271211"
+text at 199,322 w=46 size=11 rgb=0.88,0.78,0.6 "9|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 70|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+texture at 19,327 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
 texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
-text at 80,317 w=90 size=11 rgb=0.82,0.78,0.71 "50 / 50"
+text at 80,322 w=90 size=11 rgb=0.82,0.78,0.71 "50 / 50"

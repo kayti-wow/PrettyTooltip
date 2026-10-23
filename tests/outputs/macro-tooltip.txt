@@ -39,6 +39,7 @@ shows:
   setBonuses: {}
   setItems: {}
   slot: "Macro: Hearth"
+  sockets: {}
   weaponBonus: {}
 showsType: 0
 == tooltip render

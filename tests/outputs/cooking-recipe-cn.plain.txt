@@ -16,6 +16,7 @@ created:
   footerRight: {}
   header: {}
   icon: 133906
+  id: 21072
   kinds: {}
   levelRequirement:
     met: true
@@ -31,6 +32,7 @@ created:
   secondary: {}
   setBonuses: {}
   setItems: {}
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -140,6 +142,7 @@ skill:
   name: "烹饪"
   text: "需要烹饪（80）"
 slot: "配方 · 烹饪"
+sockets: {}
 teaches:
   left: "使用： 教你学会烹制烤鼠尾鱼。"
   right: ""

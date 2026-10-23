@@ -1,0 +1,88 @@
+== tooltip model
+armor: {}
+comparison: false
+effects:
+  1:
+    left: "Combine 5 Ingenious Identifier to create an Ingenious Identity."
+    right: ""
+    use: true
+  2:
+    apart: true
+    left: "When crafting: Increases your chance for an Ingenious Breakthrough when Concentrating.|n|nIncreases Ingenuity by 5."
+    right: ""
+  3:
+    apart: true
+    color:
+      1: 1
+      2: 0.8235
+      3: 0
+    left: "Usable with: |cffffffffMidnight recipes that are eligible for Ingenuity.|r"
+    right: ""
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor: {}
+footerLeft: {}
+footerRight:
+  1:
+    left: "56|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 25|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t  |cff9E9485(9 × 6|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 25|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t)|r"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 3610513
+kinds:
+  Finishing Crafting Reagent: "|cff66BBFFFinishing Crafting Reagent|r"
+level: 23
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+link: "|cnIQ1:|Hitem:260630::::::::90:264:::::::::|h[Ingenious Identifier]|h|r"
+name: "Ingenious Identifier"
+nameColor:
+  1: 1
+  2: 1
+  3: 1
+primary: {}
+quality: 1
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+sellPrice: 5625
+setBonuses: {}
+setItems: {}
+slot: "|cff66BBFFFinishing Crafting Reagent|r"
+sockets: {}
+weaponBonus: {}
+== tooltip render
+panel 308 x 275
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x83 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.77,0.77,0.77 "INGENIOUS IDENTIFIER"
+text at 19,47 w=270 size=13 rgb=0.885,0.885,0.885 "|cff66BBFFFinishing Crafting Reagent|r"
+text at 19,66 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,89 w=270 size=13 rgb=0.48,0.88,0.48 "Use: Combine 5 Ingenious Identifier to create an Ingenious Identity."
+text at 19,127 w=270 size=13 rgb=0.48,0.88,0.48 "When crafting: Increases your chance for an Ingenious Breakthrough when Concentrating.|n|nIncreases Ingenuity by 5."
+text at 19,210 w=270 size=13 rgb=1,0.8235,0 "Usable with: |cffffffffMidnight recipes that are eligible for Ingenuity.|r"
+text at 19,243 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 260630"

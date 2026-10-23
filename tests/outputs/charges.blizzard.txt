@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Shadow Crystal Focusing Lens"
+ 2 "Use: Projects a purple targeting beam onto your current target."
+ 3 "3 Charges"
+ 4 "|cff00ff00<Made by Player>|r"
+ 5 "Sell Price: 1|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 87|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 42420"

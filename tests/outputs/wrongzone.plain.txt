@@ -1,0 +1,423 @@
+== tooltip model
+armor:
+  1:
+    left: "16 Armor"
+    right: ""
+    value: "16"
+armorClass: "Mail"
+comparison: false
+effects:
+  1:
+    left: "Shift into a slightly different dimension, making it difficult for enemies to detect you.\r\n\r\n... Unless it backfires.\r\n\r\nCannot be used in combat. (2 |4Min:Min; Cooldown)"
+    right: ""
+    use: true
+enchants: {}
+equipEffects:
+  1:
+    color:
+      1: 0.502
+      2: 0.502
+      3: 0.502
+    inactive: true
+    left: "Gain the legendary effect of |cffffffffRaging Vesper Vortex|r:\r\n\r\nWhen 3 charges of Vesper Totem are consumed, Vesper Totem will radiate a 15 yd burst of 10,328 Arcane damage and 4,442 healing."
+    right: ""
+  2:
+    color:
+      1: 1
+      2: 0.1255
+      3: 0.1255
+    inactive: true
+    left: "You are in the wrong zone."
+    note: true
+    right: ""
+equippable: true
+extras: {}
+flavor: {}
+footerLeft:
+  1:
+    durability:
+      1: 70
+      2: 70
+    left: "Durability 70 / 70"
+    right: ""
+footerRight: {}
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+  2:
+    left: "Unique-Equipped: Enlightened Legendary (1)"
+    right: ""
+icon: 3592417
+kinds: {}
+level: 61
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+  19: true
+  20: true
+  21: true
+link: "|cnIQ5:|Hitem:172328::173129::::::90:264::69:7:8128:7882:8156:6649:6650:1588:6935:1:28:2142::::Player-1403-0A252FA5:6192|h[Unity]|h|r"
+name: "Unity"
+nameColor:
+  1: 1
+  2: 0.502
+  3: 0
+primary:
+  1:
+    left: "|cffF2E8D5+10|r |cffA89F8EIntellect|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+14|r |cffA89F8EStamina|r"
+    right: ""
+  3:
+    color:
+      1: 0.5
+      2: 0.5
+      3: 0.5
+    inactive: true
+    left: "+10 Agility"
+    right: ""
+quality: 5
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary:
+  1:
+    left: "|cffF2E8D5+10|r |cffA89F8EHaste|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+10|r |cffA89F8EVersatility|r"
+    right: ""
+setBonuses: {}
+setItems: {}
+slot: "Mail · Waist"
+sockets:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    icon: 3743188
+    left: "|cffF2E8D5+4|r |cffA89F8EVersatility|r"
+    right: ""
+  2:
+    color:
+      1: 0
+      2: 0.85
+      3: 0
+    left: "<Shift Right Click to Socket>"
+    right: ""
+weaponBonus: {}
+== tooltip render
+panel 308 x 578
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x100 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=1,0.57,0.22 "UNITY"
+text at 19,47 w=270 size=13 rgb=1,0.785,0.61 "Mail · Waist"
+text at 19,66 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,83 w=270 size=12 rgb=0.78,0.72,0.63 "Unique-Equipped: Enlightened Legendary (1)"
+text at 19,106 w=270 size=16 rgb=0.9,0.93,0.95 "|cffE6ECF216|r |cffAEB9C7Armor|r"
+text at 19,132 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+10|r |cffA89F8EIntellect|r"
+text at 19,150 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+14|r |cffA89F8EStamina|r"
+text at 19,168 w=270 size=13 rgb=0.5,0.5,0.5 "+10 Agility"
+text at 19,186 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+10|r |cffA89F8EHaste|r"
+text at 19,204 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+10|r |cffA89F8EVersatility|r"
+texture at 19,227 15x15 rgb=1,1,1,1 3743188
+text at 38,227 w=251 size=12 rgb=0.85,0.7,0 "|cffF2E8D5+4|r |cffA89F8EVersatility|r"
+text at 19,244 w=270 size=12 rgb=0,0.85,0 "<Shift Right Click to Socket>"
+text at 19,266 w=270 size=13 rgb=0.502,0.502,0.502 "Gain the legendary effect of Raging Vesper Vortex:\r\n\r\nWhen 3 charges of Vesper Totem are consumed, Vesper Totem will radiate a 15 yd burst of 10,328 Arcane damage and 4,442 healing."
+text at 19,374 w=270 size=13 rgb=1,0.1255,0.1255 "You are in the wrong zone."
+text at 19,397 w=270 size=13 rgb=0.48,0.88,0.48 "Use: Shift into a slightly different dimension, making it difficult for enemies to detect you.\r\n\r\n... Unless it backfires.\r\n\r\nCannot be used in combat. (2 |4Min:Min; Cooldown)"
+text at 19,520 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 172328"
+texture at 19,549 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,544 w=90 size=11 rgb=0.82,0.78,0.71 "70 / 70"
+
+== comparison 1 model
+armor:
+  1:
+    left: "149 Armor"
+    right: ""
+    value: "149"
+armorClass: "Mail"
+comparison: true
+effects: {}
+enchants: {}
+equipEffects: {}
+equippable: true
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "If you replace this item, the following stat changes will occur:"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  2:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-133|r Armor"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  3:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-115|r Intellect"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  4:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-2,513|r Stamina"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  5:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-99|r Critical Strike"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  6:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cff00ff00+10|r Haste"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  7:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-34|r Versatility"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  8:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cff00ff00+1|r |TInterface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic.blp:12|t  Prismatic Socket"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+flavor: {}
+footerLeft:
+  1:
+    durability:
+      1: 55
+      2: 55
+    left: "Durability 55 / 55"
+    right: ""
+footerRight:
+  1:
+    left: "30|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 28|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 82|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 7789852
+kinds: {}
+level: 321
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+link: 268216
+name: "Cursed Reliquary Cincture"
+nameColor:
+  1: 0.6392
+  2: 0.2078
+  3: 0.9333
+primary:
+  1:
+    left: "|cffF2E8D5+125|r |cffA89F8EIntellect|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+2527|r |cffA89F8EStamina|r"
+    right: ""
+  3:
+    color:
+      1: 0.5
+      2: 0.5
+      3: 0.5
+    inactive: true
+    left: "+125 Agility"
+    right: ""
+quality: 4
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Heroic"
+  sourceColor:
+    1: 0
+    2: 0.85
+    3: 0
+  transmog: false
+  upgrade: "Hero 6/6"
+secondary:
+  1:
+    left: "|cffF2E8D5+99|r |cffA89F8ECritical Strike|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+44|r |cffA89F8EVersatility|r"
+    right: ""
+sellPrice: 302882
+setBonuses: {}
+setItems: {}
+slot: "Mail · Waist"
+sockets: {}
+weaponBonus: {}
+== comparison 1 render
+panel 308 x 432
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x119 rgb=1,1,1,1 band
+texture TOPLEFT Frame TOPLEFT 0,0 0x0 rgb=0.55,0.45,0.3,0.9 WHITE8X8
+texture TOPLEFT Frame TOPLEFT 1,-1 0x0 rgb=0.07,0.055,0.05,1 WHITE8X8
+text CENTER Frame CENTER 0,0 w=0 size=10 rgb=0.93,0.8,0.52 "EQUIPPED"
+text at 19,21 w=270 size=19 rgb=0.72,0.4,0.94 "CURSED RELIQUARY CINCTURE"
+text at 19,47 w=270 size=12 rgb=0,0.85,0 "Heroic"
+text at 19,65 w=270 size=13 rgb=0.86,0.7,0.97 "Mail · Waist"
+text at 19,84 w=270 size=12 rgb=0.9,0.8,0.55 "Hero 6/6"
+text at 19,102 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,125 w=270 size=16 rgb=0.9,0.93,0.95 "|cffE6ECF2149|r |cffAEB9C7Armor|r"
+text at 19,151 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+125|r |cffA89F8EIntellect|r"
+text at 19,169 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+2527|r |cffA89F8EStamina|r"
+text at 19,187 w=270 size=13 rgb=0.5,0.5,0.5 "+125 Agility"
+text at 19,205 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+99|r |cffA89F8ECritical Strike|r"
+text at 19,223 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+44|r |cffA89F8EVersatility|r"
+text at 19,241 w=270 size=11 rgb=0.85,0.7,0 "If you replace this item, the following stat changes will occur:"
+text at 19,269 w=270 size=11 rgb=0.6,0.6,0.63 "|cffff2020-133|r Armor"
+text at 19,284 w=270 size=11 rgb=0.6,0.6,0.63 "|cffff2020-115|r Intellect"
+text at 19,299 w=270 size=11 rgb=0.6,0.6,0.63 "|cffff2020-2,513|r Stamina"
+text at 19,314 w=270 size=11 rgb=0.6,0.6,0.63 "|cffff2020-99|r Critical Strike"
+text at 19,329 w=270 size=11 rgb=0.6,0.6,0.63 "|cff00ff00+10|r Haste"
+text at 19,344 w=270 size=11 rgb=0.6,0.6,0.63 "|cffff2020-34|r Versatility"
+text at 19,359 w=270 size=11 rgb=0.6,0.6,0.63 "|cff00ff00+1|r |TInterface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic.blp:12|t  Prismatic Socket"
+text at 19,374 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 268216"
+texture at 19,403 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,398 w=90 size=11 rgb=0.82,0.78,0.71 "55 / 55"

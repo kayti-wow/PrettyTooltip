@@ -104,12 +104,13 @@ sellPrice: 16235
 setBonuses: {}
 setItems: {}
 slot: "Mace · Two-Hand"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "94 - 141 Damage"
 weaponDps: "35.6"
 weaponSpeed: "Speed 3.30"
 == tooltip render
-panel 330 x 438
+panel 330 x 443
 texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
 texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
 texture at 4,4 0x91 rgb=1,1,1,1 WHITE8X8
@@ -139,23 +140,23 @@ text at 19,178 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyToolt
 texture at 19,204 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
 texture TOPRIGHT panel TOPRIGHT -19,-204 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
 texture TOP panel TOP 0,-199 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
-text at 19,217 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
-text at 41,217 w=270 size=13 rgb=0.48,0.88,0.48 "Increases the damage dealt by your Stormstrike ability by |cffFFF6E410%|r."
-text at 19,250 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
-text at 41,250 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+5|r |cffA6EBA6Weapon Damage|r"
-texture at 19,276 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOPRIGHT panel TOPRIGHT -19,-276 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOP panel TOP 0,-271 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
-text at 19,289 w=151.5 size=11 rgb=0.86,0.74,0.45 "Disenchant"
-text at 182.5,289 w=128.5 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 100"
-text at 19,306 w=256 size=11 rgb=0.88,0.84,0.76 "|T132878:0|t Large Glowing Shard"
-text at 287,306 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
-texture at 19,326 292x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
-text at 19,335 w=292 size=11 rgb=0,0.85,0 "Windfury 1"
-text at 19,365 w=292 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
-text at 19,380 w=292 size=11 rgb=0.6,0.6,0.63 "Item ID: 280604"
-text at 237.5,404 w=73.5 size=11 rgb=0.88,0.78,0.6 "1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 62|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 35|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
-text at 19,404 w=206.5 size=11 rgb=0.82,0.78,0.71 "You haven't collected this appearance"
+text at 19,217 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,217 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+5|r |cffA6EBA6Weapon Damage|r"
+text at 19,240 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,240 w=270 size=13 rgb=0.48,0.88,0.48 "Increases the damage dealt by your Stormstrike ability by |cffFFF6E410%|r."
+texture at 19,281 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-281 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-276 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,294 w=151.5 size=11 rgb=0.86,0.74,0.45 "Disenchant"
+text at 182.5,294 w=128.5 size=11 rgb=0.55,0.53,0.5 "Requires Enchanting 100"
+text at 19,311 w=256 size=11 rgb=0.88,0.84,0.76 "|T132878:0|t Large Glowing Shard"
+text at 287,311 w=24 size=11 rgb=0.88,0.84,0.76 "100%"
+texture at 19,331 292x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,340 w=292 size=11 rgb=0,0.85,0 "Windfury 1"
+text at 19,370 w=292 size=11 rgb=0.85,0.7,0 "|c0042b1fePress F6 to submit an issue for this Item"
+text at 19,385 w=292 size=11 rgb=0.6,0.6,0.63 "Item ID: 280604"
+text at 237.5,409 w=73.5 size=11 rgb=0.88,0.78,0.6 "1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 62|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 35|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 19,409 w=206.5 size=11 rgb=0.82,0.78,0.71 "You haven't collected this appearance"
 
 == comparison 1 model
 armor: {}
@@ -315,6 +316,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "Mace · Two-Hand"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "65 - 99 Damage"
 weaponDps: "25.6"

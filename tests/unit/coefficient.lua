@@ -2,7 +2,7 @@
 -- checked in game (30 spell damage) and on foreverchanges.pro.
 return function(test)
     local ns = test.load({ "Core/Util.lua", "Core/Palette.lua", "Locale/Locale.lua", "Locale/English.lua",
-        "Game/Game.lua", "Data/Schools.lua", "Data/SpellRanks.lua", "Data/Coefficients.lua" })
+        "Game/Game.lua", "Data/Schools.lua", "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua" })
     -- The player's power, given as the game would answer it.
     local game = { spellDamage = function() return 30 end, spellHealing = function() return 300 end }
 

@@ -1,0 +1,23 @@
+== tooltip as the game shows it
+ 1 "Plans: Murder Row Fishhook"
+ 2 "\
+Murder Row Fishhook"
+ 3 "Item Level 246"
+ 4 "Binds when picked up"
+ 5 "Unique-Equipped: Embellished (2)"
+ 6 "One-Hand  ||  Dagger"
+ 7 "63 - 106 Damage  ||  Speed 1.80"
+ 8 "(46.9 damage per second)"
+ 9 "+42 Agility"
+10 "+692 Stamina"
+11 "+32 Random Stat 1"
+12 "+32 Random Stat 2"
+13 " "
+14 "Equip: Your harmful spells and abilities have a chance to bleed your target for 559 Physical damage every 1.6 over 10 sec."
+15 "You haven't collected this appearance"
+16 "Use: Teaches you how to craft Murder Row Fishhook."
+17 "Dazzling Thorium, Tormented Tantalum, Gloaming Alloy (10), Sterling Alloy (10), Silvermoon Weapon Wrap, Spark (2)"
+18 "Requires Midnight Blacksmithing (50)"
+19 "Sell Price: 5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 258518"

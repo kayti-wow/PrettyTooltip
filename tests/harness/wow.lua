@@ -268,6 +268,11 @@ return function(fixture, enums, report, strings)
 
     -- Text, on font strings and the buttons that carry one.
     function Object:SetText(text)
+        -- The game takes text, a number, or nil, and errors on anything else.
+        local kind = type(text)
+        if kind ~= "string" and kind ~= "number" and kind ~= "nil" and not (issecretvalue and issecretvalue(text)) then
+            error("bad argument #1 to 'SetText' (Usage: self:SetText([text]))", 2)
+        end
         if text == self._text then tally("SetText, same text") end
         self._text = text
     end
@@ -299,6 +304,7 @@ return function(fixture, enums, report, strings)
     function Object:SetTexture(path) self._texture = path end
     function Object:GetTexture() return self._texture end
     function Object:SetAtlas(atlas) self._texture = "atlas:" .. tostring(atlas) end
+    function Object:SetDesaturated(desaturated) self._desaturated = desaturated or nil end
     function Object:SetColorTexture(r, g, b, a) self._texture, self._color = "color", { r, g, b, a or 1 } end
     -- Kept for unit checks; the outputs do not print it.
     function Object:SetVertexColor(r, g, b, a) self._color, self._gradient = { r, g, b, a or 1 }, nil end

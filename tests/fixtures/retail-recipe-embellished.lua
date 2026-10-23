@@ -1,0 +1,2445 @@
+-- Captured with /ptip capture plan on 2026-10-20 16:57.
+return {
+    calls = {
+        ["C_AddOns.GetAddOnInfo"] = {
+            Auctionator = {
+                [1] = "Auctionator",
+                [2] = "Auctionator",
+                [3] = "A lightweight addon that makes it easy and fast to buy, sell and manage auctions",
+                [4] = true,
+                [5] = "",
+                [6] = "INSECURE",
+                n = 6,
+            },
+            DialogueUI = {
+                [1] = "DialogueUI",
+                [2] = "Dialogue UI",
+                [3] = "Quest Dialogue UI",
+                [4] = true,
+                [5] = "",
+                [6] = "INSECURE",
+                n = 6,
+            },
+            EllesmereUI = {
+                [1] = "EllesmereUI",
+                [4] = false,
+                [5] = "MISSING",
+                [6] = "INSECURE",
+                n = 6,
+            },
+            Questie = {
+                [1] = "Questie",
+                [4] = false,
+                [5] = "MISSING",
+                [6] = "INSECURE",
+                n = 6,
+            },
+        },
+        ["C_Item.GetDetailedItemLevelInfo"] = {
+            ["258518"] = {
+                [1] = 1,
+                [2] = false,
+                [3] = 1,
+                n = 3,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = 1,
+                [2] = false,
+                [3] = 1,
+                n = 3,
+            },
+        },
+        ["C_Item.GetItemCount"] = {
+            ["258518"] = {
+                [1] = 1,
+                n = 1,
+            },
+            ["Gloaming Alloy"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["Midnight Blacksmithing"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["Murder Row Fishhook"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["Plans: Murder Row Fishhook"] = {
+                [1] = 1,
+                n = 1,
+            },
+            Spark = {
+                [1] = 0,
+                n = 1,
+            },
+            ["Sterling Alloy"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["Unique-Equipped: Embellished"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = 1,
+                n = 1,
+            },
+        },
+        ["C_Item.GetItemIconByID"] = {
+            ["258518"] = {
+                [1] = 4549189,
+                n = 1,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = 4549189,
+                n = 1,
+            },
+        },
+        ["C_Item.GetItemInfo"] = {
+            ["258518"] = {
+                [1] = "Plans: Murder Row Fishhook",
+                [2] = "|cnIQ3:|Hitem:258518::::::::90:264:::::::::|h[Plans: Murder Row Fishhook]|h|r",
+                [3] = 3,
+                [4] = 1,
+                [5] = 1,
+                [6] = "Recipe",
+                [7] = "Blacksmithing",
+                [8] = 1,
+                [9] = "INVTYPE_NON_EQUIP_IGNORE",
+                [10] = 4549189,
+                [11] = 50000,
+                [12] = 9,
+                [13] = 4,
+                [14] = 0,
+                [15] = 11,
+                [17] = false,
+                [18] = "Teaches you how to craft Murder Row Fishhook.",
+                n = 18,
+            },
+            ["Gloaming Alloy"] = {
+                n = 0,
+            },
+            ["Midnight Blacksmithing"] = {
+                n = 0,
+            },
+            ["Murder Row Fishhook"] = {
+                n = 0,
+            },
+            ["Plans: Murder Row Fishhook"] = {
+                [1] = "Plans: Murder Row Fishhook",
+                [2] = "|cnIQ3:|Hitem:258518::::::::90:264:::::::::|h[Plans: Murder Row Fishhook]|h|r",
+                [3] = 3,
+                [4] = 1,
+                [5] = 1,
+                [6] = "Recipe",
+                [7] = "Blacksmithing",
+                [8] = 1,
+                [9] = "INVTYPE_NON_EQUIP_IGNORE",
+                [10] = 4549189,
+                [11] = 50000,
+                [12] = 9,
+                [13] = 4,
+                [14] = 0,
+                [15] = 11,
+                [17] = false,
+                [18] = "Teaches you how to craft Murder Row Fishhook.",
+                n = 18,
+            },
+            Spark = {
+                n = 0,
+            },
+            ["Sterling Alloy"] = {
+                n = 0,
+            },
+            ["Unique-Equipped: Embellished"] = {
+                n = 0,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = "Plans: Murder Row Fishhook",
+                [2] = "|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r",
+                [3] = 3,
+                [4] = 1,
+                [5] = 1,
+                [6] = "Recipe",
+                [7] = "Blacksmithing",
+                [8] = 1,
+                [9] = "INVTYPE_NON_EQUIP_IGNORE",
+                [10] = 4549189,
+                [11] = 50000,
+                [12] = 9,
+                [13] = 4,
+                [14] = 0,
+                [15] = 11,
+                [17] = false,
+                [18] = "Teaches you how to craft Murder Row Fishhook.",
+                n = 18,
+            },
+        },
+        ["C_Item.GetItemInfoInstant"] = {
+            ["258518"] = {
+                [1] = 258518,
+                [2] = "Recipe",
+                [3] = "Blacksmithing",
+                [4] = "INVTYPE_NON_EQUIP_IGNORE",
+                [5] = 4549189,
+                [6] = 9,
+                [7] = 4,
+                n = 7,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = 258518,
+                [2] = "Recipe",
+                [3] = "Blacksmithing",
+                [4] = "INVTYPE_NON_EQUIP_IGNORE",
+                [5] = 4549189,
+                [6] = 9,
+                [7] = 4,
+                n = 7,
+            },
+        },
+        ["C_Item.IsEquippedItem"] = {
+            ["258518"] = {
+                [1] = false,
+                n = 1,
+            },
+            ["|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r"] = {
+                [1] = false,
+                n = 1,
+            },
+        },
+        GetProfessionInfo = {
+            ["10"] = {
+                [1] = "Archaeology",
+                [2] = 441139,
+                [3] = 77,
+                [4] = 950,
+                [5] = 2,
+                [6] = 257,
+                [7] = 794,
+                [8] = 0,
+                [9] = -1,
+                [10] = 0,
+                n = 11,
+            },
+            ["6"] = {
+                [1] = "Alchemy",
+                [2] = 4620669,
+                [3] = 100,
+                [4] = 100,
+                [5] = 1,
+                [6] = 217,
+                [7] = 171,
+                [8] = 40,
+                [9] = -1,
+                [10] = 0,
+                [11] = "Midnight Alchemy",
+                n = 11,
+            },
+            ["7"] = {
+                [1] = "Cooking",
+                [2] = 4620671,
+                [3] = 100,
+                [4] = 100,
+                [5] = 2,
+                [6] = 222,
+                [7] = 185,
+                [8] = 13,
+                [9] = -1,
+                [10] = 0,
+                [11] = "Midnight Cooking",
+                n = 11,
+            },
+            ["8"] = {
+                [1] = "Engineering",
+                [2] = 4620673,
+                [3] = 91,
+                [4] = 100,
+                [5] = 1,
+                [6] = 234,
+                [7] = 202,
+                [8] = 18,
+                [9] = -1,
+                [10] = 0,
+                [11] = "Midnight Engineering",
+                n = 11,
+            },
+            ["9"] = {
+                [1] = "Fishing",
+                [2] = 4620674,
+                [3] = 136,
+                [4] = 300,
+                [5] = 2,
+                [6] = 243,
+                [7] = 356,
+                [8] = 13,
+                [9] = -1,
+                [10] = 0,
+                [11] = "Midnight Fishing",
+                n = 11,
+            },
+        },
+        GetProfessions = {
+            [""] = {
+                [1] = 6,
+                [2] = 8,
+                [3] = 10,
+                [4] = 9,
+                [5] = 7,
+                n = 6,
+            },
+        },
+        GetQuestDifficultyColor = {
+            ["1"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["10"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["11"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["12"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["13"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["14"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["15"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["16"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["17"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["18"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["19"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["2"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["20"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["21"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["22"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["23"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["24"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["25"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["26"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["27"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["28"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["29"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["3"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["30"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["31"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["32"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["33"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["34"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["35"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["36"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["37"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["38"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["39"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["4"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["40"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["41"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["42"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["43"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["44"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["45"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["46"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["47"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["48"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["49"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["5"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["50"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["51"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["52"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["53"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["54"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["55"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["56"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["57"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["58"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["59"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["6"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["60"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["61"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["62"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["63"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["7"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["8"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+            ["9"] = {
+                [1] = {
+                    b = 0.5,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.5,
+                    r = 0.5,
+                },
+                [2] = {
+                    b = 0.69999999999999996,
+                    font = "QuestDifficulty_Trivial",
+                    g = 0.69999999999999996,
+                    r = 0.69999999999999996,
+                },
+                n = 2,
+            },
+        },
+        GetSpellBonusDamage = {
+            ["1"] = {
+                [1] = 0,
+                n = 1,
+            },
+            ["2"] = {
+                [1] = 3389,
+                n = 1,
+            },
+            ["3"] = {
+                [1] = 3389,
+                n = 1,
+            },
+            ["4"] = {
+                [1] = 3389,
+                n = 1,
+            },
+            ["5"] = {
+                [1] = 3389,
+                n = 1,
+            },
+            ["6"] = {
+                [1] = 3389,
+                n = 1,
+            },
+            ["7"] = {
+                [1] = 3389,
+                n = 1,
+            },
+        },
+        GetSpellBonusHealing = {
+            [""] = {
+                [1] = 3530,
+                n = 1,
+            },
+        },
+        NumTaxiNodes = {
+            [""] = {
+                [1] = 0,
+                n = 1,
+            },
+        },
+        UnitClass = {
+            player = {
+                [1] = "Shaman",
+                [2] = "SHAMAN",
+                [3] = 7,
+                n = 3,
+            },
+        },
+        UnitFactionGroup = {
+            player = {
+                [1] = "Horde",
+                [2] = "Horde",
+                n = 2,
+            },
+        },
+        UnitLevel = {
+            player = {
+                [1] = 90,
+                n = 1,
+            },
+        },
+        UnitName = {
+            player = {
+                [1] = "Player",
+                n = 2,
+            },
+        },
+        UnitRace = {
+            player = {
+                [1] = "Troll",
+                [2] = "Troll",
+                [3] = 8,
+                n = 3,
+            },
+        },
+        stackCount = {
+            ["Item-1403-0-4000000C0FE26589"] = {
+                [1] = 1,
+                n = 1,
+            },
+        },
+        ["tooltip:GetItem"] = {
+            self = {
+                [1] = "Plans: Murder Row Fishhook",
+                [2] = "|cnIQ3:|Hitem:258518::::::::90:264::16::1:28:1279:::::|h[Plans: Murder Row Fishhook]|h|r",
+                [3] = 258518,
+                n = 3,
+            },
+        },
+    },
+    captured = "2026-10-20 16:57",
+    client = {
+        build = "70448",
+        locale = "enUS",
+        version = "12.1.5",
+    },
+    comparisons = {},
+    data = {
+        dataInstanceID = 85948,
+        guid = "Item-1403-0-4000000C0FE26589",
+        hyperlink = "|cnIQ4:|Hitem:244679::::::::90:264::13:1:3524:2:40:3233:38:4:::::|h[Murder Row Fishhook |A:Professions-ChatIcon-Quality-Tier1:17:15::1|a]|h|r",
+        id = 258518,
+        isAzeriteEmpoweredItem = false,
+        isAzeriteItem = false,
+        isCorruptedItem = false,
+        lines = {
+            {
+                leftColor = {
+                    b = 0.86666673421859741,
+                    color = true,
+                    g = 0.43921571969985962,
+                    r = 0,
+                },
+                leftText = "Plans: Murder Row Fishhook",
+                lineIndex = 1,
+                quality = 3,
+                type = 22,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 0.82352948188781738,
+                    r = 1,
+                },
+                leftText = "",
+                lineIndex = 1,
+                tooltipID = 244679,
+                tooltipType = 0,
+                type = 19,
+            },
+            {
+                leftColor = {
+                    b = 0.93333339691162109,
+                    color = true,
+                    g = 0.20784315466880801,
+                    r = 0.63921570777893066,
+                },
+                leftText = "\nMurder Row Fishhook",
+                lineIndex = 2,
+                quality = 4,
+                type = 22,
+            },
+            {
+                itemLevel = 246,
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 0.82352948188781738,
+                    r = 1,
+                },
+                leftText = "Item Level 246",
+                lineIndex = 3,
+                type = 31,
+            },
+            {
+                bonding = 6,
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "Binds when picked up",
+                lineIndex = 4,
+                type = 20,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "Unique-Equipped: Embellished (2)",
+                lineIndex = 5,
+                type = 0,
+            },
+            {
+                isValidInvSlot = true,
+                isValidItemType = true,
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "One-Hand",
+                lineIndex = 6,
+                rightColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                rightText = "Dagger",
+                type = 21,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "63 - 106 Damage",
+                lineIndex = 7,
+                rightColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                rightText = "Speed 1.80",
+                type = 0,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "(46.9 damage per second)",
+                lineIndex = 8,
+                type = 0,
+            },
+            {
+                leftColor = {
+                    b = 0.50196081399917603,
+                    color = true,
+                    g = 0.50196081399917603,
+                    r = 0.50196081399917603,
+                },
+                leftText = "+42 Agility",
+                lineIndex = 9,
+                type = 42,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "+692 Stamina",
+                lineIndex = 10,
+                type = 0,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 1,
+                    r = 0,
+                },
+                leftText = "+32 Random Stat 1",
+                lineIndex = 11,
+                type = 0,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 1,
+                    r = 0,
+                },
+                leftText = "+32 Random Stat 2",
+                lineIndex = 12,
+                type = 0,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 0.82352948188781738,
+                    r = 1,
+                },
+                leftText = " ",
+                lineIndex = 13,
+                type = 1,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 1,
+                    r = 0,
+                },
+                leftText = "Equip: Your harmful spells and abilities have a chance to bleed your target for 559 Physical damage every 1.6 over 10 sec.",
+                lineIndex = 14,
+                spellID = 1250529,
+                type = 45,
+                wrapText = true,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 0.66666668653488159,
+                    r = 0.53333336114883423,
+                },
+                leftText = "You haven't collected this appearance",
+                lineIndex = 15,
+                type = 0,
+                wrapText = true,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "Use: Teaches you how to craft Murder Row Fishhook.",
+                lineIndex = 16,
+                spellID = 1230768,
+                type = 38,
+                wrapText = true,
+            },
+            {
+                leftColor = {
+                    b = 1,
+                    color = true,
+                    g = 1,
+                    r = 1,
+                },
+                leftText = "Dazzling Thorium, Tormented Tantalum, Gloaming Alloy (10), Sterling Alloy (10), Silvermoon Weapon Wrap, Spark (2)",
+                lineIndex = 17,
+                type = 0,
+                wrapText = true,
+            },
+            {
+                leftColor = {
+                    b = 0.12549020349979401,
+                    color = true,
+                    g = 0.12549020349979401,
+                    r = 1,
+                },
+                leftText = "Requires Midnight Blacksmithing (50)",
+                lineIndex = 18,
+                requirementType = 2,
+                type = 43,
+                usable = false,
+            },
+            {
+                leftColor = {
+                    b = 0,
+                    color = true,
+                    g = 0.82352948188781738,
+                    r = 1,
+                },
+                leftText = "",
+                maxPrice = -1,
+                price = 50000,
+                type = 11,
+            },
+        },
+        type = 0,
+    },
+    enums = {
+        ItemClass = {
+            Armor = 4,
+            Battlepet = 17,
+            Consumable = 0,
+            Container = 1,
+            CurrencyTokenObsolete = 10,
+            Gem = 3,
+            Glyph = 16,
+            Housing = 20,
+            ItemEnhancement = 8,
+            Key = 13,
+            Miscellaneous = 15,
+            PermanentObsolete = 14,
+            Profession = 19,
+            Projectile = 6,
+            Questitem = 12,
+            Quiver = 11,
+            Reagent = 5,
+            Recipe = 9,
+            Tradegoods = 7,
+            Weapon = 2,
+            WoWToken = 18,
+        },
+        TooltipDataLineType = {
+            AuraCaster = 51,
+            AzeriteEssencePower = 5,
+            AzeriteEssenceSlot = 4,
+            AzeriteItemPowerDescription = 9,
+            Blank = 1,
+            CurrencyTotal = 14,
+            DisabledLine = 42,
+            EquipSlot = 21,
+            ErrorLine = 41,
+            FlavorText = 37,
+            GemSocket = 3,
+            GemSocketEnchantment = 30,
+            ItemBinding = 20,
+            ItemEnchantmentPermanent = 15,
+            ItemLevel = 31,
+            ItemName = 22,
+            ItemQuality = 35,
+            ItemSpellTriggerLearn = 38,
+            ItemSpellTriggerOnEquip = 45,
+            ItemSpellTriggerOnProc = 46,
+            ItemSpellTriggerOnUse = 44,
+            ItemUpgradeLevel = 32,
+            LearnTransmogIllusion = 40,
+            LearnTransmogSet = 39,
+            LearnableSpell = 6,
+            NestedBlock = 19,
+            None = 0,
+            ProfessionCraftingQuality = 12,
+            QuestObjective = 8,
+            QuestPlayer = 18,
+            QuestTitle = 17,
+            RuneforgeLegendaryPowerDescription = 10,
+            SellPrice = 11,
+            Separator = 23,
+            SpellDescription = 34,
+            SpellName = 13,
+            SpellPassive = 33,
+            ToyDescription = 28,
+            ToyDuration = 27,
+            ToyEffect = 26,
+            ToyName = 24,
+            ToySource = 29,
+            ToyText = 25,
+            TradeTimeRemaining = 36,
+            UnitCriteriaProgress = 50,
+            UnitDead = 49,
+            UnitLevel = 47,
+            UnitName = 2,
+            UnitOwner = 16,
+            UnitThreat = 7,
+            UnitType = 48,
+            UsageRequirement = 43,
+        },
+        TooltipDataType = {
+            Achievement = 12,
+            AzeriteEssence = 8,
+            BattlePet = 6,
+            CompanionPet = 9,
+            Corpse = 3,
+            CorruptionCleanser = 20,
+            Currency = 5,
+            Debug = 26,
+            EnhancedConduit = 13,
+            EquipmentSet = 14,
+            Flyout = 22,
+            InstanceLock = 15,
+            Item = 0,
+            Macro = 25,
+            MinimapMouseover = 21,
+            Mount = 10,
+            Object = 4,
+            Outfit = 27,
+            PetAction = 11,
+            PvPBrawl = 16,
+            Quest = 23,
+            QuestPartyProgress = 24,
+            RecipeRankInfo = 17,
+            Spell = 1,
+            Totem = 18,
+            Toy = 19,
+            Unit = 2,
+            UnitAura = 7,
+        },
+    },
+    hidden = 0,
+    lines = {
+        {
+            left = {
+                color = {
+                    0,
+                    0.43921571969985962,
+                    0.86666673421859741,
+                },
+                shown = true,
+                text = "Plans: Murder Row Fishhook",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.63921570777893066,
+                    0.20784315466880801,
+                    0.93333339691162109,
+                },
+                shown = true,
+                text = "\nMurder Row Fishhook",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "Item Level 246",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Binds when picked up",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Unique-Equipped: Embellished (2)",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "One-Hand",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Dagger",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "63 - 106 Damage",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Speed 1.80",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "(46.9 damage per second)",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.50196081399917603,
+                    0.50196081399917603,
+                    0.50196081399917603,
+                },
+                shown = true,
+                text = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE0E9E3+42|r |cffEEF3F0Agility|r",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE0E9E3+692|r |cffEEF3F0Stamina|r",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0,
+                    1,
+                    0,
+                },
+                shown = true,
+                text = "+32 Random Stat 1",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0,
+                    1,
+                    0,
+                },
+                shown = true,
+                text = "+32 Random Stat 2",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = " ",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0,
+                    1,
+                    0,
+                },
+                shown = true,
+                text = "Equip: Your harmful spells and abilities have a chance to bleed your target for 559 Physical damage every 1.6 over 10 sec.",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.53333336114883423,
+                    0.66666668653488159,
+                    1,
+                },
+                shown = true,
+                text = "You haven't collected this appearance",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Use: Teaches you how to craft Murder Row Fishhook.",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Dazzling Thorium, Tormented Tantalum, Gloaming Alloy (10), Sterling Alloy (10), Silvermoon Weapon Wrap, Spark (2)",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.12549020349979401,
+                    0.12549020349979401,
+                },
+                shown = true,
+                text = "Requires Midnight Blacksmithing (50)",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = true,
+                text = "Sell Price: 5|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "Vendor",
+            },
+            right = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "|cffffffff5 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "Auction",
+            },
+            right = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "|cffffffff13 |TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t 99 |TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t 00 |TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = " ",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffd839TSM General Info|r",
+            },
+            right = {
+                color = {
+                    1,
+                    1,
+                    1,
+                },
+                shown = false,
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "  Vendor Sell Price",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffffff5|r|cffffd70ag|r |cffffffff00|r|cffc7c7cfs|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "  Inventory",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffffff1|r (|cffffffff1|r player, |cffffffff0|r alts, |cffffffff0|r guild, |cffffffff0|r warbank, |cffffffff0|r AH)",
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffd839TSM AuctionDB|r",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffffff36 auctions|r (|cfff72d20189 Days 19 Hr ago|r)",
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "  Min Buyout",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffffff179|r|cffffd70ag|r |cffffffff99|r|cffc7c7cfs|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "  Market Value",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "[|TInterface\\Addons\\TradeSkillMaster\\Media\\IconPack.tga:12:12:0:0:256:256:134:146:92:104:247:45:32|t|cfff72d2088%|r] |cffffffff436|r|cffffd70ag|r |cffffffff28|r|cffc7c7cfs|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "  Region Avg Daily Sold",
+            },
+            right = {
+                color = {
+                    0.4745098352432251,
+                    0.63529413938522339,
+                    1,
+                },
+                shown = true,
+                text = "|cffffffff2.057|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "  |cff0a43ffPlayer|r",
+            },
+            right = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "|cff66bbffBags: |cffffffff1|r|r",
+            },
+        },
+        {
+            left = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "Inventory",
+            },
+            right = {
+                color = {
+                    1,
+                    0.82352948188781738,
+                    0,
+                },
+                shown = true,
+                text = "|cff66bbffTotal: |cffffffff1|r|r",
+            },
+        },
+    },
+    owner = {
+        id = 6,
+        kind = "Button",
+        name = "BetterBagsItemButton135",
+        parent = "BetterBagsItemButton135parent",
+    },
+    present = {
+        BreakUpLargeNumbers = true,
+        ["C_CurrencyInfo.GetCoinTextureString"] = true,
+        ["C_Item.GetDetailedItemLevelInfo"] = true,
+        ["C_Item.GetItemInfoInstant"] = true,
+        ["C_Item.GetItemLocation"] = true,
+        ["C_Item.GetItemNameByID"] = true,
+        ["C_Item.GetStackCount"] = true,
+        ["C_Item.RequestLoadItemDataByID"] = true,
+        ["C_QuestLog.IsOnQuest"] = true,
+        ["C_QuestLog.IsQuestFlaggedCompleted"] = true,
+        ["C_Spell.GetSpellName"] = true,
+        ["C_Spell.GetSpellTexture"] = true,
+        ["C_UnitAuras.GetAuraDataByAuraInstanceID"] = true,
+        ["C_UnitAuras.GetAuraDataByIndex"] = true,
+        GetCoinTextureString = false,
+        GetMacroIndexByName = true,
+        GetMacroInfo = true,
+        GetMacroItem = true,
+        GetMacroSpell = true,
+        GetNumMacros = true,
+        GetNumSkillLines = false,
+        GetPetActionInfo = true,
+        GetProfessionInfo = true,
+        GetProfessions = true,
+        GetSkillLineInfo = false,
+        GetSpellInfo = false,
+        GetSpellTexture = false,
+        SetPortraitTexture = true,
+        UnitAura = false,
+        UnitEffectiveLevel = true,
+        UnitTokenFromGUID = true,
+        issecretvalue = true,
+    },
+    settings = {
+        backdropAlphaItems = 0.82999999999999996,
+        backdropAlphaUnits = 0.94999999999999996,
+        backdropStyle = "native",
+        bodyFont = "2002",
+        cursorDisableInCombat = false,
+        cursorUnits = false,
+        detailsKey = "ALWAYS",
+        footerAlphaUnits = 0,
+        headerTopAlphaUnits = 0.68999999999999995,
+        iconRight = true,
+        imbuePanels = true,
+        layout = "pretty",
+        minWidth = 201,
+        originalKey = "ALT",
+        padding = 16,
+        qualityTint = false,
+        socketHint = false,
+        statColorAttack = {
+            0.9803922176361084,
+            0.58431375026702881,
+            0.40392160415649409,
+        },
+        statColorCriticalStrike = {
+            0,
+            0.96862751245498657,
+            0.02745098248124123,
+        },
+        statColorHaste = {
+            0,
+            0.9490196704864502,
+            0.090196080505847931,
+        },
+        statColorMastery = {
+            0,
+            0.9490196704864502,
+            0.090196080505847931,
+        },
+        statColorMinor = {
+            0,
+            0.9490196704864502,
+            0.090196080505847931,
+        },
+        statColorPrimary = {
+            0.87843143939971924,
+            0.91372555494308472,
+            0.89019614458084106,
+        },
+        statColorVersatility = {
+            0,
+            0.9490196704864502,
+            0.090196080505847931,
+        },
+        styles = {
+            auraName = {
+                caps = false,
+            },
+            itemSource = {
+                color = {
+                    0.1215686351060867,
+                    1,
+                    0.1215686351060867,
+                },
+            },
+            macroName = {
+                caps = false,
+            },
+            objectTitle = {
+                caps = false,
+            },
+            questTitle = {
+                caps = false,
+            },
+            setName = {
+                caps = false,
+            },
+            spellTitle = {
+                caps = false,
+            },
+            title = {
+                caps = false,
+            },
+            unitName = {
+                caps = false,
+            },
+        },
+        titleFont = "2002",
+    },
+    tooltip = "GameTooltip",
+    tooltipType = "Item",
+}

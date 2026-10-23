@@ -47,6 +47,18 @@ palette.CLASSES = {
     { key = "MAGE", label = "Mage" }, { key = "WARLOCK", label = "Warlock" },
     { key = "DRUID", label = "Druid" },
 }
+-- A client's own classes (retail's Retail/Core/Palette.lua), each after the
+-- one it names, so the style editor lists them in the game's order.
+for _, extra in ipairs(ns.contributions("classes")) do
+    for _, class in ipairs(extra) do
+        local at
+        for index, other in ipairs(palette.CLASSES) do
+            if other.key == class.after then at = index end
+        end
+        assert(at, "no class " .. tostring(class.after) .. " to put " .. tostring(class.key) .. " after")
+        table.insert(palette.CLASSES, at + 1, { key = class.key, label = class.label })
+    end
+end
 
 -- subClass is the game's Enum.ItemArmorSubclass, the same in every language.
 palette.ARMOR = {

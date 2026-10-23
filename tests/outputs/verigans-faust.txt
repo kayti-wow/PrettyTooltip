@@ -162,6 +162,7 @@ sellPrice: 7443
 setBonuses: {}
 setItems: {}
 slot: "Streitkolben · Zweihändig"
+sockets: {}
 weaponBonus: {}
 weaponDamage: "65 - 99 Schaden"
 weaponDps: "25,6"

@@ -1,0 +1,14 @@
+== tooltip as the game shows it
+ 1 "B0P, Curator of Booms"
+ 2 "Optional Crafting Reagent"
+ 3 "|cff19ff19+15 Recipe Difficulty|r"
+ 4 " "
+ 5 "Provides the following property: |nYour damaging or healing spells and abilities have a chance to fire up to 5 Big Booms, dealing up to 241 Fire damage or 363  healing based on the amount of Big Booms delivered."
+ 6 " "
+ 7 "Usable with: |cffffffffMidnight Engineering Crafted Equipment|r"
+ 8 " "
+ 9 "\"Can be bought and sold on the Auction House.\""
+10 "Quality: |A:Professions-Icon-Quality-12-Tier1-Small:38:40:0:-1|a"
+11 "Sell Price: 8|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 65|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 257735"

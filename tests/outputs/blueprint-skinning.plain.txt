@@ -16,6 +16,7 @@ created:
   footerRight: {}
   header: {}
   icon: 5948139
+  id: 279938
   kinds: {}
   link: "|cnIQ1:|Hitem:279938::::::::30:1486:::1:3524::::::|h[Trapper's Workbench]|h|r"
   name: "Trapper's Workbench"
@@ -28,6 +29,7 @@ created:
   secondary: {}
   setBonuses: {}
   setItems: {}
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -136,6 +138,7 @@ skill:
   name: "Skinning"
   text: "Requires Skinning (300)"
 slot: "Blueprint · Skinning"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to place a Trapper's Workbench at a campsite."
   right: ""

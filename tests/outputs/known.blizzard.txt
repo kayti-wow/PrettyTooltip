@@ -1,0 +1,10 @@
+== tooltip as the game shows it
+ 1 "Spring Robes"
+ 2 "Cosmetic"
+ 3 "Warbound"
+ 4 "Chest"
+ 5 "Use: Add this appearance to your Warband collection."
+ 6 "Already Known"
+ 7 "Sell Price: 1|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 44800"

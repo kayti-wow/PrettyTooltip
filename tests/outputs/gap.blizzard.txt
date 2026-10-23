@@ -1,0 +1,13 @@
+== tooltip as the game shows it
+ 1 "Mentor's Helpful Handiwork"
+ 2 "Use: Combine 5 Mentor's Helpful Handiwork to create a Artisan's Consortium Gold Star."
+ 3 "Finishing Crafting Reagent"
+ 4 " "
+ 5 "When crafting: Increases Skill by 20."
+ 6 " "
+ 7 "Usable with: |cffffffffMany Midnight recipes across all professions.|r"
+ 8 " "
+ 9 "\"No need to reinvent the wheel. Can be bought and sold on the Auction House.\""
+10 "Sell Price: 1|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+   below the lines:
+   "Item ID: 246449"

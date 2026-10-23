@@ -16,6 +16,7 @@ created:
   footerRight: {}
   header: {}
   icon: 132104
+  id: 255715
   kinds: {}
   link: "|cnIQ1:|Hitem:255715::::::::30:1486:::1:3524::::::|h[Potent Anti-Venom]|h|r"
   name: "Potent Anti-Venom"
@@ -28,6 +29,7 @@ created:
   secondary: {}
   setBonuses: {}
   setItems: {}
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -127,6 +129,7 @@ skill:
   name: "First Aid"
   text: "Requires First Aid (215)"
 slot: "Manual · First Aid"
+sockets: {}
 teaches:
   left: "Use: Teaches you how to make a Potent Anti-Venom."
   right: ""

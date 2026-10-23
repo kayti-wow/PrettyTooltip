@@ -1,0 +1,70 @@
+## Interface: 16001
+## Title: PrettyTooltip
+## Notes: A full reskin of tooltips for WoW Forever.
+## Author: FallenShard
+## X-License: MIT
+## X-Curse-Project-ID: 1720719
+## Version: 1.3.7
+## IconTexture: Interface\AddOns\PrettyTooltip\art\logo
+## SavedVariables: PrettyTooltipDB, PrettyTooltipCaptures
+## OptionalDeps: Questie, Auctionator, DialogueUI, EllesmereUI, LibSharedMedia-3.0
+
+Core\Util.lua
+Core\Palette.lua
+Core\Settings.lua
+Core\TooltipPlacement.lua
+Locale\Locale.lua
+Locale\English.lua
+Locale\deDE.lua [AllowLoadTextLocale deDE]
+Locale\esES.lua [AllowLoadTextLocale esES]
+Locale\esMX.lua [AllowLoadTextLocale esMX]
+Locale\frFR.lua [AllowLoadTextLocale frFR]
+Locale\koKR.lua [AllowLoadTextLocale koKR]
+Locale\Portuguese.lua [AllowLoadTextLocale ptBR, ptPT]
+Locale\ruRU.lua [AllowLoadTextLocale ruRU]
+Locale\zhCN.lua [AllowLoadTextLocale zhCN]
+Locale\zhTW.lua [AllowLoadTextLocale zhTW]
+Game\Game.lua
+Game\TooltipData.lua
+Game\SpellAmounts.lua
+Data\Schools.lua
+Data\Stats.lua
+Data\Imbues.lua
+Panel\Layout.lua
+Panel\Render.lua
+Data\Disenchant.lua
+Data\Nodes.lua
+Data\NodeNames.lua
+Data\NodeSkills.lua
+Data\Skinning.lua
+Data\SpellRanks.lua
+Data\Coefficients.lua
+Tooltips\Item.lua
+Tooltips\Spell.lua
+Tooltips\Object.lua
+Tooltips\Unit.lua
+Tooltips\Aura.lua
+Tooltips\Imbue.lua
+Tooltips\Quest.lua
+Tooltips\Macro.lua
+Tooltips\PetAction.lua
+Tooltips\Minimap.lua
+Tooltips\FlightPath.lua
+Tooltips\Mail.lua
+UI\Options.lua
+UI\Samples.lua
+UI\EditorSkin.lua
+UI\Editor.lua
+Integration\Native.lua
+Integration\Placement.lua
+Integration\Hooks.lua
+Integration\Details.lua
+Integration\ItemLite.lua
+Integration\Cursor.lua
+#@debug@
+UI\Capture.lua
+#@end-debug@
+UI\Report.lua
+UI\Debug.lua
+UI\Commands.lua
+PrettyTooltip.lua

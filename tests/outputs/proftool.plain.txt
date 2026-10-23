@@ -1,0 +1,257 @@
+== tooltip model
+armor: {}
+comparison: false
+effects: {}
+enchants: {}
+equipEffects:
+  1:
+    left: "+8 Midnight Alchemy Skill"
+    right: ""
+extras: {}
+flavor: {}
+footerLeft:
+  1:
+    color:
+      1: 0.86
+      2: 0.74
+      3: 0.45
+    left: "Made by Voarex"
+    right: ""
+footerRight:
+  1:
+    left: "Requires Midnight Alchemy (1)"
+    met: true
+    requirement: true
+    right: ""
+  2:
+    left: "6|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 12|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 37|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 7457494
+kinds: {}
+level: 192
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+link: "|cnIQ2:|Hitem:245777::::::::90:264::13:3:12252:12251:12500:4:28:3615:29:82:38:6:40:2868::::Player-1403-0A7DD22A:|h[Hobbyist Alchemist's Mixing Rod |A:Professions-ChatIcon-Quality-Tier3:17:15::1|a]|h|r"
+madeBy: "Voarex"
+name: "Hobbyist Alchemist's Mixing Rod"
+nameColor:
+  1: 0.1176
+  2: 1
+  3: 0
+primary: {}
+quality: 2
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier3-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary:
+  1:
+    left: "|cffF2E8D5+67|r |cffA89F8EIngenuity|r"
+    right: ""
+sellPrice: 61237
+setBonuses: {}
+setItems: {}
+skill:
+  level: 1
+  met: true
+  name: "Midnight Alchemy"
+  text: "Requires Midnight Alchemy (1)"
+slot: "Alchemy Tool"
+sockets: {}
+weaponBonus: {}
+== tooltip render
+panel 333 x 201
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x101 rgb=1,1,1,1 band
+text at 19,21 w=295 size=19 rgb=0.3,0.82,0.3 "HOBBYIST ALCHEMIST'S MIXING ROD"
+text at 19,47 w=295 size=13 rgb=0.65,0.91,0.65 "Alchemy Tool"
+text at 19,66 w=295 size=12 rgb=0.9,0.85,0.74 "Quality: |A:Professions-Icon-Quality-Tier3-Small:19:19:0:0|a"
+text at 19,84 w=295 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,107 w=295 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+67|r |cffA89F8EIngenuity|r"
+text at 19,125 w=295 size=13 rgb=0.48,0.88,0.48 "+8 Midnight Alchemy Skill"
+text at 19,143 w=295 size=11 rgb=0.6,0.6,0.63 "Item ID: 245777"
+text at 152.5,167 w=161.5 size=11 rgb=1,1,1 "Requires Midnight Alchemy (1)"
+text at 19,167 w=121.5 size=11 rgb=0.86,0.74,0.45 "Made by Voarex"
+
+== comparison 1 model
+armor: {}
+comparison: true
+effects: {}
+enchants: {}
+equipEffects:
+  1:
+    left: "+18 Midnight Alchemy Skill"
+    right: ""
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "If you replace this item, the following stat changes will occur:"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 0.8235
+      3: 0
+      4: 1
+  2:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cffff2020-101|r Multicraft"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+  3:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "|cff00ff00+67|r Ingenuity"
+    right: ""
+    rightColor:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    textColor:
+      1: 1
+      2: 1
+      3: 1
+      4: 1
+flavor: {}
+footerLeft:
+  1:
+    color:
+      1: 0.86
+      2: 0.74
+      3: 0.45
+    left: "Made by Foodgirl"
+    right: ""
+footerRight:
+  1:
+    left: "Requires Midnight Alchemy (1)"
+    met: true
+    requirement: true
+    right: ""
+  2:
+    left: "40|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 96|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 80|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+hasSellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: 7457494
+kinds: {}
+level: 225
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+link: 245778
+madeBy: "Foodgirl"
+name: "Sin'dorei Alchemist's Mixing Rod"
+nameColor:
+  1: 0
+  2: 0.4392
+  3: 0.8667
+primary: {}
+quality: 3
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-Icon-Quality-Tier4-Small:26:26:0:-1|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary:
+  1:
+    left: "|cffF2E8D5+101|r |cffA89F8EMulticraft|r"
+    right: ""
+sellPrice: 409680
+setBonuses: {}
+setItems: {}
+skill:
+  level: 1
+  met: true
+  name: "Midnight Alchemy"
+  text: "Requires Midnight Alchemy (1)"
+slot: "Alchemy Tool"
+sockets: {}
+weaponBonus: {}
+== comparison 1 render
+panel 342 x 259
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x101 rgb=1,1,1,1 band
+texture TOPLEFT Frame TOPLEFT 0,0 0x0 rgb=0.55,0.45,0.3,0.9 WHITE8X8
+texture TOPLEFT Frame TOPLEFT 1,-1 0x0 rgb=0.07,0.055,0.05,1 WHITE8X8
+text CENTER Frame CENTER 0,0 w=0 size=10 rgb=0.93,0.8,0.52 "EQUIPPED"
+text at 19,21 w=304 size=19 rgb=0.32,0.59,0.98 "SIN'DOREI ALCHEMIST'S MIXING ROD"
+text at 19,47 w=304 size=13 rgb=0.66,0.795,0.99 "Alchemy Tool"
+text at 19,66 w=304 size=12 rgb=0.9,0.85,0.74 "Quality: |A:Professions-Icon-Quality-Tier4-Small:19:19:0:0|a"
+text at 19,84 w=304 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,107 w=304 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+101|r |cffA89F8EMulticraft|r"
+text at 19,125 w=304 size=13 rgb=0.48,0.88,0.48 "+18 Midnight Alchemy Skill"
+text at 19,143 w=304 size=11 rgb=0.85,0.7,0 "If you replace this item, the following stat changes will occur:"
+text at 19,171 w=304 size=11 rgb=0.6,0.6,0.63 "|cffff2020-101|r Multicraft"
+text at 19,186 w=304 size=11 rgb=0.6,0.6,0.63 "|cff00ff00+67|r Ingenuity"
+text at 19,201 w=304 size=11 rgb=0.6,0.6,0.63 "Item ID: 245778"
+text at 161.5,225 w=161.5 size=11 rgb=1,1,1 "Requires Midnight Alchemy (1)"
+text at 19,225 w=130.5 size=11 rgb=0.86,0.74,0.45 "Made by Foodgirl"

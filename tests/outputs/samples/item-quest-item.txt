@@ -24,6 +24,7 @@ secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Quest Item"
+sockets: {}
 startsQuest: "This Item Begins a Quest"
 weaponBonus: {}
 == sample render

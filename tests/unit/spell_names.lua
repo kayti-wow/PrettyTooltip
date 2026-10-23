@@ -4,7 +4,7 @@ return function(test)
     local function load(locale, calls)
         return test.load({ "Core/Util.lua", "Core/Palette.lua", "Locale/Locale.lua", "Locale/English.lua",
         "Game/Game.lua", "Data/Schools.lua",
-            "Data/SpellRanks.lua", "Data/Coefficients.lua" }, { client = { locale = locale }, calls = calls })
+            "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua" }, { client = { locale = locale }, calls = calls })
     end
     local game = { spellDamage = function() return 0 end, spellHealing = function() return 0 end }
     local function rank(ns, name)

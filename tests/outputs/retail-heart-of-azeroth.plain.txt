@@ -1,0 +1,142 @@
+== tooltip model
+armor: {}
+comparison: false
+effects: {}
+enchants: {}
+equipEffects:
+  1:
+    left: "Harnesses the energy of raw Azerite, awakening exceptional pieces of armor that possess latent powers."
+    right: ""
+equippable: true
+extras: {}
+flavor:
+  1:
+    left: "\"A living symbol of hope, borne by the champions of a dying planet. The fate of Azeroth will be shared by all her children.\""
+    right: ""
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+  2:
+    left: "Unique"
+    right: ""
+icon: 1869493
+kinds: {}
+level: 35
+levelLine: true
+lineIndices:
+  1: true
+  2: true
+  3: true
+  4: true
+  5: true
+  6: true
+  7: true
+  8: true
+  9: true
+  10: true
+  11: true
+  12: true
+  13: true
+  14: true
+  15: true
+  16: true
+  17: true
+  18: true
+link: "|cnIQ6:|Hitem:158075::::::::90:264::11:4:6316:4932:4933:1560::::::|h[Heart of Azeroth]|h|r"
+name: "Heart of Azeroth"
+nameColor:
+  1: 0.902
+  2: 0.8
+  3: 0.502
+primary:
+  1:
+    left: "|cffF2E8D5+7|r |cffA89F8EStamina|r"
+    right: ""
+quality: 6
+quest: false
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary:
+  1:
+    left: "|cffF2E8D5+8|r |cffA89F8ECritical Strike|r"
+    right: ""
+  2:
+    left: "|cffF2E8D5+8|r |cffA89F8EHaste|r"
+    right: ""
+  3:
+    left: "|cffF2E8D5+8|r |cffA89F8EMastery|r"
+    right: ""
+setBonuses: {}
+setItems: {}
+slot: "Neck"
+sockets:
+  1:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-major"
+    left: "Essence Slot Available"
+    right: ""
+  2:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+  3:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+  4:
+    color:
+      1: 0.4267
+      2: 0.4267
+      3: 0.4267
+    frame: "tooltip-heartofazerothessence-minor"
+    left: "Essence Slot Available"
+    right: ""
+weaponBonus: {}
+== tooltip render
+panel 308 x 386
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x100 rgb=1,1,1,1 band
+text at 19,21 w=270 size=19 rgb=0.9,0.8,0.5 "HEART OF AZEROTH"
+text at 19,47 w=270 size=13 rgb=0.95,0.9,0.75 "Neck"
+text at 19,66 w=270 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,83 w=270 size=12 rgb=0.78,0.72,0.63 "Unique"
+text at 19,106 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+7|r |cffA89F8EStamina|r"
+text at 19,124 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+8|r |cffA89F8ECritical Strike|r"
+text at 19,142 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+8|r |cffA89F8EHaste|r"
+text at 19,160 w=270 size=13 rgb=0.9,0.85,0.74 "|cffF2E8D5+8|r |cffA89F8EMastery|r"
+texture at 19,183 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-major
+text at 46,183 w=243 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,200 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,200 w=243 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,217 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,217 w=243 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+texture at 19,234 23x15 rgb=1,1,1,1 atlas:tooltip-heartofazerothessence-minor
+text at 46,234 w=243 size=12 rgb=0.4267,0.4267,0.4267 "Essence Slot Available"
+text at 19,256 w=270 size=13 rgb=0.48,0.88,0.48 "Harnesses the energy of raw Azerite, awakening exceptional pieces of armor that possess latent powers."
+text at 19,309 w=270 size=12 rgb=0.86,0.74,0.45 "\"A living symbol of hope, borne by the champions of a dying planet. The fate of Azeroth will be shared by all her children.\""
+text at 19,354 w=270 size=11 rgb=0.6,0.6,0.63 "Item ID: 158075"

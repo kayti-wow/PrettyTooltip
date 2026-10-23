@@ -302,6 +302,17 @@ function game.spellHealing()
     return number((call(GetSpellBonusHealing)))
 end
 
+-- The mana a spell costs the player: none here, as Forever's tooltips give the
+-- mana itself. A client whose tooltips give a share of base mana replaces it
+-- (retail's Retail/Game/GameExtension.lua).
+function game.spellManaCost(_spellID) end
+
+-- The seconds an instant cast holds the player's other spells: Forever's is
+-- 1.5 sec. Retail's shrinks with haste, and it replaces this.
+function game.globalCooldown()
+    return 1.5
+end
+
 -- The player's rank in a skill or profession, by the addon's name for it
 -- ("Skinning"), which the client knows by its own (ns.Locale.skills). Older
 -- clients list skills; newer ones, like Forever's, only list professions.
@@ -350,6 +361,9 @@ function game.unitIsPVP(unit) return call(UnitIsPVP, unit) end
 function game.unitIsDead(unit) return call(UnitIsDeadOrGhost, unit) end
 function game.unitReaction(unit, other) return call(UnitReaction, unit, other) end
 function game.unitIsTapDenied(unit) return call(UnitIsTapDenied, unit) end
+-- The names of a class's specializations, by class ID: Forever has none.
+-- Retail's client does, and it replaces this.
+function game.classSpecs(_classID) end
 
 -- A class's color, by its file name, as { r, g, b }.
 -- The units a nearby player may be: the group, target, focus, mouseover, and

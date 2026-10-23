@@ -36,6 +36,7 @@ created:
   setBonuses: {}
   setItems: {}
   slot: "Mail · Hands"
+  sockets: {}
   weaponBonus: {}
 effects: {}
 enchants: {}
@@ -81,6 +82,7 @@ secondary: {}
 setBonuses: {}
 setItems: {}
 slot: "Plans · Blacksmithing"
+sockets: {}
 weaponBonus: {}
 == sample render
 panel 375 x 354

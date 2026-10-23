@@ -101,9 +101,10 @@ setItems:
     right: ""
 setName: "Redemption Armor"
 slot: "Plate · Chest"
+sockets: {}
 weaponBonus: {}
 == sample render
-panel 327 x 556
+panel 327 x 561
 texture at -16,-16 0x0 rgb=0.72,0.4,0.94,0.55 glow
 texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
 texture at 4,4 0x91 rgb=1,1,1,1 WHITE8X8
@@ -136,24 +137,24 @@ texture TOP panel TOP 0,-178 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
 text at 19,196 w=289 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffFAA365+1%|r |cffF7C5A5Critical Strike Chance|r"
 text at 19,214 w=289 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff89DA9B+59|r |cffBDE8C4Healing Power|r"
 text at 19,232 w=289 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff9EB8FE+10|r |cffC0D0FAMana per 5 sec|r"
-text at 19,250 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
-text at 41,250 w=267 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+4|r |cffA6EBA6All Stats|r"
-texture at 19,276 136x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOPRIGHT panel TOPRIGHT -19,-276 136x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
-texture TOP panel TOP 0,-271 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
-text at 19,289 w=244 size=15 rgb=1,0.76,0.18 "REDEMPTION ARMOR"
-text at 266,289 w=42 size=12 rgb=1,0.76,0.18 "3/9"
-text at 24,313 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Tunic"
-text at 24,330 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Legguards"
-text at 24,347 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Handguards"
-text at 24,364 w=284 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rRedemption Headpiece"
-text at 24,381 w=284 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rRedemption Spaulders"
-text at 22,405 w=286 size=12 rgb=0.48,0.88,0.48 "(2) Set: Increases the amount healed by your Judgement of Light by 20."
-text at 22,436 w=286 size=12 rgb=0.44,0.42,0.4 "(4) Set: Reduces cooldown on your Lay on Hands by 12 min."
-texture at 19,472 289x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
-text at 19,481 w=289 size=11 rgb=0.17,0.51,0.77 "Dropped by: Kel'Thuzad"
-text at 141,505 w=167 size=11 rgb=1,0.34,0.28 "Requires Argent Dawn - Revered"
-texture at 19,510 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+text at 19,255 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,255 w=267 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+4|r |cffA6EBA6All Stats|r"
+texture at 19,281 136x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-281 136x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-276 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,294 w=244 size=15 rgb=1,0.76,0.18 "REDEMPTION ARMOR"
+text at 266,294 w=42 size=12 rgb=1,0.76,0.18 "3/9"
+text at 24,318 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Tunic"
+text at 24,335 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Legguards"
+text at 24,352 w=284 size=12 rgb=0.94,0.89,0.77 "|cffD9B36A-  |rRedemption Handguards"
+text at 24,369 w=284 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rRedemption Headpiece"
+text at 24,386 w=284 size=12 rgb=0.44,0.42,0.4 "|cff4A4540-  |rRedemption Spaulders"
+text at 22,410 w=286 size=12 rgb=0.48,0.88,0.48 "(2) Set: Increases the amount healed by your Judgement of Light by 20."
+text at 22,441 w=286 size=12 rgb=0.44,0.42,0.4 "(4) Set: Reduces cooldown on your Lay on Hands by 12 min."
+texture at 19,477 289x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,486 w=289 size=11 rgb=0.17,0.51,0.77 "Dropped by: Kel'Thuzad"
+text at 141,510 w=167 size=11 rgb=1,0.34,0.28 "Requires Argent Dawn - Revered"
+texture at 19,515 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
 texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
-text at 80,505 w=90 size=11 rgb=0.82,0.78,0.71 "165 / 165"
-text at 229,522 w=79 size=11 rgb=0.88,0.78,0.6 "12|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 37|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 67|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 80,510 w=90 size=11 rgb=0.82,0.78,0.71 "165 / 165"
+text at 229,527 w=79 size=11 rgb=0.88,0.78,0.6 "12|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 37|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 67|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"

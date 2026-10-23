@@ -11,7 +11,7 @@ return function(test)
     end
     local function load(locale, language)
         local files = { "Core/Util.lua", "Core/Palette.lua", "Locale/Locale.lua", "Locale/English.lua", language,
-            "Game/Game.lua", "Data/Schools.lua", "Data/SpellRanks.lua", "Data/Coefficients.lua" }
+            "Game/Game.lua", "Data/Schools.lua", "Data/SpellRanks.lua", "Game/SpellAmounts.lua", "Data/Coefficients.lua" }
         if not language then table.remove(files, 5) end
         return test.load(files, { client = { locale = locale } })
     end

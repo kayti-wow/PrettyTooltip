@@ -57,6 +57,7 @@ sellPrice: 6
 setBonuses: {}
 setItems: {}
 slot: "Leatherworking Bag · 4 Slots"
+sockets: {}
 weaponBonus: {}
 == tooltip render
 panel 367 x 174

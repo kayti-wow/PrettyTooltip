@@ -24,5 +24,5 @@ texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-TopEdge
 texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-BottomEdge
 texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-LeftEdge
 texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-RightEdge
-text at 19,17 w=78 size=12 rgb=0.96,0.92,0.84 "Briarthorn |TInterface\\Minimap\\Minimap-PositionArrows:0:0:0:0:16:32:0:16:0:16|t"
-text at 109,17 w=74 size=12 rgb=1,1,0 "Herbalism 70"
+text at 19,17 w=60 size=12 rgb=0.96,0.92,0.84 "Briarthorn"
+text at 91,17 w=92 size=12 rgb=1,1,0 "Herbalism 70 |TInterface\\Minimap\\Minimap-PositionArrows:12:12:0:0:16:32:0:16:0:16|t"

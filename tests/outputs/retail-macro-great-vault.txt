@@ -1,0 +1,21 @@
+== tooltip model
+body:
+  1: "/run C_AddOns.LoadAddOn(\"Blizzard_WeeklyRewards\"); WeeklyRewardsFrame:Show()"
+extras: {}
+icon: 1850547
+lineIndices:
+  1: true
+name: "Great Vault"
+== tooltip render
+panel 308 x 136
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture at 0,0 0x0 rgb=1,1,1,0.9 TooltipBackground-Temp.png
+texture at 6,6 0x65 rgb=1,1,1,1 band
+texture at 19,21 38x38 rgb=1,1,1,1 1850547
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.62,0.66,0.74,0.85 WHITE8X8
+text at 67,21 w=222 size=15 rgb=0.96,0.92,0.84 "GREAT VAULT"
+text at 67,43 w=32 size=12 rgb=0.82,0.78,0.71 "|cffB8B2A9Macro|r"
+texture at 19,76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=270 size=12 rgb=0.82,0.78,0.71 "|cffFFD100/run|r C_AddOns.LoadAddOn(\"Blizzard_WeeklyRewards\"); WeeklyRewardsFrame:Show()"

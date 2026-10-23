@@ -55,6 +55,7 @@ quest: true
 secondary: {}
 setBonuses: {}
 setItems: {}
+sockets: {}
 startsQuest: "This Item Begins a Quest"
 weaponBonus: {}
 == tooltip render

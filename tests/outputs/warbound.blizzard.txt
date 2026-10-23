@@ -1,0 +1,6 @@
+== tooltip as the game shows it
+ 1 "Highmaul Relic"
+ 2 "Warbound"
+ 3 "\"An exquisitely intact piece of Highmaul antiquity. The Steamwheedle Preservation Society would be interested in this relic.\""
+   below the lines:
+   "Item ID: 118100"

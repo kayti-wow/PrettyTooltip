@@ -260,7 +260,7 @@ local TYPES = {
                     name = "Somniferie", iconPath = "Interface\\Icons\\INV_Misc_Head_Human_02",
                     isPlayer = true, level = 60, race = L["Human"],
                     className = LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE.WARRIOR or "Warrior",
-                    classFile = "WARRIOR", guild = "Dawnbreakers", faction = "Alliance", pvp = true, healthShare = 1,
+                    classFile = "WARRIOR", guild = "Dawnbreakers", guildRealm = "Argent Dawn", faction = "Alliance", pvp = true, healthShare = 1,
                     target = L["Ragnaros"], targetColor = { 1, .27, .22 },
                     extras = { { left = fill(ITEM_LEVEL, 61), right = "", color = { .60, .60, .63 } } },
                 },
@@ -393,6 +393,11 @@ local TYPES = {
         },
     },
 }
+-- A client's own parts in the samples (retail's Retail/UI/Samples.lua), each a
+-- function given the samples and the helpers that make them.
+for _, extend in ipairs(ns.contributions("samples")) do
+    extend(TYPES, { statLine = statLine, itemName = itemName, spellName = spellName })
+end
 
 -- Markers ----------------------------------------------------------------------
 

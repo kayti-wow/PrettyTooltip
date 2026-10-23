@@ -41,6 +41,8 @@ local DEFAULTS = {
     swapDamage = false,
     itemLevelBadge = true,
     unitLevelBadge = true,
+    -- A guild's realm beside its name, when it is another realm's.
+    unitRealm = true,
     separators = true,
     spellPanels = true,
     disenchant = true,
@@ -137,7 +139,8 @@ function ns.resetOptions()
 end
 
 -- tooltipType: "item" (default), "spell", "object", "unit", "aura", "quest", "macro", or "shared" by all. color is where the picker starts
--- while the color is automatic.
+-- while the color is automatic. classic: drawn from Classic-only data, so not offered on retail. Retail's own
+-- parts, marked retail, are in Retail/Core/Settings.lua.
 ns.ELEMENTS = {
     { key = "mailTitle", label = "Mail title", size = 16, title = true, color = colors.title, tooltipType = "mail" },
     { key = "mailPrices", label = "Attachments and prices", size = 12, color = colors.detail, tooltipType = "mail" },
@@ -174,7 +177,7 @@ ns.ELEMENTS = {
         note = "On recipes; the count you carry red while short, unless set." },
     { key = "caption", label = "Section captions", size = 9, color = colors.caption, caps = true,
         note = "Creates and Reagents on recipes." },
-    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail,
+    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail, needs = "disenchantFor",
         note = "The Enchanting needed red while yours is too low, grey without Enchanting, unless set." },
     { key = "spellTitle", label = "Spell name", size = 17, title = true,
         color = colors.title, tooltipType = "spell" },
@@ -199,7 +202,7 @@ ns.ELEMENTS = {
         note = "The skill in its skill-up color, unmet requirements red, unless set." },
     { key = "objectQuests", label = "Quest lines", size = 12, color = colors.objective,
         tooltipType = "object", note = "Quest names gold, finished objectives green, unless set." },
-    { key = "objectLoot", label = "Contents", size = 11, color = colors.detail, tooltipType = "object",
+    { key = "objectLoot", label = "Contents", size = 11, color = colors.detail, tooltipType = "object", needs = "nodeLoot",
         note = "A herb or ore node's yield over its taps, then what else it may hold and the chance each tap. "
             .. "Turned off by Gathering contents in the options." },
     { key = "objectPrices", label = "Prices", size = 11, color = { .88, .78, .60 },
@@ -207,11 +210,13 @@ ns.ELEMENTS = {
     { key = "unitName", label = "Name", size = 17, title = true, color = { 1, 1, 1 },
         tooltipType = "unit", note = "Class color for players, reaction color for NPCs, unless set." },
     { key = "unitGuild", label = "Guild or role", size = 12, color = { .9, .9, .9 }, tooltipType = "unit" },
+    { key = "unitRealm", label = "Guild realm", size = 11, color = colors.detail, tooltipType = "unit",
+        note = "Beside the guild, for a guild from another realm. Turned off by Guild realm in the options." },
     { key = "unitInfo", label = "Level, race, and class", size = 12, color = colors.detail,
         tooltipType = "unit", note = "The level in its difficulty color, unless set." },
     { key = "unitBadges", label = "Badges", size = 12, color = { .9, .9, .9 }, tooltipType = "unit",
         note = "Elite, rare, faction, PvP, AFK, and dead." },
-    { key = "unitSkinning", label = "Skinning", size = 11, color = colors.detail, tooltipType = "unit",
+    { key = "unitSkinning", label = "Skinning", size = 11, color = colors.detail, tooltipType = "unit", needs = "skinningLoot",
         note = "On a dead creature that can be skinned: the Skinning it needs, in its skill-up color, and what "
             .. "it may give. Turned off by Gathering contents in the options." },
     { key = "unitDetails", label = "Target and owner", size = 11, color = colors.detail,
@@ -267,6 +272,25 @@ ns.TOOLTIP_TYPES = {
     { label = "Totems", cursor = "cursorTotems", types = { "Totem" } },
     { label = "Flyout buttons", cursor = "cursorFlyouts", types = { "Flyout" } },
 }
+
+-- A client's own defaults and parts (retail's Retail/Core/Settings.lua), each
+-- part after the one it names, so the style editor lists it where it is drawn.
+-- A part naming none stops the load: left out, its style would be missing
+-- when its tooltip is drawn.
+for _, extra in ipairs(ns.contributions("settings")) do
+    for key, value in pairs(extra.defaults or {}) do DEFAULTS[key] = value end
+    for _, element in ipairs(extra.elements or {}) do
+        local at
+        for index, other in ipairs(ns.ELEMENTS) do
+            if other.key == element.after then
+                at = index
+                break
+            end
+        end
+        assert(at, "no style part " .. tostring(element.after) .. " to put " .. tostring(element.key) .. " after")
+        table.insert(ns.ELEMENTS, at + 1, element)
+    end
+end
 
 local ELEMENT_BY_KEY = {}
 for _, element in ipairs(ns.ELEMENTS) do ELEMENT_BY_KEY[element.key] = element end

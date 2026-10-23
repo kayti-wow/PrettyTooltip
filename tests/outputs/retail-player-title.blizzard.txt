@@ -1,0 +1,8 @@
+== tooltip as the game shows it
+ 1 "Somebody the Storm-Eater"
+ 2 "Some Guild"
+ 3 "Level ?? Orc (Player)"
+ 4 "Subtlety Rogue"
+ 5 "Horde"
+ 6 " "
+ 7 "<Right click for Frame Settings>"
