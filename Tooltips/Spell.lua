@@ -9,7 +9,7 @@ if not (ui and SPELL and ui.renderView) then
 end
 
 -- A client file loaded after this one can set descriptor.extension: readStat,
--- isCooldown, leadRows. Retail's is Retail/Tooltips/SpellExtension.lua.
+-- isCooldown, leadRows, isDetail. Retail's is Retail/Tooltips/SpellExtension.lua.
 local descriptor = {}
 
 local util = ns.util
@@ -415,6 +415,23 @@ local function readSpell(tooltip, data, game)
     -- The game hides every line it draws once any is hidden, and other addons'
     -- rows with them; the panel goes without those.
     local appended = tooltipData.appendedRows(tooltip, model.lineIndices) or {}
+    -- A client's own lines the game adds after the data, as retail's "You
+    -- haven't added this to your action bars", go with the details rather
+    -- than other addons' rows.
+    local extension = descriptor.extension
+    if extension and extension.isDetail then
+        local kept = {}
+        for _, row in ipairs(appended) do
+            if extension.isDetail(row.left, row.right) then
+                -- In the game's color, muted as other added rows are.
+                add(model.details, trim(row.left), trim(row.right or ""))
+                model.details[#model.details].color = row.color
+            else
+                kept[#kept + 1] = row
+            end
+        end
+        appended = kept
+    end
     local rows = {}
     for _, row in ipairs(appended) do
         if not tooltipData.isBlank(row) then rows[#rows + 1] = row end

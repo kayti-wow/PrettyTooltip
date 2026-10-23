@@ -19,4 +19,6 @@ descriptor.extension = {
     isCooldown = spell.isRecharge,
     -- "Max 2 Charges", first among its details.
     leadRows = spell.leadRows,
+    -- "You haven't added this to your action bars", with the details.
+    isDetail = spell.isDetail,
 }

@@ -57,6 +57,21 @@ function spell.isRecharge(text)
     return unformat(text, SPELL_RECHARGE_TIME) ~= nil
 end
 
+-- The spellbook's and talent window's notes on whether a spell is on the
+-- action bars, which the game adds under the spell's own lines.
+local ACTION_BAR_NOTES = { "SPELLBOOK_SPELL_NOT_ON_ACTION_BAR", "TALENT_BUTTON_TOOLTIP_NOT_ON_ACTION_BAR",
+    "TALENT_BUTTON_TOOLTIP_ON_INACTIVE_BONUSBAR" }
+
+-- Whether a line the game added is one of those notes, kept with the details.
+function spell.isDetail(left, right)
+    if right and util.trim(right) ~= "" then return false end
+    for _, name in ipairs(ACTION_BAR_NOTES) do
+        local note = _G[name]
+        if type(note) == "string" and unformat(left, note) == true then return true end
+    end
+    return false
+end
+
 -- Its charges at the head of its details, in their own style and color.
 function spell.leadRows(part)
     if not part.charges then return {} end
