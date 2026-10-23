@@ -1,0 +1,81 @@
+== sample model
+cast:
+  1: "Instant"
+  2: "Cast"
+cells:
+  1:
+    1: "1%"
+    2: "Base Mana"
+  2:
+    1: "Instant"
+    2: "Cast"
+  3:
+    1: "12 sec"
+    2: "Recharge"
+  4:
+    1: "40 yd"
+    2: "Range"
+charges: "Max 2 Charges"
+cooldown:
+  1: "12 sec"
+  2: "Recharge"
+cost:
+  1: "1%"
+  2: "Base Mana"
+description:
+  1: "Blasts the enemy for 950 Fire damage."
+details:
+  1:
+    color:
+      1: 1
+      2: 0.6
+      3: 0.25
+    left: "Recharging: 5 sec"
+    right: ""
+extras: {}
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+name: "Fire Blast"
+power: "Mana"
+range:
+  1: "40 yd"
+  2: "Range"
+rank: ""
+requirements: {}
+== sample render
+panel 284 x 233
+texture at -16,-16 0x0 rgb=1,0.43,0.11,0.385 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x67 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 40x40 rgb=1,0.43,0.11,0.85 WHITE8X8
+texture unplaced 16x16 rgb=1,0.43,0.11,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=1,0.43,0.11,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=1,0.43,0.11,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=1,0.43,0.11,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=1,0.43,0.11,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=1,0.43,0.11,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=1,0.43,0.11,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=1,0.43,0.11,1 tooltip-RightEdge
+text at 67,21 w=198 size=17 rgb=0.96,0.92,0.84 "FIRE BLAST"
+text at 67,46 w=26 size=12 rgb=0.82,0.78,0.71 "|cffFF9960Fire|r"
+texture at 19,76 114x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 114x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=61.5 size=13 rgb=0.6625,0.7975,1 "1%"
+text at 19,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "BASE MANA"
+text at 80.5,89 w=61.5 size=13 rgb=0.96,0.92,0.84 "Instant"
+text at 80.5,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 81,91 1x26 rgb=0.6,0.258,0.066,0.5 WHITE8X8
+text at 142,89 w=61.5 size=13 rgb=0.96,0.92,0.84 "12 sec"
+text at 142,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "RECHARGE"
+texture at 142,91 1x26 rgb=0.6,0.258,0.066,0.5 WHITE8X8
+text at 203.5,89 w=61.5 size=13 rgb=0.96,0.92,0.84 "40 yd"
+text at 203.5,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 204,91 1x26 rgb=0.6,0.258,0.066,0.5 WHITE8X8
+text at 19,127 w=246 size=11 rgb=0.6,0.8,1 "Max 2 Charges"
+text at 19,142 w=246 size=11 rgb=1,0.6,0.25 "Recharging: 5 sec"
+texture at 19,162 246x1 rgb=0.7,0.301,0.077,0.45 WHITE8X8
+text at 19,171 w=246 size=12 rgb=0.92,0.87,0.76 "Blasts the enemy for |cffFF9960950|r Fire damage."
+texture at 19,192 246x1 rgb=0.7,0.301,0.077,0.45 WHITE8X8
+text at 19,201 w=204.5 size=11 rgb=0.82,0.78,0.71 "Damage per Second"
+text at 235.5,201 w=29.5 size=11 rgb=0.82,0.78,0.71 "633.3"

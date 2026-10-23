@@ -36,8 +36,9 @@ return function(test)
     }
     -- The descriptions the game gives by spell ID, for the spells it has loaded.
     local loaded = { [382021] = spells[382021][3] }
-    local function start(enchants)
-        local ns, world = test.load(files, fixture)
+    -- retail: with retail's files, its imbues among them (Retail/Data/Imbues.lua).
+    local function start(enchants, retail)
+        local ns, world = test.load(retail and test.retail(files) or files, fixture)
         PrettyTooltipDB = {}
         local scanner = CreateFrame("GameTooltip", nil, UIParent)
         scanner.prettyTooltipScanner = true
@@ -185,29 +186,27 @@ return function(test)
     C_PaperDollInfo, C_Item.GetWeaponEnchantInfo = nil, nil
 
     -- Retail: C_PaperDollInfo, and retail's own enchant IDs.
-    WOW_PROJECT_ID, WOW_PROJECT_MAINLINE = 1, 1
     ns, world = start(function()
         C_PaperDollInfo = { GetTemporaryEnchantmentInfo = function(slot)
             if slot == 16 then
                 return { enchantID = 5401, remainingTimeMs = 1800000, chargesRemaining = 0, hasExpirationTime = true }
             end
         end }
-    end)
+    end, true)
     panel, text = hover(ns, world, button(16))
     model = ns.TooltipTypes.imbue.read(world.main, weapon, ns.Game)
     test.check("retail: the imbue by retail's enchant ID", { panel.dataType, has(text, "element of Wind"),
         has(text, "30 minutes remaining"), model.duration }, { "imbue", true, true, 3600 })
-    C_PaperDollInfo, WOW_PROJECT_ID, WOW_PROJECT_MAINLINE = nil, nil, nil
+    C_PaperDollInfo = nil
 
     -- Earthliving: the imbue as the spell the shaman casts, by its own ID.
-    WOW_PROJECT_ID, WOW_PROJECT_MAINLINE = 1, 1
     ns, world = start(function()
         C_PaperDollInfo = { GetTemporaryEnchantmentInfo = function(slot)
             if slot == 16 then
                 return { enchantID = 6498, remainingTimeMs = 3000000, chargesRemaining = 0, hasExpirationTime = true }
             end
         end }
-    end)
+    end, true)
     panel, text = hover(ns, world, button(16))
     model = ns.TooltipTypes.imbue.read(world.main, weapon, ns.Game)
     test.check("Earthliving as its cast spell", { panel.dataType, model.spell.spellID, has(text, "element of Earth"),
@@ -227,5 +226,5 @@ return function(test)
     test.check("the talent's description is its own", described(382315),
         "Earthliving receives 150% additional benefit from Mastery: Deep Healing.\nHealing Wave always triggers "
             .. "Earthliving on its target.")
-    C_PaperDollInfo, WOW_PROJECT_ID, WOW_PROJECT_MAINLINE = nil, nil, nil
+    C_PaperDollInfo = nil
 end

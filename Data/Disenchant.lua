@@ -1,6 +1,8 @@
 -- What an item disenchants into, from Classic's tables (Warcraft Wiki's
 -- "Disenchanting tables"); the game has no API for them.
+-- Forever only: retail's .toc leaves this file out.
 local _, ns = ...
+ns.provideData("disenchant")
 
 local ARMOR, WEAPON = 4, 2
 local UNCOMMON, RARE, EPIC = 2, 3, 4

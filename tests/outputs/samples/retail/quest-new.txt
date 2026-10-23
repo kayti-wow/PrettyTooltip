@@ -1,0 +1,54 @@
+== sample model
+color:
+  1: 1
+  2: 0.82
+  3: 0
+description:
+  1: "Dalar Dawnweaver wants Arugal dead and his head brought to him."
+extras:
+  1:
+    left: "Started by"
+    right: "Dalar Dawnweaver"
+  2:
+    left: "Found in"
+    right: "Silverpine Forest"
+icon: "Interface\\Icons\\INV_Misc_Book_08"
+level: 27
+name: "Arugal Must Die"
+objectives:
+  1:
+    left: "Head of Arugal"
+tags:
+  1: "Dungeon"
+zone: "Shadowfang Keep"
+== sample render
+panel 308 x 240
+texture at -16,-16 0x0 rgb=0.86,0.74,0.45,0.2475 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x82 rgb=1,1,1,1 WHITE8X8
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-RightEdge
+text at 19,21 w=270 size=16 rgb=0.96,0.92,0.84 "ARUGAL MUST DIE"
+text at 19,42 w=270 size=12 rgb=0.82,0.78,0.71 "Shadowfang Keep"
+text at 19,62 w=110 size=12 rgb=0.82,0.78,0.71 "|cffFFDF4DLevel 27|r |cff999185·|r |cffE6D19DDungeon|r"
+texture at 19,91 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-91 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-86 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,104 w=270 size=12 rgb=0.86,0.74,0.45 "“Dalar Dawnweaver wants Arugal dead and his head brought to him.”"
+text at 130.5,145 w=47 size=9 rgb=0.6,0.57,0.52 "OBJECTIVES"
+texture at 19,150 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-150 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture at 19,165 10x10 rgb=0.602,0.518,0.315,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 8x8 rgb=0.08,0.07,0.06,1 WHITE8X8
+text at 36,163 w=253 size=12 rgb=0.9,0.85,0.74 "Head of Arugal"
+texture at 19,184 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,193 w=168 size=11 rgb=0.6,0.6,0.63 "Started by"
+text at 199,193 w=90 size=11 rgb=0.6,0.6,0.63 "Dalar Dawnweaver"
+text at 19,208 w=162.5 size=11 rgb=0.6,0.6,0.63 "Found in"
+text at 193.5,208 w=95.5 size=11 rgb=0.6,0.6,0.63 "Silverpine Forest"

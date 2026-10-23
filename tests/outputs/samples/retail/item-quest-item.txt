@@ -1,0 +1,64 @@
+== sample model
+armor: {}
+effects: {}
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor:
+  1:
+    left: "\"A schedule of gold pickups.\""
+    right: ""
+footerLeft: {}
+footerRight: {}
+header:
+  1:
+    left: "Soulbound"
+    right: ""
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+kinds: {}
+name: "Gold Pickup Schedule"
+primary: {}
+quality: 1
+quest: true
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+slot: "Quest Item"
+sockets: {}
+startsQuest: "This Item Begins a Quest"
+weaponBonus: {}
+== sample render
+panel 281 x 164
+texture at -16,-16 0x0 rgb=1,0.82,0,0.55 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x85 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 45x45 rgb=1,0.82,0,0.85 WHITE8X8
+texture unplaced 16x16 rgb=1,0.82,0,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=1,0.82,0,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=1,0.82,0,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=1,0.82,0,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=1,0.82,0,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=1,0.82,0,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=1,0.82,0,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=1,0.82,0,1 tooltip-RightEdge
+text at 72,21 w=190 size=19 rgb=0.77,0.77,0.77 "GOLD PICKUP SCHEDULE"
+text at 72,47 w=190 size=13 rgb=0.885,0.885,0.885 "Quest Item"
+text at 72,66 w=190 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 19,91 w=243 size=13 rgb=1,0.82,0 "|TInterface\\GossipFrame\\AvailableQuestIcon:0|t This Item Begins a Quest"
+texture at 19,117 113x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-117 113x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-112 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,130 w=243 size=12 rgb=0.86,0.74,0.45 "\"A schedule of gold pickups.\""

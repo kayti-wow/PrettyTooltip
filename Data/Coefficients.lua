@@ -5,7 +5,9 @@
 -- Forever follows without Classic's cap on spells over time or its penalty
 -- for spells learned before level 20. Forever's tooltips already count spell
 -- power in, so the base is what is left without it.
+-- Forever only: retail's .toc leaves this file out.
 local _, ns = ...
+ns.provideData("coefficients")
 
 local util = ns.util
 local L = ns.L

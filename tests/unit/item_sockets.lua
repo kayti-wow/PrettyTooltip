@@ -87,10 +87,12 @@ return function(test)
         { gem = found.gemText and select(2, found.gemText:GetFont()), quality = found.quality },
         { gem = 16, quality = 15 })
     local parts = {}
-    for _, element in ipairs(ns.ELEMENTS) do
-        if element.key == "gems" or element.key == "craftingQuality" then parts[element.key] = element.retail end
+    for _, element in ipairs(ns.Retail.Settings.ELEMENTS) do
+        if element.key == "gems" or element.key == "craftingQuality" then
+            parts[element.key] = ns.ELEMENT_BY_KEY[element.key] == element
+        end
     end
-    test.check("offered on retail", parts, { gems = true, craftingQuality = true })
+    test.check("parts of retail's own", parts, { gems = true, craftingQuality = true })
     -- The socket hint can be turned off.
     ns.setOption("socketHint", false)
     model = ns.TooltipTypes[ITEM].read(world.main, capture.data, ns.Game)

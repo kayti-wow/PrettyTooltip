@@ -35,7 +35,17 @@ for _, extra in ipairs(contributions) do
 end
 stats.CATEGORIES = CATEGORIES
 stats.CATEGORY_GROUPS = CATEGORY_GROUPS
-local STAT_MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  "
+-- The diamond before a stat, and the two spaces after it in a stat's text.
+stats.MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+local STAT_MARKER = stats.MARKER .. "  "
+
+-- A marker's 32 px art tinted a { r, g, b } color, as a greyed row's is.
+function stats.tintedMarker(marker, color)
+    local opening = marker:match("^(|T[^:|]+:[^:|]+:[^:|]+:[^:|]+:[^:|]+)")
+    if not opening then return marker end
+    local function byte(value) return math.floor(value * 255 + .5) end
+    return string.format("%s:32:32:0:32:0:32:%d:%d:%d|t", opening, byte(color[1]), byte(color[2]), byte(color[3]))
+end
 
 local function mod(name) return _G["ITEM_MOD_" .. name] end
 local function itemStat(name) return _G["TOOLTIP_ITEM_STAT_" .. name] end

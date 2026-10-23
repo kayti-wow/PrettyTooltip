@@ -1,0 +1,85 @@
+== sample model
+cast:
+  1: "Instant"
+  2: "Cast"
+cells:
+  1:
+    1: "10"
+    2: "Rage"
+  2:
+    1: "Instant"
+    2: "Cast"
+  3:
+    1: "12 sec"
+    2: "Cooldown"
+  4:
+    1: "Melee"
+    2: "Range"
+cooldown:
+  1: "12 sec"
+  2: "Cooldown"
+cost:
+  1: "10"
+  2: "Rage"
+description:
+  1: "Bashes the target with your shield for 8 damage. It also interrupts spellcasting and prevents any spell in that school from being cast for 6 sec."
+details:
+  1:
+    color:
+      1: 1
+      2: 0.6
+      3: 0.25
+    left: "Cooldown remaining: 8 sec"
+    right: ""
+extras: {}
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+name: "Shield Bash"
+power: "Rage"
+range:
+  1: "Melee"
+  2: "Range"
+rank: "Rank 1"
+requirements:
+  1:
+    color:
+      1: 1
+      2: 0.34
+      3: 0.28
+    left: "Requires Shields"
+    right: ""
+== sample render
+panel 308 x 268
+texture at -16,-16 0x0 rgb=0.9,0.22,0.2,0.385 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x67 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.9,0.22,0.2,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.9,0.22,0.2,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.9,0.22,0.2,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.9,0.22,0.2,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.9,0.22,0.2,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.9,0.22,0.2,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.9,0.22,0.2,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.9,0.22,0.2,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.9,0.22,0.2,1 tooltip-RightEdge
+text at 67,21 w=222 size=17 rgb=0.96,0.92,0.84 "SHIELD BASH"
+text at 67,46 w=38 size=12 rgb=0.82,0.78,0.71 "|cffB8B0A6Rank 1|r"
+texture at 19,76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=67.5 size=13 rgb=0.955,0.649,0.64 "10"
+text at 19,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "RAGE"
+text at 86.5,89 w=67.5 size=13 rgb=0.96,0.92,0.84 "Instant"
+text at 86.5,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 87,91 1x26 rgb=0.54,0.132,0.12,0.5 WHITE8X8
+text at 154,89 w=67.5 size=13 rgb=0.96,0.92,0.84 "12 sec"
+text at 154,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "COOLDOWN"
+texture at 154,91 1x26 rgb=0.54,0.132,0.12,0.5 WHITE8X8
+text at 221.5,89 w=67.5 size=13 rgb=0.96,0.92,0.84 "Melee"
+text at 221.5,106 w=67.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 222,91 1x26 rgb=0.54,0.132,0.12,0.5 WHITE8X8
+text at 19,127 w=270 size=11 rgb=1,0.34,0.28 "Requires Shields"
+text at 19,142 w=270 size=11 rgb=1,0.6,0.25 "Cooldown remaining: 8 sec"
+texture at 19,162 270x1 rgb=0.63,0.154,0.14,0.45 WHITE8X8
+text at 19,171 w=270 size=12 rgb=0.92,0.87,0.76 "Bashes the target with your shield for |cffFFF6E48|r damage."
+text at 19,204 w=270 size=12 rgb=0.92,0.87,0.76 "It also interrupts spellcasting and prevents any spell in that school from being cast for |cffFFF6E46|r sec."

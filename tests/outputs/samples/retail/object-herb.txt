@@ -1,0 +1,51 @@
+== sample model
+details: {}
+extras: {}
+look:
+  color:
+    1: 0.36
+    2: 0.78
+    3: 0.32
+  icon: "Interface\\Icons\\Trade_Herbalism"
+  label: "Herb"
+name: "Bruiseweed"
+prices:
+  1:
+    1: "Sell Price"
+    2: "40|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+  2:
+    1: "Auction"
+    2: "12|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 50|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+quests: {}
+skill: "Herbalism"
+skillColor:
+  1: 1
+  2: 0.5
+  3: 0.25
+skillRow:
+  name: "Herbalism"
+== sample render
+panel 260 x 165
+texture at -16,-16 0x0 rgb=0.36,0.78,0.32,0.385 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x67 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 Trade_Herbalism
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.36,0.78,0.32,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.36,0.78,0.32,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.36,0.78,0.32,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.36,0.78,0.32,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.36,0.78,0.32,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.36,0.78,0.32,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.36,0.78,0.32,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.36,0.78,0.32,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.36,0.78,0.32,1 tooltip-RightEdge
+text at 67,21 w=174 size=17 rgb=0.96,0.92,0.84 "BRUISEWEED"
+text at 67,45 w=174 size=12 rgb=0.68,0.89,0.66 "Herb"
+texture at 19,76 102x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 102x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=222 size=12 rgb=1,0.5,0.25 "Requires Herbalism"
+text at 19,114 w=186 size=11 rgb=0.88,0.78,0.6 "Sell Price"
+text at 217,114 w=24 size=11 rgb=0.88,0.78,0.6 "40|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+text at 19,131 w=158.5 size=11 rgb=0.88,0.78,0.6 "Auction"
+text at 189.5,131 w=51.5 size=11 rgb=0.88,0.78,0.6 "12|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 50|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"

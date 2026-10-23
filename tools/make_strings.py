@@ -1,11 +1,14 @@
-"""Writes tests/locales/<locale>.lua: the game's own strings the addon names, in each language.
+"""Writes tests/locales/<locale>.lua, and retail's tests/locales/retail/<locale>.lua: the game's own strings the
+addon names, in each language.
 
 Every client defines the game's strings (ITEM_MIN_LEVEL, DURABILITY_TEMPLATE, ...) as globals in its own
 language; the addon reads tooltips through them. The tests run without the game, so they load these files in
 the fixture's language instead. They are for the tests only: the game has its own.
 
 The strings come from WoW Forever's GlobalStrings table on wago.tools, in each language
-(https://wago.tools/db2/GlobalStrings/csv?build=<version>&locale=<locale>). A file holds the strings the addon
+(https://wago.tools/db2/GlobalStrings/csv?build=<version>&locale=<locale>), and with --retail from retail's, which
+the tests load for retail's captures and retail's files: the two games word many alike strings apart ("Binds to
+Account", "Binds to Warband"), and some only one has. A file holds the strings the addon
 reads: the game globals .luacheckrc lists, every string a name in a quoted string ending in "_" begins (as
 "TOOLTIP_ITEM_STAT_", for a family the addon reads through _G), and the strings tests/unit names. The values are
 kept as the table has them: the body of a Lua string, escapes and all, as the game's own GlobalStrings.lua writes
@@ -14,6 +17,8 @@ them.
 python tools/make_strings.py                       newest Forever build
 python tools/make_strings.py --build 1.60.1.70450  a specific build
 python tools/make_strings.py --offline             tables already downloaded
+python tools/make_strings.py --retail              newest retail build
+python tools/make_strings.py --retail --build 12.1.5.70448
 """
 
 import csv
@@ -32,19 +37,9 @@ NAME = re.compile(r"(?<![A-Za-z0-9_.])[A-Z][A-Z0-9_]{2,}(?![A-Za-z0-9_])")
 
 
 def addon_files():
-    """The addon's Lua files, as Forever's .toc and retail's list them, without any load condition after the
-    name, and each language's file where a path names the client's language ([TextLocale])."""
-    files = []
-    for toc in ("PrettyTooltip_Camelot.toc", "PrettyTooltip_Mainline.toc"):
-        for line in (ROOT / toc).read_text(encoding="utf-8").splitlines():
-            line = line.strip().replace("\\", "/")
-            if "[TextLocale]" in line:
-                paths = sorted(ROOT.glob(line.replace("[TextLocale]", "*")))
-            else:
-                line = re.sub(r"\s*\[.*$", "", line)
-                paths = [ROOT / line] if line and not line.startswith("#") and line.endswith(".lua") else []
-            files += [path for path in paths if path not in files]
-    return files
+    """The addon's Lua files, as Forever's .toc and retail's list them, in every language."""
+    import toc
+    return [ROOT / name for name in toc.every_addon_file(ROOT)]
 
 
 def names_used():
@@ -99,7 +94,8 @@ def lua_body(value):
 
 def main():
     parser = ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("--build", help="Forever build, e.g. 1.60.1.70450 (default: newest on wago.tools)")
+    parser.add_argument("--build", help="the build, e.g. 1.60.1.70450 (default: the newest on wago.tools)")
+    parser.add_argument("--retail", action="store_true", help="retail's strings, for its captures, into tests/locales/retail")
     parser.add_argument("--offline", action="store_true", help="use only tables already downloaded")
     args = parser.parse_args()
 
@@ -110,29 +106,38 @@ def main():
 
     build = args.build
     if not build:
-        if args.offline:
-            cached = sorted((p.name for p in Path(fs.CACHE).iterdir() if p.is_dir()), key=fs.version_key)
+        cached = sorted((p.name for p in Path(fs.CACHE).iterdir() if p.is_dir()), key=fs.version_key) \
+            if os.path.isdir(fs.CACHE) else []
+        if args.retail and args.offline:
+            build = next((b for b in reversed(cached) if int(b.split(".")[0]) >= 10), None)
+        elif args.retail:
+            import json
+            products = json.loads(fs.get(f"{fs.WAGO}/api/builds"))
+            build = max((b["version"] for b in products.get("wow", [])), key=fs.version_key, default=None)
+        elif args.offline:
             build = next((b for b in reversed(cached) if b.startswith("1.6")), None)
         else:
             build, _ = fs.newest_builds()
     if not build:
-        sys.exit("No Forever build found. Pass --build.")
+        sys.exit(f"No {'retail' if args.retail else 'Forever'} build found. Pass --build.")
 
     used = names_used()
     prefixes = tuple(name for name in used if name.endswith("_"))
-    OUT.mkdir(parents=True, exist_ok=True)
+    out = OUT / "retail" if args.retail else OUT
+    source = f"retail's GlobalStrings (build {build})" if args.retail else f"WoW Forever's GlobalStrings (build {build})"
+    out.mkdir(parents=True, exist_ok=True)
     for locale in LOCALES:
         strings = load_strings(fs, build, locale, args.offline)
         chosen = sorted(name for name in strings if name in used or name.startswith(prefixes))
         lines = [
             f"-- The game's strings the addon names, in {locale}. Generated by tools/make_strings.py",
-            f"-- from WoW Forever's GlobalStrings (build {build}); the tests load them in the fixture's language.",
+            f"-- from {source}; the tests load them in the fixture's language.",
             "return {",
         ]
         lines += [f'    ["{name}"] = "{lua_body(strings[name])}",' for name in chosen]
         lines += ["}", ""]
-        (OUT / f"{locale}.lua").write_text("\n".join(lines), encoding="utf-8", newline="\n")
-        print(f"{len(chosen)} strings written to tests/locales/{locale}.lua")
+        (out / f"{locale}.lua").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+        print(f"{len(chosen)} strings written to {(out / f'{locale}.lua').relative_to(ROOT).as_posix()}")
 
 
 if __name__ == "__main__":

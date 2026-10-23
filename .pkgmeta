@@ -11,6 +11,7 @@ ignore:
   - art/*.py
   - art_unused
   - art/README.md
+  - Retail/README.md
   - art/logo-400.png
   - tests
   - output

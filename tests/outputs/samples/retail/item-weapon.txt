@@ -1,0 +1,165 @@
+== sample model
+armor: {}
+effects: {}
+enchants:
+  1:
+    left: "|cff4CE64C+25|r |cffA6EBA6Agility|r"
+    right: ""
+equipEffects:
+  1:
+    left: "Your attacks have a chance to cleave a nearby enemy."
+    right: ""
+  2:
+    left: "Wounds the target for 40 to 60 damage."
+    onHit: true
+    right: ""
+equippable: true
+extras: {}
+flavor:
+  1:
+    left: "\"Sample flavor text sits here, in gold.\""
+    right: ""
+footerLeft:
+  1:
+    durability:
+      1: 61
+      2: 120
+    left: "Durability 61 / 120"
+    right: ""
+  2:
+    color:
+      1: 0.86
+      2: 0.74
+      3: 0.45
+    left: "Made by Lorelei"
+    right: ""
+footerRight:
+  1:
+    left: "6|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 42|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+header:
+  1:
+    left: "Binds when equipped"
+    right: "Requires Level 58"
+    rightColor:
+      1: 0.95
+      2: 0.93
+      3: 0.88
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+kinds: {}
+level: 63
+name: "Arcanite Reaper"
+primary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+13|r |cffEEE7DAStamina|r"
+    right: ""
+quality: 4
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: "Quality: |A:Professions-ChatIcon-Quality-Tier5:17:17|a"
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: "Heroic"
+  sourceColor: false
+  transmog: "Ravager"
+  upgrade: "Myth 2/6"
+secondary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF7A38E+48|r |cffF5C8BCCritical Strike|r"
+    right: ""
+  2:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+31|r |cffF3E2B0Haste|r"
+    right: ""
+  3:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffC3A6F7+27|r |cffD8CAF5Mastery|r"
+    right: ""
+  4:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff86D4CC+19|r |cffBDE6E1Versatility|r"
+    right: ""
+setBonuses: {}
+setItems: {}
+slot: "Axe · Two-Hand"
+sockets:
+  1:
+    icon: "Interface\\Icons\\INV_Misc_Gem_Diamond_02"
+    left: "|cffF2D57C+70|r |cffF3E2B0Haste|r"
+    right: ""
+  2:
+    color:
+      1: 0.5
+      2: 0.5
+      3: 0.5
+    icon: "Interface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic"
+    left: "Prismatic Socket"
+    right: ""
+  3:
+    color:
+      1: 0.5
+      2: 0.5
+      3: 0.5
+    left: "Socket Bonus: +8 Stamina"
+    right: ""
+weaponBonus: {}
+weaponDamage: "153 - 256 Damage"
+weaponDps: "53.8"
+weaponSpeed: "Speed 3.80"
+== sample render
+panel 330 x 553
+texture at -16,-16 0x0 rgb=0.72,0.4,0.94,0.55 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x156 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.72,0.4,0.94,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 45x16 rgb=0.576,0.32,0.752,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.1008,0.056,0.1316,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=0.874,0.73,0.973 "iLvl 63"
+texture unplaced 16x16 rgb=0.72,0.4,0.94,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.72,0.4,0.94,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.72,0.4,0.94,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.72,0.4,0.94,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.72,0.4,0.94,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.72,0.4,0.94,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.72,0.4,0.94,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.72,0.4,0.94,1 tooltip-RightEdge
+text at 72,21 w=239 size=19 rgb=0.72,0.4,0.94 "ARCANITE REAPER"
+text at 72,47 w=239 size=12 rgb=0.12,1,0.12 "Heroic"
+text at 72,65 w=239 size=13 rgb=0.86,0.7,0.97 "Axe · Two-Hand"
+text at 72,84 w=239 size=12 rgb=0.9,0.8,0.55 "Myth 2/6"
+text at 72,102 w=239 size=12 rgb=0.9,0.85,0.74 "Quality: |A:Professions-ChatIcon-Quality-Tier5:12:12:0:0|a"
+text at 72,120 w=123 size=12 rgb=0.78,0.72,0.63 "Binds when equipped"
+text at 207,120 w=104 size=12 rgb=0.95,0.93,0.88 "Requires Level 58"
+text at 72,137 w=239 size=12 rgb=1,0.5,1 "Transmogrified to: Ravager"
+texture at 19,165 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-165 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-160 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,178 w=292 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF253.8|r |cffAEB9C7Damage per Second|r"
+text at 26,204 w=285 size=12 rgb=0.62,0.65,0.7 "153 - 256 Damage  ·  Speed 3.80"
+text at 19,225 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+13|r |cffEEE7DAStamina|r"
+texture at 19,251 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-251 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-246 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,264 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF7A38E+48|r |cffF5C8BCCritical Strike|r"
+text at 19,282 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffF2D57C+31|r |cffF3E2B0Haste|r"
+text at 19,300 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffC3A6F7+27|r |cffD8CAF5Mastery|r"
+text at 19,318 w=292 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cff86D4CC+19|r |cffBDE6E1Versatility|r"
+text at 19,341 w=22 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sparkle:11:11:-1:-2:32:32:0:32:0:32:90:230:60|t"
+text at 41,341 w=270 size=13 rgb=0.9,0.85,0.74 "|cff4CE64C+25|r |cffA6EBA6Agility|r"
+texture at 19,364 15x15 rgb=1,1,1,1 INV_Misc_Gem_Diamond_02
+text at 38,364 w=273 size=12 rgb=0.9,0.85,0.74 "|cffF2D57C+70|r |cffF3E2B0Haste|r"
+texture at 19,381 15x15 rgb=1,1,1,1 UI-EmptySocket-Prismatic
+text at 38,381 w=273 size=12 rgb=0.5,0.5,0.5 "Prismatic Socket"
+text at 19,398 w=292 size=12 rgb=0.5,0.5,0.5 "Socket Bonus: +8 Stamina"
+text at 19,420 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t"
+text at 41,420 w=270 size=13 rgb=0.48,0.88,0.48 "Your attacks have a chance to cleave a nearby enemy."
+text at 19,453 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-sword:11:11:-1:-2:32:32:0:32:0:32:200:210:225|t"
+text at 41,453 w=270 size=13 rgb=0.48,0.88,0.48 "Wounds the target for |cffFFF6E440|r to |cffFFF6E460|r damage."
+text at 19,476 w=292 size=12 rgb=0.86,0.74,0.45 "\"Sample flavor text sits here, in gold.\""
+text at 237.5,502 w=73.5 size=11 rgb=0.88,0.78,0.6 "6|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 42|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 18|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+texture at 19,507 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 27.45x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,502 w=90 size=11 rgb=0.82,0.78,0.71 "61 / 120"
+text at 19,519 w=280 size=11 rgb=0.86,0.74,0.45 "Made by Lorelei"

@@ -5,7 +5,7 @@ The tests run the addon outside the game, in Lua 5.1 (the game's) through [lupa]
 ```
 pip install -r tests/requirements.txt
 python tests/run.py              # everything
-python tests/run.py -k frost     # tests whose name holds "frost" ("samples", "lint", ".blizzard" work too)
+python tests/run.py -k frost     # tests whose name holds "frost" ("samples", "lint", ".blizzard", "retail" work too)
 python tests/run.py --update     # accept the current output as the expected
 python tests/run.py --notes      # list what each fixture lacked an answer for
 python tests/run.py --coverage   # which lines and functions the tests ran
@@ -55,10 +55,10 @@ A fixture is a real tooltip, captured in the game:
 
 1. Hover a tooltip, or click a link in chat, and type `/ptip capture <name>`. Hold Shift first to capture the comparison tooltips too. Values the game hides, as on some player tooltips, are kept marked; the harness gives them back as hidden values that `issecretvalue` knows, so the addon's handling of them is tested too.
 2. `/reload` or log out, which is when the game writes the captures to disk.
-3. `python tests/import_captures.py "<WoW folder>"` (the folder holding `WTF`, or the `SavedVariables/PrettyTooltip.lua` file itself). It writes `tests/fixtures/<name>.lua`; `--only` picks captures and `--rename old=new` renames them. Player and guild names are replaced unless `--keep-names` is given.
+3. `python tests/import_captures.py "<WoW folder>"` (the folder holding `WTF`, or the `SavedVariables/PrettyTooltip.lua` file itself). It writes `tests/fixtures/<name>.lua`, and `retail-<name>.lua` for a capture retail made; `--only` picks captures and `--rename old=new` renames them. Player and guild names are replaced unless `--keep-names` is given.
 4. `python tests/run.py`: a new fixture gets its first expected output in `tests/outputs/<name>.txt`. Read it once; it is what the test holds the code to from then on.
 
-Each fixture is run as the game would: the addon's files load in the `.toc`'s order, saved settings arrive and the addon's `ADDON_LOADED` event starts it through `PrettyTooltip.lua`, the post-calls select native item wording or the Pretty model path, the tooltip type's reader turns original data into a model when needed, and the renderer draws it. The expected output holds the model and every string and texture drawn, with where it sits. When a change alters them, the run fails with a diff; if the change is meant, `--update` accepts it.
+Each fixture is run as the game would: the addon's files load in the order of its game's `.toc` (see *Retail* below), saved settings arrive and the addon's `ADDON_LOADED` event starts it through `PrettyTooltip.lua`, the post-calls select native item wording or the Pretty model path, the tooltip type's reader turns original data into a model when needed, and the renderer draws it. The expected output holds the model and every string and texture drawn, with where it sits. When a change alters them, the run fails with a diff; if the change is meant, `--update` accepts it.
 
 `unit/item_refresh_reuse.lua` repeats the nine native handovers seen in a three-tooltip refresh. It checks that wording preparation is reused while native font bindings stay fresh, that settings and restricted values cannot reuse stale entries, and that native item details read only identity and disenchant metadata. The wording cache holds at most 512 entries, including unchanged lines; live disenchant metadata and prices are not cached.
 
@@ -96,13 +96,26 @@ Every sample the style editor shows (a weapon, a herb, a hostile elite, a quest 
 
 Every client defines the game's strings (`ITEM_MIN_LEVEL`, `DURABILITY_TEMPLATE`, …) as globals in its own language, and the addon reads tooltips through them. `tests/locales/<locale>.lua` holds them for enUS, deDE, frFR, esES, esMX, ptBR, koKR, zhCN, zhTW, and ruRU, and each world defines the ones of its fixture's language (`client.locale`, enUS when a fixture has none). `python tools/make_strings.py` writes them from Forever's own string table on wago.tools: the globals `.luacheckrc` lists, the families a quoted name ending in `_` stands for (`"TOOLTIP_ITEM_STAT_"`), and the names the unit checks use. Run it again after adding a game string to the addon.
 
+Retail words many of the same strings its own way ("Binds to Warband", where Forever says "Binds to Account"; Russian "Дальность действия: %s м" for "Радиус действия: %s м."), and lacks Forever's Classic stats. `python tools/make_strings.py --retail` writes retail's into `tests/locales/retail/<locale>.lua`, and a world that loads retail's files (`Retail/Retail.lua`) defines those instead. Run both after adding a game string.
+
+## Retail
+
+Retail loads `PrettyTooltip_Mainline.toc`, Forever `PrettyTooltip_Camelot.toc`; `Retail/README.md` describes how retail's files plug into the shared ones. The run covers both games:
+
+- **Retail's captures** are named `retail-<name>` and run with retail's `.toc` and game strings, against `outputs/retail-<name>.txt` and their variants. The name decides: a capture records whether it came from retail's `.toc` (`client.retail`; for an older capture, a client version of 2 or later), and the run fails one whose name says otherwise.
+- **Forever's captures** run once more with retail's `.toc`, as `retail/<name>`. They have no expected output there; they must only not fail.
+- **The samples** are drawn with each game's files: `outputs/samples/` for Forever, `outputs/samples/retail/` for retail.
+- **Unit checks** load retail's files with `test.retail(files)`: it adds, around each shared file, the retail files named for it, and puts a retail stand-in in place of a Forever-only file (`Retail/README.md` has the rule; `unit/retail.lua` checks retail's `.toc` follows it). `test.tocs.forever` and `test.tocs.retail` are each `.toc`'s files in load order; `test.sources` holds every file a test may load.
+
+`python tests/run.py -k retail` runs all of it. `tools/toc.py` reads the `.toc` files for the runner, the package check, `deploy.py`, and the tools alike.
+
 ## Lint
 
 The run starts with [luacheck](https://github.com/lunarmodules/luacheck), by `.luacheckrc`, which reports names used but never defined: a rename or a move that leaves one behind fails it, whether or not a test runs that code. It runs when `luacheck` is on the PATH, or where the `LUACHECK` environment variable points (as at the `luacheck.exe` from its [releases](https://github.com/lunarmodules/luacheck/releases)); without it the run says lint was skipped. The game's globals the addon reads are listed in `.luacheckrc`; a new one goes there.
 
 ## What the tests cover
 
-`python tests/run.py --coverage` reports, for each file, the share of its code lines the tests ran, and the top-level functions none entered. The share is counted from the text, so it is close, not exact, and it includes what runs while a file loads.
+`python tests/run.py --coverage` reports, for each file either `.toc` loads, retail's included, the share of its code lines the tests ran, and the top-level functions none entered. The share is counted from the text, so it is close, not exact, and it includes what runs while a file loads.
 
 The code falls into these kinds, by how far the tests can check it (counts from October 2026, of about 5,400 code lines):
 
@@ -132,7 +145,7 @@ Each file in `tests/unit` returns a function given `test`, with `test.load(files
 ## How it fits together
 
 - `harness/wow.lua` stands in for the game: frames, font strings, and textures that keep what is set on them, game functions that answer from the fixture, and fixed text metrics (half the font size per character), so layouts come out the same every run.
-- `harness/main.lua` loads the addon and runs a fixture or a unit file.
+- `harness/main.lua` loads the addon and runs a fixture or a unit file, with retail's game strings when the files are retail's.
 - `harness/serialize.lua` writes fixtures (Lua that reads back exactly) and expected outputs (sorted, readable text).
 - `harness/enums.lua`, when present, holds the client's enums from the newest capture, for fixtures captured before captures carried them.
 

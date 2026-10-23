@@ -5,7 +5,8 @@ logout, and writes each capture to tests/fixtures/<name>.lua. Lines the item
 rewrite changed get the game's own text back, so the tests run the rewrite
 themselves. The player's and other players' names are replaced unless
 --keep-names is given. The newest capture's enums are saved as
-tests/harness/enums.lua, for fixtures captured before captures carried them.
+tests/harness/enums.lua, for fixtures captured before captures carried them. A capture retail made is
+named retail-<name>, which tells the tests to replay it with retail's files.
 
 python tests/import_captures.py "C:/Program Files (x86)/World of Warcraft/_classic_beta_"
 python tests/import_captures.py <path to SavedVariables/PrettyTooltip.lua> --only frostbolt-r3
@@ -90,6 +91,20 @@ end
 """
 
 
+# What tests/run.py names a capture retail made.
+RETAIL_PREFIX = "retail-"
+
+
+def is_retail(capture) -> bool:
+    """Whether retail made the capture: by the .toc it says it loaded, or, before captures said so, by its
+    client's version, as Forever's is 1.x."""
+    client = capture.client
+    if client is not None and client.retail is not None:
+        return client.retail is True
+    version = str(client.version) if client is not None and client.version else ""
+    return version.split(".")[0].isdigit() and int(version.split(".")[0]) >= 2
+
+
 def find_saved_variables(path: Path) -> Path:
     if path.is_file():
         return path
@@ -135,6 +150,8 @@ def main() -> None:
             continue
         capture = prepare(captures[name], args.keep_names)
         target = renames.get(name, name)
+        if is_retail(capture) and not target.startswith(RETAIL_PREFIX):
+            target = RETAIL_PREFIX + target
         if not re.fullmatch(r"[\w-]+", target):
             print(f"Skipped {name}: {target!r} is not a usable file name.")
             continue

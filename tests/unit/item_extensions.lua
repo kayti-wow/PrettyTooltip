@@ -1,4 +1,4 @@
--- Exercise the provisional item seams through real reading, rendering, and
+-- Exercise the item extension callbacks through real reading, rendering, and
 -- live fallback. No extension must preserve the ordinary model and layout.
 return function(test)
     local LINE = { None = 0, ItemName = 1, ItemBinding = 2, ClientUpgrade = 99 }
@@ -62,6 +62,28 @@ return function(test)
     test.check("native data is not decorated", data.lines[2].observedAfterReading, nil)
     local clone = ns.ui.itemModel({ name = "Sample", quality = 1 })
     test.check("sample models receive independent client state", clone.retail ~= model.retail, true)
+
+    -- Each line's callbacks get a fresh context that reads the read's fields;
+    -- state lasts the whole read; the completion sees none of a line's fields.
+    local LINE_FIELDS = { "lineNumber", "lineModel", "originalText", "leftText", "text", "rightText", "added" }
+    local seen, finished = {}, nil
+    descriptor.extension = {
+        afterReadLine = function(_, _, context)
+            context.state.lines = (context.state.lines or 0) + 1
+            seen[#seen + 1] = context
+        end,
+        afterRead = function(_, context) finished = context end,
+    }
+    read()
+    local stale = {}
+    for _, name in ipairs(LINE_FIELDS) do
+        if finished[name] ~= nil then stale[#stale + 1] = name end
+    end
+    test.check("each line gets a fresh context", { #seen, seen[1] ~= seen[2], seen[2].lineNumber,
+        seen[2].rootModel == finished.rootModel, seen[2].data == data }, { 4, true, 2, true, true })
+    test.check("state lasts the whole read", finished.state.lines, 4)
+    test.check("completion sees no line's fields", stale, {})
+    descriptor.extension = extension
 
     -- A wide contribution must affect measurement, not merely draw over an
     -- already-sized panel. The ordinary view is unchanged when detached.

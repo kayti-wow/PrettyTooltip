@@ -1,0 +1,73 @@
+== sample model
+armor: {}
+effects:
+  1:
+    left: "Restores 1050 to 1750 health. (2 Min Cooldown)"
+    right: ""
+    use: true
+enchants: {}
+equipEffects: {}
+extras: {}
+flavor: {}
+footerLeft: {}
+footerRight:
+  1:
+    left: "50|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t  |cff9E9485(5 × 10|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t)|r"
+    right: ""
+    sellPrice: true
+header:
+  1:
+    left: ""
+    right: "Requires Level 45"
+    rightColor:
+      1: 0.95
+      2: 0.93
+      3: 0.88
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+kinds: {}
+level: 55
+name: "Major Healing Potion"
+primary: {}
+quality: 1
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+slot: "Consumable · Potion"
+sockets: {}
+weaponBonus: {}
+== sample render
+panel 330 x 183
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x85 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.77,0.77,0.77,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-RightEdge
+text at 72,21 w=239 size=19 rgb=0.77,0.77,0.77 "MAJOR HEALING POTION"
+text at 72,47 w=239 size=13 rgb=0.885,0.885,0.885 "Consumable · Potion"
+text at 207,66 w=104 size=12 rgb=0.95,0.93,0.88 "Requires Level 45"
+texture at 19,94 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-94 137x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-89 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,107 w=22 size=13 rgb=0.48,0.88,0.48 "|TInterface\\AddOns\\PrettyTooltip\\art\\marker-gear:11:11:-1:-2:32:32:0:32:0:32:240:200:90|t"
+text at 41,107 w=270 size=13 rgb=0.48,0.88,0.48 "Restores |cffFFF6E41050|r to |cffFFF6E41750|r health. (|cffFFF6E42|r Min Cooldown)"
+text at 221,149 w=90 size=11 rgb=0.88,0.78,0.6 "50|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t  |cff9E9485(5 × 10|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t)|r"

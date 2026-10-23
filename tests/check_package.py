@@ -6,7 +6,6 @@ This checks packaging and simulated startup, not the game's taint engine.
 """
 
 import re
-import sys
 from argparse import ArgumentParser
 from pathlib import Path, PurePosixPath
 from zipfile import BadZipFile, ZipFile
@@ -14,47 +13,21 @@ from zipfile import BadZipFile, ZipFile
 from lupa.lua51 import LuaError
 
 import run as regression
+from run import toc  # tools/toc.py, the .toc reader the tests and tools share
 
 ROOT = Path(__file__).resolve().parent.parent
 ADDON = "PrettyTooltip"
-TOC = f"{ADDON}_Camelot.toc"
+TOC = toc.FOREVER
 # Retail's, which the retail game picks by its suffix.
-RETAIL_TOC = f"{ADDON}_Mainline.toc"
-TOCS = (TOC, RETAIL_TOC)
+RETAIL_TOC = toc.RETAIL
+TOCS = toc.TOCS
 LOCALES = ("enUS", "deDE", "esES", "esMX", "frFR", "koKR", "ptBR", "ptPT", "ruRU", "zhCN", "zhTW")
 
 
 def toc_entries(text: str, *, source: bool = False) -> list[str]:
-    """Keep load entries and locale conditions; omit source-only debug blocks."""
-    entries = []
-    debug = False
-    for line in text.splitlines():
-        line = line.strip()
-        if source and line == "#@debug@":
-            debug = True
-        elif source and line == "#@end-debug@":
-            debug = False
-        elif not debug and line and not line.startswith("#"):
-            entries.append(line.replace("\\", "/"))
-    return entries
-
-
-def entry_path(entry: str) -> str:
-    return entry.split(" [", 1)[0]
-
-
-def locale_files(entries: list[str], locale: str) -> list[str]:
-    files = []
-    for entry in entries:
-        match = re.fullmatch(r"(.+?)\s+\[AllowLoadTextLocale\s+([^\]]+)\]", entry)
-        if match:
-            if locale not in re.split(r"[,\s]+", match[2].strip()):
-                continue
-            entry = match[1]
-        if "[" in entry or not entry.endswith(".lua"):
-            raise ValueError(f"unsupported TOC entry: {entry}")
-        files.append(entry)
-    return files
+    """A .toc's load lines with their locale conditions; for a source .toc, without the debug block a release
+    leaves out."""
+    return toc.entries(text, debug=not source)
 
 
 def check_contents(archive: ZipFile) -> tuple[dict[str, list[str]], dict[str, str]]:
@@ -75,20 +48,20 @@ def check_contents(archive: ZipFile) -> tuple[dict[str, list[str]], dict[str, st
     for name in TOCS:
         if name not in files:
             raise ValueError(f"missing {name}")
-        toc = archive.read(f"{ADDON}/{name}").decode("utf-8-sig")
+        packaged = archive.read(f"{ADDON}/{name}").decode("utf-8-sig")
         source_toc = (ROOT / name).read_text(encoding="utf-8-sig")
-        entries = toc_entries(toc)
+        entries = toc_entries(packaged)
         if entries != toc_entries(source_toc, source=True):
             raise ValueError(f"packaged {name} load order or locale conditions differ from the source release entries")
         for field in ("Interface", "Version", "X-Curse-Project-ID"):
             pattern = rf"^## {field}:\s*(.+)$"
-            actual = re.search(pattern, toc, re.MULTILINE)
+            actual = re.search(pattern, packaged, re.MULTILINE)
             expected = re.search(pattern, source_toc, re.MULTILINE)
             if not actual or not expected or actual[1].strip() != expected[1].strip():
                 raise ValueError(f"packaged {field} differs from the source {name}")
         entries_by_toc[name] = entries
     required = set(TOCS) | {"LICENSE"}
-    required |= {entry_path(entry) for entries in entries_by_toc.values() for entry in entries}
+    required |= {toc.split(entry)[0] for entries in entries_by_toc.values() for entry in entries}
     required |= {path.relative_to(ROOT).as_posix() for path in (ROOT / "art").glob("*.tga")}
     missing = sorted(required - files)
     if missing:
@@ -115,11 +88,11 @@ def check_startup(entries_by_toc: dict[str, list[str]], sources: dict[str, str])
         valid, problem = compile_lua(source, name)
         if not valid:
             raise ValueError(f"packaged Lua syntax error: {problem}")
-    for (toc, entries), locale in ((pair, locale) for pair in entries_by_toc.items() for locale in LOCALES):
-        retail = toc == RETAIL_TOC
+    for (name, entries), locale in ((pair, locale) for pair in entries_by_toc.items() for locale in LOCALES):
+        retail = name == RETAIL_TOC
         lua, load, harness = regression.new_runtime()
         startup = lua.eval("""function(files, sources, makeWorld, enums, locale, retail)
-            local world = makeWorld({ client = { locale = locale } }, enums, function() end)
+            local world = makeWorld({ client = { locale = locale } }, enums, function() end, retail)
             local ns = {}
             for _, file in ipairs(files) do
                 assert(loadstring(sources[file], '@' .. file))('PrettyTooltip', ns)
@@ -128,19 +101,19 @@ def check_startup(entries_by_toc: dict[str, list[str]], sources: dict[str, str])
             world.fireEvent('ADDON_LOADED', 'PrettyTooltip')
             assert(ns.Locale.supported, 'locale not enabled')
             assert(ns.IsRetail() == (retail == true), 'retail flag does not match the TOC')
-            assert(retail or ns.spellPowerRows, 'coefficients not loaded')
+            assert(ns.hasData('coefficients') ~= retail, 'coefficients loaded on the wrong client')
             assert(ns.Locale.features.coefficients, 'localized coefficients not enabled')
             assert(type(SlashCmdList.PRETTYTOOLTIP) == 'function', 'startup did not register commands')
             assert(ns.TooltipTypes[enums.TooltipDataType.Item], 'item type not registered')
             assert(ns.TooltipTypes[enums.TooltipDataType.Spell], 'spell type not registered')
         end""")
-        files = regression.lua_table(lua, dict(enumerate(locale_files(entries, locale), 1)))
+        files = regression.lua_table(lua, dict(enumerate(toc.load_order(entries, locale), 1)))
         try:
             startup(files, regression.lua_table(lua, sources), harness["wow"], regression.default_enums(load), locale,
                     retail)
         except LuaError as error:
-            raise ValueError(f"packaged startup failed for {locale} on {toc}: {error}") from error
-        print(f"ok packaged startup {locale} on {toc}")
+            raise ValueError(f"packaged startup failed for {locale} on {name}: {error}") from error
+        print(f"ok packaged startup {locale} on {name}")
 
 
 def main() -> None:

@@ -6,8 +6,11 @@ if not (ui and UNIT and ui.renderView) then
     return
 end
 
--- A client file loaded after this one can set descriptor.extension: afterRead.
--- Retail's is Retail/Tooltips/UnitExtension.lua.
+-- What this file registers as the unit tooltip type. A client's file loaded
+-- after this one can set descriptor.extension, with this callback
+-- (Retail/README.md; retail's is Retail/Tooltips/UnitExtension.lua):
+--   afterRead(model, context) reads more into the finished model; context has
+--     nativeTooltip, data, game, and rootModel
 local descriptor = {}
 
 local util = ns.util
@@ -144,7 +147,7 @@ local function npcID(guid)
 end
 
 local function skinning(model, game)
-    if not (model.dead and ns.skinningLoot) then return end
+    if not (model.dead and ns.hasData("skinningLoot")) then return end
     local creatureID = npcID(model.guid)
     local drops = creatureID and ns.skinningLoot(creatureID)
     if not drops then return end
@@ -675,6 +678,11 @@ local function details(model, context)
     return rows
 end
 
-descriptor.read, descriptor.render, descriptor.key, descriptor.option = readUnit, renderUnit, unitKey, "unitPanels"
-descriptor.alwaysRedraw, descriptor.details, descriptor.detailKeys = true, details, { "gatheringLoot", "showIDs" }
+descriptor.read = readUnit
+descriptor.render = renderUnit
+descriptor.key = unitKey
+descriptor.option = "unitPanels"
+descriptor.alwaysRedraw = true
+descriptor.details = details
+descriptor.detailKeys = { "gatheringLoot", "showIDs" }
 ui.defineTooltipType(UNIT, descriptor)

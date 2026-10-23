@@ -483,6 +483,12 @@ function hooks.install()
             end)
         end
     end
+    -- A client's extension of a tooltip type can hook the game itself, as
+    -- retail's flight map pins do (descriptor.extension.install).
+    for _, tooltipType in pairs(TooltipTypes) do
+        local extension = tooltipType.extension
+        if extension and extension.install then extension.install() end
+    end
 
     -- The original-tooltip key swaps the panel for the game's tooltip; Shift
     -- shows or hides the details.

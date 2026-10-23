@@ -5,19 +5,22 @@ local _, ns = ...
 local util = {}
 ns.util = util
 
+-- How one client's code reaches the shared code -------------------------------
+-- Retail/README.md has the whole of it. In short, a client's files plug in
+-- three ways: data, through ns.contribute; behavior, through a tooltip type's
+-- descriptor.extension or ns.replace; and data only some clients load, which
+-- shared code asks for with ns.hasData. Shared code never asks which client
+-- it runs on.
+
 -- Whether this is retail's client, whose .toc alone loads the Retail/ folder,
--- Retail/Retail.lua first. Shared code does not ask: it reads what a client
--- contributes or extends (below, and Retail/Retail.lua). Tests and the package
--- check do.
+-- Retail/Retail.lua first. For tests and the package check only.
 function ns.IsRetail()
     return ns.Retail ~= nil
 end
 
--- What a client's files add to a shared file's lists, registered before that
--- file loads (Retail/Data/Stats.lua's, before Data/Stats.lua): the shared file
--- reads them by its target's name, in the order they came. A client that
--- changes what a shared file does, rather than adding to its lists, does so
--- in a file loaded after it (Retail/Tooltips/ItemExtension.lua).
+-- Data a client's file adds to a shared file's lists, registered before that
+-- file loads (Retail/Data/Stats.lua's, before Data/Stats.lua). The shared file
+-- reads them by the target's name, in the order they came.
 local contributed = {}
 function ns.contribute(target, contribution)
     contributed[target] = contributed[target] or {}
@@ -25,6 +28,37 @@ function ns.contribute(target, contribution)
 end
 function ns.contributions(target)
     return contributed[target] or {}
+end
+
+-- Puts a client's own answers in place of a shared module's, from a file loaded
+-- after it (Retail/Game/GameExtension.lua for ns.Game). Each must replace a
+-- function the module has, so one renamed there stops the load rather than
+-- going unused.
+function ns.replace(module, moduleName, answers)
+    for name, answer in pairs(answers) do
+        assert(type(module[name]) == "function", "a client replaces " .. name .. ", which " .. moduleName .. " lacks")
+        module[name] = answer
+    end
+end
+
+-- The data sets only Forever's .toc loads, as Classic's tables do not hold for
+-- retail. Each file of one says it loaded (ns.provideData), and code drawing
+-- from one asks first (ns.hasData). A name not listed here stops the load.
+local dataSets = {
+    disenchant = false, -- Data/Disenchant.lua
+    coefficients = false, -- Data/Coefficients.lua, with Data/SpellRanks.lua
+    nodeLoot = false, -- Data/Nodes.lua
+    nodeNames = false, -- Data/NodeNames.lua
+    nodeSkills = false, -- Data/NodeSkills.lua
+    skinningLoot = false, -- Data/Skinning.lua
+}
+function ns.provideData(name)
+    assert(dataSets[name] ~= nil, "no data set named " .. tostring(name))
+    dataSets[name] = true
+end
+function ns.hasData(name)
+    assert(dataSets[name] ~= nil, "no data set named " .. tostring(name))
+    return dataSets[name]
 end
 
 -- Secret values and tables whose contents this addon cannot access must be
@@ -39,6 +73,18 @@ local isSecret = util.isSecret
 -- A function's results as a table, with their count in n, nils included.
 function util.pack(...)
     return { n = select("#", ...), ... }
+end
+
+-- Puts entry into list just after the entry whose key is after. Its kind (as
+-- "class") names what is missing when no entry has that key, which stops the load.
+function util.insertAfter(list, after, entry, kind)
+    for index, other in ipairs(list) do
+        if other.key == after then
+            table.insert(list, index + 1, entry)
+            return
+        end
+    end
+    error("no " .. kind .. " " .. tostring(after) .. " to put " .. tostring(entry.key) .. " after", 2)
 end
 
 -- Text ------------------------------------------------------------------------
@@ -219,9 +265,11 @@ local function normalized(text)
     return (resolvePlurals(text):gsub("|n", "\n"))
 end
 
+-- Text as a Lua pattern that matches it exactly.
 local function escapePattern(text)
     return (text:gsub("[%^%$%(%)%%%.%[%]%*%+%-%?]", "%%%0"))
 end
+util.escapePattern = escapePattern
 
 -- What each conversion reads: "%s" any text, "%c" the sign the game passes
 -- it, and the rest a number, with either separator (see util.parseNumber).
@@ -473,4 +521,16 @@ end
 function util.hex(color)
     local function byte(value) return math.floor(math.min(1, value) * 255 + .5) end
     return string.format("%02X%02X%02X", byte(color[1]), byte(color[2]), byte(color[3]))
+end
+
+-- The { r, g, b } color "RRGGBB" names, each part from 0 to 1.
+function util.fromHex(hex)
+    return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255 }
+end
+
+-- The color a text's color code opens it with, past any space, as
+-- "|cFF19FF19Heroic|r" gives { .1, 1, .1 }; nil when it opens without one.
+function util.openingColor(text)
+    local hex = text:match("^%s*|c%x%x(%x%x%x%x%x%x)")
+    return hex and util.fromHex(hex)
 end

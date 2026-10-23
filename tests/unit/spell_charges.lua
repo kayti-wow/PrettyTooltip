@@ -40,12 +40,13 @@ return function(test)
         charges = "Max 2 Charges", cooldown = { "12 sec", "Recharge" }, cells = 4, details = "Recharging: 5 sec",
         color = { 1, .60, .25 }, extras = 0 })
 
-    -- Russian words the time left as it words a cooldown.
-    model = read("ruRU", { "Огненный взрыв", { "1% от базовой маны", "Радиус действия: 40 м." },
-        { "Мгновенное", "Время восстановления 12 сек." }, "Максимум 2 заряда", "Восстановление: 5 сек.",
+    -- Russian words the time left as it words a cooldown. The lines are worded
+    -- as retail's Russian client words them (tests/locales/retail/ruRU.lua).
+    model = read("ruRU", { "Огненный взрыв", { "1% от базовой маны", "Дальность действия: 40 м" },
+        { "Мгновенное действие", "Время восстановления 12 сек." }, "Максимум 2 заряда.", "Восстановление: 5 сек.",
         "Наносит противнику 950 ед. урона от огня." })
     test.check("Russian: the time left does not replace the recharge", summary(model), {
-        charges = "Максимум 2 заряда", cooldown = { "12 сек", "Восстановление" }, cells = 4,
+        charges = "Максимум 2 заряда.", cooldown = { "12 сек", "Восстановление" }, cells = 4,
         details = "Восстановление: 5 сек.", color = { 1, .60, .25 }, extras = 0 })
 
     -- Drawn under the strip, in its own part.
@@ -53,11 +54,12 @@ return function(test)
     local panel = ns.ui.renderPreview(anchor, model, SPELL)
     local found
     for _, font in ipairs(panel.pool or {}) do
-        if font._shown and font._text == "Максимум 2 заряда" then found = font end
+        if font._shown and font._text == "Максимум 2 заряда." then found = font end
     end
     test.check("the charges are drawn", found ~= nil, true)
     test.check("a style part for them", ns.style("spellCharges").size, 11)
     local element
-    for _, part in ipairs(ns.ELEMENTS) do if part.key == "spellCharges" then element = part end end
-    test.check("offered on retail alone", { element.tooltipType, element.retail }, { "spell", true })
+    for _, part in ipairs(ns.Retail.Settings.ELEMENTS) do if part.key == "spellCharges" then element = part end end
+    test.check("a part of retail's own", { element.tooltipType, ns.ELEMENT_BY_KEY.spellCharges == element },
+        { "spell", true })
 end

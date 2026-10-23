@@ -1,9 +1,10 @@
 -- Each herb and ore node's yield and the skill level it needs, as
 -- { item ID, level }, by its English name. No API links a node to what it
 -- yields or the skill it needs. Item IDs are checked against the item's name,
--- so a wrong entry is skipped, not shown. Classic's levels: retail's .toc
--- leaves this out.
+-- so a wrong entry is skipped, not shown. Classic's levels.
+-- Forever only: retail's .toc leaves this file out.
 local _, ns = ...
+ns.provideData("nodeSkills")
 
 ns.nodeSkills = {
     ["Peacebloom"] = { 2447, 1 }, ["Silverleaf"] = { 765, 1 }, ["Earthroot"] = { 2449, 15 },

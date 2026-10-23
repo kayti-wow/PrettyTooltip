@@ -140,12 +140,12 @@ Open the game's options, then **AddOns > PrettyTooltip**, or type `/ptip options
 
 ## Install
 
-1. Download the release and extract the `PrettyTooltip` folder into your WoW Forever installation's `Interface\AddOns` folder.
+1. Download the release and extract the `PrettyTooltip` folder into the `Interface\AddOns` folder of your WoW Forever or retail installation. The same folder works in both.
 2. Restart the game if it was running, and enable **PrettyTooltip** on the character select AddOns screen.
 
 ## Compatibility
 
-- WoW Forever 1.60.1 (`## Interface: 16001`). Other clients may word their tooltips differently.
+- WoW Forever 1.60.1 (`## Interface: 16001`) and retail World of Warcraft 12.1.5 (`## Interface: 120105`); on retail, what comes from Classic's data is left out (see *Forever and retail*). Other clients may word their tooltips differently.
 - English, German, French, Spanish (Spain and Latin America), Portuguese, Korean, Simplified Chinese, Traditional Chinese, and Russian clients, including localized spell power coefficients and rate rows. Translations outside English are drafts. Spell descriptions are read with each language's amount, duration, and tick wording; unrecognized descriptions can omit the extra rows. On unsupported languages the panel and stat rewriting stay off, though the options page still appears.
 
 ## Known limitations
@@ -158,7 +158,9 @@ Open the game's options, then **AddOns > PrettyTooltip**, or type `/ptip options
 
 ## Development
 
-`python deploy.py` copies the game files into `D:\Programs\World of Warcraft\_classic_beta_\Interface\AddOns\PrettyTooltip`; pass `--addons-dir "<path to Interface\AddOns>"` for another installation. After a deploy, `/reload` picks up Lua changes; changes to the `.toc` need a game restart.
+`python deploy.py` copies the game files into `D:\Programs\World of Warcraft\_classic_beta_\Interface\AddOns\PrettyTooltip`, and `python deploy.py --retail` into retail's `_retail_` folder beside it; pass `--addons-dir "<path to Interface\AddOns>"` for another installation. After a deploy, `/reload` picks up Lua changes; changes to the `.toc` need a game restart.
+
+Retail's own code is in `Retail/`, which only retail's `.toc` loads; `Retail/README.md` describes how it plugs into the shared code, and what to do to add to it.
 
 `/ptip dump` shows the raw data of the tooltip you are hovering, to see what a kind of tooltip carries, or the lines shown when an addon filled it without data. A link clicked in chat is dumped when nothing is hovered. `/ptip perf` measures for five seconds how often the panel's work runs and how long it takes. `/ptip anchors` shows where each shown panel sits, the gaps between them, and how the game's tooltips under them are anchored. `/ptip pixel` shows how lines are snapped to screen pixels at the current UI scale.
 
@@ -168,6 +170,6 @@ Each opens a window with its findings already selected, under a line naming the 
 
 `/ptip capture <name>` saves the tooltip you are hovering, or a link clicked in chat, as a test fixture: its data, the lines it shows, any comparison tooltips beside it, and the game's answers its reader asks for (item, spell, and unit info, your level, spell power, and skills). Values the game hides, as on some player tooltips, are kept marked as hidden, and the tests play them back that way. Captures are kept in the `PrettyTooltipCaptures` saved variable, which the game writes on `/reload` or logout; `/ptip capture list` names them and `/ptip capture clear` removes them.
 
-`tests/` runs the addon outside the game against captured tooltips and checks: `pip install -r tests/requirements.txt`, then `python tests/run.py`. `tests/README.md` describes capturing, importing, and the expected outputs.
+`tests/` runs the addon outside the game against captured tooltips and checks, for both games: `pip install -r tests/requirements.txt`, then `python tests/run.py`. `tests/README.md` describes capturing, importing, and the expected outputs.
 
 `art/README.md` describes each texture and how it is made.

@@ -139,8 +139,8 @@ function ns.resetOptions()
 end
 
 -- tooltipType: "item" (default), "spell", "object", "unit", "aura", "quest", "macro", or "shared" by all. color is where the picker starts
--- while the color is automatic. classic: drawn from Classic-only data, so not offered on retail. Retail's own
--- parts, marked retail, are in Retail/Core/Settings.lua.
+-- while the color is automatic. needs: the data set the part is drawn from (ns.hasData), when only some clients
+-- load it; the editor offers the part where it is loaded. Retail's own parts are in Retail/Core/Settings.lua.
 ns.ELEMENTS = {
     { key = "mailTitle", label = "Mail title", size = 16, title = true, color = colors.title, tooltipType = "mail" },
     { key = "mailPrices", label = "Attachments and prices", size = 12, color = colors.detail, tooltipType = "mail" },
@@ -177,7 +177,7 @@ ns.ELEMENTS = {
         note = "On recipes; the count you carry red while short, unless set." },
     { key = "caption", label = "Section captions", size = 9, color = colors.caption, caps = true,
         note = "Creates and Reagents on recipes." },
-    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail, needs = "disenchantFor",
+    { key = "disenchant", label = "Disenchant results", size = 11, color = colors.detail, needs = "disenchant",
         note = "The Enchanting needed red while yours is too low, grey without Enchanting, unless set." },
     { key = "spellTitle", label = "Spell name", size = 17, title = true,
         color = colors.title, tooltipType = "spell" },
@@ -280,15 +280,7 @@ ns.TOOLTIP_TYPES = {
 for _, extra in ipairs(ns.contributions("settings")) do
     for key, value in pairs(extra.defaults or {}) do DEFAULTS[key] = value end
     for _, element in ipairs(extra.elements or {}) do
-        local at
-        for index, other in ipairs(ns.ELEMENTS) do
-            if other.key == element.after then
-                at = index
-                break
-            end
-        end
-        assert(at, "no style part " .. tostring(element.after) .. " to put " .. tostring(element.key) .. " after")
-        table.insert(ns.ELEMENTS, at + 1, element)
+        ns.util.insertAfter(ns.ELEMENTS, element.after, element, "style part")
     end
 end
 

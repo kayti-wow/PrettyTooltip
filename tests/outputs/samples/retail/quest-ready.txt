@@ -1,0 +1,52 @@
+== sample model
+active: true
+color:
+  1: 1
+  2: 0.82
+  3: 0
+description:
+  1: "Eliminate the wolves to the east of Northshire and bring their paws to Eagan Peltskinner."
+extras:
+  1:
+    left: "Ended by"
+    right: "Eagan Peltskinner"
+icon: "Interface\\Icons\\INV_Misc_Book_08"
+level: 6
+name: "Wolves Across the Border"
+objectives:
+  1:
+    completed: true
+    left: "Tough Wolf Meat"
+    right: "8/8"
+ready: true
+tags: {}
+== sample render
+panel 308 x 222
+texture at -16,-16 0x0 rgb=0.86,0.74,0.45,0.2475 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x65 rgb=1,1,1,1 WHITE8X8
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.86,0.74,0.45,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.86,0.74,0.45,1 tooltip-RightEdge
+text at 19,21 w=270 size=16 rgb=0.96,0.92,0.84 "WOLVES ACROSS THE BORDER"
+text at 19,45 w=158 size=12 rgb=0.82,0.78,0.71 "|cffFFDF4DLevel 6|r |cff999185·|r |cff9DDB94Ready to turn in|r"
+texture at 19,74 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-74 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-69 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,87 w=270 size=12 rgb=0.86,0.74,0.45 "“Eliminate the wolves to the east of Northshire and bring their paws to Eagan Peltskinner.”"
+text at 130.5,142 w=47 size=9 rgb=0.6,0.57,0.52 "OBJECTIVES"
+texture at 19,147 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-147 104x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture at 19,162 10x10 rgb=0.315,0.56,0.28,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 8x8 rgb=0.2025,0.36,0.18,1 WHITE8X8
+texture CENTER Texture CENTER 1,1 16x16 rgb=1,1,1,1 UI-CheckBox-Check
+text at 36,160 w=221 size=12 rgb=0.45,0.8,0.4 "Tough Wolf Meat"
+text at 269,160 w=20 size=12 rgb=0.45,0.8,0.4 "8/8"
+texture at 19,181 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,190 w=162.5 size=11 rgb=0.6,0.6,0.63 "Ended by"
+text at 193.5,190 w=95.5 size=11 rgb=0.6,0.6,0.63 "Eagan Peltskinner"

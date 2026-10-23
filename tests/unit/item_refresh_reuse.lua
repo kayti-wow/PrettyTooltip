@@ -135,6 +135,7 @@ return function(test)
         itemLevel = function() return level end,
     }
     ns.disenchantFor = function(_, q, l) return q and l and { value = value, quality = q, level = l } or nil end
+    ns.provideData("disenchant")
     local detail = ns.TooltipTypes[0].readDetails
     tooltip.GetItem = function() return "Equipment", "item:1" end
     tooltip.NumLines = function() error("native details must not walk text") end

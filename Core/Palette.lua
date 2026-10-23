@@ -51,12 +51,7 @@ palette.CLASSES = {
 -- one it names, so the style editor lists them in the game's order.
 for _, extra in ipairs(ns.contributions("classes")) do
     for _, class in ipairs(extra) do
-        local at
-        for index, other in ipairs(palette.CLASSES) do
-            if other.key == class.after then at = index end
-        end
-        assert(at, "no class " .. tostring(class.after) .. " to put " .. tostring(class.key) .. " after")
-        table.insert(palette.CLASSES, at + 1, { key = class.key, label = class.label })
+        util.insertAfter(palette.CLASSES, class.after, { key = class.key, label = class.label }, "class")
     end
 end
 

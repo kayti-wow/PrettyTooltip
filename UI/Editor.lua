@@ -980,7 +980,7 @@ local partPicker = dropdown(CONTROLS_WIDTH, function()
         local tooltipType = element.tooltipType or "item"
         -- A part drawn from data only some clients load (Classic's disenchant and
         -- loot tables) names it, and is offered where it is loaded.
-        if (tooltipType == state.tooltipType or tooltipType == "shared") and (not element.needs or ns[element.needs] ~= nil) then
+        if (tooltipType == state.tooltipType or tooltipType == "shared") and (not element.needs or ns.hasData(element.needs)) then
             items[#items + 1] = { value = element.key, text = element.label }
         end
     end
@@ -1053,9 +1053,7 @@ resetPart:SetPoint("TOPLEFT", LABEL_WIDTH, 0)
 
 -- Color groups share picker, cancel, and reset behavior. Their swatches
 -- sit below the label, clear of its reset button.
-local function hexColor(hex)
-    return { tonumber(hex:sub(1, 2), 16) / 255, tonumber(hex:sub(3, 4), 16) / 255, tonumber(hex:sub(5, 6), 16) / 255 }
-end
+local hexColor = ns.util.fromHex
 
 -- note, if given, says why the colors shown may not be the ones chosen. More
 -- swatches than fit across, as retail's thirteen classes, share out over
@@ -1239,9 +1237,9 @@ local items, spells, units = forTypes("item"), forTypes("spell"), forTypes("unit
 -- The spell power rows read spell descriptions, which not every language's reading covers yet.
 local function coefficients() return ns.Locale.features.coefficients == true end
 -- Settings drawn from data only some clients load (Classic's tables, which
--- retail does not), offered where it is loaded: needs names it in ns.
+-- retail does not), offered where it is loaded: needs names it (ns.hasData).
 local function withData(needs, shown)
-    return function() return ns[needs] ~= nil and shown() end
+    return function() return ns.hasData(needs) and shown() end
 end
 -- Settings for a style part a client adds (retail's gems), offered with it.
 local function withPart(key, shown)
@@ -1268,14 +1266,14 @@ toggles({
         .. "second on the small one under it.", items },
     { "Disenchant", "disenchant", "Green, blue, and purple armor and weapons list what they disenchant into, "
         .. "with each result's chance and the Enchanting it needs; with Auctionator, the expected value.",
-        withData("disenchantFor", items) },
+        withData("disenchant", items) },
     { "Socket hint", "socketHint", "The game's Shift Right Click to Socket line, under an item's sockets. Off, "
         .. "the panel leaves it out.", withPart("gems", items) },
     { "Sell price", "sellPrice", "The vendor price in the footer; for a stack, the price of one and of the "
         .. "whole stack.", items },
     { "Spell power (Experimental)", "spellPower", "Under the description, each amount's spell power coefficient "
         .. "and its split into base and spell power. No game API has coefficients: they come from Forever's client "
-        .. "data, and ones marked ~ are estimates.", withData("spellPowerRows", spells), coefficients,
+        .. "data, and ones marked ~ are estimates.", withData("coefficients", spells), coefficients,
         "Experimental: not all values are correct yet." },
     { "Rates", "spellRates", "Under the spell power breakdown (on retail, the description), the average a cast "
         .. "deals or heals per second and per mana. Per second, what lands at once counts over the cast time "

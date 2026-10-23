@@ -1,15 +1,54 @@
--- Retail's part in reading units, through the callbacks Tooltips/Unit.lua
--- offers a client (descriptor.extension). It loads just after that file;
--- Retail/Tooltips/Unit.lua, before it, holds what these use.
+-- Retail's player tooltips name the specialization with the class, as
+-- "Restoration Shaman", on a line of its own or with the level and race. The
+-- spec moves into the info line, in the client's words and order, and a line
+-- saying nothing more goes. It reads them through the callback Tooltips/Unit.lua
+-- offers a client (descriptor.extension), and loads just after that file.
 local _, ns = ...
 local UNIT = Enum and Enum.TooltipDataType and Enum.TooltipDataType.Unit
 local descriptor = ns.TooltipTypes and ns.TooltipTypes[UNIT]
 if not descriptor then return end
-local unit = ns.Retail.Unit
+local util = ns.util
+local isSecret, trim, escapePattern = util.isSecret, util.trim, util.escapePattern
+
+-- Sets model.spec, the spec's name, and model.specClass, the spec and class
+-- as the client wrote them; game asks the client for the class's specs.
+local function readSpec(model, game)
+    if model.spec or type(model.className) ~= "string" then return end
+    local specs = game.classSpecs and game.classSpecs(model.classID)
+    if not specs then return end
+    local function specIn(text)
+        if isSecret(text) or type(text) ~= "string" then return end
+        local plain = trim(util.plainText(text))
+        for _, name in ipairs(specs) do
+            for _, phrase in ipairs({ name .. " " .. model.className, model.className .. " " .. name }) do
+                -- Whole words; %w knows only ASCII letters, so other scripts match as they are.
+                local pattern = escapePattern(phrase)
+                if not phrase:find("[\128-\255]") then pattern = "%f[%w]" .. pattern .. "%f[%W]" end
+                local from, to = plain:find(pattern)
+                if from then
+                    local rest = plain:sub(1, from - 1) .. plain:sub(to + 1)
+                    if model.race then rest = rest:gsub(escapePattern(model.race), "", 1) end
+                    -- The level line can end in the unit's kind, "(Player)".
+                    return name, phrase, trim((rest:gsub("%s*%b()%s*$", "")))
+                end
+            end
+        end
+    end
+    if model.levelLine then model.spec, model.specClass = specIn(model.levelLine) end
+    if model.spec then return end
+    for index, row in ipairs(model.extras) do
+        local name, phrase, rest = specIn(row.left)
+        if name then
+            model.spec, model.specClass = name, phrase
+            if rest == "" and (row.right or "") == "" then table.remove(model.extras, index) end
+            return
+        end
+    end
+end
 
 descriptor.extension = {
     -- A player's specialization, named with the class.
     afterRead = function(model, context)
-        if model.isPlayer then unit.readSpec(model, context.game) end
+        if model.isPlayer then readSpec(model, context.game) end
     end,
 }

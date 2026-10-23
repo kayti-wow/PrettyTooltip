@@ -1,0 +1,36 @@
+== sample model
+classification: "rare"
+color:
+  1: 1
+  2: 0.27
+  3: 0.22
+creature: "Beast"
+extras: {}
+healthShare: 0.38
+iconPath: "Interface\\Icons\\Ability_Hunter_Pet_Spider"
+level: 10
+name: "Mother Fang"
+quests: {}
+reaction: 2
+== sample render
+panel 260 x 119
+texture at -16,-16 0x0 rgb=1,0.27,0.22,0.385 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x86 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 Ability_Hunter_Pet_Spider
+texture CENTER Texture CENTER 0,0 40x40 rgb=1,0.27,0.22,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 40x16 rgb=0.8,0.216,0.176,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.14,0.0378,0.0308,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=1,0.6715,0.649 "10"
+texture unplaced 16x16 rgb=1,0.27,0.22,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=1,0.27,0.22,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=1,0.27,0.22,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=1,0.27,0.22,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=1,0.27,0.22,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=1,0.27,0.22,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=1,0.27,0.22,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=1,0.27,0.22,1 tooltip-RightEdge
+text at 67,21 w=174 size=17 rgb=1,0.27,0.22 "MOTHER FANG"
+text at 67,43 w=174 size=12 rgb=0.82,0.78,0.71 "Beast"
+text at 67,62 w=26 size=12 rgb=0.82,0.78,0.71 "|cffC9DBF6Rare|r"
+texture at 50,17 206x98 rgb=1,1,1,0.35 8244544

@@ -93,7 +93,7 @@ read_globals = {
     "TooltipDataProcessor", "TooltipComparisonManager", "Enum",
     -- Game state
     "C_Item", "C_Spell", "C_Texture", "C_AddOns", "C_QuestLog", "C_UnitAuras", "C_Timer", "C_CurrencyInfo",
-    "C_PaperDollInfo", "GetWeaponEnchantInfo", "GetInventoryItemTexture", "WOW_PROJECT_ID", "WOW_PROJECT_MAINLINE",
+    "C_PaperDollInfo", "GetWeaponEnchantInfo", "GetInventoryItemTexture",
     "GetLocale", "GetBuildInfo", "GetAddOnMetadata", "GetTime", "IsAltKeyDown", "IsControlKeyDown", "IsShiftKeyDown", "InCombatLockdown",
     "GetSpellInfo", "GetSpellDescription", "GetSpellTexture", "GetSpellBonusDamage", "GetSpellBonusHealing", "GetMacroInfo", "GetMacroIndexByName",
     "GetNumMacros", "GetMacroSpell", "GetMacroItem", "MAX_ACCOUNT_MACROS", "GetPetActionInfo",

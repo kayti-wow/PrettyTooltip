@@ -74,9 +74,12 @@ return function(test)
     end
     test.check("each a line of its own, in order", order,
         { "Heroic", "Myth 2/6", "Soulbound", "Transmogrified to: Nightblade", "Illusion: Crusader" })
-    local parts = {}
+    local retailParts, parts = {}, {}
+    for _, element in ipairs(ns.Retail.Settings.ELEMENTS) do retailParts[element] = true end
     for _, element in ipairs(ns.ELEMENTS) do
-        if element.retail and not element.tooltipType and element.key:find("^item") then parts[#parts + 1] = element.key end
+        if retailParts[element] and not element.tooltipType and element.key:find("^item") then
+            parts[#parts + 1] = element.key
+        end
     end
-    test.check("each its own style part, offered on retail", parts, { "itemSource", "itemCosmetic", "itemUpgrade", "itemTransmog" })
+    test.check("each a style part of retail's own", parts, { "itemSource", "itemCosmetic", "itemUpgrade", "itemTransmog" })
 end

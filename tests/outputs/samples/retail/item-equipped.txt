@@ -1,0 +1,127 @@
+== sample model
+armor: {}
+comparison: true
+effects: {}
+enchants: {}
+equipEffects: {}
+equippable: true
+extras:
+  1:
+    color:
+      1: 0.85
+      2: 0.7
+      3: 0
+    left: "If you replace this item, the following stat changes will occur:"
+    right: ""
+  2:
+    color:
+      1: 0.85
+      2: 0.13
+      3: 0.13
+    left: "-15 Strength"
+    right: ""
+  3:
+    color:
+      1: 0.09
+      2: 0.85
+      3: 0.09
+    left: "+13 Stamina"
+    right: ""
+  4:
+    color:
+      1: 0.09
+      2: 0.85
+      3: 0.09
+    left: "+62 Attack Power"
+    right: ""
+flavor: {}
+footerLeft:
+  1:
+    durability:
+      1: 100
+      2: 100
+    left: "Durability 100 / 100"
+    right: ""
+footerRight:
+  1:
+    left: "4|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 12|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 50|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+    right: ""
+    sellPrice: true
+header:
+  1:
+    left: "Soulbound"
+    right: "Requires Level 55"
+    rightColor:
+      1: 0.95
+      2: 0.93
+      3: 0.88
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+kinds: {}
+level: 63
+name: "Blackhand Doomsaw"
+primary:
+  1:
+    left: "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+15|r |cffEEE7DAStrength|r"
+    right: ""
+quality: 3
+retail:
+  cosmetic: false
+  cosmeticColor: false
+  craftingQuality: false
+  decorCost: false
+  decorKind: false
+  illusion: false
+  keystone: false
+  source: false
+  sourceColor: false
+  transmog: false
+  upgrade: false
+secondary: {}
+setBonuses: {}
+setItems: {}
+slot: "Polearm · Two-Hand"
+sockets: {}
+weaponBonus: {}
+weaponDamage: "131 - 197 Damage"
+weaponDps: "45.1"
+weaponSpeed: "Speed 3.60"
+== sample render
+panel 308 x 308
+texture at -16,-16 0x0 rgb=0.32,0.59,0.98,0.55 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x91 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 43x43 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 45x45 rgb=0.32,0.59,0.98,0.85 WHITE8X8
+texture TOP Texture BOTTOM 0,-5 45x16 rgb=0.256,0.472,0.784,0.9 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 1,-1 0x0 rgb=0.0448,0.0826,0.1372,1 WHITE8X8
+text CENTER Texture CENTER 0,0 w=0 size=10 rgb=0.694,0.8155,0.991 "iLvl 63"
+texture unplaced 16x16 rgb=0.32,0.59,0.98,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.32,0.59,0.98,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.32,0.59,0.98,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.32,0.59,0.98,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.32,0.59,0.98,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.32,0.59,0.98,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.32,0.59,0.98,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.32,0.59,0.98,1 tooltip-RightEdge
+texture TOPLEFT Frame TOPLEFT 0,0 0x0 rgb=0.55,0.45,0.3,0.9 WHITE8X8
+texture TOPLEFT Frame TOPLEFT 1,-1 0x0 rgb=0.07,0.055,0.05,1 WHITE8X8
+text CENTER Frame CENTER 0,0 w=0 size=10 rgb=0.93,0.8,0.52 "EQUIPPED"
+text at 72,21 w=217 size=19 rgb=0.32,0.59,0.98 "BLACKHAND DOOMSAW"
+text at 72,47 w=217 size=13 rgb=0.66,0.795,0.99 "Polearm · Two-Hand"
+text at 72,66 w=101 size=12 rgb=0.78,0.72,0.63 "Soulbound"
+text at 185,66 w=104 size=12 rgb=0.95,0.93,0.88 "Requires Level 55"
+texture at 19,100 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-100 126x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-95 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,113 w=270 size=18 rgb=0.9,0.93,0.95 "|cffE6ECF245.1|r |cffAEB9C7Damage per Second|r"
+text at 26,139 w=263 size=12 rgb=0.62,0.65,0.7 "131 - 197 Damage  ·  Speed 3.60"
+text at 19,160 w=270 size=13 rgb=0.9,0.85,0.74 "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2|t  |cffE9DDC4+15|r |cffEEE7DAStrength|r"
+texture at 19,183 270x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,192 w=270 size=11 rgb=0.85,0.7,0 "If you replace this item, the following stat changes will occur:"
+text at 19,220 w=270 size=11 rgb=0.85,0.13,0.13 "-15 Strength"
+text at 19,235 w=270 size=11 rgb=0.09,0.85,0.09 "+13 Stamina"
+text at 19,250 w=270 size=11 rgb=0.09,0.85,0.09 "+62 Attack Power"
+text at 215.5,274 w=73.5 size=11 rgb=0.88,0.78,0.6 "4|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t 12|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t 50|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+texture at 19,279 54x4 rgb=0.16,0.14,0.13,1 WHITE8X8
+texture TOPLEFT Texture TOPLEFT 0,0 54x4 rgb=0.45,0.8,0.4,1 WHITE8X8
+text at 80,274 w=90 size=11 rgb=0.82,0.78,0.71 "100 / 100"

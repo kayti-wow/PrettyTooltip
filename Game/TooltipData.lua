@@ -35,6 +35,15 @@ local function isRed(color)
     return r > .9 and g < .3
 end
 
+-- The game greys what does not count: set pieces you lack, bonuses not yet
+-- active, and on retail what another specialization uses. Nil when unreadable.
+local function isGrey(color)
+    local rgb = util.rgb(color)
+    if not rgb then return nil end
+    local r, g, b = rgb[1], rgb[2], rgb[3]
+    return r < .7 and math.abs(r - g) < .06 and math.abs(g - b) < .06
+end
+
 local function requirementMet(text, color, game)
     local level = tonumber((util.unformat(text, ITEM_MIN_LEVEL)))
     if level then
@@ -159,6 +168,7 @@ end
 tooltipData.colorOf = colorOf
 tooltipData.itemWording = itemWording
 tooltipData.isRed = isRed
+tooltipData.isGrey = isGrey
 tooltipData.requirementMet = requirementMet
 tooltipData.appendedRows = appendedRows
 tooltipData.nested = nested

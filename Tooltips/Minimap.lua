@@ -22,14 +22,6 @@ local ARROW_COORDS = "PositionArrows:%-?%d+:%-?%d+:%-?%d+:%-?%d+:(%d+:%d+:%d+:%d
 local ARROW_FILE = "Interface\\Minimap\\Minimap-PositionArrows"
 local skillColor = ns.Palette.skillUpColor
 
--- The color the game wrote the name in, as the grey of a blip indoors or
--- on another floor; nil for none.
-local function nameColor(text)
-    local code = text:match("^%s*|c%x%x(%x%x%x%x%x%x)")
-    if not code then return end
-    return { tonumber(code:sub(1, 2), 16) / 255, tonumber(code:sub(3, 4), 16) / 255, tonumber(code:sub(5, 6), 16) / 255 }
-end
-
 -- A blip's name, and what is known of it: a node's skill, its meta
 -- on the line's right side in metaColor; the color the game wrote it in, or
 -- else a player's class color; and the game's arrow, when it is above or below.
@@ -38,7 +30,9 @@ local function readBlip(text, game)
     local rest = text:gsub(ARROW, "")
     local name = trim(util.plainText(rest))
     if name == "" then return end
-    local blip = { name = name, arrow = arrow, color = nameColor(rest) }
+    -- The color the game wrote the name in: the grey of a blip indoors or on
+    -- another floor.
+    local blip = { name = name, arrow = arrow, color = util.openingColor(rest) }
     local node = ns.gatheringNode and ns.gatheringNode(name)
     if node then
         blip.meta = node.skill .. " " .. node.level

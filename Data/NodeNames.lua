@@ -1,7 +1,9 @@
 -- Each herb and ore node's name in the client's language, and the English
 -- name Tooltips/Object.lua and Data/Nodes.lua know it by; a node covered in
 -- ooze is the node under it. Only the client's own language is kept.
+-- Forever only: retail's .toc leaves this file out.
 local _, ns = ...
+ns.provideData("nodeNames")
 
 local NAMES = {
     deDE = {

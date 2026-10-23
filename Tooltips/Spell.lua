@@ -8,8 +8,15 @@ if not (ui and SPELL and ui.renderView) then
     return
 end
 
--- A client file loaded after this one can set descriptor.extension: readStat,
--- isCooldown, leadRows, isDetail. Retail's is Retail/Tooltips/SpellExtension.lua.
+-- What this file registers as the spell tooltip type. A client's file loaded
+-- after this one can set descriptor.extension, with any of these callbacks
+-- (Retail/README.md; retail's is Retail/Tooltips/SpellExtension.lua):
+--   readStat(model, text) -> true when the client reads a strip line itself
+--   isCooldown(text) -> true for a line drawn as the time left on a cooldown
+--   leadRows(part) -> rows at the head of a spell's details, each with style,
+--     the name of its style part, and color
+--   isDetail(left, right) -> true for a row the game adds after the data that
+--     goes with the details rather than with other addons' rows
 local descriptor = {}
 
 local util = ns.util
@@ -23,10 +30,6 @@ local add = tooltipData.add
 local LINE = Enum.TooltipDataLineType or {}
 local styledAt, measureStyled = ui.styledAt, ui.measureStyled
 local pad = ui.pad
--- The style parts a spell draws with; a client adds its own (descriptor.parts).
-local PARTS = { "spellTitle", "spellBadges", "spellValues", "spellCaptions", "spellDetails",
-    "spellText", "extras" }
-descriptor.parts = PARTS
 local TITLE_COLOR = colors.title
 local DETAIL_COLOR = colors.detail
 local CAPTION_OFFSET = 17
@@ -49,7 +52,7 @@ local POWERS = {
     { key = "Runic Power", name = RUNIC_POWER, costs = { RUNIC_POWER_COST }, color = { 0, .82, 1 } },
 }
 -- A client's own resources, after these, as retail's Holy Power and Fury
--- (Retail/Tooltips/Spell.lua); one the client has no name for is left out.
+-- (ns.contribute "spellPowers"); one the client has no name for is left out.
 for _, extra in ipairs(ns.contributions("spellPowers")) do
     for _, power in ipairs(extra) do
         if type(power.name) == "string" then POWERS[#POWERS + 1] = power end
@@ -68,8 +71,11 @@ local TIMES = {
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_HOURS, SPELL_DURATION_HOURS },
     { "cooldown", L["Cooldown"], SPELL_RECAST_TIME_DAYS, SPELL_DURATION_DAYS },
 }
--- A client adds its own times when it loads, as retail's charges' recharge.
-descriptor.times = TIMES
+-- A client's own times, after these, as retail's recharge of a charge
+-- (ns.contribute "spellTimes").
+for _, extra in ipairs(ns.contributions("spellTimes")) do
+    for _, time in ipairs(extra) do TIMES[#TIMES + 1] = time end
+end
 -- Casts the strip shows as the game words them.
 local CASTS = { SPELL_CAST_TIME_INSTANT, SPELL_CAST_TIME_INSTANT_NO_MANA, SPELL_CAST_CHANNELED, SPELL_ON_NEXT_SWING }
 
@@ -618,7 +624,7 @@ local function powerRows(part, numberCode, panel)
     local showPower, showRates = ns.showsDetail("spellPower", panel), ns.showsDetail("spellRates", panel)
     if not (showPower or showRates) or not ns.Locale.features.coefficients then return end
     local rows, rates
-    if ns.spellPowerRows then
+    if ns.hasData("coefficients") then
         rows, rates = ns.spellPowerRows(part, numberCode, ns.Game)
     elseif showRates and ns.SpellAmounts then
         -- Without coefficients (Data/Coefficients.lua, which retail's .toc leaves
@@ -630,13 +636,24 @@ local function powerRows(part, numberCode, panel)
     if #list > 0 then return list end
 end
 
+-- The style parts a spell draws with: every spell part, a client's too
+-- (Core/Settings.lua's ns.ELEMENTS), and the ones all tooltips share.
+local function spellStyles()
+    local styles = {}
+    for _, element in ipairs(ns.ELEMENTS) do
+        if element.tooltipType == "spell" or element.tooltipType == "shared" then
+            styles[element.key] = ui.styleOf(element.key)
+        end
+    end
+    return styles
+end
+
 -- What the panel shows, for Panel/Render.lua to draw. Each spell's body,
 -- its own and a nested one's, is drawn here as one custom section. more,
 -- when given, adds sections of another type's (sections, color) before the
 -- other addons' rows: an imbue's time left.
 local function spellView(panel, model, more)
-    local styles = {}
-    for _, key in ipairs(PARTS) do styles[key] = ui.styleOf(key) end
+    local styles = spellStyles()
     local school = ns.Palette.detectSchool(model.description, model.name, model.spellID)
     local numberCode = ns.Palette.numberCode(ns.Palette.school(school))
     local power = model.power and POWER_COLORS[model.power]
@@ -740,6 +757,10 @@ local function details(model, context)
     return rows
 end
 
-descriptor.read, descriptor.render, descriptor.key, descriptor.option = readSpell, renderSpell, spellKey, "spellPanels"
-descriptor.details, descriptor.detailKeys = details, { "spellPower", "spellRates", "showIDs" }
+descriptor.read = readSpell
+descriptor.render = renderSpell
+descriptor.key = spellKey
+descriptor.option = "spellPanels"
+descriptor.details = details
+descriptor.detailKeys = { "spellPower", "spellRates", "showIDs" }
 ui.defineTooltipType(SPELL, descriptor)

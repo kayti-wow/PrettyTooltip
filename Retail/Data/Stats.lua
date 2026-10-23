@@ -1,8 +1,6 @@
 -- Retail's stats: its secondary stats and the minor ones under them, which
--- Data/Stats.lua adds to its own (ns.contribute "stats"), and the grey of a
--- stat that does not count for the player's specialization.
+-- Data/Stats.lua adds to its own (ns.contribute "stats").
 local _, ns = ...
-local util = ns.util
 local L = ns.L
 local stats = {}
 ns.Retail.Stats = stats
@@ -41,15 +39,5 @@ stats.STATS = {
     RANDOM_STAT_1 = { category = "Minor", name = mod("MODIFIED_CRAFTING_STAT_1") },
     RANDOM_STAT_2 = { category = "Minor", name = mod("MODIFIED_CRAFTING_STAT_2") },
 }
-
--- The marker greyed, as the 32 px art tinted.
-local INACTIVE_MARKER = "|TInterface\\AddOns\\PrettyTooltip\\art\\stat-marker:9:9:0:-2:32:32:0:32:0:32:128:128:128|t  "
-
--- A stat that does not count, as retail's primary stats for another
--- specialization: without its colors, under a grey marker where stats have one.
-function stats.inactiveStat(text, markers)
-    local plain = util.uncolored(text):gsub("^|T.-|t%s*", "")
-    return (markers and INACTIVE_MARKER or "") .. plain
-end
 
 ns.contribute("stats", { label = "Secondary stat colors", categories = stats.CATEGORIES, stats = stats.STATS })

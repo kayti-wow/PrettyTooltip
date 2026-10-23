@@ -30,7 +30,7 @@ return function(test)
     test.check("a skill the player lacks", ns.Game.skill("Mining"), nil)
 
     -- Disenchant results from a table standing in for the game.
-    ns = test.load({ "Data/Disenchant.lua" })
+    ns = test.load({ "Core/Util.lua", "Data/Disenchant.lua" })
     local NEXUS = 20725
     local stub = {
         skill = function(name) return name == "Enchanting" and 300 or nil end,

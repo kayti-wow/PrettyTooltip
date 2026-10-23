@@ -452,7 +452,8 @@ local function prepareItem(fields)
     end
     if fields.disenchant then
         local spec = fields.disenchant
-        fields.disenchant = ns.disenchantFor and ns.disenchantFor(spec[1], spec[2], spec[3], spec[4], nil, ns.Game)
+        fields.disenchant = ns.hasData("disenchant") and ns.disenchantFor(spec[1], spec[2], spec[3], spec[4], nil, ns.Game)
+            or nil
     end
     if fields.created then fields.created = ui.itemModel(prepareItem(fields.created)) end
     return fields

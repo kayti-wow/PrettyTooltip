@@ -1,0 +1,31 @@
+== sample model
+body:
+  1: "/targetexact Mor'Ladim"
+  2: "/targetexact Sewer Beast"
+  3: "/run SetRaidTarget(\"target\", 8)"
+extras: {}
+icon: 132212
+name: "Rares"
+== sample render
+panel 260 x 154
+texture at -16,-16 0x0 rgb=0.6,0.6,0.6,0.18 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x67 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 132212
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.62,0.66,0.74,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.8,0.8,0.8,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.8,0.8,0.8,1 tooltip-RightEdge
+text at 67,21 w=174 size=15 rgb=0.96,0.92,0.84 "RARES"
+text at 67,43 w=32 size=12 rgb=0.82,0.78,0.71 "|cffB8B2A9Macro|r"
+texture at 19,76 102x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 102x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=222 size=12 rgb=0.82,0.78,0.71 "|cffFFD100/targetexact|r Mor'Ladim"
+text at 19,105 w=222 size=12 rgb=0.82,0.78,0.71 "|cffFFD100/targetexact|r Sewer Beast"
+text at 19,121 w=222 size=12 rgb=0.82,0.78,0.71 "|cffFFD100/run|r SetRaidTarget(\"target\", 8)"

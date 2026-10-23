@@ -1,0 +1,77 @@
+== sample model
+cast:
+  1: "2.5 sec"
+  2: "Cast"
+cells:
+  1:
+    1: "35"
+    2: "Mana"
+  2:
+    1: "2.5 sec"
+    2: "Cast"
+  3:
+    1: "40 yd"
+    2: "Range"
+cost:
+  1: "35"
+  2: "Mana"
+description:
+  1: "Heals a friendly target for 42 to 51."
+details: {}
+extras:
+  1:
+    color:
+      1: 0.6
+      2: 0.6
+      3: 0.63
+    left: "Spell ID: 635"
+    right: ""
+icon: "Interface\\Icons\\INV_Misc_QuestionMark"
+name: "Holy Light"
+power: "Mana"
+range:
+  1: "40 yd"
+  2: "Range"
+rank: "Rank 1"
+requirements: {}
+spellPower: 10
+== sample render
+panel 284 x 239
+texture at -16,-16 0x0 rgb=0.98,0.73,0.22,0.385 glow
+texture TOPLEFT Center TOPLEFT 0,0 0x0 rgb=1,1,1,1 color
+texture at 4,4 0x67 rgb=1,1,1,1 WHITE8X8
+texture at 19,21 38x38 rgb=1,1,1,1 INV_Misc_QuestionMark
+texture CENTER Texture CENTER 0,0 40x40 rgb=0.98,0.73,0.22,0.85 WHITE8X8
+texture unplaced 16x16 rgb=0.98,0.73,0.22,1 tooltip-TopLeftCorner
+texture unplaced 16x16 rgb=0.98,0.73,0.22,1 tooltip-TopRightCorner
+texture unplaced 16x16 rgb=0.98,0.73,0.22,1 tooltip-BottomLeftCorner
+texture unplaced 16x16 rgb=0.98,0.73,0.22,1 tooltip-BottomRightCorner
+texture unplaced 0x0 rgb=0.98,0.73,0.22,1 tooltip-TopEdge
+texture unplaced 0x0 rgb=0.98,0.73,0.22,1 tooltip-BottomEdge
+texture unplaced 0x0 rgb=0.98,0.73,0.22,1 tooltip-LeftEdge
+texture unplaced 0x0 rgb=0.98,0.73,0.22,1 tooltip-RightEdge
+text at 67,21 w=198 size=17 rgb=0.96,0.92,0.84 "HOLY LIGHT"
+text at 67,46 w=80 size=12 rgb=0.82,0.78,0.71 "|cffFBCF74Holy|r |cff999185·|r |cffB8B0A6Rank 1|r"
+texture at 19,76 114x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOPRIGHT panel TOPRIGHT -19,-76 114x1 rgb=0.4056,0.3068,0.1664,0.8 WHITE8X8
+texture TOP panel TOP 0,-71 10x10 rgb=0.9,0.76,0.48,0.9 stat-marker
+text at 19,89 w=61.5 size=13 rgb=0.6625,0.7975,1 "35"
+text at 19,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "MANA"
+text at 80.5,89 w=61.5 size=13 rgb=0.96,0.92,0.84 "2.5 sec"
+text at 80.5,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "CAST"
+texture at 81,91 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+text at 142,89 w=61.5 size=13 rgb=0.6,0.57,0.52 "None"
+text at 142,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "COOLDOWN"
+texture at 142,91 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+text at 203.5,89 w=61.5 size=13 rgb=0.96,0.92,0.84 "40 yd"
+text at 203.5,106 w=61.5 size=9 rgb=0.6,0.57,0.52 "RANGE"
+texture at 204,91 1x26 rgb=0.588,0.438,0.132,0.5 WHITE8X8
+texture at 19,124 246x1 rgb=0.686,0.511,0.154,0.45 WHITE8X8
+text at 19,133 w=246 size=12 rgb=0.92,0.87,0.76 "Heals a friendly target for |cffFBCF7442|r to |cffFBCF7451|r."
+texture at 19,154 246x1 rgb=0.686,0.511,0.154,0.45 WHITE8X8
+text at 19,163 w=210 size=11 rgb=0.82,0.78,0.71 "Healing per Second"
+text at 241,163 w=24 size=11 rgb=0.82,0.78,0.71 "18.6"
+text at 19,178 w=210 size=11 rgb=0.82,0.78,0.71 "Healing per Mana"
+text at 241,178 w=24 size=11 rgb=0.82,0.78,0.71 "1.33"
+texture at 19,198 246x1 rgb=0.5,0.5,0.54,0.45 WHITE8X8
+text at 19,207 w=246 size=11 rgb=0.6,0.6,0.63 "Spell ID: 635"

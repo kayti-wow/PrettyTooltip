@@ -49,14 +49,14 @@ end
 -- "Kupferader" is "Copper Vein". An ooze covered node yields what the plain
 -- one does.
 local function nodeKey(name)
-    name = ns.nodeNames and ns.nodeNames[name] or name
+    name = ns.hasData("nodeNames") and ns.nodeNames[name] or name
     return (name:gsub("^Ooze Covered ", ""))
 end
 
 -- From Data/NodeSkills.lua, which only Forever loads: retail's nodes need
 -- other skill levels.
 local function nodeFor(name)
-    return ns.nodeSkills and ns.nodeSkills[nodeKey(name)]
+    return ns.hasData("nodeSkills") and ns.nodeSkills[nodeKey(name)] or nil
 end
 
 -- The item an object yields, by its name; for /ptip capture to record.
@@ -87,7 +87,7 @@ end
 local LOOT_ICON = 14
 local RARE = 5
 local function lootRows(name, game)
-    local loot = ns.nodeLoot and ns.nodeLoot[nodeKey(name)]
+    local loot = ns.hasData("nodeLoot") and ns.nodeLoot[nodeKey(name)]
     if not loot then return end
     local rows = {}
     for _, drop in ipairs(loot) do
@@ -122,7 +122,7 @@ local function completeModel(model, game)
         local name = itemInfo(node[1], game)
         -- A herb yields itself and a node yields an ore; anything else is a bad
         -- entry. The names to tell by are English, as the node data's.
-        local english = not (ns.nodeNames and ns.nodeNames[model.name])
+        local english = not (ns.hasData("nodeNames") and ns.nodeNames[model.name])
         if english and name and name ~= nodeKey(model.name) and not name:find(" Ore$") then node = nil end
     end
     if node then

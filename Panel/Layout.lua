@@ -952,9 +952,10 @@ end
 -- details(model, context), the detail rows the game's own tooltip gets in its
 -- place (context passed on to ns.showsDetail), with detailKeys, the settings
 -- that turn them on.
--- Provisional item-only extension callbacks: see Tooltips/Item.lua's descriptor.
--- An extension field is optional; it is not automatically dispatched by this
--- registry. Each reader/view builder must explicitly implement its boundaries.
+-- extension, which a client's file can set after the type's own file loads,
+-- holds that client's callbacks (Retail/README.md). Each type's file lists the
+-- ones it calls; this registry calls none of them, and Integration/Hooks.lua
+-- calls only install, a client's own hooks into the game.
 local TooltipTypes = {}
 
 -- Records a tooltip type, its reader and renderer profiled; the entry file

@@ -103,8 +103,17 @@ end
 
 -- Builds the world, loads the addon, then assigns its saved variables and
 -- fires its event, as at login.
+-- Whether a list of addon files is retail's, which the world answers with
+-- retail's game strings (tests/locales/retail) rather than Forever's.
+local function loadsRetail(files)
+    for _, file in ipairs(files) do
+        if file == "Retail/Retail.lua" then return true end
+    end
+    return false
+end
+
 local function startAddon(fixture, enums, files, sources, makeWorld, report, settings)
-    local world = makeWorld(fixture, enums, report)
+    local world = makeWorld(fixture, enums, report, loadsRetail(files))
     local ns = loadAddon(files, sources)
     if ns.keptAuras then
         for _, entry in ipairs(world.tooltips) do ns.keptAuras[entry.tooltip] = entry.capture.aura end
@@ -281,43 +290,43 @@ end
 function main.unit(testSource, testName, sources, serialize, makeWorld, tocs, enums)
     local results = {}
     local notes, report = notesCollector()
-    local test = { tocs = tocs, enums = enums }
+    -- sources: every addon file a test may load, by its path, for checks on the files themselves.
+    local test = { tocs = tocs, enums = enums, sources = sources }
     -- Loads the named addon files with a world answering from fixture's calls.
     function test.load(files, fixture)
-        local world = makeWorld(fixture or {}, fixture and fixture.enums or {}, report)
+        local world = makeWorld(fixture or {}, fixture and fixture.enums or {}, report, loadsRetail(files))
         local ns = loadAddon(files, sources)
         if ns.keptAuras then
             for _, entry in ipairs(world.tooltips) do ns.keptAuras[entry.tooltip] = entry.capture.aura end
         end
         return ns, world
     end
-    -- A list of shared files as retail's .toc loads them: Retail/Retail.lua
-    -- first, and each other file in Retail/ just before the file after it in
-    -- that .toc, when the list has that file; a Retail/ file named for a shared
-    -- one with "Extension" added (Retail/Tooltips/ItemExtension.lua) just after
-    -- it instead. Retail/Data/Schools.lua, which replaces Forever's own schools,
-    -- only when the list names it. A language's file, which that .toc lists for
-    -- its clients alone, brings Retail/Locale's.
+    -- A list of addon files as retail's .toc would load them, by the rule that
+    -- .toc follows (Retail/README.md): Retail/Retail.lua first; then, for each
+    -- file, Retail/<file> just before it, or in its place where retail's .toc
+    -- leaves the file out; and Retail/<file>Extension.lua just after it. A file
+    -- only Forever's .toc loads, with nothing in its place, is left out.
     function test.retail(files)
-        local before, after, waiting = {}, {}, {}
-        for _, file in ipairs(tocs.retail) do
-            local extended = file:match("^Retail/(.+)Extension%.lua$")
-            if extended then
-                after[extended .. ".lua"] = file
-            elseif file:match("^Retail/") then
-                waiting[#waiting + 1] = file
-            else
-                before[file], waiting = waiting, {}
-            end
+        local retailLoads = {}
+        for _, file in ipairs(tocs.retail) do retailLoads[file] = true end
+        local foreverOnly = {}
+        for _, file in ipairs(tocs.forever) do
+            if not retailLoads[file] then foreverOnly[file] = true end
         end
-        local list = { "Retail/Retail.lua" }
+        local list, listed = {}, {}
+        local function put(file)
+            if not listed[file] then list[#list + 1], listed[file] = file, true end
+        end
+        put("Retail/Retail.lua")
         for _, file in ipairs(files) do
-            if file:match("^Locale/") and sources["Retail/" .. file] then list[#list + 1] = "Retail/" .. file end
-            for _, retail in ipairs(before[file] or {}) do
-                if retail ~= "Retail/Retail.lua" and retail ~= "Retail/Data/Schools.lua" then list[#list + 1] = retail end
+            if file:match("^Retail/") then
+                put(file)
+            else
+                local before, after = "Retail/" .. file, "Retail/" .. (file:gsub("%.lua$", "Extension.lua"))
+                if sources[before] then put(before) end
+                if not foreverOnly[file] then put(file) end
+                if sources[after] then put(after) end
             end
-            list[#list + 1] = file
-            if after[file] then list[#list + 1] = after[file] end
         end
         return list
     end
