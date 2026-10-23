@@ -289,6 +289,9 @@ L["The small diamond before each stat; enchants use a green one."] =
 L["Stat colors"] = "Colores de estadísticas"
 L["Each kind of stat in its color below, and the school colors. Off, every stat is parchment."] =
     "Cada tipo de estadística en su color de abajo, y los colores de escuela. Desactivado, todas las estadísticas son color pergamino."
+L["Armor colors"] = "Colores de armadura"
+L["Cloth, leather, mail, and plate under the item's name, each in its color below. A type you cannot wear stays red. Off, they take the quality color."] =
+    "Tela, cuero, malla y placas bajo el nombre del objeto, cada uno en su color de abajo. Un tipo que no puedes usar sigue en rojo. Desactivado, toman el color de calidad."
 L["Abbreviated Equip Effects"] = "Efectos de Equipar abreviados"
 L["Where the game's own item tooltip shows, in the Blizzard layout or with items not restyled, its Equip effects are shortened, as +1% Critical Strike Chance, and the game's colors kept, but for spell power and chance on hit effects in their stat colors. Hold the default tooltip modifier for the full wording."] =
     "Donde se muestra la descripción de objeto del juego, en el diseño Blizzard o con los objetos sin rediseñar, sus efectos de Equipar se abrevian, como +1% Probabilidad de golpe crítico, y se conservan los colores del juego, salvo el poder con hechizos y los efectos de probabilidad al golpear, en sus colores de atributo. Mantén presionada la tecla para la descripción del juego para ver el texto completo."
@@ -301,9 +304,10 @@ L["The vendor price in the footer; for a stack, the price of one and of the whol
 L["Swap Damage Stats"] = "Intercambiar daño"
 L["A weapon's damage on the large line, with its speed and damage per second on the small one under it."] =
     "El daño de un arma en la línea grande, con su velocidad y su daño por segundo en la pequeña debajo."
-L["Spell power"] = "Poder con hechizos"
+L["Spell power (Experimental)"] = "Poder con hechizos (experimental)"
 L["Under the description, each amount's spell power coefficient and its split into base and spell power. No game API has coefficients: they come from Forever's client data, and ones marked ~ are estimates."] =
     "Bajo la descripción, el coeficiente de poder con hechizos de cada cantidad y su reparto entre la base y el poder con hechizos. Ninguna API del juego da coeficientes: vienen de los datos del cliente de Forever, y los marcados con ~ son estimaciones."
+L["Experimental: not all values are correct yet."] = "Experimental: aún no todos los valores son correctos."
 L["Rates"] = "Tasas"
 L["Under the spell power breakdown, the average a cast deals or heals per second and per mana. Per second, what lands at once counts over the cast time (instants as the 1.5 sec global cooldown) and what comes over time over its duration. Crits and talents do not count."] =
     "Bajo el reparto de poder con hechizos, la media que un lanzamiento inflige o sana por segundo y por punto de maná. Por segundo, lo que llega de golpe cuenta sobre el tiempo de lanzamiento (los instantáneos como el tiempo de reutilización global de 1,5 s) y lo que llega con el tiempo, sobre su duración. Los críticos y los talentos no cuentan."
@@ -547,6 +551,8 @@ L["Axe"] = "Hacha"
 L["Plate"] = "Placas"
 L["Polearm"] = "Arma de asta"
 L["Mail"] = "Malla"
+L["Cloth"] = "Tela"
+L["Leather"] = "Cuero"
 L["Consumable"] = "Consumible"
 L["Plans"] = "Diseño"
 L["Shields"] = "Escudos"

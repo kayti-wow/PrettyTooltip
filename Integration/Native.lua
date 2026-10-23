@@ -49,6 +49,20 @@ local function showsDataType(tooltip, panel)
     return util.call(tooltip.IsTooltipType, tooltip, dataType) == true
 end
 
+-- Another addon can take a shown tooltip out of sight by moving it into a
+-- hidden frame, as EllesmereUI's Show Tooltips setting does in combat. The
+-- panel's host follows the tooltip's parent, so the panel hides and returns
+-- with the tooltip, its own state kept for when it does.
+local function followParent(tooltip, panel)
+    local parent = util.readable(util.call(tooltip.GetParent, tooltip))
+    panel.host:SetShown(not (parent and util.call(parent.IsVisible, parent) == false))
+end
+
+-- In OnHide: the tooltip is still shown, only its parent went out of sight.
+local function hiddenByParent(tooltip)
+    return util.call(tooltip.IsShown, tooltip) == true
+end
+
 -- A world unit's tooltip fades out once the mouse leaves the unit, the game
 -- setting its alpha every frame, past the SetAlpha hook. Move it off screen
 -- while it fades, and hide our panel immediately.
@@ -138,6 +152,8 @@ native.suppressChildMouse = suppressChildMouse
 native.restoreNative = restoreNative
 native.fadeOut = fadeOut
 native.unpark = unpark
+native.followParent = followParent
+native.hiddenByParent = hiddenByParent
 native.isParked = function(tooltip)
     local panel = panels[tooltip]
     return panel ~= nil and panel.parked ~= nil

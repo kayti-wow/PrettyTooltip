@@ -62,6 +62,8 @@ Each stat value takes a color and its name a lighter shade of the same hue. The 
 
 Set **School colors** under **All Tooltips** in the style editor. The same choices color spell panels, school badges, highlighted numbers, item spell-power and resistance stats, school weapon damage, and macro accents. Holyfire and Frostfire have their own swatches; their panel gradients follow their two component schools. Click a swatch to choose its color, right-click it for the default, or use the row's reset to restore every school. With no overrides, the original colors are kept.
 
+Turn on **Armor colors** under **Item Details** to tell armor types apart at a glance: the type that leads the subtitle, as *Plate* in *Plate · Chest*, takes its own color (cloth rose, leather tan, mail teal, plate steel), and the rest of the line keeps the quality color. A type the game shows in red, because you cannot wear it, stays red. Cloaks are left alone, since every class wears them. Each type has a swatch below the switch; the switch is off by default.
+
 ## Spell tooltips
 
 Spells use the same panel: the icon and name, small badges for the spell's school, its rank, and **Passive** for passive spells and talents, and a strip with cost, cast time, cooldown, and range. On retail, a spell with charges shows its recharge in the cooldown cell, its most charges under the strip (**Charges** in the style editor), and the time left on the next charge in orange. The description follows one sentence per line, with its numbers highlighted.
@@ -118,8 +120,8 @@ The controls on the right follow the kind of panel shown, top to bottom (hover a
 - **School colors**, below the shared switches: a swatch for each of the six spell schools, followed by Holyfire and Frostfire. These colors apply across tooltip types, including item stats.
 - **Items Panel**, **Spells Panel**, and so on, for the kind shown: **Show icon**, and the opacity of the header band at its top and bottom edges, of the panel's body (**Backdrop**), and of the soft rarity **Glow** around it.
 - The kind's own details:
-  - **Item Details**: the item level badge, the stat markers, **Stat colors** (off, every stat is parchment) with each stat category's color below, a swatch each (click to choose, right-click for the default; the stat's name takes a lighter shade), **Abbreviated Equip Effects** (see *The Blizzard layout* above), the disenchant section, and the sell price.
-  - **Spell Details**: the spell power breakdown and the damage and healing rates under it; on retail, the rates alone.
+  - **Item Details**: the item level badge, the stat markers, **Stat colors** (off, every stat is parchment) with each stat category's color below, a swatch each (click to choose, right-click for the default; the stat's name takes a lighter shade), **Armor colors** (see *Colors* above) with a swatch each for cloth, leather, mail, and plate, **Abbreviated Equip Effects** (see *The Blizzard layout* above), the disenchant section, and the sell price.
+  - **Spell Details**: the spell power breakdown, marked experimental as not all its values are correct yet, and the damage and healing rates under it; on retail, the rates alone.
   - **Unit Details**: the level badge (off, the level stays in the info line), the health bar, what a skinnable creature gives, and the nine **Class colors** swatches. Hover a swatch for its class name.
   - **Object Details**: what herbs and ore give: a node's yield over all its taps and the stone, gems, or other herbs it may give, with the chance each tap.
 

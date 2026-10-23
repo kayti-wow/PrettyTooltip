@@ -593,7 +593,10 @@ local function lendHealthBar(panel, bar)
             hookedHealthBars[bar] = true
         end
         if not panel.returnsHealthBar then
-            panel:HookScript("OnHide", returnHealthBar)
+            -- Kept while the panel's host hides it; the panel comes back with it.
+            panel:HookScript("OnHide", function(hidden)
+                if not hidden:IsShown() then returnHealthBar(hidden) end
+            end)
             panel.returnsHealthBar = true
         end
     end

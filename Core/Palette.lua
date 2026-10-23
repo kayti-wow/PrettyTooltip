@@ -60,6 +60,16 @@ for _, extra in ipairs(ns.contributions("classes")) do
     end
 end
 
+-- subClass is the game's Enum.ItemArmorSubclass, the same in every language.
+palette.ARMOR = {
+    { key = "Cloth", label = "Cloth", subClass = 1, color = { .90, .70, .78 } },
+    { key = "Leather", label = "Leather", subClass = 2, color = { .78, .58, .35 } },
+    { key = "Mail", label = "Mail", subClass = 3, color = { .37, .75, .68 } },
+    { key = "Plate", label = "Plate", subClass = 4, color = { .68, .73, .80 } },
+}
+local ARMOR = {}
+for _, armor in ipairs(palette.ARMOR) do ARMOR[armor.key] = armor end
+
 local function customColor(key)
     local color = ns.option and ns.option(key)
     if type(color) ~= "table" then return end
@@ -74,6 +84,11 @@ end
 function palette.school(name)
     local default = name and palette.schools[name]
     if default then return customColor("schoolColor" .. name) or default end
+end
+
+function palette.armorColor(key)
+    local armor = key and ARMOR[key]
+    if armor then return customColor("armorColor" .. key) or armor.color end
 end
 
 -- A school's name on this client, as a badge shows it: the game's for each of

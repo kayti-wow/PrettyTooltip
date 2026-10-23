@@ -272,6 +272,9 @@ L["The small diamond before each stat; enchants use a green one."] = "每項屬�
 L["Stat colors"] = "屬性顏色"
 L["Each kind of stat in its color below, and the school colors. Off, every stat is parchment."] =
     "使用下方的屬性分類顏色和法術系別顏色。關閉後所有屬性均使用羊皮紙色。"
+L["Armor colors"] = "護甲顏色"
+L["Cloth, leather, mail, and plate under the item's name, each in its color below. A type you cannot wear stays red. Off, they take the quality color."] =
+    "物品名稱下方的布甲、皮甲、鎖甲和鎧甲各使用下方的顏色。無法穿戴的類型仍顯示為紅色。關閉後使用品質顏色。"
 L["Abbreviated Equip Effects"] = "簡化裝備效果"
 L["Where the game's own item tooltip shows, in the Blizzard layout or with items not restyled, its Equip effects are shortened, as +1% Critical Strike Chance, and the game's colors kept, but for spell power and chance on hit effects in their stat colors. Hold the default tooltip modifier for the full wording."] =
     "在顯示遊戲物品浮動提示時（暴雪版面或未重繪的物品），將裝備效果縮短為+1%致命一擊機率等簡短文字。保留遊戲顏色，法術能量和擊中時觸發的效果則使用屬性顏色。按住原版提示輔助鍵可查看完整文字。"
@@ -283,9 +286,10 @@ L["The vendor price in the footer; for a stack, the price of one and of the whol
 L["Swap Damage Stats"] = "交換傷害顯示"
 L["A weapon's damage on the large line, with its speed and damage per second on the small one under it."] =
     "武器傷害顯示在大字行，速度和每秒傷害顯示在其下方的小字行。"
-L["Spell power"] = "法術能量"
+L["Spell power (Experimental)"] = "法術能量（實驗性）"
 L["Under the description, each amount's spell power coefficient and its split into base and spell power. No game API has coefficients: they come from Forever's client data, and ones marked ~ are estimates."] =
     "在說明下方顯示各項數值的法術能量係數，以及基礎值和法術能量加成。遊戲API不提供係數，資料來自Forever用戶端，帶~的數值為估計值。"
+L["Experimental: not all values are correct yet."] = "實驗性功能：部分數值尚不準確。"
 L["Rates"] = "效率"
 L["Under the spell power breakdown, the average a cast deals or heals per second and per mana. Per second, what lands at once counts over the cast time (instants as the 1.5 sec global cooldown) and what comes over time over its duration. Crits and talents do not count."] =
     "在法術能量分析下方顯示每次施法的平均每秒及每點法力傷害或治療量。直接效果依施法時間計算，瞬發法術依1.5秒共用冷卻計算，持續效果依持續時間計算。不計入致命一擊和天賦。"
@@ -503,6 +507,8 @@ L["Axe"] = "斧"
 L["Plate"] = "鎧甲"
 L["Polearm"] = "長柄武器"
 L["Mail"] = "鎖甲"
+L["Cloth"] = "布甲"
+L["Leather"] = "皮甲"
 L["Consumable"] = "消耗品"
 L["Plans"] = "設計圖"
 L["Shields"] = "盾牌"

@@ -4,6 +4,7 @@ armor:
     left: "182 Armor"
     right: ""
     value: "182"
+armorClass: "Mail"
 comparison: false
 effects: {}
 enchants:

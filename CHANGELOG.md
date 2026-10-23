@@ -1,9 +1,25 @@
+# PrettyTooltip 1.3.7
+
+## Tooltips
+
+- Added **Armor colors** under Item Details: the armor type in an item's subtitle (cloth, leather, mail, or plate) takes its own color, each with a color picker to change it. Off by default. Armor class requirement (red color) still remain unchanged. *Note: We may alter this feature in the future with a thematic tooltip backdrop texture.*
+- The spell power breakdown under Spell Details is now marked experimental, as not all of its values are correct yet.
+- Blank lines that other addons put between their sections now correctly show as a gap. ([#41](https://github.com/FallenShard/PrettyTooltip/pull/41) by [@kayti-wow](https://github.com/kayti-wow))
+
+## Compatibility
+
+- **EllesmereUI**: tooltips now respect its **Show Tooltips** setting (Out of Combat, Out of Boss Combat, Never) instead of flashing briefly when it hides them. Its peek modifier brings the panel back while held.
+
+## Bug reports
+
+- Tooltip traces now mark a tooltip another addon has hidden as "shown, out of sight".
+
 # PrettyTooltip 1.3.6
 
 ## Tooltips
 
 - Added **Mail** attachment summaries with item icons, quality-colored names, quantities, and a total item count. Auctionator's price rows appear beneath each attachment, with its total value in the footer. Mail has its own Restyle switch and style-editor preview; individual attachments keep their normal item tooltips.
-- Added **Weapon imbues**: hovering a temporary weapon enchant shows the spell that applied it, its weapon slot, charges, and time remaining. Supported imbues include shaman weapon enchants, poisons, oils, and sharpening stones.
+- Added **Weapon imbues**: hovering a temporary weapon enchant shows the spell that applied it, its weapon slot, charges, and time remaining. Supported imbues include shaman weapon enchants, poisons, oils, and sharpening stones. ([#39](https://github.com/FallenShard/PrettyTooltip/pull/39), [#43](https://github.com/FallenShard/PrettyTooltip/pull/43) by [@kayti-wow](https://github.com/kayti-wow))
 - Reworked comparison placement around the Pretty panels' own dimensions with a new, custom anchoring logic.
 - Improved pixel alignment of tooltip text, borders, and other panel elements at different UI scales.
 
@@ -43,7 +59,7 @@
 ## Tooltips
 
 - Improved anchor restoration when the game rounds tooltip positions or adds a new anchor while the tooltip is temporarily off-screen.
-- Class colors from other addons now take priority over the style editor's choices and update when those addons change their colors. The editor's class color swatches explain when another addon controls them.
+- Class colors from other addons now take priority over the style editor's choices and update when those addons change their colors. The editor's class color swatches explain when another addon controls them. ([#40](https://github.com/FallenShard/PrettyTooltip/pull/40) by [@kayti-wow](https://github.com/kayti-wow))
 
 # PrettyTooltip 1.3.2
 

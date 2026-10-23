@@ -4,6 +4,7 @@ armor:
     left: "131 Armor"
     right: ""
     value: "131"
+armorClass: "Mail"
 comparison: false
 disenchant:
   rows:

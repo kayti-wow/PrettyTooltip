@@ -4,6 +4,7 @@ armor:
     left: "1027 Armor"
     right: ""
     value: "1027"
+armorClass: "Plate"
 effects: {}
 enchants:
   1:

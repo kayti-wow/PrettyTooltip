@@ -30,6 +30,9 @@ local rowWidth, drawRow, acquireTexture, divider, drawGroup = ui.rowWidth, ui.dr
 
 local QUEST_CLASS = Enum.ItemClass and Enum.ItemClass.Questitem or 12
 local CONSUMABLE_CLASS = Enum.ItemClass and Enum.ItemClass.Consumable or 0
+local ARMOR_CLASS = Enum.ItemClass and Enum.ItemClass.Armor or 4
+local ARMOR_KEYS = {}
+for _, armor in ipairs(ns.Palette.ARMOR) do ARMOR_KEYS[armor.subClass] = armor.key end
 local DURABILITY_BAR = 54
 -- Added to a row's own gap of 3: enchants and gems are 8 from the rows around them.
 local APART_SPACE = 5
@@ -166,6 +169,20 @@ local function unusable(text, color)
     return text
 end
 
+-- Every class wears a cloak, so its cloth tells nothing.
+local function armorClass(itemType)
+    if not itemType or itemType.classID ~= ARMOR_CLASS or itemType.equipLoc == "INVTYPE_CLOAK" then return end
+    return ARMOR_KEYS[itemType.subClassID]
+end
+
+-- The armor type leads the subtitle, "Plate · Chest", in its color when the
+-- setting is on. A type the player cannot wear has no armorClass, so stays red.
+local function armorSlot(item)
+    local color = ns.option("armorColors") and ns.Palette.armorColor(item.armorClass)
+    if not color then return item.slot end
+    local stop = item.slot:find(" \194\183 ", 1, true) or #item.slot + 1
+    return "|cff" .. util.hex(color) .. item.slot:sub(1, stop - 1) .. "|r" .. item.slot:sub(stop)
+end
 -- A stack's per-item price, beside its total: a muted shade of the footer's gold.
 local PRICE_DETAIL = "9E9485"
 
@@ -484,6 +501,8 @@ local function readModel(tooltip, data, game)
     local inStockChanges = false
     local blankBefore = false
     local nestedID
+    -- The models, recipe or crafted item, whose type the game does not show red.
+    local wearable = {}
     local function isStockChange(text)
         local trimmed = plainText(text):match("^%s*(.-)%s*$")
         if unformat(trimmed, STOCK_CHANGES) then
@@ -585,6 +604,7 @@ local function readModel(tooltip, data, game)
             local slot = unusable(left, line.leftColor)
             local kind = unusable(right, line.rightColor)
             m.slot = right ~= "" and (kind .. " \194\183 " .. slot) or slot
+            wearable[m] = right ~= "" and not isRed(line.rightColor)
         elseif lineType == LINE.ItemBinding or isBinding(trimmed) then
             add(m.header, left, right)
             if isRed(line.leftColor) then m.header[#m.header].color = UNUSABLE_COLOR end
@@ -763,6 +783,10 @@ local function readModel(tooltip, data, game)
     if itemType then
         classID, className, subClassName = itemType.classID, itemType.className, itemType.subClassName
         equipLoc, itemID = itemType.equipLoc, itemType.id
+    end
+    if wearable[model] then model.armorClass = armorClass(itemType) end
+    if model.created and wearable[model.created] then
+        model.created.armorClass = armorClass(game.itemType(model.created.link))
     end
     if ns.disenchantFor and classID and not recipe then
         local itemLevel = game.itemLevel(itemInfo) or model.level
@@ -1167,9 +1191,16 @@ local function reagentRows(model)
     return rows
 end
 
+local function createdUnmet(created)
+    return created.levelRequirement and not created.levelRequirement.met
+end
+
+-- An unmet level draws the whole line red, its armor type too.
 local function createdSubtitle(created)
     local parts = {}
-    if created.slot and created.slot ~= "" then parts[#parts + 1] = created.slot end
+    if created.slot and created.slot ~= "" then
+        parts[#parts + 1] = createdUnmet(created) and created.slot or armorSlot(created)
+    end
     if created.binding then parts[#parts + 1] = created.binding end
     if created.levelRequirement then parts[#parts + 1] = created.levelRequirement.text end
     if #parts > 0 then return table.concat(parts, " \194\183 ") end
@@ -1443,9 +1474,8 @@ local function drawCreated(panel, created, styles, y)
     y = y + styledAt(panel, created.name, pad() + indent, y, inner - indent, styles.createdName, quality) + 2
     local subtitle = createdSubtitle(created)
     if subtitle then
-        local unmet = created.levelRequirement and not created.levelRequirement.met
         y = y + styledAt(panel, subtitle, pad() + indent, y, inner - indent, styles.subtitle,
-            unmet and UNUSABLE_COLOR or { quality[1] * .5 + .5, quality[2] * .5 + .5, quality[3] * .5 + .5 }) + 2
+            createdUnmet(created) and UNUSABLE_COLOR or { quality[1] * .5 + .5, quality[2] * .5 + .5, quality[3] * .5 + .5 }) + 2
     end
     y = math.max(y, top + CREATED_ICON + 2) + 8
     local stats = hasStats(created)
@@ -1515,7 +1545,7 @@ local function itemView(panel, model)
     local accent = model.quest and colors.quest or quality
     local header = { { id = "title", text = model.name, style = styles.title, color = quality, gap = 4 } }
     if model.slot and model.slot ~= "" then
-        header[#header + 1] = { id = "slot", text = model.slot, style = styles.subtitle,
+        header[#header + 1] = { id = "slot", text = armorSlot(model), style = styles.subtitle,
             color = { quality[1] * .5 + .5, quality[2] * .5 + .5, quality[3] * .5 + .5 }, gap = 4 }
     end
     header[#header + 1] = { id = "binding", rows = model.header, style = styles.header, color = { .78, .72, .63 }, gap = 3 }

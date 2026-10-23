@@ -33,6 +33,8 @@ local DEFAULTS = {
     cursorObjects = true,
     cursorDisableInCombat = true,
     statColors = true,
+    -- Cloth, leather, mail, and plate in their own colors in the item's subtitle.
+    armorColors = false,
     qualityTint = true,
     statMarkers = true,
     -- A weapon's damage on the large line, its DPS and speed under it.
@@ -411,7 +413,7 @@ function ns.resetStyles()
     PrettyTooltipDB.headerTopAlpha, PrettyTooltipDB.headerBottomAlpha = nil, nil
     for key in pairs(PrettyTooltipDB) do
         if type(key) == "string" and (key:match("^statColor%u") or key:match("^schoolColor%u")
-            or key:match("^classColor%u")) then
+            or key:match("^classColor%u") or key:match("^armorColor%u")) then
             PrettyTooltipDB[key] = nil
         end
     end

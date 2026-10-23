@@ -6,6 +6,7 @@ created:
       left: "115 Armor"
       right: ""
       value: "115"
+  armorClass: "Mail"
   effects: {}
   enchants: {}
   equipEffects: {}

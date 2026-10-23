@@ -272,6 +272,9 @@ L["The small diamond before each stat; enchants use a green one."] = "각 능력
 L["Stat colors"] = "능력치 색상"
 L["Each kind of stat in its color below, and the school colors. Off, every stat is parchment."] =
     "아래의 능력치 분류 색상과 주문 계열 색상을 사용합니다. 끄면 모든 능력치를 양피지 색으로 표시합니다."
+L["Armor colors"] = "방어구 색상"
+L["Cloth, leather, mail, and plate under the item's name, each in its color below. A type you cannot wear stays red. Off, they take the quality color."] =
+    "아이템 이름 아래의 천, 가죽, 사슬, 판금을 각각 아래의 색상으로 표시합니다. 착용할 수 없는 종류는 빨간색으로 남습니다. 끄면 품질 색상을 사용합니다."
 L["Abbreviated Equip Effects"] = "착용 효과 줄여 표시"
 L["Where the game's own item tooltip shows, in the Blizzard layout or with items not restyled, its Equip effects are shortened, as +1% Critical Strike Chance, and the game's colors kept, but for spell power and chance on hit effects in their stat colors. Hold the default tooltip modifier for the full wording."] =
     "블리자드 레이아웃이나 꾸미지 않는 아이템처럼 게임의 아이템 툴팁이 보일 때, 착용 효과를 치명타 확률 +1%처럼 줄여 표시합니다. 게임 색상을 유지하되 주문력과 적중 시 발동 효과에는 능력치 색상을 씁니다. 기본 툴팁 보조키를 누르면 전체 문구를 표시합니다."
@@ -284,9 +287,10 @@ L["The vendor price in the footer; for a stack, the price of one and of the whol
 L["Swap Damage Stats"] = "피해량 표시 바꾸기"
 L["A weapon's damage on the large line, with its speed and damage per second on the small one under it."] =
     "무기의 피해량을 큰 줄에, 공격 속도와 초당 피해량을 그 아래 작은 줄에 표시합니다."
-L["Spell power"] = "주문력"
+L["Spell power (Experimental)"] = "주문력 (실험적)"
 L["Under the description, each amount's spell power coefficient and its split into base and spell power. No game API has coefficients: they come from Forever's client data, and ones marked ~ are estimates."] =
     "설명 아래에 각 수치의 주문력 계수와 기본값 및 주문력 기여분을 표시합니다. 계수는 게임 API가 아닌 Forever 클라이언트 데이터에서 가져오며 ~ 표시는 추정값입니다."
+L["Experimental: not all values are correct yet."] = "실험적 기능: 아직 일부 값이 정확하지 않습니다."
 L["Rates"] = "효율"
 L["Under the spell power breakdown, the average a cast deals or heals per second and per mana. Per second, what lands at once counts over the cast time (instants as the 1.5 sec global cooldown) and what comes over time over its duration. Crits and talents do not count."] =
     "주문력 분석 아래에 시전당 평균 초당 및 마나당 피해량이나 치유량을 표시합니다. 즉발 효과는 시전 시간으로 나누고 즉시 시전 주문은 전역 재사용 대기시간 1.5초로 계산합니다. 지속 효과는 지속 시간으로 나눕니다. 치명타 및 극대화와 특성은 반영하지 않습니다."
@@ -504,6 +508,8 @@ L["Axe"] = "도끼"
 L["Plate"] = "판금"
 L["Polearm"] = "장창"
 L["Mail"] = "사슬"
+L["Cloth"] = "천"
+L["Leather"] = "가죽"
 L["Consumable"] = "소모품"
 L["Plans"] = "도면"
 L["Shields"] = "방패"

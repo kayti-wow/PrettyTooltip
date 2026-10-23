@@ -86,6 +86,7 @@ local function update(tooltip, data, model)
     -- Content extension callbacks belong inside descriptor.read/render, under
     -- their existing failure handling. Native alpha, fitting, input, and
     -- comparison lifecycle remain owned by this integration and ns.Native.
+    native.followParent(tooltip, panel)
     local rendered = pcall(tooltipType.render, panel, tooltip, model)
     if not rendered then restoreNative(tooltip); return end
     tally("placement from render")
@@ -294,6 +295,10 @@ local function onTooltipData(dataType, tooltip, data)
         placement.hookInput(tooltip)
         tooltip:HookScript("OnHide", function(hidden)
             if panel.nativeOnly then return end
+            if native.hiddenByParent(hidden) then
+                native.followParent(hidden, panel)
+                return
+            end
             -- Keep native cleanup deferred, but never draw the old panel at
             -- an anchor reset by an action button's hide/clear sequence.
             panel:Hide()
@@ -306,6 +311,7 @@ local function onTooltipData(dataType, tooltip, data)
         local function onNativeShown(shown)
             if panel.nativeOnly then return end
             if not util.canModify(shown) then return end
+            native.followParent(shown, panel)
             tally(isComparison(shown) and "show hook (comparison)" or "show hook")
             if panel.restorePending or panel.comparisonPending or panel.contentPending then
                 if panel.nativeAlpha then shown:SetAlpha(0) end
@@ -365,7 +371,11 @@ local function onTooltipData(dataType, tooltip, data)
             native.unpark(owned)
             placement.ownerChanged(owned)
         end)
-        tooltip:HookScript("OnHide", native.unpark)
+        -- A faded tooltip stays off the screen while hidden by its parent;
+        -- EllesmereUI's modifier would otherwise reveal it at its old anchor.
+        tooltip:HookScript("OnHide", function(hidden)
+            if not native.hiddenByParent(hidden) then native.unpark(hidden) end
+        end)
         panel.hooked = true
         panel:SetScript("OnUpdate", probe("panel update", function(self, elapsed)
             if not util.canModify(tooltip) then self:Hide(); return end

@@ -43,15 +43,16 @@ function game.itemInfo(item)
         price = readable(price) }
 end
 
--- The item's id, type and subtype names, equip slot, and class ID, from data
--- the client always has; nil when any is hidden.
+-- The item's id, type and subtype names, equip slot, and class and subclass
+-- IDs, from data the client always has; nil when any is hidden.
 function game.itemType(item)
     if isSecret(item) then return end
     if not (item and C_Item and C_Item.GetItemInfoInstant) then return end
-    local ok, id, className, subClassName, equipLoc, _, classID = pcall(C_Item.GetItemInfoInstant, item)
+    local ok, id, className, subClassName, equipLoc, _, classID, subClassID = pcall(C_Item.GetItemInfoInstant, item)
     if not ok or isSecret(id) or isSecret(className) or isSecret(subClassName) or isSecret(equipLoc)
-        or isSecret(classID) then return end
-    return { id = id, className = className, subClassName = subClassName, equipLoc = equipLoc, classID = classID }
+        or isSecret(classID) or isSecret(subClassID) then return end
+    return { id = id, className = className, subClassName = subClassName, equipLoc = equipLoc, classID = classID,
+        subClassID = subClassID }
 end
 
 -- Asks the client to load an item it has not seen, for a later hover.

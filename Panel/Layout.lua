@@ -347,7 +347,10 @@ end
 local function getPanel(tooltip)
     local panel = panels[tooltip]
     if panel then return panel end
-    panel = createPanel(UIParent)
+    -- Shown and hidden with the tooltip's parent (Integration/Native.lua).
+    local host = CreateFrame("Frame", nil, UIParent)
+    panel = createPanel(host)
+    panel.host = host
     panels[tooltip] = panel
     return panel
 end

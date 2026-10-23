@@ -208,7 +208,7 @@ end
 local function stateOf(frame, isTooltip)
     if not frame then return "missing" end
     if not util.canModify(frame) then return "restricted" end
-    local parts = { frame:IsShown() and "shown" or "hidden" }
+    local parts = { frame:IsShown() and (frame:IsVisible() and "shown" or "shown, out of sight") or "hidden" }
     if not frame:IsShown() then return parts[1] end
     parts[#parts + 1] = "alpha " .. shown(frame:GetAlpha())
     if frame.GetEffectiveAlpha then parts[#parts + 1] = "eff " .. shown(frame:GetEffectiveAlpha()) end
@@ -362,11 +362,11 @@ function ns.traceTooltips(seconds)
     traceFrame = traceFrame or CreateFrame("Frame")
     local frameCount = 0
     -- The two faults to catch: the game's tooltip showing under a shown panel,
-    -- and a panel shown while its tooltip is hidden.
+    -- and a panel shown while its tooltip is out of sight.
     local visible, visibleInCombat, orphaned, flagged = 0, 0, 0, 0
     local function check(name, tooltip, panel, inCombat)
-        if not (panel and panel:IsShown() and util.canModify(tooltip)) then return end
-        if not tooltip:IsShown() then
+        if not (panel and panel:IsVisible() and util.canModify(tooltip)) then return end
+        if not tooltip:IsVisible() then
             orphaned = orphaned + 1
             if flagged < 40 then
                 flagged = flagged + 1

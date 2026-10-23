@@ -76,7 +76,7 @@ local TYPES = {
                 fields = {
                     name = itemName(22425, "Redemption Tunic"), quality = 4, icon = { item = 22416 }, level = 88,
                     equippable = true,
-                    slot = L["Plate"] .. DOT .. INVTYPE_CHEST,
+                    slot = L["Plate"] .. DOT .. INVTYPE_CHEST, armorClass = "Plate",
                     header = { { left = ITEM_BIND_ON_PICKUP, right = fill(ITEM_MIN_LEVEL, 60), rightColor = PALE } },
                     armor = { { left = fill(ARMOR_TEMPLATE, 1027), right = "", value = "1027" } },
                     primary = { statLine("INTELLECT", 31), statLine("STAMINA", 25) },
@@ -145,7 +145,7 @@ local TYPES = {
                         rightColor = PALE } },
                     created = {
                         name = itemName(250508, "Veteran's Gloves"), quality = 2, icon = "Interface\\Icons\\INV_Gauntlets_05",
-                        slot = L["Mail"] .. DOT .. INVTYPE_HAND,
+                        slot = L["Mail"] .. DOT .. INVTYPE_HAND, armorClass = "Mail",
                         levelRequirement = { text = fill(ITEM_MIN_LEVEL, 15), met = true },
                         armor = { { left = fill(ARMOR_TEMPLATE, 115), right = "", value = "115" } },
                         primary = { statLine("STRENGTH", 5), statLine("AGILITY", 3), statLine("STAMINA", 5) },
