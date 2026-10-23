@@ -430,23 +430,29 @@ finishCreated = function(tooltip, model, game)
     end
 end
 
--- Each of an item's lists of rows and how long it is, before a line is read.
-local function listCounts(m)
-    local counts = {}
+-- Each of an item's lists of rows and how long it is, before a line is read,
+-- into counts, which one read reuses from line to line: counts.lists[key] is
+-- the list, counts.lengths[key] its length. A key left from another item's
+-- lines is never asked for, or names another list, which addedRows tells.
+local function listCounts(m, counts)
+    counts = counts or { lists = {}, lengths = {} }
+    local lists, lengths = counts.lists, counts.lengths
     for key, value in pairs(m) do
-        if type(value) == "table" then counts[key] = { value, #value } end
+        if type(value) == "table" then lists[key], lengths[key] = value, #value end
     end
     return counts
 end
 
--- The rows a line added to the item, after listCounts: each with the name of
--- its list, the list, and its place in it, in order within a list.
-local function addedRows(m, counts)
-    local added = {}
+-- The rows a line added to the item, after listCounts, into added, which one
+-- read reuses: each with the name of its list, the list, and its place in
+-- it, in order within a list.
+local function addedRows(m, counts, added)
+    added = added or {}
+    for index = #added, 1, -1 do added[index] = nil end
+    local lists, lengths = counts.lists, counts.lengths
     for key, value in pairs(m) do
         if type(value) == "table" then
-            local before = counts[key]
-            local from = before and before[1] == value and before[2] or 0
+            local from = lists[key] == value and lengths[key] or 0
             for index = from + 1, #value do
                 local row = value[index]
                 if type(row) == "table" and row.left ~= nil then
@@ -495,7 +501,8 @@ local function readModel(tooltip, data, game)
         if isSecret(line) or not line or isSecret(line.type) or isSecret(line.lineIndex) then
             return
         end
-        if context then context.lineModel, context.counts = m, listCounts(m) end
+        -- Only lines with an index reach the client's afterReadLine.
+        if context and line.lineIndex then context.lineModel, context.counts = m, listCounts(m, context.counts) end
         -- The item a nested block holds, by its id: a recipe's crafted item.
         if LINE.NestedBlock and line.type == LINE.NestedBlock and not isSecret(line.tooltipType)
             and line.tooltipType == ITEM then
@@ -693,7 +700,7 @@ local function readModel(tooltip, data, game)
         -- Observe/decorate the current item after classification, even when a
         -- client claimed the line. A recipe's crafted item is passed as m.
         if extension and extension.afterReadLine then
-            context.added = addedRows(context.lineModel, context.counts)
+            context.added = addedRows(context.lineModel, context.counts, context.added)
             extension.afterReadLine(m, line, context)
         end
         end
