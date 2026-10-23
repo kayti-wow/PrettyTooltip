@@ -66,6 +66,7 @@ Tooltips\Macro.lua
 Tooltips\PetAction.lua
 Tooltips\Minimap.lua
 Tooltips\FlightPath.lua
+Retail\Tooltips\FlightPathExtension.lua
 Tooltips\Mail.lua
 UI\Options.lua
 Retail\UI\Samples.lua
